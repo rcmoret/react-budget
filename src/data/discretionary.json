@@ -1,0 +1,11 @@
+{
+  "name": "Discretionary",
+  "amount": 22968,
+  "spent": -10400,
+  "over_under_budget": -2792,
+  "remaining": 9776,
+  "budgeted_per_day": 741,
+  "budgeted_per_week": 5187,
+  "remaining_per_day": 815,
+  "remaining_per_week": 5705
+}

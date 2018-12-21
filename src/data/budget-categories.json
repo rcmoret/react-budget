@@ -1,0 +1,51 @@
+[
+  {
+    "id": 9,
+    "name": "Regions",
+    "expense": true,
+    "monthly": true,
+    "default_amount": -20000
+  },
+  {
+    "id": 45,
+    "name": "Car Note",
+    "expense": true,
+    "monthly": true,
+    "default_amount": -23100
+  },
+  {
+    "id": 65,
+    "name": "Sling",
+    "expense": true,
+    "monthly": true,
+    "default_amount": -3700
+  },
+  {
+    "id": 70,
+    "name": "Expense Report",
+    "expense": false,
+    "monthly": true,
+    "default_amount": 46000
+  },
+  {
+    "id": 56,
+    "name": "Travel",
+    "expense": true,
+    "monthly": false,
+    "default_amount": -20000
+  },
+  {
+    "id": 134,
+    "name": "Ride Share",
+    "expense": true,
+    "monthly": false,
+    "default_amount": -5000
+  },
+  {
+    "id": 123,
+    "name": "Girl Scout Camp",
+    "expense": true,
+    "monthly": true,
+    "default_amount": -5000
+  },
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "Checking",
+    "cash_flow": true,
+    "created_at": "2015-06-09T03:39:58.843Z",
+    "updated_at": "2018-10-04T14:26:27.124Z",
+    "deleted_at": null,
+    "priority": 100,
+    "balance": 1284.63
+  },
+  {
+    "id": 11,
+    "name": "Cash on Hand",
+    "cash_flow": true,
+    "created_at": "2017-04-08T13:46:04.439Z",
+    "updated_at": "2018-10-04T14:26:27.169Z",
+    "deleted_at": null,
+    "priority": 200,
+    "balance": 1059.0
+  },
+  {
+    "id": 7,
+    "name": "First Tenn. CC",
+    "cash_flow": false,
+    "created_at": "2015-12-29T18:00:09.526Z",
+    "updated_at": "2018-10-04T14:26:27.215Z",
+    "deleted_at": null,
+    "priority": 400,
+    "balance": -1300.41
+  },
+  {
+    "id": 9,
+    "name": "Regions CC",
+    "cash_flow": false,
+    "created_at": "2016-08-01T12:40:08.600Z",
+    "updated_at": "2018-10-04T14:26:27.213Z",
+    "deleted_at": null,
+    "priority": 500,
+    "balance": 0.0
+  },
+  {
+    "id": 10,
+    "name": "Pinnacle (HSA)",
+    "cash_flow": true,
+    "created_at": "2017-03-01T05:54:04.018Z",
+    "updated_at": "2018-10-04T14:27:53.717Z",
+    "deleted_at": null,
+    "priority": 600,
+    "balance": 148.51
+  }
+]
