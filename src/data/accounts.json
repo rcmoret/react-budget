@@ -7,7 +7,7 @@
     "updated_at": "2018-10-04T14:26:27.124Z",
     "deleted_at": null,
     "priority": 100,
-    "balance": 1284.63
+    "balance": 128463
   },
   {
     "id": 11,
@@ -17,7 +17,7 @@
     "updated_at": "2018-10-04T14:26:27.169Z",
     "deleted_at": null,
     "priority": 200,
-    "balance": 1059.0
+    "balance": 105900
   },
   {
     "id": 7,
@@ -27,7 +27,7 @@
     "updated_at": "2018-10-04T14:26:27.215Z",
     "deleted_at": null,
     "priority": 400,
-    "balance": -1300.41
+    "balance": -130041
   },
   {
     "id": 9,
@@ -37,7 +37,7 @@
     "updated_at": "2018-10-04T14:26:27.213Z",
     "deleted_at": null,
     "priority": 500,
-    "balance": 0.0
+    "balance": 0
   },
   {
     "id": 10,
@@ -47,6 +47,6 @@
     "updated_at": "2018-10-04T14:27:53.717Z",
     "deleted_at": null,
     "priority": 600,
-    "balance": 148.51
+    "balance": 14851
   }
 ]

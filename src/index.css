@@ -12,3 +12,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.account {
+  display: inline-block;
+  width: 20%;
+}
+
+.account.active {
+  background: #eee;
+  color: blue;
+}
