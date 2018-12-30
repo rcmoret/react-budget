@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import MonthlyItems from './MonthlyItems'
 import WeeklyItems from './WeeklyItems'
 
-class Budget extends Component {
+class BudgetIndex extends Component {
   constructor(props) {
     super(props)
     this.state = { }
@@ -13,9 +14,12 @@ class Budget extends Component {
       <div>
         <WeeklyItems />
         <MonthlyItems />
+        <Link to="/budget/categories">
+          Budget Categories
+        </Link>
       </div>
     )
   }
 }
 
-export default Budget;
+export default BudgetIndex;
