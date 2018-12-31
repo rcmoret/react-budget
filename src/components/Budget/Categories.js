@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BudgetCategory from './Category';
+import NewBudgetCategory from './New';
 
 class BudgetCategories extends Component {
   constructor(props) {
@@ -18,6 +19,12 @@ class BudgetCategories extends Component {
      )
   }
 
+  onSave(category) {
+    let { categories } = this.state
+    categories.push(category)
+    this.setState({ categories: categories })
+  }
+
   render() {
     return (
       <div>
@@ -33,7 +40,7 @@ class BudgetCategories extends Component {
            />
          )}
         <div className="budget-category">
-
+          <NewBudgetCategory onSave={this.onSave} />
         </div>
       </div>
     )
