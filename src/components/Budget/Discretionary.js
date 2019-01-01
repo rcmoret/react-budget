@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import API_URL from '../../shared/Constants/Api'
 
 class Discretionary extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class Discretionary extends Component {
   }
 
   componentWillMount() {
-    fetch('http://192.168.1.81:8088/budget/discretionary')
+    fetch(API_URL + '/budget/discretionary')
       .then(response => response.json())
       .then(data => this.setState({
         ...data

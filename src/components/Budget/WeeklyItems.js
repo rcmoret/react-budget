@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Discretionary from './Discretionary'
 import WeeklyItem from './WeeklyItem';
+import API_URL from '../../shared/Constants/Api'
 
 class WeeklyItems extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class WeeklyItems extends Component {
   }
 
   componentWillMount() {
-    fetch('http://192.168.1.81:8088/budget/weekly_items')
+    fetch(API_URL + '/budget/weekly_items')
       .then(response => response.json())
       .then(data => this.setState({
         items: data

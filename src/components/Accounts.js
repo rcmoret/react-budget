@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Account from './Account';
 import Transactions from './Transactions';
+import API_URL from '../shared/Constants/Api';
 
 class Accounts extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class Accounts extends Component {
   }
 
   componentWillMount() {
-    fetch('http://192.168.1.81:8088/accounts')
+    fetch(API_URL + '/accounts')
       .then(response => response.json())
       .then(data => this.setState({
         accounts: data,

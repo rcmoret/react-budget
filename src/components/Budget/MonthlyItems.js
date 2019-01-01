@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MonthlyItem from './MonthlyItem';
+import API_URL from '../../shared/Constants/Api'
 
 class MonthlyItems extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class MonthlyItems extends Component {
   }
 
   componentWillMount() {
-    fetch('http://192.168.1.81:8088/budget/monthly_items')
+    fetch(API_URL + '/budget/monthly_items')
       .then(response => response.json())
       .then(data => this.setState({
         items: data

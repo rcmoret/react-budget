@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import API_URL from '../../shared/Constants/Api'
 
 class NewBudgetCategory extends Component {
   constructor(props) {
@@ -62,7 +63,7 @@ class NewBudgetCategory extends Component {
   }
 
   createNewCategory(ev) {
-    fetch('http://192.168.1.81:8088/budget/categories',
+    fetch(API_URL + '/budget/categories',
           {
             method: 'POST',
             headers: {
