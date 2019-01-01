@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Account from './Account';
 import Transactions from './Transactions';
-import API_URL from '../shared/Constants/Api';
+import API_URL from '../../shared/Constants/Api';
 
 class Accounts extends Component {
   constructor(props) {

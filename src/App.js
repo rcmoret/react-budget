@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Accounts from './components/Accounts';
+import Accounts from './components/Accounts/Accounts';
 import BudgetIndex from './components/Budget/Index';
 import BudgetCategories from './components/Budget/Categories';
 import Header from './components/Header'

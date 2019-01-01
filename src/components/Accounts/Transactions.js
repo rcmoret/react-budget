@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Transaction from './Transaction';
-import API_URL from '../shared/Constants/Api'
+import API_URL from '../../shared/Constants/Api'
 
 class Transactions extends Component {
   constructor(props) {
