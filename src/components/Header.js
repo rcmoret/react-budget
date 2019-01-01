@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 class Header extends Component {
   render() {
     return (
-      <div>
-        <Link to='/accounts'>
-          <h2>Accounts</h2>
-        </Link>
-        <Link to='/budget'>
-          <h2>Budget</h2>
-        </Link>
-      </div>
+      <header>
+        <h1>Checkbook & Budget</h1>
+        <NavLink to='/accounts'>
+          <div className='tab'>
+            <h2>Accounts</h2>
+          </div>
+        </NavLink>
+        <NavLink to='/budget'>
+          <div className='tab'>
+            <h2>Budget</h2>
+          </div>
+        </NavLink>
+      </header>
     );
   }
 }
