@@ -9,6 +9,8 @@ class WeeklyItems extends Component {
     this.state = {
       items: [],
     }
+    this.revenues = this.revenues.bind(this)
+    this.expenses = this.expenses.bind(this)
   }
 
   componentWillMount() {
@@ -20,18 +22,43 @@ class WeeklyItems extends Component {
      )
   }
 
+  revenues() {
+    return this.state.items.filter((item) => !item.expense)
+  }
+
+  expenses() {
+    return this.state.items.filter((item) => item.expense)
+  }
+
   render() {
     return(
       <div className="weekly-items">
         <h3>Weekly Items</h3>
-        <Discretionary />
-        {this.state.items.map((item) =>
-                              <WeeklyItem
-                                key={item.id}
-                                {...item}
-                              />
-                             )
-        }
+        <hr/>
+        <h4>Discretionary</h4>
+        <div className="budget-group">
+          <Discretionary />
+        </div>
+        {this.revenues().length > 0 && <h4>Revenues</h4>}
+        <div className="budget-group">
+          {this.revenues().map((item) =>
+            <WeeklyItem
+              key={item.id}
+              {...item}
+            />
+           )
+          }
+        </div>
+        {this.expenses().length > 0 && <h4>Expenses</h4>}
+        <div className="budget-group">
+          {this.expenses().map((item) =>
+            <WeeklyItem
+              key={item.id}
+              {...item}
+            />
+           )
+          }
+        </div>
       </div>
     )
   }

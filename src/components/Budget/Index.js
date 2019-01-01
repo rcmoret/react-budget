@@ -10,13 +10,15 @@ class BudgetIndex extends Component {
   }
 
   render() {
-    return(
-      <div>
+    return (
+      <div id='budget'>
         <WeeklyItems />
         <MonthlyItems />
-        <Link to="/budget/categories">
-          Budget Categories
-        </Link>
+        <div className='category-link'>
+          <Link to="/budget/categories">
+            <h3>Budget Categories</h3>
+          </Link>
+        </div>
       </div>
     )
   }

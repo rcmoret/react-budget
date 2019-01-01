@@ -99,3 +99,47 @@ header a {
   font-style: italic;
   font-size: 0.8em;
 }
+
+#budget div {
+  display: inline-block;
+  padding: 0 2%;
+}
+
+#budget h4 {
+  text-align: center;
+}
+
+#budget .weekly-items, #budget .monthly-items {
+  width: 35%;
+  vertical-align: top;
+}
+
+#budget .category-link {
+  width: 18%;
+  vertical-align: top;
+}
+
+#budget .budget-item {
+  background-color: #efefef;
+  padding: 2%;
+  width: 100%;
+  border-radius: 15px;
+}
+
+#budget .budget-group {
+  width: 100%;
+  padding: 0;
+}
+
+#budget .budget-group .budget-item:nth-of-type(2n) {
+  background-color: white;
+}
+
+#budget .budget-item .budget-item-description {
+  width: 70%;
+}
+
+#budget .budget-item .budget-item-amount {
+  width: 15%;
+  text-align: right;
+}

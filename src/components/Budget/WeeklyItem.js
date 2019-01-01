@@ -8,9 +8,13 @@ class WeeklyItem extends Component {
 
   render() {
     return(
-      <div>
-        <strong>{this.state.name}</strong>
-        <p>${parseFloat(this.state.amount / 100.0).toFixed(2)}</p>
+      <div className='budget-item'>
+        <div className='budget-item-description'>
+          {this.state.name}
+        </div>
+        <div className='budget-item-amount'>
+          ${parseFloat(this.state.amount / 100.0).toFixed(2)}
+        </div>
       </div>
     );
   }

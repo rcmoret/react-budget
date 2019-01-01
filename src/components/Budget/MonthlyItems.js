@@ -8,6 +8,8 @@ class MonthlyItems extends Component {
     this.state = {
       items: [],
     }
+    this.revenues = this.revenues.bind(this)
+    this.expenses = this.expenses.bind(this)
   }
 
   componentWillMount() {
@@ -19,17 +21,39 @@ class MonthlyItems extends Component {
      )
   }
 
+  revenues() {
+    return this.state.items.filter((item) => !item.expense)
+  }
+
+  expenses() {
+    return this.state.items.filter((item) => item.expense)
+  }
+
   render() {
     return(
       <div className="monthly-items">
         <h3>Monthly Items</h3>
-        {this.state.items.map((item) =>
-                              <MonthlyItem
-                                key={item.id}
-                                {...item}
-                              />
-                             )
-        }
+        <hr/>
+        {this.revenues().length > 0 && <h4>Revenues</h4>}
+        <div className="budget-group">
+          {this.revenues().map((item) =>
+            <MonthlyItem
+              key={item.id}
+              {...item}
+            />
+           )
+          }
+        </div>
+        {this.expenses().length > 0 && <h4>Expenses</h4>}
+        <div className="budget-group">
+          {this.expenses().map((item) =>
+            <MonthlyItem
+              key={item.id}
+              {...item}
+            />
+           )
+          }
+        </div>
       </div>
     )
   }
