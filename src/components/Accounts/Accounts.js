@@ -26,7 +26,11 @@ class Accounts extends Component {
   }
 
   selectedAccountId() {
-    return parseInt(this.state.match.params.id)
+    if (Object.keys(this.state.match.params).length === 0) {
+      return null
+    } else {
+      return parseInt(this.state.match.params.id)
+    }
   }
 
   render() {
@@ -41,6 +45,7 @@ class Accounts extends Component {
           )
         }
         <Transactions activeAccount={this.selectedAccountId()} />
+        <hr/>
       </div>
     );
   }

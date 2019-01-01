@@ -17,7 +17,7 @@ html {
 }
 
 header {
-  padding: 2%
+  padding: 0.5% 2%
 }
 
 header .tab {
@@ -39,12 +39,63 @@ header a {
   text-align: center;
 }
 
+.accounts {
+  padding: 0 2%
+}
+
+.accounts a {
+  color: black
+}
+
 .account {
+  background-color: #efefef;
   display: inline-block;
-  width: 20%;
+  width: 15%;
+  border-radius: 10px;
+  padding: 1%;
+  margin-right: 0.5%;
 }
 
 .account.active {
-  background: #eee;
-  color: blue;
+  background-color: #C0D6FF;
+}
+
+.account p.balance {
+  text-align: right;
+}
+
+.transaction {
+  background-color: white;
+  padding: 0.8%;
+  border-radius: 10px;
+}
+
+.transaction:nth-of-type(2n) {
+  background-color: #efefef;
+}
+
+.transaction div {
+  display: inline-block;
+}
+
+.transaction .clearance-date {
+  width: 8%;
+}
+
+.transaction .description {
+  width: 20%;
+}
+
+.transaction .balance, .transaction .amount {
+  width: 8%;
+  text-align: right;
+}
+
+.transaction .balance {
+  margin-right: 1%;
+}
+
+.transaction span.exclusion {
+  font-style: italic;
+  font-size: 0.8em;
 }

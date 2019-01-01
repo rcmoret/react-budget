@@ -7,9 +7,15 @@ class Transactions extends Component {
     super(props)
     this.state = {
       transactions: [],
-      metadata: {},
+      metadata: {
+        date_range: ['', ''],
+        prior_balance: 0,
+      },
       ...props
     }
+    this.transactionsWithBal = this.transactionsWithBal.bind(this)
+    this.dateRange = this.dateRange.bind(this)
+    this.initialTransaction = this.initialTransaction.bind(this)
   }
 
   fetchTransactions(accountId) {
@@ -34,19 +40,61 @@ class Transactions extends Component {
     this.fetchTransactions(nextProps.activeAccount)
   }
 
+  dateRange() {
+    let str = "Transactions from: "
+    str += this.state.metadata.date_range[0]
+    str += " to "
+    str += this.state.metadata.date_range[1]
+    return str
+  }
+
+  transactionsWithBal() {
+    let balance = this.state.metadata.prior_balance
+    const arr = this.state.transactions.map(function(transaction) {
+      balance += transaction.amount
+      return { balance: balance, ...transaction }
+    })
+    return arr
+  }
+
+  initialTransaction() {
+    return {
+      balance: this.state.metadata.prior_balance,
+      clearance_date: this.state.metadata.date_range[0],
+      amount: null,
+      description: 'Balance',
+    }
+  }
+
   render() {
-    return(
-      <div className="transactions">
-        <h3>Transactions</h3>
-        {this.state.transactions.map((transaction) =>
-                           <Transaction
-                             key={transaction.id}
-                             {...transaction}
-                           />
-                          )
-        }
-      </div>
-    )
+    if (this.state.activeAccount === null) {
+      return (
+        <div className="transactions">
+          <h2>Transactions</h2>
+          <div className='transaction-metadata'>
+            <h3>Select An Account</h3>
+          </div>
+          <hr/>
+        </div>
+      )
+    } else {
+      return (
+        <div className="transactions">
+          <h2>Transactions</h2>
+          <div className='transaction-metadata'>
+            {this.dateRange()}
+          </div>
+          <hr/>
+          <Transaction key='0' {...this.initialTransaction()} />
+          {this.transactionsWithBal().map((transaction) =>
+            <Transaction
+              key={transaction.id}
+              {...transaction}
+            />
+          )}
+        </div>
+      )
+    }
   }
 }
 

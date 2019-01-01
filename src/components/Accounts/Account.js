@@ -13,8 +13,9 @@ class Account extends Component {
     return(
       <Link to={`/accounts/${id}`}>
         <div className={`account ${activeAccount  === id ? 'active' : '' }`}>
-          <h4>{name}</h4>
-          <p>${parseFloat(balance / 100.0).toFixed(2)}</p>
+          <h3>{name}</h3>
+          <hr/>
+          <p className="balance">${parseFloat(balance / 100.0).toFixed(2)}</p>
         </div>
       </Link>
     )
