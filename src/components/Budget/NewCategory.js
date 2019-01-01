@@ -14,6 +14,16 @@ class NewBudgetCategory extends Component {
     this.updateDefaultAmount = this.updateDefaultAmount.bind(this)
     this.updateExpense = this.updateExpense.bind(this)
     this.updateMonthly = this.updateMonthly.bind(this)
+    this.resetForm = this.resetForm.bind(this)
+  }
+
+  // componentWillReceiveProps(nextProps, prevState) {
+  //   this.setState(nextProps)
+  //   debugger
+  // }
+
+  shouldComponentUpdate(nextProps, prevState) {
+    return true
   }
 
   updateName(ev) {
@@ -40,6 +50,17 @@ class NewBudgetCategory extends Component {
     this.setState({ category: category })
   }
 
+  resetForm() {
+    this.setState({
+      category: {
+        name: '',
+        default_amount: '',
+        expense: null,
+        monthly: null,
+      }
+    })
+  }
+
   createNewCategory(ev) {
     fetch('http://192.168.1.81:8088/budget/categories',
           {
@@ -52,6 +73,7 @@ class NewBudgetCategory extends Component {
         })
         .then(response => response.json())
         .then(data => this.state.onSave(data))
+    this.resetForm()
   }
 
   render() {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import BudgetCategory from './Category';
-import NewBudgetCategory from './New';
+import NewBudgetCategory from './NewCategory';
 
 class BudgetCategories extends Component {
   constructor(props) {
