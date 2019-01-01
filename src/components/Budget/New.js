@@ -4,7 +4,9 @@ class NewBudgetCategory extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      categories: [],
+      category: {
+        default_amount: ''
+      },
       ...props,
     }
     this.createNewCategory = this.createNewCategory.bind(this)
@@ -15,26 +17,30 @@ class NewBudgetCategory extends Component {
   }
 
   updateName(ev) {
-    this.setState({ name: ev.target.value })
+    const { category } = this.state
+    category['name'] = ev.target.value
+    this.setState({ category: category })
   }
 
   updateDefaultAmount(ev) {
-    this.setState(
-      { default_amount: Math.floor(ev.target.value * 100) }
-    )
+    const { category } = this.state
+    category['default_amount'] = Math.floor(parseFloat(ev.target.value) * 100)
+    this.setState({ category: category })
   }
 
   updateExpense(ev) {
-    this.setState({ expense: ev.target.value })
+    const { category } = this.state
+    category['expense'] = ev.target.value
+    this.setState({ category: category })
   }
 
   updateMonthly(ev) {
-    this.setState({ monthly: ev.target.value })
+    const { category } = this.state
+    category['monthly'] = ev.target.value
+    this.setState({ category: category })
   }
 
   createNewCategory(ev) {
-    const onSave = this.state.onSave
-    ev.preventDefault()
     fetch('http://192.168.1.81:8088/budget/categories',
           {
             method: 'POST',
@@ -42,7 +48,7 @@ class NewBudgetCategory extends Component {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(this.state)
+            body: JSON.stringify(this.state.category)
         })
         .then(response => response.json())
         .then(data => this.state.onSave(data))
@@ -52,9 +58,9 @@ class NewBudgetCategory extends Component {
     return (
       <div>
         <label>Name</label>
-        <input type="text" name="category[name]" onChange={this.updateName} />
+        <input type="text" name="category[name]" onChange={this.updateName} value={this.state.name} />
         <label>Default Amount</label>
-        <input type="number" name="category[default_amount]" onChange={this.updateDefaultAmount} />
+        <input type="text" name="category[default_amount]" onChange={this.updateDefaultAmount} value={this.state.default_amount} />
         <label>Expense</label>
         <input type="radio" name="category[expense]" value="true" onChange={this.updateExpense} />
         <label>Revenue</label>

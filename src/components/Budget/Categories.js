@@ -8,6 +8,7 @@ class BudgetCategories extends Component {
     this.state = {
       categories: []
     }
+    this.onSave = this.onSave.bind(this)
   }
 
   componentWillMount() {
