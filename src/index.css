@@ -88,6 +88,10 @@ header a {
   text-decoration: none;
 }
 
+.transaction i {
+  color: #737373;
+}
+
 .transaction .clearance-date {
   width: 8%;
 }
@@ -101,13 +105,14 @@ header a {
   text-align: right;
 }
 
-.transaction .balance {
+.transaction .budget-categories, .transaction .balance, .transaction .check-number {
   margin-right: 1%;
 }
 
-.transaction span.exclusion {
+.transaction .exclusion {
   font-style: italic;
   font-size: 0.8em;
+  margin-right: 1%
 }
 
 .subtransaction {
