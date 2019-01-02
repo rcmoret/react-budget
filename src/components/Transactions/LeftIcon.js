@@ -15,16 +15,14 @@ class LeftIcon extends Component {
 
   render() {
     if (this.state.subtransactions.length === 0) {
-      return (
-        <span></span>
-      )
+      return null
     } else if (this.state.showDetail) {
       return (
-        <Link className='fas fa-angle-down' to='#' onClick={this.state.collapseDetail} />
+        <Link className='fas fa-caret-down' to='#' onClick={this.state.collapseDetail} />
       )
     } else {
       return (
-        <Link className='fas fa-angle-right' to='#' onClick={this.state.expandDetail} />
+        <Link className='fas fa-caret-right' to='#' onClick={this.state.expandDetail} />
       )
     }
   }
