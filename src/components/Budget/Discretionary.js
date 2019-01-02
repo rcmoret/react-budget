@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Icon from '../Icons/Icon'
 import API_URL from '../../shared/Constants/Api'
 
 class Discretionary extends Component {
@@ -23,6 +24,8 @@ class Discretionary extends Component {
     return (
       <div className='budget-item'>
         <div className='budget-item-description'>
+          <Icon className="fas fa-caret-right" />
+          &nbsp;
           {this.state.name}
         </div>
         <div className='budget-item-amount'>
