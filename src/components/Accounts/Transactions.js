@@ -16,6 +16,7 @@ class Transactions extends Component {
     this.transactionsWithBal = this.transactionsWithBal.bind(this)
     this.dateRange = this.dateRange.bind(this)
     this.initialTransaction = this.initialTransaction.bind(this)
+    this.orderedTransactions = this.orderedTransactions.bind(this)
   }
 
   fetchTransactions(accountId) {
@@ -48,9 +49,26 @@ class Transactions extends Component {
     return str
   }
 
+  orderedTransactions() {
+    let date = new Date()
+    let today = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0,10)
+    return this.state.transactions.sort(function(a, b) {
+      if (a.clearance_date === b.clearance_date) {
+        return 0
+      } else if (a.clearance_date === null) {
+        return b.clearance_date > today ? -1 : 1
+      } else if (b.clearance_date === null) {
+        return a.clearance_date > today ? 1 : -1
+      } else {
+        // equailty is handled above
+        return (a.clearance_date > b.clearance_date) ? 1 : -1
+      }
+    })
+  }
+
   transactionsWithBal() {
     let balance = this.state.metadata.prior_balance
-    const arr = this.state.transactions.map(function(transaction) {
+    const arr = this.orderedTransactions().map(function(transaction) {
       balance += transaction.amount
       return { balance: balance, ...transaction }
     })
