@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Icon from '../Icon'
 
 class WeeklyItem extends Component {
   constructor(props) {
@@ -7,9 +8,11 @@ class WeeklyItem extends Component {
   }
 
   render() {
-    return(
+    return (
       <div className='budget-item'>
         <div className='budget-item-description'>
+          <Icon className={this.state.icon_class_name} />
+          &nbsp;
           {this.state.name}
         </div>
         <div className='budget-item-amount'>

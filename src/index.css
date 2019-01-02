@@ -139,6 +139,10 @@ header a {
   width: 70%;
 }
 
+.budget-item-description i {
+  color: #737373;
+}
+
 #budget .budget-item .budget-item-amount {
   width: 15%;
   text-align: right;
