@@ -64,18 +64,28 @@ header a {
   text-align: right;
 }
 
-.transaction {
+.transaction-wrapper {
   background-color: white;
   padding: 0.8%;
   border-radius: 10px;
 }
 
-.transaction:nth-of-type(2n) {
+.transaction-wrapper:nth-of-type(2n) {
   background-color: #efefef;
 }
 
 .transaction div {
   display: inline-block;
+}
+
+.transaction .left-icon {
+  color: #737373;
+  width: 1.5%;
+}
+
+.transaction .left-icon a {
+  color: #737373;
+  text-decoration: none;
 }
 
 .transaction .clearance-date {
@@ -97,6 +107,10 @@ header a {
 
 .transaction span.exclusion {
   font-style: italic;
+  font-size: 0.8em;
+}
+
+.subtransaction {
   font-size: 0.8em;
 }
 

@@ -50,8 +50,8 @@ class Transactions extends Component {
   }
 
   orderedTransactions() {
-    let date = new Date()
-    let today = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0,10)
+    const date = new Date()
+    const today = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0,10)
     return this.state.transactions.sort(function(a, b) {
       if (a.clearance_date === b.clearance_date) {
         return 0
@@ -81,6 +81,7 @@ class Transactions extends Component {
       clearance_date: this.state.metadata.date_range[0],
       amount: null,
       description: 'Balance',
+      subtransactions: [],
     }
   }
 
