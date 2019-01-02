@@ -20,12 +20,7 @@ class NewBudgetCategory extends Component {
 
   // componentWillReceiveProps(nextProps, prevState) {
   //   this.setState(nextProps)
-  //   debugger
   // }
-
-  shouldComponentUpdate(nextProps, prevState) {
-    return true
-  }
 
   updateName(ev) {
     const { category } = this.state
