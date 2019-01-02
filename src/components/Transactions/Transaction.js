@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Subtransaction from './Subtransaction'
-import LeftIcon from './Transactions/LeftIcon'
+import LeftIcon from './LeftIcon'
 
 class Transaction extends Component {
   constructor(props) {
