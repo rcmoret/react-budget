@@ -14,11 +14,11 @@ class BudgetIndex extends Component {
       <div id='budget'>
         <WeeklyItems />
         <MonthlyItems />
-        <div className='category-link'>
-          <Link to="/budget/categories">
-            <h3>Budget Categories</h3>
-          </Link>
-        </div>
+        <Link to="/budget/categories">
+          <div className='category-link'>
+            <h3>Manage Budget Categories</h3>
+          </div>
+        </Link>
       </div>
     )
   }

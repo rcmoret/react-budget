@@ -134,8 +134,17 @@ header a {
 }
 
 #budget .category-link {
-  width: 18%;
+  width: 12%;
   vertical-align: top;
+  background-color: #FFA439;
+  text-align: center;
+}
+
+#budget a .category-link {
+  color: black;
+  text-decoration: none;
+  border-radius: 20px;
+  margin-right: 2%;
 }
 
 #budget .budget-item {
