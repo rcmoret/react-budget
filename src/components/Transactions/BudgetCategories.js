@@ -20,7 +20,6 @@ class BudgetCategories extends Component {
   }
 
   render() {
-    console.log(this.state)
     if (this.categories().length > 0) {
       return (
         <div className="budget-categories">

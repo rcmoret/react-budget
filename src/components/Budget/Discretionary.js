@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Icon from '../Icons/Icon'
 import API_URL from '../../shared/Constants/Api'
+import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
 
 class Discretionary extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class Discretionary extends Component {
           {this.state.name}
         </div>
         <div className='budget-item-amount'>
-          ${parseFloat(this.state.remaining / 100.0).toFixed(2)}
+          {MoneyFormatter(this.state.remaining)}
         </div>
       </div>
     )

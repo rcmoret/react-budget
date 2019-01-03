@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
 
 class Account extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class Account extends Component {
         <div className={`account ${activeAccount  === id ? 'active' : '' }`}>
           <h3>{name}</h3>
           <hr/>
-          <p className="balance">${parseFloat(balance / 100.0).toFixed(2)}</p>
+          <p className="balance">{MoneyFormatter(balance)}</p>
         </div>
       </Link>
     )

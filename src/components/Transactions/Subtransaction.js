@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
 
 class Subtransaction extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class Subtransaction extends Component {
             {this.state.description}
           </div>
           <div className="amount">
-            ${parseFloat(this.state.amount / 100.0).toFixed(2)}
+            {MoneyFormatter(this.state.amount)}
           </div>
           <div className="balance">
           </div>

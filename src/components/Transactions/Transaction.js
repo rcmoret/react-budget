@@ -3,6 +3,7 @@ import BudgetCategories from './BudgetCategories'
 import Subtransaction from './Subtransaction'
 import LeftIcon from './LeftIcon'
 import Icon from '../Icons/Icon'
+import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
 
 class Transaction extends Component {
   constructor(props) {
@@ -38,7 +39,7 @@ class Transaction extends Component {
     this.setState({ showDetail: false })
   }
 
-  render({ description, amount, subtransactions } = this.state) {
+  render({ amount, description, subtransactions } = this.state) {
     return(
       <div className="transaction-wrapper">
         <div className="transaction">
@@ -52,10 +53,10 @@ class Transaction extends Component {
             {description}
           </div>
           <div className="amount">
-            {(amount === null) ? '' : '$' + parseFloat(amount / 100.0).toFixed(2)}
+            {MoneyFormatter(amount)}
           </div>
           <div className="balance">
-            ${parseFloat(this.state.balance / 100.0).toFixed(2)}
+            {MoneyFormatter(this.state.balance)}
           </div>
           {this.state.check_number ?
             <div className="check-number">

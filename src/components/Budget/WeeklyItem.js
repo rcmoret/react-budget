@@ -1,16 +1,11 @@
 import React, { Component } from 'react'
 import Icon from '../Icons/Icon'
+import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
 
 class WeeklyItem extends Component {
   constructor(props) {
     super(props)
     this.state = { ...props }
-    this.formattedAmount = this.formattedAmount.bind(this)
-  }
-
-  formattedAmount() {
-    const amt = Math.abs(this.state.amount / 100.0)
-    return "$" + parseFloat(amt).toFixed(2)
   }
 
   render() {
@@ -24,7 +19,7 @@ class WeeklyItem extends Component {
           {this.state.name}
         </div>
         <div className='budget-item-amount'>
-          {this.formattedAmount()}
+          {MoneyFormatter(this.state.remaining, { absolute: true})}
         </div>
       </div>
     );
