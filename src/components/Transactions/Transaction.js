@@ -5,6 +5,79 @@ import LeftIcon from './LeftIcon'
 import Icon from '../Icons/Icon'
 import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
 
+const Description = (props) => {
+  if (props.description === null) {
+    return (
+      <div className="description">
+        <Icon className={props.icon_class_name} />&nbsp;
+        {props.budget_category}
+      </div>
+    )
+  } else {
+    return (
+      <div className="description">
+        {props.description}
+      </div>
+    )
+  }
+}
+
+const ClearanceDate = (props) => {
+  const displayDate = props.clearance_date === null ? 'pending' : props.clearance_date
+
+  return (
+    <div className="clearance-date">
+      {displayDate}
+    </div>
+  )
+}
+
+const CheckNumber = (props) => {
+  if (props.check_number) {
+    return (
+      <div className="check-number">
+        <Icon className="fas fa-money-check" />&nbsp;
+        Check: {props.check_number}
+      </div>
+    )
+  } else {
+    return null
+  }
+}
+
+const BudgetExclusion = (props) => {
+  if (props.budget_exclusion) {
+    return (
+      <div className="exclusion">
+        {props.budget_exclusion ? 'budget exclusion' : ''}
+      </div>
+    )
+  } else {
+    return null
+  }
+}
+
+const Notes = (props) => {
+  if (props.notes) {
+    return(
+      <div className="notes">
+        <Icon className="fas fa-sticky-note" />&nbsp;
+        {props.notes}
+      </div>
+    )
+  } else {
+    return null
+  }
+}
+
+const Subtransactions = (props) => {
+    return (
+      props.subtransactions.map((sub) => {
+        return <Subtransaction key={sub.id}  showDetail={props.showDetail} {...sub} />
+      })
+    )
+}
+
 class Transaction extends Component {
   constructor(props) {
     super(props)
@@ -14,19 +87,10 @@ class Transaction extends Component {
     }
     this.expandDetail = this.expandDetail.bind(this)
     this.collapseDetail = this.collapseDetail.bind(this)
-    this.displayDate = this.displayDate.bind(this)
   }
 
   componentWillReceiveProps(nextProps, prevState) {
     this.setState(nextProps)
-  }
-
-  displayDate() {
-    if (this.state.clearance_date === null) {
-      return 'pending'
-    } else {
-      return this.state.clearance_date
-    }
   }
 
   expandDetail(ev) {
@@ -39,55 +103,31 @@ class Transaction extends Component {
     this.setState({ showDetail: false })
   }
 
-  render({ amount, description, subtransactions } = this.state) {
+  render({ amount, subtransactions } = this.state) {
     return(
       <div className="transaction-wrapper">
         <div className="transaction">
           <div className="left-icon">
-            <LeftIcon expandDetail={this.expandDetail} collapseDetail={this.collapseDetail} {...this.state} />
+            <LeftIcon
+             expandDetail={this.expandDetail}
+             collapseDetail={this.collapseDetail}
+             {...this.state}
+            />
           </div>
-          <div className="clearance-date">
-            {this.displayDate()}
-          </div>
-          <div className="description">
-            {description}
-          </div>
+          <ClearanceDate {...this.state} />
+          <Description {...this.state} />
           <div className="amount">
             {MoneyFormatter(amount)}
           </div>
           <div className="balance">
             {MoneyFormatter(this.state.balance)}
           </div>
-          {this.state.check_number ?
-            <div className="check-number">
-              <Icon className="fas fa-money-check" />&nbsp;
-              Check: {this.state.check_number}
-            </div>
-            :
-          ''
-          }
+          <CheckNumber {...this.state} />
           <BudgetCategories {...this.state} />
-          {this.state.budget_exclusion ?
-            <div className="exclusion">
-              {this.state.budget_exclusion ? 'budget exclusion' : ''}
-            </div>
-            :
-          ''
-          }
-          {this.state.notes ?
-            <div className="notes">
-              <Icon className="fas fa-scroll" />&nbsp;
-              {this.state.notes}
-            </div>
-            :
-          ''
-          }
+          <BudgetExclusion {...this.state} />
+          <Notes {...this.state} />
         </div>
-        {
-          subtransactions.length > 0 ?
-          subtransactions.map((sub) => <Subtransaction key={sub.id}  showDetail={this.state.showDetail} {...sub} />) :
-          ''
-        }
+        <Subtransactions {...this.state} />
       </div>
     )
   }
