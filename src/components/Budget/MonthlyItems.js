@@ -2,6 +2,25 @@ import React, { Component } from 'react';
 import MonthlyItem from './MonthlyItem';
 import API_URL from '../../shared/Constants/Api'
 
+const Group = (props) => {
+  if (props.items.length > 0) {
+    return (
+      <div className="budget-group">
+        <h4>{props.title}</h4>
+        {props.items.map((item) =>
+          <MonthlyItem
+            key={item.id}
+            {...item}
+          />
+         )
+        }
+      </div>
+    )
+  } else {
+    return null
+  }
+}
+
 class MonthlyItems extends Component {
   constructor(props) {
     super(props)
@@ -34,26 +53,8 @@ class MonthlyItems extends Component {
       <div className="monthly-items">
         <h3>Monthly Items</h3>
         <hr/>
-        {this.revenues().length > 0 && <h4>Revenues</h4>}
-        <div className="budget-group">
-          {this.revenues().map((item) =>
-            <MonthlyItem
-              key={item.id}
-              {...item}
-            />
-           )
-          }
-        </div>
-        {this.expenses().length > 0 && <h4>Expenses</h4>}
-        <div className="budget-group">
-          {this.expenses().map((item) =>
-            <MonthlyItem
-              key={item.id}
-              {...item}
-            />
-           )
-          }
-        </div>
+        <Group items={this.revenues()} title="Revenues" />
+        <Group items={this.expenses()} title="Expenses" />
       </div>
     )
   }

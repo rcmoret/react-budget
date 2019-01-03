@@ -3,6 +3,25 @@ import Discretionary from './Discretionary'
 import WeeklyItem from './WeeklyItem';
 import API_URL from '../../shared/Constants/Api'
 
+const Group = (props) => {
+  if (props.items.length > 0) {
+    return (
+      <div className="budget-group">
+        <h4>{props.title}</h4>
+        {props.items.map((item) =>
+          <WeeklyItem
+            key={item.id}
+            {...item}
+          />
+         )
+        }
+      </div>
+    )
+  } else {
+    return null
+  }
+}
+
 class WeeklyItems extends Component {
   constructor(props) {
     super(props)
@@ -35,30 +54,12 @@ class WeeklyItems extends Component {
       <div className="weekly-items">
         <h3>Weekly Items</h3>
         <hr/>
-        <h4>Discretionary</h4>
         <div className="budget-group">
+          <h4>Discretionary</h4>
           <Discretionary />
         </div>
-        {this.revenues().length > 0 && <h4>Revenues</h4>}
-        <div className="budget-group">
-          {this.revenues().map((item) =>
-            <WeeklyItem
-              key={item.id}
-              {...item}
-            />
-           )
-          }
-        </div>
-        {this.expenses().length > 0 && <h4>Expenses</h4>}
-        <div className="budget-group">
-          {this.expenses().map((item) =>
-            <WeeklyItem
-              key={item.id}
-              {...item}
-            />
-           )
-          }
-        </div>
+        <Group items={this.revenues()} title="Revenues" />
+        <Group items={this.expenses()} title="Expenses" />
       </div>
     )
   }
