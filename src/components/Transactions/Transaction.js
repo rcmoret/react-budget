@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import BudgetCategories from './BudgetCategories'
 import Subtransaction from './Subtransaction'
 import LeftIcon from './LeftIcon'
+import Icon from '../Icons/Icon'
 
 class Transaction extends Component {
   constructor(props) {
@@ -58,8 +59,8 @@ class Transaction extends Component {
           </div>
           {this.state.check_number ?
             <div className="check-number">
-              <i className="fas fa-money-check"></i>&nbsp;
-              Check Number: {this.state.check_number}
+              <Icon className="fas fa-money-check" />&nbsp;
+              Check: {this.state.check_number}
             </div>
             :
           ''
@@ -72,9 +73,14 @@ class Transaction extends Component {
             :
           ''
           }
-          <div className="notes">
-            {this.state.notes}
-          </div>
+          {this.state.notes ?
+            <div className="notes">
+              <Icon className="fas fa-scroll" />&nbsp;
+              {this.state.notes}
+            </div>
+            :
+          ''
+          }
         </div>
         {
           subtransactions.length > 0 ?
