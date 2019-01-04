@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Discretionary from './Discretionary'
 import WeeklyItem from './WeeklyItem';
-import API_URL from '../../shared/Constants/Api'
+import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
 
 const Group = (props) => {
   if (props.items.length > 0) {
@@ -33,7 +33,7 @@ class WeeklyItems extends Component {
   }
 
   componentWillMount() {
-    fetch(API_URL + '/budget/weekly_items')
+    fetch(ApiUrlBuilder('budget', 'weekly_items'))
       .then(response => response.json())
       .then(data => this.setState({
         items: data

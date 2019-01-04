@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import API_URL from '../../shared/Constants/Api'
+import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
 import Caret from './Caret'
 import Icon from '../Icons/Icon'
 import DiscretionaryDetail from './DiscretionaryDetail'
@@ -34,7 +34,7 @@ class Discretionary extends Component {
   }
 
   componentWillMount() {
-    fetch(API_URL + '/budget/discretionary')
+    fetch(ApiUrlBuilder('budget', 'discretionary'))
       .then(response => response.json())
       .then(data => this.setState({
         ...data

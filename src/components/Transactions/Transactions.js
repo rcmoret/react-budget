@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Transaction from './Transaction';
-import API_URL from '../../shared/Constants/Api'
+import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
 
 class Transactions extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class Transactions extends Component {
     if (!Number.isInteger(accountId)) {
       return
     } else {
-      fetch(API_URL + '/accounts/' + accountId + '/transactions')
+      fetch(ApiUrlBuilder('accounts', accountId, 'transactions'))
         .then(response => response.json())
         .then(data => this.setState({
           ...data

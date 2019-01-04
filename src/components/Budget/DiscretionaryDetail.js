@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import API_URL from '../../shared/Constants/Api'
+import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
 import Details from './Details'
 import Transactions from './Transactions'
 import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
@@ -56,7 +56,7 @@ class DiscretionaryDetail extends Component {
   }
 
   componentWillMount() {
-    fetch(API_URL + '/budget/discretionary/transactions')
+    fetch(ApiUrlBuilder('budget', 'discretionary', 'transactions'))
       .then(response => response.json())
       .then(data => this.setState({
         transactions: data

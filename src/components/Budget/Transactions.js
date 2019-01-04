@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import API_URL from '../../shared/Constants/Api'
+import React from 'react'
 import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
 
 const Transaction = (props) => {

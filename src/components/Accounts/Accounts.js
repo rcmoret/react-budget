@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Account from './Account';
 import Transactions from '../Transactions/Transactions';
-import API_URL from '../../shared/Constants/Api';
+import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
 
 class Accounts extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class Accounts extends Component {
   }
 
   componentWillMount() {
-    fetch(API_URL + '/accounts')
+    fetch(ApiUrlBuilder('accounts'))
       .then(response => response.json())
       .then(data => this.setState({
         accounts: data,

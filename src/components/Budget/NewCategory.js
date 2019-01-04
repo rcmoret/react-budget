@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import API_URL from '../../shared/Constants/Api'
+import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
 
 class NewBudgetCategory extends Component {
   constructor(props) {
@@ -58,7 +58,7 @@ class NewBudgetCategory extends Component {
   }
 
   createNewCategory(ev) {
-    fetch(API_URL + '/budget/categories',
+    fetch(ApiUrlBuilder('budget', 'categories'),
           {
             method: 'POST',
             headers: {

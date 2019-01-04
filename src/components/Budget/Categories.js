@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import BudgetCategory from './Category';
 import NewBudgetCategory from './NewCategory';
-import API_URL from '../../shared/Constants/Api'
+import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
 
 class BudgetCategories extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class BudgetCategories extends Component {
   }
 
   componentWillMount() {
-    fetch(API_URL + 'budget/categories')
+    fetch(ApiUrlBuilder('budget', 'categories'))
       .then(response => response.json())
       .then(data => this.setState({
         categories: data

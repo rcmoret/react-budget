@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MonthlyItem from './MonthlyItem';
-import API_URL from '../../shared/Constants/Api'
+import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
 
 const Group = (props) => {
   if (props.items.length > 0) {
@@ -32,7 +32,7 @@ class MonthlyItems extends Component {
   }
 
   componentWillMount() {
-    fetch(API_URL + '/budget/monthly_items')
+    fetch(ApiUrlBuilder('budget', 'monthly_items'))
       .then(response => response.json())
       .then(data => this.setState({
         items: data
