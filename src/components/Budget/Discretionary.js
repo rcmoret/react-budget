@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import API_URL from '../../shared/Constants/Api'
 import Caret from './Caret'
+import Icon from '../Icons/Icon'
 import DiscretionaryDetail from './DiscretionaryDetail'
 import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
 
@@ -61,6 +62,8 @@ class Discretionary extends Component {
             />
           </div>
           {this.state.name}
+          &nbsp;
+          <Icon className='fa fa-money-bill-alt' />
         </div>
         <div className='budget-item-amount'>
           <Amount {...this.state} />
