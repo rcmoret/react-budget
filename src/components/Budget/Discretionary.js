@@ -1,7 +1,24 @@
 import React, { Component } from 'react'
-import Icon from '../Icons/Icon'
 import API_URL from '../../shared/Constants/Api'
+import Caret from './Caret'
+import DiscretionaryDetail from './DiscretionaryDetail'
 import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
+
+const Amount = (props) => {
+  if (props.showDetail) {
+    return (
+      <span>
+        {MoneyFormatter(props.amount)}
+      </span>
+    )
+  } else {
+    return (
+      <span>
+        {MoneyFormatter(props.remaining)}
+      </span>
+    )
+  }
+}
 
 class Discretionary extends Component {
   constructor(props) {
@@ -9,7 +26,10 @@ class Discretionary extends Component {
     this.state = {
       name: 'spending cache',
       remaining: 0,
+      showDetail: false,
     }
+    this.expandDetail = this.expandDetail.bind(this)
+    this.collapseDetail = this.collapseDetail.bind(this)
   }
 
   componentWillMount() {
@@ -21,17 +41,31 @@ class Discretionary extends Component {
      )
   }
 
+  expandDetail(ev) {
+    this.setState({ showDetail: true })
+  }
+
+  collapseDetail(ev) {
+    this.setState({ showDetail: false })
+  }
+
   render() {
     return (
       <div className='budget-item'>
         <div className='budget-item-description'>
-          <Icon className="fas fa-caret-right" />
-          &nbsp;
+          <div className="caret">
+            <Caret
+              {...this.state}
+              expandDetail={this.expandDetail}
+              collapseDetail={this.collapseDetail}
+            />
+          </div>
           {this.state.name}
         </div>
         <div className='budget-item-amount'>
-          {MoneyFormatter(this.state.remaining)}
+          <Amount {...this.state} />
         </div>
+        <DiscretionaryDetail {...this.state} />
       </div>
     )
   }

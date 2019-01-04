@@ -167,11 +167,104 @@ header a {
   width: 70%;
 }
 
-.budget-item-description i {
+.budget-item-description i, .budget-item-description a {
   color: #737373;
+  text-decoration: none;
+}
+
+.budget-item-description .caret {
+  width: 2.8%;
 }
 
 #budget .budget-item .budget-item-amount {
   width: 18%;
+  text-align: right;
+}
+
+.budget-item .budget-item-detail, .budget-item .per-details {
+  width: 100%;
+}
+
+.budget-item-detail .detail-description {
+  font-size: 0.8em;
+  margin-left: 0;
+}
+
+.budget-item-detail .detail-description {
+  width: 65%;
+  margin-left: 3%;
+}
+
+.budget-item-detail .detail-amount {
+  width: 20%;
+  text-align: right;
+}
+
+.budget-item .budget-item-detail.remaining .detail-description {
+  font-size: 1em;
+  margin-left: 1%;
+}
+
+.budget-item-detail.remaining .detail-amount {
+  margin-left: 2%;
+}
+
+.budget-item-detail .detail-amount.underscore {
+  border-bottom: solid 1px black;
+}
+
+#budget .per-details {
+  padding: 0;
+}
+
+.per-details .title {
+  width: 100%;
+  text-align: center;
+}
+
+#budget .per-details .detail-group {
+  width: 48%;
+  padding: 0;
+  margin-right: 1%;
+}
+
+#budget .per-details .detail-group:first-of-type {
+  border-right: 1px solid #6B6B6B;
+}
+
+.per-details .per-detail {
+  font-size: 0.8em;
+  width: 100%;
+}
+
+.per-detail .description {
+  width: 60%;
+}
+
+.per-detail .amount {
+  width: 25%;
+  text-align: right;
+}
+
+#budget .budget-transactions, #budget .budget-transactions .budget-item-detail {
+  padding: 0;
+  font-size: 0.9em;
+  width: 100%;
+}
+
+#budget .budget-item-detail .amount,
+#budget .budget-item-detail .description,
+#budget .budget-item-detail .account,
+#budget .budget-item-detail .date {
+  padding: 0;
+  width: 24%;
+}
+
+#budget .budget-item-detail .labels {
+  width: 100%;
+  padding: 0;
+}
+
+#budget .budget-item-detail .amount {
   text-align: right;
 }

@@ -12,7 +12,7 @@ class Icon extends Component {
     } else {
       return (
         <span>
-          <i className={`${this.state.className}`}></i>
+          <i className={this.state.className}></i>
         </span>
       )
     }
