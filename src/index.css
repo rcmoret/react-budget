@@ -121,7 +121,6 @@ header a {
 
 #budget div {
   display: inline-block;
-  padding: 0 2%;
 }
 
 #budget h4 {
@@ -129,6 +128,7 @@ header a {
 }
 
 #budget .weekly-items, #budget .monthly-items {
+  padding: 0 2%;
   width: 35%;
   vertical-align: top;
 }
@@ -149,7 +149,7 @@ header a {
 
 #budget .budget-item {
   background-color: #efefef;
-  padding: 2%;
+  padding: 2% 3%;
   width: 100%;
   border-radius: 15px;
 }
@@ -164,7 +164,11 @@ header a {
 }
 
 #budget .budget-item .budget-item-description {
-  width: 70%;
+  width: 60%;
+}
+
+#budget .budget-item .budget-item-description.remaining, .budget-item-detail .detail-description {
+  margin-left: 4.5%;
 }
 
 .budget-item-description i, .budget-item-description a {
@@ -173,36 +177,39 @@ header a {
 }
 
 .budget-item-description .caret {
-  width: 2.8%;
+  width: 7.5%;
 }
 
 #budget .budget-item .budget-item-amount {
-  width: 18%;
   text-align: right;
+}
+
+.budget-item .budget-item-amount, .budget-item .detail-amount {
+  margin-right: 3%;
 }
 
 .budget-item .budget-item-detail, .budget-item .per-details {
   width: 100%;
 }
 
-.budget-item-detail .detail-description {
-  font-size: 0.8em;
-  margin-left: 0;
+#budget .budget-item-detail {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
 }
 
 .budget-item-detail .detail-description {
-  width: 65%;
-  margin-left: 3%;
+  font-size: 0.8em;
+  width: 60%;
 }
 
 .budget-item-detail .detail-amount {
-  width: 20%;
+  width: 22%;
   text-align: right;
 }
 
 .budget-item .budget-item-detail.remaining .detail-description {
   font-size: 1em;
-  margin-left: 1%;
 }
 
 .budget-item-detail.remaining .detail-amount {
@@ -250,14 +257,16 @@ header a {
   padding: 0;
   font-size: 0.9em;
   width: 100%;
+  display: inline-block;
 }
 
-#budget .budget-item-detail .amount,
-#budget .budget-item-detail .description,
-#budget .budget-item-detail .account,
-#budget .budget-item-detail .date {
+#budget .detail-wrapper {
+  width: 100%
+}
+
+#budget .budget-item-detail .budget-transaction-cell {
   padding: 0;
-  width: 24%;
+  width: 24.5%;
 }
 
 #budget .budget-item-detail .labels {

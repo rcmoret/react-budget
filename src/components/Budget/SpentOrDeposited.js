@@ -1,27 +1,24 @@
 import React from 'react'
 import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
 
+// I think this is correct...
+// expense & >  0 -- reinvestment  -- deposited / +
+// revenue & >= 0 -- most revenues -- deposited / -
+// expense & <= 0 -- most expenses -- spent     / -
+// revenue & <  0 -- travel claim  -- spent     / -
 const SpentOrDeposited = (props) => {
-  console.log(props)
-  if (props.spent > 0) {
-    return (
-      <div className="budget-item-detail">
-        <div className="detail-description">Deposited: </div>
-        <div className="detail-amount underscore"> + {MoneyFormatter(props.spent)}</div>
+  const descriptor = props.spent > 0 ? 'Deposited' : 'Spent'
+  const operator = props.spent > 0  && props.expense ? '+' : '-'
+  return (
+    <div className="budget-item-detail">
+      <div className="detail-description">
+      {descriptor}:
       </div>
-    )
-  } else {
-    return (
-      <div className="budget-item-detail">
-        <div className="detail-description">
-          Spent:
-        </div>
-        <div className="detail-amount underscore">
-          - {MoneyFormatter(props.spent, { absolute: true })}
-        </div>
+      <div className="detail-amount underscore">
+      {operator} {MoneyFormatter(props.spent, { absolute: true })}
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default SpentOrDeposited;

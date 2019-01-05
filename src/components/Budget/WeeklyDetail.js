@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
-/* import MoneyFormatter from '../../shared/Functions/MoneyFormatter' */
+import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
+import Details from './Details'
 import SpentOrDeposited from './SpentOrDeposited'
+import Transactions from './Transactions'
 
 class WeeklyDetail extends Component {
   constructor(props) {
@@ -26,8 +28,16 @@ class WeeklyDetail extends Component {
   render() {
     if (this.state.showDetail) {
       return (
-        <div>
+        <div className="detail-wrapper">
           <SpentOrDeposited {...this.state} />
+          <div className="budget-item-detail remaining">
+            <div className="budget-item-description remaining">Remaining: </div>
+            <div className="detail-amount"> {MoneyFormatter(this.state.remaining)} </div>
+          </div>
+          <hr />
+          <Details {...this.state} />
+          <hr />
+          <Transactions {...this.state} />
         </div>
       )
     } else {

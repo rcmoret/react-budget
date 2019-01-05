@@ -1,30 +1,9 @@
 import React, { Component } from 'react'
 import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
 import Details from './Details'
+import SpentOrDeposited from './SpentOrDeposited'
 import Transactions from './Transactions'
 import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
-
-const SpentOrDeposited = (props) => {
-  if (props.spent > 0) {
-    return (
-      <div className="budget-item-detail">
-        <div className="detail-description">Deposited: </div>
-        <div className="detail-amount underscore"> + {MoneyFormatter(props.spent)}</div>
-      </div>
-    )
-  } else {
-    return (
-      <div className="budget-item-detail">
-        <div className="detail-description">
-          Spent:
-        </div>
-        <div className="detail-amount underscore">
-          - {MoneyFormatter(props.spent, { absolute: true })}
-        </div>
-      </div>
-    )
-  }
-}
 
 const OverUnderBudget = (props) => {
   if (props.over_under_budget === 0) {
@@ -55,27 +34,24 @@ class DiscretionaryDetail extends Component {
     }
   }
 
-  componentWillMount() {
-    fetch(ApiUrlBuilder('budget', 'discretionary', 'transactions'))
-      .then(response => response.json())
-      .then(data => this.setState({
-        transactions: data
-        })
-     )
-  }
-
   componentWillReceiveProps(nextProps, prevState) {
-    this.setState(nextProps)
+    if (nextProps.showDetail) {
+      fetch(ApiUrlBuilder('budget', 'discretionary', 'transactions'))
+        .then(response => response.json())
+        .then(data => this.setState({ transactions: data, ...nextProps }))
+   } else {
+      this.setState(nextProps)
+    }
   }
 
   render() {
     if (this.state.showDetail) {
       return (
-        <div>
+        <div className="detail-wrapper">
           <OverUnderBudget {...this.state} />
           <SpentOrDeposited {...this.state} />
           <div className="budget-item-detail remaining">
-            <div className="detail-description">Remaining: </div>
+            <div className="budget-item-description remaining">Remaining: </div>
             <div className="detail-amount"> {MoneyFormatter(this.state.remaining)} </div>
           </div>
           <hr />
