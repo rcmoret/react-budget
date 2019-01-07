@@ -64,6 +64,56 @@ header a {
   text-align: right;
 }
 
+.account-index {
+  width: 100%;
+  padding: 0 2%;
+}
+
+.account-show {
+  width: 96%;
+}
+
+.account-show h3 a {
+  text-decoration: none;
+}
+
+.account-edit {
+  border-radius: 15px;
+  background: #efefef;
+  display: inline-block;
+  width: 100%;
+  padding: 0 2% 1%;
+  margin-bottom: 1.5%;
+}
+
+.account-edit:nth-of-type(2n) {
+  background-color: white;
+}
+
+.account-edit .form-row {
+  width: 100%
+}
+
+.account-edit button {
+  border-radius: 8px;
+  padding: 0.75%;
+  font-size: 0.8em;
+  border: none;
+}
+
+.account-edit button.submit {
+  background-color: #59D176;
+}
+
+
+.account-edit button.cancel {
+  background-color: #FF3C52;
+}
+.account-edit .label, .account-edit .input {
+  display: inline-block;
+  width: 8%;
+}
+
 .transaction-wrapper {
   background-color: white;
   padding: 0.8%;

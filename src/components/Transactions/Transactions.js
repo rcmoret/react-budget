@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Transaction from './Transaction';
 import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
 
@@ -89,11 +90,9 @@ class Transactions extends Component {
     if (this.state.activeAccount === null) {
       return (
         <div className="transactions">
-          <h2>Transactions</h2>
-          <div className='transaction-metadata'>
-            <h3>Select An Account</h3>
-          </div>
-          <hr/>
+          <Link to="/accounts/index">
+            <h3>Manage Accounts</h3>
+          </Link>
         </div>
       )
     } else {
