@@ -6,7 +6,8 @@ class NewBudgetCategory extends Component {
     super(props)
     this.state = {
       category: {
-        default_amount: ''
+        name: '',
+        default_amount: '',
       },
       ...props,
     }
@@ -16,6 +17,7 @@ class NewBudgetCategory extends Component {
     this.updateExpense = this.updateExpense.bind(this)
     this.updateMonthly = this.updateMonthly.bind(this)
     this.resetForm = this.resetForm.bind(this)
+    this.categoryBody = this.categoryBody.bind(this)
   }
 
   // componentWillReceiveProps(nextProps, prevState) {
@@ -30,7 +32,7 @@ class NewBudgetCategory extends Component {
 
   updateDefaultAmount(ev) {
     const { category } = this.state
-    category['default_amount'] = Math.floor(parseFloat(ev.target.value) * 100)
+    category['default_amount'] = ev.target.value
     this.setState({ category: category })
   }
 
@@ -57,6 +59,16 @@ class NewBudgetCategory extends Component {
     })
   }
 
+  categoryBody() {
+    const body = {
+      name: this.state.category.name,
+      default_amount: Math.floor(parseFloat(this.state.category.default_amount) * 100),
+      monthly: this.state.category.monthly,
+      expense: this.state.category.expense,
+    }
+    return JSON.stringify(body)
+  }
+
   createNewCategory(ev) {
     fetch(ApiUrlBuilder('budget', 'categories'),
           {
@@ -65,28 +77,49 @@ class NewBudgetCategory extends Component {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(this.state.category)
+            body: this.categoryBody()
         })
         .then(response => response.json())
         .then(data => this.state.onSave(data))
-    this.resetForm()
+        .then(() => this.resetForm())
   }
 
   render() {
+    const { name, default_amount, expense, monthly } = this.state.category
     return (
       <div>
         <label>Name</label>
-        <input type="text" name="category[name]" onChange={this.updateName} value={this.state.name} />
+        <input type="text" name="category[name]" onChange={this.updateName} value={name} />
         <label>Default Amount</label>
-        <input type="text" name="category[default_amount]" onChange={this.updateDefaultAmount} value={this.state.default_amount} />
+        <input type="text" name="category[default_amount]" onChange={this.updateDefaultAmount} value={default_amount} />
         <label>Expense</label>
-        <input type="radio" name="category[expense]" value="true" onChange={this.updateExpense} />
+        <input type="radio"
+         name="category[expense]"
+         value="true"
+         onChange={this.updateExpense}
+         checked={expense === "true" ? "checked" : ""}
+         />
         <label>Revenue</label>
-        <input type="radio" name="category[expense]" value="false" onChange={this.updateExpense} />
+        <input type="radio"
+         name="category[expense]"
+         value="false"
+         onChange={this.updateExpense}
+         checked={expense === "false" ? "checked" : ""}
+         />
         <label>Monthly</label>
-        <input type="radio" name="category[monthly]" value="true" onChange={this.updateMonthly} />
+        <input type="radio"
+         name="category[monthly]"
+         value="true"
+         onChange={this.updateMonthly}
+         checked={monthly === "true" ? "checked" : ""}
+         />
         <label>Weekly</label>
-        <input type="radio" name="category[monthly]" value="false" onChange={this.updateMonthly} />
+        <input type="radio"
+         name="category[monthly]"
+         value="false"
+         onChange={this.updateMonthly}
+         checked={monthly === "false" ? "checked" : ""}
+         />
         <br/>
         <button type="submit" onClick={this.createNewCategory}>
           Create
