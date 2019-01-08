@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import Icon from '../Icons/Icon';
 
 class BudgetCategory extends Component {
   constructor(props) {
@@ -9,10 +11,24 @@ class BudgetCategory extends Component {
   }
 
   render() {
+    console.log(this.state)
     return (
       <div className="budget-category">
-        <strong>{this.state.name}</strong>
-        <span>${parseFloat(this.state.default_amount / 100.0).toFixed(2)}</span>
+        <div className="category-name">{this.state.name}</div>
+        <div className="category-default-amount">
+          ${parseFloat(this.state.default_amount / 100.0).toFixed(2)}
+        </div>
+        <div className="category-detail">
+          {this.state.monthly ? "monthly" : "weekly"}
+          &nbsp;
+          {this.state.expense ? "expense" : "revenue"}
+        </div>
+        <div className="category-icon">
+          <Icon className={this.state.icon_class_name} />
+        </div>
+        <div className="category-edit">
+          <Link to="#" className="far fa-edit"/>
+        </div>
       </div>
     )
   }

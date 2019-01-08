@@ -29,11 +29,13 @@ class BudgetCategories extends Component {
 
   render() {
     return (
-      <div>
+      <div className="categories">
         <h2>Budget Categories</h2>
-        <div className="budget-category">
-          <strong>Name </strong>
-          <span>Default Amount</span>
+        <div className="budget-category-labels">
+          <div className="category-name"><h3>Name</h3></div>
+          <div className="category-default-amount"><h3>Default Amount</h3></div>
+          <div className="category-detail"><h3>Details</h3></div>
+          <div className="category-icon"><h3>Icon</h3></div>
         </div>
         {this.state.categories.map((category) =>
           <BudgetCategory

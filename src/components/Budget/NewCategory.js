@@ -20,10 +20,6 @@ class NewBudgetCategory extends Component {
     this.categoryBody = this.categoryBody.bind(this)
   }
 
-  // componentWillReceiveProps(nextProps, prevState) {
-  //   this.setState(nextProps)
-  // }
-
   updateName(ev) {
     const { category } = this.state
     category['name'] = ev.target.value
