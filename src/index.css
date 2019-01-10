@@ -146,8 +146,18 @@ header a {
   width: 8%;
 }
 
+.clearance-date input {
+  width: 95%;
+  margin-left: 5%;
+}
+
 .transaction .description {
   width: 20%;
+}
+
+.transaction .description input {
+  width: 95%;
+  margin-left: 5%;
 }
 
 .transaction .balance, .transaction .amount {
@@ -155,6 +165,11 @@ header a {
   text-align: right;
 }
 
+.transaction .amount input {
+  width: 90%;
+  margin-left: 15%;
+  text-align: right;
+}
 .transaction .budget-categories, .transaction .balance, .transaction .check-number {
   margin-right: 1%;
 }

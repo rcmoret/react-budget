@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import AddTransaction from './AddTransaction'
 import Transaction from './Transaction';
 import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
 
@@ -110,6 +111,7 @@ class Transactions extends Component {
               {...transaction}
             />
           )}
+        <AddTransaction {...this.state} />
         </div>
       )
     }
