@@ -25,6 +25,12 @@ class Accounts extends Component {
     this.setState(nextProps)
   }
 
+  orderedAccounts() {
+    return this.state.accounts.sort((a, b) => {
+      return a.priority - b.priority
+    })
+  }
+
   selectedAccountId() {
     if (Object.keys(this.state.match.params).length === 0) {
       return null
@@ -36,7 +42,7 @@ class Accounts extends Component {
   render() {
     return (
       <div className="accounts">
-        {this.state.accounts.map((account) =>
+        {this.orderedAccounts().map((account) =>
            <Account
              key={account.id}
              {...account}

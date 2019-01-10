@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Icon from '../Icons/Icon'
 import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
 
-class NewAccount extends Component {
+class AccountForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -62,7 +62,7 @@ class NewAccount extends Component {
       <div className="account-edit">
         <div>
           <h3>
-            Add new
+            {this.state.name ? this.state.name : 'Add new'}
           </h3>
           <hr />
           <div className="form-row">
@@ -110,4 +110,4 @@ class NewAccount extends Component {
   }
 }
 
-export default NewAccount;
+export default AccountForm;
