@@ -2,6 +2,7 @@ import React from 'react'
 import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
 
 const Transaction = (props) => {
+  const displayDescription = props.description || props.budget_category
   return (
     <div className="budget-item-detail">
       <div className="budget-transaction-cell">
@@ -11,7 +12,7 @@ const Transaction = (props) => {
         {props.account_name}
       </div>
       <div className="budget-transaction-cell">
-        {props.description}
+        {displayDescription}
       </div>
       <div className="budget-transaction-cell">
         {MoneyFormatter(props.amount)}
