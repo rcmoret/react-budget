@@ -10,6 +10,10 @@ html {
   font-family: Questrial, Arial;
 }
 
+html a {
+  text-decoration: none;
+}
+
 #root {
   background-color: white;
   border-radius: 15px;
