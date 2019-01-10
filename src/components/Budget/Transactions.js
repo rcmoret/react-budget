@@ -4,20 +4,23 @@ import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
 const Transaction = (props) => {
   const displayDescription = props.description || props.budget_category
   return (
-    <div className="budget-item-detail">
-      <div className="budget-transaction-cell">
-        {props.clearance_date ? props.clearance_date : 'pending'}
+    <span>
+      <div className="budget-item-detail">
+        <div className="budget-transaction-cell">
+          {props.clearance_date ? props.clearance_date : 'pending'}
+        </div>
+        <div className="budget-transaction-cell">
+          {props.account_name}
+        </div>
+        <div className="budget-transaction-cell">
+          {displayDescription}
+        </div>
+        <div className="budget-transaction-cell">
+          {MoneyFormatter(props.amount)}
+        </div>
       </div>
-      <div className="budget-transaction-cell">
-        {props.account_name}
-      </div>
-      <div className="budget-transaction-cell">
-        {displayDescription}
-      </div>
-      <div className="budget-transaction-cell">
-        {MoneyFormatter(props.amount)}
-      </div>
-    </div>
+      <hr/>
+    </span>
   )
 }
 
@@ -43,10 +46,7 @@ const Transactions = (props) => {
         </div>
         <hr/>
         {props.transactions.map((transaction) =>
-          <span>
-            <Transaction key={transaction.id} {...transaction} />
-            <hr/>
-          </span>
+          <Transaction key={transaction.id} {...transaction} />
         )}
       </div>
     )
