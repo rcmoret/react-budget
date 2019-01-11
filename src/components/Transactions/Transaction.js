@@ -3,6 +3,7 @@ import BudgetCategories from './BudgetCategories'
 import Subtransaction from './Subtransaction'
 import LeftIcon from './LeftIcon'
 import Icon from '../Icons/Icon'
+import DateFormatter from '../../shared/Functions/DateFormatter'
 import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
 
 const Description = (props) => {
@@ -23,7 +24,7 @@ const Description = (props) => {
 }
 
 const ClearanceDate = (props) => {
-  const displayDate = props.clearance_date === null ? 'pending' : props.clearance_date
+  const displayDate = props.clearance_date === null ? 'pending' : DateFormatter(props.clearance_date)
 
   return (
     <div className="clearance-date">

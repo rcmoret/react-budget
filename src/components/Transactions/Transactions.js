@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import AddTransaction from './AddTransaction'
 import Transaction from './Transaction';
 import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
+import DateFormatter from '../../shared/Functions/DateFormatter'
 
 class Transactions extends Component {
   constructor(props) {
@@ -45,9 +46,9 @@ class Transactions extends Component {
 
   dateRange() {
     let str = "Transactions from: "
-    str += this.state.metadata.date_range[0]
+    str += DateFormatter(this.state.metadata.date_range[0])
     str += " to "
-    str += this.state.metadata.date_range[1]
+    str += DateFormatter(this.state.metadata.date_range[1])
     return str
   }
 
