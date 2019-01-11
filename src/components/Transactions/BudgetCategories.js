@@ -1,25 +1,6 @@
 import React, { Component } from 'react';
 import Icon from '../Icons/Icon'
 
-const Category = (props) => {
-  if (props.icon_class_name) {
-    return (
-      <div>
-        {props.index > 0 && ', '}
-        <Icon className={props.icon_class_name} />&nbsp;
-        {props.budget_category}
-      </div>
-    )
-  } else {
-    return (
-      <div>
-        {props.index > 0 && ', '}
-        {props.budget_category}
-      </div>
-    )
-  }
-}
-
 class BudgetCategories extends Component {
   constructor(props) {
     super(props)
@@ -27,13 +8,13 @@ class BudgetCategories extends Component {
       subtransactions: [],
       ...props,
     }
-    this.categories = this.categories.bind(this)
+    this.budgetItems = this.budgetItems.bind(this)
   }
 
-  categories() {
+  budgetItems() {
     if (this.state.subtransactions.length > 0) {
       return this.state.subtransactions
-    } else if (this.state.budget_category) {
+    } else if (this.state.description !== null && this.state.budget_category) {
       return [
         {
           budget_category: this.state.budget_category,
@@ -46,12 +27,15 @@ class BudgetCategories extends Component {
   }
 
   render() {
-    if (this.categories().length > 0) {
+    if (this.budgetItems().length > 0) {
       return (
         <div className="budget-categories">
           [
-            {this.categories().map((category, i) =>
-              <Category key={i} index={i} {...category} />
+            {this.budgetItems().map((item, index) =>
+              <div key={index}>
+                {index > 0 && ', '}
+                {item.budget_category}
+              </div>
           )}
           ]
         </div>

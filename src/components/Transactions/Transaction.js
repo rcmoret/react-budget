@@ -9,8 +9,8 @@ const Description = (props) => {
   if (props.description === null) {
     return (
       <div className="description">
-        <Icon className={props.icon_class_name} />&nbsp;
-        {props.budget_category}
+        {props.budget_category}&nbsp;
+        <Icon className={props.icon_class_name} />
       </div>
     )
   } else {
