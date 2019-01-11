@@ -1,0 +1,44 @@
+body {
+  margin: 0;
+  padding: 2%;
+  background-color: #FFEBC0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  font-family: Questrial, Arial;
+}
+
+html a {
+  text-decoration: none;
+}
+
+#root {
+  background-color: white;
+  border-radius: 15px;
+  padding-bottom: 5%;
+}
+
+header {
+  padding: 0.5% 2%
+}
+
+header .tab {
+  display: inline-block;
+  width: 40%;
+  margin-right: 0.5%;
+  background-color: #efefef;
+  border-radius: 10px;
+  padding: 1% 2%;
+}
+
+header a.active .tab {
+  background-color: #C0D6FF;
+}
+
+header a {
+  color: black;
+  text-decoration: none;
+  text-align: center;
+}

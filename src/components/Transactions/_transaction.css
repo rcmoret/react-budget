@@ -1,0 +1,69 @@
+.transaction-wrapper {
+  background-color: white;
+  padding: 0.8%;
+  border-radius: 10px;
+}
+
+.transaction-wrapper:nth-of-type(2n) {
+  background-color: #efefef;
+}
+
+.transaction div {
+  display: inline-block;
+}
+
+.transaction .left-icon {
+  color: #737373;
+  width: 1.5%;
+}
+
+.transaction .left-icon a {
+  color: #737373;
+  text-decoration: none;
+}
+
+.transaction i {
+  color: #737373;
+}
+
+.transaction .clearance-date {
+  width: 8%;
+}
+
+.clearance-date input {
+  width: 95%;
+  margin-left: 5%;
+}
+
+.transaction .description {
+  width: 20%;
+}
+
+.transaction .description input {
+  width: 95%;
+  margin-left: 5%;
+}
+
+.transaction .balance, .transaction .amount {
+  width: 8%;
+  text-align: right;
+}
+
+.transaction .amount input {
+  width: 90%;
+  margin-left: 15%;
+  text-align: right;
+}
+.transaction .budget-categories, .transaction .balance, .transaction .check-number {
+  margin-right: 1%;
+}
+
+.transaction .exclusion {
+  font-style: italic;
+  font-size: 0.8em;
+  margin-right: 1%
+}
+
+.subtransaction {
+  font-size: 0.8em;
+}
