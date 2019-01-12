@@ -10,10 +10,14 @@ class Account extends Component {
     }
   }
 
-  render({ id, name, balance, activeAccount } = this.props) {
+  componentWillReceiveProps(nextProps, prevState) {
+    this.setState(nextProps)
+  }
+
+  render({ id, name, balance } = this.state) {
     return(
       <Link to={`/accounts/${id}`}>
-        <div className={`account ${activeAccount  === id ? 'active' : '' }`}>
+        <div className={`account ${this.state.isSelected ? 'active' : '' }`}>
           <h3>{name}</h3>
           <hr/>
           <p className="balance">{MoneyFormatter(balance)}</p>

@@ -36,12 +36,12 @@ class Transactions extends Component {
   }
 
   componentWillMount() {
-    this.fetchTransactions(this.state.activeAccount)
+    this.fetchTransactions(this.state.selectedAccount.id)
   }
 
   componentWillReceiveProps(nextProps, prevState) {
     this.setState(nextProps)
-    this.fetchTransactions(nextProps.activeAccount)
+    this.fetchTransactions(nextProps.selectedAccount.id)
   }
 
   dateRange() {
@@ -89,33 +89,23 @@ class Transactions extends Component {
   }
 
   render() {
-    if (this.state.activeAccount === null) {
-      return (
-        <div className="transactions">
-          <Link to="/accounts/index">
-            <h3>Manage Accounts</h3>
-          </Link>
+    return (
+      <div className="transactions">
+        <h2>Transactions</h2>
+        <div className='transaction-metadata'>
+          {this.dateRange()}
         </div>
-      )
-    } else {
-      return (
-        <div className="transactions">
-          <h2>Transactions</h2>
-          <div className='transaction-metadata'>
-            {this.dateRange()}
-          </div>
-          <hr/>
-          <Transaction key='0' {...this.initialTransaction()} />
-          {this.transactionsWithBal().map((transaction) =>
-            <Transaction
-              key={transaction.id}
-              {...transaction}
-            />
-          )}
-        <AddTransaction {...this.state} />
-        </div>
-      )
-    }
+        <hr/>
+        <Transaction key='0' {...this.initialTransaction()} />
+        {this.transactionsWithBal().map((transaction) =>
+          <Transaction
+            key={transaction.id}
+            {...transaction}
+          />
+        )}
+      <AddTransaction {...this.state} />
+      </div>
+    )
   }
 }
 

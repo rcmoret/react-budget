@@ -1,7 +1,20 @@
 import React, { Component } from 'react';
 import Account from './Account';
+import AccountOptions from './AccountOptions';
 import Transactions from '../Transactions/Transactions';
 import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
+
+const AccountDetail = (props) => {
+  if (props.selectedAccount.id === 0) {
+    return(
+      <AccountOptions {...props} />
+    )
+  } else {
+    return(
+      <Transactions selectedAccount={props.selectedAccount} />
+    )
+  }
+}
 
 class Accounts extends Component {
   constructor(props) {
@@ -10,19 +23,19 @@ class Accounts extends Component {
       accounts: [],
       ...props
     }
+    this.selectedAccount = this.selectedAccount.bind(this)
+    this.setAccounts = this.setAccounts.bind(this)
   }
 
   componentWillMount() {
     fetch(ApiUrlBuilder('accounts'))
       .then(response => response.json())
-      .then(data => this.setState({
-        accounts: data,
-        })
-     )
+      .then(data => this.setAccounts(data))
   }
 
   componentWillReceiveProps(nextProps, prevState) {
     this.setState(nextProps)
+    this.setAccounts(this.state.accounts, parseInt(nextProps.match.params.id))
   }
 
   orderedAccounts() {
@@ -31,29 +44,37 @@ class Accounts extends Component {
     })
   }
 
-  selectedAccountId() {
-    if (Object.keys(this.state.match.params).length === 0) {
-      return null
-    } else {
-      return parseInt(this.state.match.params.id)
-    }
+  setAccounts(accounts, accountId = null) {
+    const selectedAccountId = accountId === null ? parseInt(this.state.match.params.id) : accountId
+    const newAccounts = accounts.map((account) => {
+      return {...account, isSelected: (account.id === selectedAccountId)}
+    })
+    this.setState({ accounts: newAccounts })
+  }
+
+  selectedAccount() {
+    const account = this.state.accounts.find(account => account.isSelected)
+    return account || { id: 0 }
   }
 
   render() {
-    return (
-      <div className="accounts">
-        {this.orderedAccounts().map((account) =>
-           <Account
-             key={account.id}
-             {...account}
-             activeAccount={this.selectedAccountId()}
-           />
-          )
-        }
-        <Transactions activeAccount={this.selectedAccountId()} />
-        <hr/>
-      </div>
-    );
+    if (this.state.accounts.length === 0) {
+      return null
+    } else {
+      return (
+        <div className="accounts">
+          {this.orderedAccounts().map((account) =>
+             <Account
+               key={account.id}
+               {...account}
+             />
+            )
+          }
+          <AccountDetail selectedAccount={this.selectedAccount()} />
+          <hr/>
+        </div>
+      );
+    }
   }
 }
 
