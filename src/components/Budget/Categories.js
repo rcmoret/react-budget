@@ -13,7 +13,7 @@ class BudgetCategories extends Component {
   }
 
   componentWillMount() {
-    fetch(ApiUrlBuilder('budget', 'categories'))
+    fetch(ApiUrlBuilder(['budget', 'categories']))
       .then(response => response.json())
       .then(data => this.setState({
         categories: data

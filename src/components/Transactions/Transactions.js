@@ -26,7 +26,7 @@ class Transactions extends Component {
     if (!Number.isInteger(accountId)) {
       return
     } else {
-      fetch(ApiUrlBuilder('accounts', accountId, 'transactions'))
+      fetch(ApiUrlBuilder(['accounts', accountId, 'transactions']))
         .then(response => response.json())
         .then(data => this.setState({
           ...data

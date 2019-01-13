@@ -33,7 +33,7 @@ class WeeklyItems extends Component {
   }
 
   componentWillMount() {
-    fetch(ApiUrlBuilder('budget', 'weekly_items'))
+    fetch(ApiUrlBuilder(['budget', 'weekly_items']))
       .then(response => response.json())
       .then(data => this.setState({
         items: data

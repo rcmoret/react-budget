@@ -32,7 +32,7 @@ class MonthlyItems extends Component {
   }
 
   componentWillMount() {
-    fetch(ApiUrlBuilder('budget', 'monthly_items'))
+    fetch(ApiUrlBuilder(['budget', 'monthly_items']))
       .then(response => response.json())
       .then(data => this.setState({
         items: data

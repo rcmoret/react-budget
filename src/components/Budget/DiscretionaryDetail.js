@@ -36,7 +36,7 @@ class DiscretionaryDetail extends Component {
 
   componentWillReceiveProps(nextProps, prevState) {
     if (nextProps.showDetail) {
-      fetch(ApiUrlBuilder('budget', 'discretionary', 'transactions'))
+      fetch(ApiUrlBuilder(['budget', 'discretionary', 'transactions']))
         .then(response => response.json())
         .then(data => this.setState({ transactions: data, ...nextProps }))
    } else {

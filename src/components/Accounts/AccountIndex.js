@@ -16,7 +16,7 @@ class AccountsIndex extends Component {
   }
 
   componentWillMount() {
-    fetch(ApiUrlBuilder('accounts'))
+    fetch(ApiUrlBuilder(['accounts']))
       .then(response => response.json())
       .then(data => this.setState({
         accounts: data,

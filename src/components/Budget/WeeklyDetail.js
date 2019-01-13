@@ -17,7 +17,7 @@ class WeeklyDetail extends Component {
 
   componentWillReceiveProps(nextProps, prevState) {
     if (nextProps.showDetail) {
-      fetch(ApiUrlBuilder('budget', 'categories', this.state.category_id, 'items', this.state.id, 'transactions'))
+      fetch(ApiUrlBuilder(['budget', 'categories', this.state.category_id, 'items', this.state.id, 'transactions']))
         .then(response => response.json())
         .then(data => this.setState({ transactions: data, ...nextProps }))
    } else {

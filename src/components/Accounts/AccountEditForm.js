@@ -16,7 +16,7 @@ class AccountEditForm extends AccountForm {
   }
 
   submitForm(ev) {
-    const url  = ApiUrlBuilder('accounts', this.state.id)
+    const url  = ApiUrlBuilder(['accounts', this.state.id])
     fetch(url,
           {
             method: 'PUT',

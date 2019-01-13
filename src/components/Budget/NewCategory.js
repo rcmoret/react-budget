@@ -66,7 +66,7 @@ class NewBudgetCategory extends Component {
   }
 
   createNewCategory(ev) {
-    fetch(ApiUrlBuilder('budget', 'categories'),
+    fetch(ApiUrlBuilder(['budget', 'categories']),
           {
             method: 'POST',
             headers: {

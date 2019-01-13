@@ -18,7 +18,7 @@ class Discretionary extends Component {
   }
 
   componentWillMount() {
-    fetch(ApiUrlBuilder('budget', 'discretionary'))
+    fetch(ApiUrlBuilder(['budget', 'discretionary']))
       .then(response => response.json())
       .then(data => this.setState({
         ...data

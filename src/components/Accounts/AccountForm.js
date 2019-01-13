@@ -40,7 +40,7 @@ class AccountForm extends Component {
   }
 
   submitForm(ev) {
-    const url  = this.state.account_id ? ApiUrlBuilder('accounts', this.state.account_id) : ApiUrlBuilder('accounts')
+    const url  = this.state.account_id ? ApiUrlBuilder(['accounts', this.state.account_id]) : ApiUrlBuilder(['accounts'])
     fetch(url,
           {
             method: 'POST',
