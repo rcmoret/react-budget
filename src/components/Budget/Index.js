@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import MonthlyItems from './MonthlyItems'
-import WeeklyItems from './WeeklyItems'
+import MonthlyItems from './Items/MonthlyItems'
+import WeeklyItems from './Items/WeeklyItems'
 
 class BudgetIndex extends Component {
   constructor(props) {

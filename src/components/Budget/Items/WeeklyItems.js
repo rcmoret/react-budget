@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Discretionary from './Discretionary'
+import Discretionary from '../Discretionary/Discretionary'
 import WeeklyItem from './WeeklyItem';
-import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
+import ApiUrlBuilder from '../../../shared/Functions/ApiUrlBuilder'
 
 const Group = (props) => {
   if (props.items.length > 0) {

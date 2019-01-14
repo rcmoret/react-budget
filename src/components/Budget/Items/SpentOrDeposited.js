@@ -1,5 +1,5 @@
 import React from 'react'
-import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
+import MoneyFormatter from '../../../shared/Functions/MoneyFormatter'
 
 // I think this is correct...
 // expense & >  0 -- reinvestment  -- deposited / +

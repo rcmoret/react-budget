@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
-import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
+import ApiUrlBuilder from '../../../shared/Functions/ApiUrlBuilder'
+import MoneyFormatter from '../../../shared/Functions/MoneyFormatter'
 import Details from './Details'
 import SpentOrDeposited from './SpentOrDeposited'
 import Transactions from './Transactions'

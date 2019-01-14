@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MonthlyItem from './MonthlyItem';
-import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
+import ApiUrlBuilder from '../../../shared/Functions/ApiUrlBuilder'
 
 const Group = (props) => {
   if (props.items.length > 0) {

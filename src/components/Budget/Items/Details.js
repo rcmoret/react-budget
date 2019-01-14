@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
+import MoneyFormatter from '../../../shared/Functions/MoneyFormatter'
 
 class Details extends Component {
   constructor(props) {

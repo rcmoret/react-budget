@@ -1,5 +1,5 @@
 import React from 'react'
-import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
+import MoneyFormatter from '../../../shared/Functions/MoneyFormatter'
 
 const Transaction = (props) => {
   const displayDescription = props.description || props.budget_category

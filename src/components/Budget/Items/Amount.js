@@ -1,5 +1,5 @@
 import React from 'react';
-import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
+import MoneyFormatter from '../../../shared/Functions/MoneyFormatter'
 
 const Amount = (props) => {
   if (props.showDetail) {

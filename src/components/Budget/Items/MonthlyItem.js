@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Icon from '../Icons/Icon'
-import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
+import Icon from '../../Icons/Icon'
+import MoneyFormatter from '../../../shared/Functions/MoneyFormatter'
 
 class MonthlyItem extends Component {
   constructor(props) {

@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import Amount from './Amount'
 import Caret from './Caret'
-import Icon from '../Icons/Icon'
+import Icon from '../../Icons/Icon'
 import WeeklyDetail from './WeeklyDetail'
-/* import MoneyFormatter from '../../shared/Functions/MoneyFormatter' */
 
 class WeeklyItem extends Component {
   constructor(props) {
