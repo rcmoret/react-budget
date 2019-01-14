@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
-import Icon from '../Icons/Icon'
-import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
+import React, { Component } from "react"
+import Icon from "../Icons/Icon"
+import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 
 class AccountForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: '',
-      priority: '',
+      name: "",
+      priority: "",
       cash_flow: true,
       ...props
     }
@@ -40,20 +40,20 @@ class AccountForm extends Component {
   }
 
   submitForm(ev) {
-    const url  = this.state.account_id ? ApiUrlBuilder(['accounts', this.state.account_id]) : ApiUrlBuilder(['accounts'])
+    const url  = this.state.account_id ? ApiUrlBuilder(["accounts", this.state.account_id]) : ApiUrlBuilder(["accounts"])
     fetch(url,
-          {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: this.accountBody(),
-          }
-      )
+      {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        body: this.accountBody(),
+      }
+    )
       .then(resp => resp.json())
       .then(data => this.state.onSave(data))
-      .then(() => this.setState({ name: '', priority: '' }))
+      .then(() => this.setState({ name: "", priority: "" }))
       .then(() => this.state.closeForm())
   }
 
@@ -62,7 +62,7 @@ class AccountForm extends Component {
       <div className="account-edit">
         <div>
           <h3>
-            {this.state.name ? this.state.name : 'Add new'}
+            {this.state.name ? this.state.name : "Add new"}
           </h3>
           <hr />
           <div className="form-row">
@@ -110,4 +110,4 @@ class AccountForm extends Component {
   }
 }
 
-export default AccountForm;
+export default AccountForm

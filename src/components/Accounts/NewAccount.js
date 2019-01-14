@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import AccountForm from './AccountForm'
-import Icon from '../Icons/Icon';
+import React, { Component } from "react"
+import { Link } from "react-router-dom"
+import AccountForm from "./AccountForm"
+import Icon from "../Icons/Icon"
 
 class NewAccount extends Component {
   constructor(props) {
@@ -14,11 +14,11 @@ class NewAccount extends Component {
     this.closeForm = this.closeForm.bind(this)
   }
 
-  showForm(ev) {
+  showForm() {
     this.setState({ showForm: true })
   }
 
-  closeForm(ev) {
+  closeForm() {
     this.setState({ showForm: false })
   }
 
@@ -33,7 +33,7 @@ class NewAccount extends Component {
           <div>
             <h3>
               <Link to="#" onClick={this.showForm}>
-              <Icon className="fas fa-plus" /> Add new
+                <Icon className="fas fa-plus" /> Add new
               </Link>
             </h3>
           </div>
@@ -43,4 +43,4 @@ class NewAccount extends Component {
   }
 }
 
-export default NewAccount;
+export default NewAccount

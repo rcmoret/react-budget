@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import AccountShow from './AccountShow';
-import NewAccount from './NewAccount';
-import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
+import React, { Component } from "react"
+import AccountShow from "./AccountShow"
+import NewAccount from "./NewAccount"
+import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 
 class AccountsIndex extends Component {
   constructor(props) {
@@ -16,12 +16,12 @@ class AccountsIndex extends Component {
   }
 
   componentWillMount() {
-    fetch(ApiUrlBuilder(['accounts']))
+    fetch(ApiUrlBuilder(["accounts"]))
       .then(response => response.json())
       .then(data => this.setState({
         accounts: data,
-        })
-     )
+      })
+      )
   }
 
   onSave(data) {
@@ -48,17 +48,17 @@ class AccountsIndex extends Component {
       <div className="accounts">
         <div className="account-show">
           {this.orderedAccounts().map((account) =>
-             <AccountShow
-               key={account.id}
-               {...account}
-               onUpdate={this.onUpdate}
-             />
-            )
+            <AccountShow
+              key={account.id}
+              {...account}
+              onUpdate={this.onUpdate}
+            />
+          )
           }
           <NewAccount {...this.state} onSave={this.onSave} />
         </div>
       </div>
-    );
+    )
   }
 }
 

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import Account from './Account';
-import AccountOptions from './AccountOptions';
-import Transactions from '../Transactions/Transactions';
-import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
+import React, { Component } from "react"
+import Account from "./Account"
+import AccountOptions from "./AccountOptions"
+import Transactions from "../Transactions/Transactions"
+import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 
 const AccountDetail = (props) => {
   if (props.selectedAccount.id === 0) {
@@ -28,7 +28,7 @@ class Accounts extends Component {
   }
 
   componentWillMount() {
-    fetch(ApiUrlBuilder(['accounts']))
+    fetch(ApiUrlBuilder(["accounts"]))
       .then(response => response.json())
       .then(data => this.setAccounts(data))
   }
@@ -64,16 +64,16 @@ class Accounts extends Component {
       return (
         <div className="accounts">
           {this.orderedAccounts().map((account) =>
-             <Account
-               key={account.id}
-               {...account}
-             />
-            )
+            <Account
+              key={account.id}
+              {...account}
+            />
+          )
           }
           <AccountDetail selectedAccount={this.selectedAccount()} />
           <hr/>
         </div>
-      );
+      )
     }
   }
 }

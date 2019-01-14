@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component } from "react"
+import { Link } from "react-router-dom"
 
 class AccountOptions extends Component {
   constructor(props) {
@@ -20,4 +20,4 @@ class AccountOptions extends Component {
   }
 }
 
-export default AccountOptions;
+export default AccountOptions

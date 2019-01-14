@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import AccountEditForm from './AccountEditForm'
-import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
+import React, { Component } from "react"
+import { Link } from "react-router-dom"
+import AccountEditForm from "./AccountEditForm"
+import MoneyFormatter from "../../shared/Functions/MoneyFormatter"
 
 class AccountShow extends Component {
   constructor(props) {
@@ -41,16 +41,16 @@ class AccountShow extends Component {
         <div className="account-edit">
           <div>
             <h3>
-            {this.state.name}
+              {this.state.name}
             &nbsp;
-            <Link
-              to="#"
-              className="far fa-edit"
-              onClick={this.showForm}
-            />
+              <Link
+                to="#"
+                className="far fa-edit"
+                onClick={this.showForm}
+              />
             </h3>
             <div className="cash-flow">
-              {this.state.cash_flow ? 'Cash Flow' : 'Non-Cash Flow'}
+              {this.state.cash_flow ? "Cash Flow" : "Non-Cash Flow"}
             </div>
             <div className="balance">
               Balance: {MoneyFormatter(this.state.balance)}
@@ -65,4 +65,4 @@ class AccountShow extends Component {
   }
 }
 
-export default AccountShow;
+export default AccountShow

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
+import React, { Component } from "react"
+import { Link } from "react-router-dom"
+import MoneyFormatter from "../../shared/Functions/MoneyFormatter"
 
 class Account extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class Account extends Component {
   render({ id, name, balance } = this.state) {
     return(
       <Link to={`/accounts/${id}`}>
-        <div className={`account ${this.state.isSelected ? 'active' : '' }`}>
+        <div className={`account ${this.state.isSelected ? "active" : "" }`}>
           <h3>{name}</h3>
           <hr/>
           <p className="balance">{MoneyFormatter(balance)}</p>
@@ -27,4 +27,4 @@ class Account extends Component {
   }
 }
 
-export default Account;
+export default Account
