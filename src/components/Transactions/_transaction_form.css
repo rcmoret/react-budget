@@ -1,0 +1,118 @@
+.clearance-date input {
+  width: 95%;
+  margin-left: 5%;
+}
+
+.transaction-form-row .description input {
+  width: 95%;
+  margin-left: 5%;
+}
+
+.transaction-form-row .amount input {
+  width: 90%;
+  margin-left: 15%;
+  text-align: right;
+}
+
+.transaction-form-row .budget-item-select {
+  width: 30%;
+}
+
+.transaction-form-row .budget-item-select div {
+  display: flex;
+}
+
+.budget-item-select-container {
+  width: 100%;
+  display: block;
+}
+
+.budget-item-select__control {
+  display: block;
+  width: 100%;
+  margin-left: 10%;
+}
+
+.transaction-form-row {
+  width: 100%;
+}
+
+.transaction-form-row .budget-item-select .budget-item-select__menu {
+  margin-left: 10%;
+  width: 90%;
+}
+
+.transaction-form-row .budget-item-select .budget-item-select__menu-list {
+  display: block;
+  width: 100%
+}
+
+.transaction-form-row .budget-item-select .budget-item-select__option {
+  display: block;
+  width: 100%
+}
+
+.transaction-form-row .check-number {
+  margin-left: 6.3%;
+}
+
+.transaction-form-row .check-number input {
+  width: 64%;
+}
+
+.transaction-form-row.options div {
+  margin-top: 1%;
+  vertical-align: top;
+}
+
+.transaction-form-row textarea {
+  resize: none;
+  width: 100%;
+}
+
+.transaction-form-row .input-notes {
+  width: 26.5%;
+  margin-left: -0.5%;
+}
+
+.transaction-form-row .budget-exclusion {
+  margin-left: 3%;
+  width: 20%;
+}
+
+.transaction-form-row .add-subtransactions {
+  margin-right: 2%;
+}
+
+.add-subtransactions {
+  width: 20%;
+}
+
+.subtransaction-form, .subtransaction-form-row {
+  width: 100%;
+}
+
+.subtransaction-form-row .input.description {
+  margin-left: 7.5%;
+}
+
+.subtransaction-form-row .input.bi-select {
+  width: 32%;
+}
+
+.subtransaction-form-row .input.bi-select .budget-item-select {
+  width: 95%;
+}
+
+.transaction-form-row .transaction-submit {
+  width: 20%;
+  margin-left: 1.5%;
+}
+
+.transaction-form-row button {
+  background-color: #59D176;
+  border-radius: 8px;
+  padding: 5%;
+  font-size: 0.8em;
+  border: none;
+}

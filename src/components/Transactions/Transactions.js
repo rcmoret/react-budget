@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import AddTransaction from './AddTransaction'
 import Transaction from './Transaction';
 import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
@@ -20,6 +19,7 @@ class Transactions extends Component {
     this.dateRange = this.dateRange.bind(this)
     this.initialTransaction = this.initialTransaction.bind(this)
     this.orderedTransactions = this.orderedTransactions.bind(this)
+    this.createTransaction = this.createTransaction.bind(this)
   }
 
   fetchTransactions(accountId) {
@@ -88,6 +88,12 @@ class Transactions extends Component {
     }
   }
 
+  createTransaction(data) {
+    const { transactions } = this.state
+    transactions.push(data)
+    this.setState({ transactions: transactions })
+  }
+
   render() {
     return (
       <div className="transactions">
@@ -103,7 +109,7 @@ class Transactions extends Component {
             {...transaction}
           />
         )}
-      <AddTransaction {...this.state} />
+      <AddTransaction createTransaction={this.createTransaction} {...this.state} />
       </div>
     )
   }

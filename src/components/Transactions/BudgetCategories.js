@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Icon from '../Icons/Icon'
 
 class BudgetCategories extends Component {
   constructor(props) {
@@ -13,7 +12,7 @@ class BudgetCategories extends Component {
 
   budgetItems() {
     if (this.state.subtransactions.length > 0) {
-      return this.state.subtransactions
+      return this.state.subtransactions.filter((sub) => sub.budget_category !== null)
     } else if (this.state.description !== null && this.state.budget_category) {
       return [
         {
