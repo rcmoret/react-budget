@@ -12,6 +12,11 @@ class WeeklyItem extends Component {
     }
     this.expandDetail = this.expandDetail.bind(this)
     this.collapseDetail = this.collapseDetail.bind(this)
+    this.updateParent = this.updateParent.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps)
   }
 
   expandDetail(ev) {
@@ -20,6 +25,10 @@ class WeeklyItem extends Component {
 
   collapseDetail(ev) {
     this.setState({ showDetail: false })
+  }
+
+  updateParent(newState) {
+    this.setState(newState)
   }
 
   render() {
@@ -39,7 +48,12 @@ class WeeklyItem extends Component {
             <Icon className={this.state.icon_class_name} />
           </div>
           <div className='budget-item-amount'>
-            <Amount {...this.state} absolute={true} />
+            <Amount
+             expandDetail={this.expandDetail}
+             updateParent={this.updateParent}
+             absolute={true}
+             {...this.state}
+            />
           </div>
         </div>
         <WeeklyDetail {...this.state} />

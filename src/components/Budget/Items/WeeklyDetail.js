@@ -30,8 +30,8 @@ class WeeklyDetail extends Component {
       return (
         <div className="detail-wrapper">
           <SpentOrDeposited {...this.state} />
-          <div className="budget-item-detail remaining">
-            <div className="budget-item-description remaining">Remaining: </div>
+          <div className="budget-item-detail">
+            <div className="detail-description remaining">Remaining: </div>
             <div className="detail-amount"> {MoneyFormatter(this.state.remaining)} </div>
           </div>
           <hr />

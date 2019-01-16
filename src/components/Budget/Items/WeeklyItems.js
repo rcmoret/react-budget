@@ -3,22 +3,30 @@ import Discretionary from '../Discretionary/Discretionary'
 import WeeklyItem from './WeeklyItem';
 import ApiUrlBuilder from '../../../shared/Functions/ApiUrlBuilder'
 
-const Group = (props) => {
-  if (props.items.length > 0) {
-    return (
-      <div className="budget-group">
-        <h4>{props.title}</h4>
-        {props.items.map((item) =>
-          <WeeklyItem
-            key={item.id}
-            {...item}
-          />
-         )
-        }
-      </div>
-    )
-  } else {
-    return null
+class Group extends Component {
+  constructor(props) {
+    this.state = {
+      ...props
+    }
+  }
+
+  render() {
+    if (this.state.items.length > 0) {
+      return (
+        <div className="budget-group">
+          <h4>{this.state.title}</h4>
+          {this.state.items.map((item) =>
+            <WeeklyItem
+              key={item.id}
+              {...item}
+            />
+           )
+          }
+        </div>
+      )
+    } else {
+      return null
+    }
   }
 }
 
@@ -65,4 +73,4 @@ class WeeklyItems extends Component {
   }
 }
 
-export default WeeklyItems;
+export default WeeklyItems

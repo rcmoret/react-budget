@@ -50,8 +50,8 @@ class DiscretionaryDetail extends Component {
         <div className="detail-wrapper">
           <OverUnderBudget {...this.state} />
           <SpentOrDeposited {...this.state} />
-          <div className="budget-item-detail remaining">
-            <div className="budget-item-description remaining">Remaining: </div>
+          <div className="budget-item-detail">
+            <div className="detail-description">Remaining: </div>
             <div className="detail-amount"> {MoneyFormatter(this.state.remaining)} </div>
           </div>
           <hr />

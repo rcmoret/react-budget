@@ -203,3 +203,11 @@
 .budget-category:nth-of-type(2n) {
   background-color: #efefef;
 }
+
+#budget a {
+  color: black;
+}
+
+.budget-item span.update-amount input {
+  text-align: right;
+}

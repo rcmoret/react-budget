@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ApiUrlBuilder from '../../../shared/Functions/ApiUrlBuilder'
-import Amount from './../Items/Amount'
+import Amount from './Amount'
 import Caret from './../Items/Caret'
 import Icon from '../../Icons/Icon'
 import DiscretionaryDetail from './DiscretionaryDetail'

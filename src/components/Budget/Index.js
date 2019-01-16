@@ -6,7 +6,13 @@ import WeeklyItems from './Items/WeeklyItems'
 class BudgetIndex extends Component {
   constructor(props) {
     super(props)
-    this.state = { }
+    this.state = {
+      updateDiscretionary: false,
+    }
+  }
+
+  updateDiscretionary() {
+    this.setState({ updateDiscretionary: true })
   }
 
   render() {
@@ -15,7 +21,7 @@ class BudgetIndex extends Component {
         <WeeklyItems />
         <MonthlyItems />
         <Link to="/budget/categories">
-          <div className='category-link'>
+          <div className="category-link">
             <h3>Manage Budget Categories</h3>
           </div>
         </Link>
@@ -24,4 +30,4 @@ class BudgetIndex extends Component {
   }
 }
 
-export default BudgetIndex;
+export default BudgetIndex

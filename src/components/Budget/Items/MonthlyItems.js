@@ -2,22 +2,31 @@ import React, { Component } from 'react';
 import MonthlyItem from './MonthlyItem';
 import ApiUrlBuilder from '../../../shared/Functions/ApiUrlBuilder'
 
-const Group = (props) => {
-  if (props.items.length > 0) {
-    return (
-      <div className="budget-group">
-        <h4>{props.title}</h4>
-        {props.items.map((item) =>
-          <MonthlyItem
-            key={item.id}
-            {...item}
-          />
-         )
-        }
-      </div>
-    )
-  } else {
-    return null
+class Group extends Component {
+  constructor(props) {
+    this.state = {
+      ...props
+    }
+  }
+
+  render() {
+    if (this.state.items.length > 0) {
+      return (
+        <div className="budget-group">
+          <h4>{this.state.title}</h4>
+          {this.state.items.map((item) =>
+            <MonthlyItem
+              key={item.id}
+              monthly={true}
+              {...item}
+            />
+           )
+          }
+        </div>
+      )
+    } else {
+      return null
+    }
   }
 }
 
