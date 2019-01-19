@@ -4,9 +4,14 @@ import ApiUrlBuilder from '../../../shared/Functions/ApiUrlBuilder'
 
 class Group extends Component {
   constructor(props) {
+    super(props)
     this.state = {
       ...props
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps)
   }
 
   render() {
