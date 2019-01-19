@@ -7,7 +7,7 @@ class BudgetCategories extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      categories: []
+      ...props
     }
     this.onSave = this.onSave.bind(this)
   }
@@ -49,6 +49,10 @@ class BudgetCategories extends Component {
       </div>
     )
   }
+}
+
+BudgetCategories.defaultProps = {
+  categories: [],
 }
 
 export default BudgetCategories;

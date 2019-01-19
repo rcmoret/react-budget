@@ -5,10 +5,6 @@ class NewBudgetCategory extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      category: {
-        name: '',
-        default_amount: '',
-      },
       ...props,
     }
     this.createNewCategory = this.createNewCategory.bind(this)
@@ -123,6 +119,13 @@ class NewBudgetCategory extends Component {
       </div>
     )
   }
+}
+
+NewBudgetCategory.defaultProps = {
+  category: {
+    name: '',
+    default_amount: '',
+  },
 }
 
 export default NewBudgetCategory

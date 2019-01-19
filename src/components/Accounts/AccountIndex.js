@@ -7,7 +7,6 @@ class AccountsIndex extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      accounts: [],
       ...props
     }
     this.onSave = this.onSave.bind(this)
@@ -60,6 +59,10 @@ class AccountsIndex extends Component {
       </div>
     )
   }
+}
+
+AccountsIndex.defaultProps = {
+  accounts: [],
 }
 
 export default AccountsIndex

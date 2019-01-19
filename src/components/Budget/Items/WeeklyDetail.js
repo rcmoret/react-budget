@@ -9,8 +9,6 @@ class WeeklyDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      transactions: [],
-      showDetail: false,
       ...props
     }
   }
@@ -44,6 +42,11 @@ class WeeklyDetail extends Component {
       return null
     }
   }
+}
+
+WeeklyDetail.defaultProps = {
+  transactions: [],
+  showDetail: false,
 }
 
 export default WeeklyDetail;

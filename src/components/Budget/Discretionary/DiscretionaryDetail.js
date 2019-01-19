@@ -29,7 +29,6 @@ class DiscretionaryDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      transactions: [],
       ...props
     }
   }
@@ -65,5 +64,10 @@ class DiscretionaryDetail extends Component {
     }
   }
 }
+
+DiscretionaryDetail.defaultProps = {
+  transactions: [],
+}
+
 
 export default DiscretionaryDetail;

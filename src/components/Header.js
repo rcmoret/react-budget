@@ -1,24 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-class Header extends Component {
-  render() {
-    return (
-      <header>
-        <h1>Checkbook & Budget</h1>
-        <NavLink to='/accounts'>
-          <div className='tab'>
-            <h2>Accounts</h2>
-          </div>
-        </NavLink>
-        <NavLink to='/budget'>
-          <div className='tab'>
-            <h2>Budget</h2>
-          </div>
-        </NavLink>
-      </header>
-    );
-  }
-}
+const Header = () => (
+  <header>
+    <h1>Checkbook & Budget</h1>
+    <NavLink to='/accounts'>
+      <div className='tab'>
+        <h2>Accounts</h2>
+      </div>
+    </NavLink>
+    <NavLink to='/budget'>
+      <div className='tab'>
+        <h2>Budget</h2>
+      </div>
+    </NavLink>
+  </header>
+)
 
-export default Header;
+export default Header

@@ -6,9 +6,6 @@ class AccountForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: "",
-      priority: "",
-      cash_flow: true,
       ...props
     }
     this.updateName = this.updateName.bind(this)
@@ -108,6 +105,12 @@ class AccountForm extends Component {
       </div>
     )
   }
+}
+
+AccountForm.defaultProps = {
+  name: "",
+  priority: "",
+  cash_flow: true,
 }
 
 export default AccountForm

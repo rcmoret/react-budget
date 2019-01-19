@@ -20,7 +20,6 @@ class Accounts extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      accounts: [],
       ...props
     }
     this.selectedAccount = this.selectedAccount.bind(this)
@@ -76,6 +75,10 @@ class Accounts extends Component {
       )
     }
   }
+}
+
+Accounts.defaultProps = {
+  accounts: [],
 }
 
 export default Accounts

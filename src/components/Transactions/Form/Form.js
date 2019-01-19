@@ -45,12 +45,6 @@ class Form extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      clearance_date: '',
-      description: '',
-      amount: '',
-      notes: '',
-      check_number: '',
-      subtransactions: [],
       ...props
     }
     this.updateTransaction = this.updateTransaction.bind(this)
@@ -220,6 +214,15 @@ class Form extends Component {
       </div>
     )
   }
+}
+
+Form.defaultProps = {
+  clearance_date: '',
+  description: '',
+  amount: '',
+  notes: '',
+  check_number: '',
+  subtransactions: [],
 }
 
 export default Form;

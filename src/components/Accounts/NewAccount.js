@@ -7,7 +7,6 @@ class NewAccount extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      showForm: false,
       ...props,
     }
     this.showForm = this.showForm.bind(this)
@@ -41,6 +40,10 @@ class NewAccount extends Component {
       )
     }
   }
+}
+
+NewAccount.defaultProps = {
+  showForm: false,
 }
 
 export default NewAccount

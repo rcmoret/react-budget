@@ -83,7 +83,6 @@ class Transaction extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      subtransactions: [],
       ...props,
     }
     this.expandDetail = this.expandDetail.bind(this)
@@ -132,6 +131,10 @@ class Transaction extends Component {
       </div>
     )
   }
+}
+
+Transaction.defaultProps = {
+  subtransactions: [],
 }
 
 export default Transaction

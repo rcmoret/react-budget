@@ -7,8 +7,6 @@ class BudgetItemSelect extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      items: [],
-      value: { value: null, label: ''},
       ...props
     }
     this.options = this.options.bind(this)
@@ -90,6 +88,11 @@ class BudgetItemSelect extends Component {
       />
     )
   }
+}
+
+BudgetItemSelect.defaultProps = {
+  items: [],
+  value: { value: null, label: ''},
 }
 
 export default BudgetItemSelect;

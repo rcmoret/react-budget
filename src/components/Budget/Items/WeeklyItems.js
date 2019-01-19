@@ -39,7 +39,7 @@ class WeeklyItems extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      items: [],
+      ...props
     }
     this.revenues = this.revenues.bind(this)
     this.expenses = this.expenses.bind(this)
@@ -76,6 +76,10 @@ class WeeklyItems extends Component {
       </div>
     )
   }
+}
+
+WeeklyItems.defaultProps = {
+  items: [],
 }
 
 export default WeeklyItems

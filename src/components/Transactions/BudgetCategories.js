@@ -4,7 +4,6 @@ class BudgetCategories extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      subtransactions: [],
       ...props,
     }
     this.budgetItems = this.budgetItems.bind(this)
@@ -43,6 +42,10 @@ class BudgetCategories extends Component {
       return null
     }
   }
+}
+
+BudgetCategories.defaultProps = {
+  subtransactions: [],
 }
 
 export default BudgetCategories;

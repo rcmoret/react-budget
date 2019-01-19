@@ -1,21 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Icon extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {...props}
-  }
-
-  render() {
-    if (this.state.icon_class_name === null) {
-      return (<span></span>)
-    } else {
-      return (
-        <span>
-          <i className={this.state.className}></i>
-        </span>
-      )
-    }
+const Icon = (props) => {
+  if (props.icon_class_name === null) {
+    return (<span></span>)
+  } else {
+    return (
+      <span>
+        <i className={props.className}></i>
+      </span>
+    )
   }
 }
 

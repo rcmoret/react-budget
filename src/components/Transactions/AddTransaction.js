@@ -7,7 +7,6 @@ class AddTransaction extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      showForm: false,
       ...props
     }
     this.showForm = this.showForm.bind(this)
@@ -46,6 +45,10 @@ class AddTransaction extends Component {
       )
     }
   }
+}
+
+AddTransaction.defaultProps = {
+  showForm: false,
 }
 
 export default AddTransaction;

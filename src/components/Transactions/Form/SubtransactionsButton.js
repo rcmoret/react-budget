@@ -6,7 +6,6 @@ class SubtransactionsButton extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      subtransactions: [],
       ...props
     }
   }
@@ -38,5 +37,8 @@ class SubtransactionsButton extends Component {
   }
 }
 
+SubtransactionsButton.defaultProps = {
+  subtransactions: [],
+}
 
 export default SubtransactionsButton;

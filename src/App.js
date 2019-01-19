@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Accounts from './components/Accounts/Accounts';
 import AccountIndex from './components/Accounts/AccountIndex';

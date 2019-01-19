@@ -8,11 +8,6 @@ class Transactions extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      transactions: [],
-      metadata: {
-        date_range: ['', ''],
-        prior_balance: 0,
-      },
       ...props
     }
     this.transactionsWithBal = this.transactionsWithBal.bind(this)
@@ -113,6 +108,14 @@ class Transactions extends Component {
       </div>
     )
   }
+}
+
+Transactions.defaultProps = {
+  transactions: [],
+  metadata: {
+    date_range: ['', ''],
+    prior_balance: 0,
+  },
 }
 
 export default Transactions;

@@ -1,5 +1,3 @@
-// import React, { Component } from 'react'
-// import Icon from '../Icons/Icon'
 import AccountForm from "./AccountForm"
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 
@@ -7,9 +5,6 @@ class AccountEditForm extends AccountForm {
   constructor(props) {
     super(props)
     this.state = {
-      name: "",
-      priority: "",
-      cash_flow: true,
       ...props
     }
     this.submitForm = this.submitForm.bind(this)
@@ -31,6 +26,12 @@ class AccountEditForm extends AccountForm {
       .then(data => this.state.onSave(data))
       .then(() => this.state.closeForm())
   }
+}
+
+AccountEditForm.defaultProps = {
+  name: "",
+  priority: "",
+  cash_flow: true,
 }
 
 export default AccountEditForm

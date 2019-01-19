@@ -39,7 +39,7 @@ class MonthlyItems extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      items: [],
+      ...props
     }
     this.revenues = this.revenues.bind(this)
     this.expenses = this.expenses.bind(this)
@@ -72,6 +72,10 @@ class MonthlyItems extends Component {
       </div>
     )
   }
+}
+
+MonthlyItems.defaultProps = {
+  items: [],
 }
 
 export default MonthlyItems;

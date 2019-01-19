@@ -5,7 +5,7 @@ class SubtransactionsForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      subtransactions: []
+      ...props
     }
   }
 
@@ -34,6 +34,10 @@ class SubtransactionsForm extends Component {
       )
     }
   }
+}
+
+SubtransactionsForm.defaultProps = {
+  subtransactions: [],
 }
 
 export default SubtransactionsForm;

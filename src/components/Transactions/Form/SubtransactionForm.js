@@ -2,12 +2,10 @@ import React, { Component } from 'react'
 import BudgetItemSelect from './BudgetItemSelect'
 import { Link } from 'react-router-dom'
 
-class SubtransactionFrom extends Component {
+class SubtransactionForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      description: '',
-      amount: '',
       ...props
     }
     this.handleChange = this.handleChange.bind(this)
@@ -71,4 +69,10 @@ class SubtransactionFrom extends Component {
     )
   }
 }
-export default SubtransactionFrom;
+
+SubtransactionForm.defaultProps = {
+  description: '',
+  amount: '',
+}
+
+export default SubtransactionForm;
