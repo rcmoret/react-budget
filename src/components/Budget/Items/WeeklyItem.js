@@ -1,8 +1,5 @@
-import React, { Component } from 'react'
-import Amount from './Amount'
-import Caret from './Caret'
-import Icon from '../../Icons/Icon'
-import WeeklyDetail from './WeeklyDetail'
+import React, { Component } from "react"
+import WeeklyItemContainer from "./WeeklyItemContainer"
 
 class WeeklyItem extends Component {
   constructor(props) {
@@ -33,32 +30,13 @@ class WeeklyItem extends Component {
 
   render() {
     return (
-      <div className='budget-item'>
-        <div className="budget-item-detail">
-          <div className='budget-item-description'>
-            <div className="caret">
-              <Caret
-                {...this.state}
-                expandDetail={this.expandDetail}
-                collapseDetail={this.collapseDetail}
-              />
-            </div>
-            {this.state.name}
-            &nbsp;
-            <Icon className={this.state.icon_class_name} />
-          </div>
-          <div className='budget-item-amount'>
-            <Amount
-             expandDetail={this.expandDetail}
-             updateParent={this.updateParent}
-             absolute={true}
-             {...this.state}
-            />
-          </div>
-        </div>
-        <WeeklyDetail {...this.state} />
-      </div>
-    );
+      <WeeklyItemContainer
+        expandDetail={this.expandDetail}
+        collapseDetail={this.collapseDetail}
+        updateParent={this.updateParent}
+        {...this.state}
+      />
+    )
   }
 }
 

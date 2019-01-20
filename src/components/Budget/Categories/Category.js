@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Icon from '../Icons/Icon';
+import Icon from '../../Icons/Icon';
 
 const BudgetCategory = (props) => (
   <div className="budget-category">

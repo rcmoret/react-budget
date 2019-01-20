@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import ApiUrlBuilder from '../../../shared/Functions/ApiUrlBuilder'
 import MoneyFormatter from '../../../shared/Functions/MoneyFormatter'
-import Details from './Details'
-import SpentOrDeposited from './SpentOrDeposited'
-import Transactions from './Transactions'
+import Details from '../Shared/Details'
+import SpentOrDeposited from "../Shared/SpentOrDeposited"
+import Transactions from '../Shared/Transactions'
 
 class WeeklyDetail extends Component {
   constructor(props) {
@@ -13,18 +13,18 @@ class WeeklyDetail extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps, prevState) {
-    if (nextProps.showDetail) {
-      fetch(ApiUrlBuilder(['budget', 'categories', this.state.category_id, 'items', this.state.id, 'transactions']))
-        .then(response => response.json())
-        .then(data => this.setState({ transactions: data, ...nextProps }))
-   } else {
-      this.setState(nextProps)
-    }
+  url() {
+    const { category_id, id } = this.state
+    return ApiUrlBuilder(['budget', 'categories', category_id, 'items', id, 'transactions'])
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps)
   }
 
   render() {
     if (this.state.showDetail) {
+      const { budgeted_per_day, budgeted_per_week, remaining_per_day, remaining_per_week } = this.state
       return (
         <div className="detail-wrapper">
           <SpentOrDeposited {...this.state} />
@@ -33,9 +33,17 @@ class WeeklyDetail extends Component {
             <div className="detail-amount"> {MoneyFormatter(this.state.remaining)} </div>
           </div>
           <hr />
-          <Details {...this.state} />
+          <Details
+            budgetedPerDay={budgeted_per_day}
+            budgetedPerWeek={budgeted_per_week}
+            remainingPerDay={remaining_per_day}
+            remainingPerWeek={remaining_per_week}
+          />
           <hr />
-          <Transactions {...this.state} />
+          <Transactions
+            url={this.url()}
+            budgetCategory={this.state.name}
+          />
         </div>
       )
     } else {

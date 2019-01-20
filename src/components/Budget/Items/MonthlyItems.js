@@ -1,39 +1,6 @@
 import React, { Component } from 'react';
-import MonthlyItem from './MonthlyItem';
+import MonthlyGroup from "./MonthlyGroup"
 import ApiUrlBuilder from '../../../shared/Functions/ApiUrlBuilder'
-
-class Group extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      ...props
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState(nextProps)
-  }
-
-  render() {
-    if (this.state.items.length > 0) {
-      return (
-        <div className="budget-group">
-          <h4>{this.state.title}</h4>
-          {this.state.items.map((item) =>
-            <MonthlyItem
-              key={item.id}
-              monthly={true}
-              {...item}
-            />
-           )
-          }
-        </div>
-      )
-    } else {
-      return null
-    }
-  }
-}
 
 class MonthlyItems extends Component {
   constructor(props) {
@@ -67,8 +34,8 @@ class MonthlyItems extends Component {
       <div className="monthly-items">
         <h3>Monthly Items</h3>
         <hr/>
-        <Group items={this.revenues()} title="Revenues" />
-        <Group items={this.expenses()} title="Expenses" />
+        <MonthlyGroup collection={this.revenues()} title="Revenues" />
+        <MonthlyGroup collection={this.expenses()} title="Expenses" />
       </div>
     )
   }

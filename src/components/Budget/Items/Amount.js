@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import AmountContainer from "./AmountContainer"
+import AmountInput from "./AmountInput"
 import ApiUrlBuilder from '../../../shared/Functions/ApiUrlBuilder'
-import MoneyFormatter from '../../../shared/Functions/MoneyFormatter'
 
 class Amount extends Component {
   constructor(props) {
@@ -68,37 +68,25 @@ class Amount extends Component {
   }
 
   render() {
-    const { amount, absolute, remaining } = this.state
+    const { absolute, amount, floatAmount, remaining, showDetail } = this.state
     if (this.state.updateItem) {
       return (
-        <span className="update-amount">
-          <Link to="#" onClick={this.saveChange} className="fas fa-check" />
-          &nbsp;
-          <Link to="#" onClick={this.reset} className="fas fa-times" />
-          <br/>
-          <input
-           name="amount"
-           value={this.state.floatAmount}
-           onChange={this.handleChange}
-           autcomplete="false"
-          />
-        </span>
-      )
-    } else if (this.state.showDetail) {
-      return (
-        <span>
-          <Link to="#" onClick={this.updateItem}>
-            {MoneyFormatter(amount, { absolute: absolute })}
-          </Link>
-        </span>
+        <AmountInput
+          floatAmount={floatAmount}
+          handleChange={this.handleChange}
+          reset={this.reset}
+          saveChange={this.saveChange}
+        />
       )
     } else {
       return (
-        <span>
-          <Link to="#" onClick={this.updateItem}>
-            {MoneyFormatter(remaining, { absolute: absolute })}
-          </Link>
-        </span>
+        <AmountContainer
+          absolute={absolute}
+          amount={amount}
+          remaining={remaining}
+          showDetail={showDetail}
+          updateItem={this.updateItem}
+        />
       )
     }
   }

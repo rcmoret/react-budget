@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import Amount from './Amount'
-import Icon from '../../Icons/Icon'
+import MonthlyItemContainer from "./MonthlyItemContainer"
 
 class MonthlyItem extends Component {
   constructor(props) {
@@ -17,26 +16,7 @@ class MonthlyItem extends Component {
 
   render() {
     return (
-      <div className='budget-item'>
-        <div className="budget-item-detail">
-          <div className='budget-item-description'>
-            <div className="caret">
-              <Icon className="fas fa-caret-right" />
-            </div>
-            {this.state.name}
-            &nbsp;
-            <Icon className={this.state.icon_class_name} />
-          </div>
-          <div className='budget-item-amount'>
-            <Amount
-             updateParent={this.updateParent}
-             absolute={true}
-             {...this.state}
-             remaining={this.state.amount}
-            />
-          </div>
-        </div>
-      </div>
+      <MonthlyItemContainer {...this.state} updateParent={this.updateParent} />
     );
   }
 }
