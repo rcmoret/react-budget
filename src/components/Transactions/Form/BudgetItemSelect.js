@@ -76,16 +76,18 @@ class BudgetItemSelect extends Component {
 
   render() {
     return (
-      <Select
-        value={this.state.value}
-        defaultValue={this.state.value}
-        onChange={this.updateSelect}
-        options={this.options()}
-        className="budget-item-select-container"
-        classNamePrefix="budget-item-select"
-        isSearchable={!this.state.hasSubtransactions}
-        isDisabled={this.state.hasSubtransactions}
-      />
+      <div className='budget-item-select'>
+        <Select
+          value={this.state.value}
+          defaultValue={this.state.value}
+          onChange={this.state.updateSelect}
+          options={this.options()}
+          className="budget-item-select-container"
+          classNamePrefix="budget-item-select"
+          isSearchable={!this.state.disabled}
+          isDisabled={this.state.disabled}
+        />
+      </div>
     )
   }
 }

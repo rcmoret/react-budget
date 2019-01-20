@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import Icon from "../Icons/Icon"
 
 class BudgetCategories extends Component {
   constructor(props) {
@@ -25,14 +26,16 @@ class BudgetCategories extends Component {
   }
 
   render() {
-    if (this.budgetItems().length > 0) {
+    const collection = this.budgetItems()
+    if (collection.length > 0) {
       return (
         <div className="budget-categories">
           [
-            {this.budgetItems().map((item, index) =>
+            {collection.map((item, index) =>
               <div key={index}>
                 {index > 0 && ', '}
-                {item.budget_category}
+                {item.budget_category}&nbsp;
+                <Icon className={item.icon_class_name} />
               </div>
           )}
           ]

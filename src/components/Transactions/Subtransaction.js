@@ -1,42 +1,29 @@
-import React, { Component } from 'react';
-import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
+import React from "react";
+import MoneyFormatter from "../../shared/Functions/MoneyFormatter"
 
-class Subtransaction extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      ...props
-    }
-  }
-
-  componentWillReceiveProps(nextProps, prevState) {
-    this.setState(nextProps)
-  }
-
-  render() {
-    if (this.state.showDetail) {
-      return (
-        <div className="transaction subtransaction">
-          <div className="left-icon">
-          </div>
-          <div className="clearance-date">
-          </div>
-          <div className="description">
-            {this.state.description}
-          </div>
-          <div className="amount">
-            {MoneyFormatter(this.state.amount)}
-          </div>
-          <div className="balance">
-          </div>
-          <div className="budget-categories">
-            {this.state.budget_category}
-          </div>
+const Subtransaction = (props) => {
+  if (props.showDetail) {
+    return (
+      <div className="transaction subtransaction">
+        <div className="left-icon">
         </div>
-      )
-    } else {
-      return null
-    }
+        <div className="clearance-date">
+        </div>
+        <div className="description">
+          {props.description}
+        </div>
+        <div className="amount">
+          {MoneyFormatter(props.amount)}
+        </div>
+        <div className="balance">
+        </div>
+        <div className="budget-categories">
+          {props.budget_category}
+        </div>
+      </div>
+    )
+  } else {
+    return null
   }
 }
 

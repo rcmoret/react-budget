@@ -1,45 +1,6 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import ApiUrlBuilder from '../../../shared/Functions/ApiUrlBuilder'
-import Icon from '../../Icons/Icon'
-import BudgetItemSelect from './BudgetItemSelect'
-import SubtransactionsButton from './SubtransactionsButton'
-import SubtransactionsForm from './SubtransactionsForm'
-
-class BudgetExclusion extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      ...props
-    }
-  }
-
-  componentWillReceiveProps(nextProps, prevState) {
-    this.setState(nextProps)
-  }
-
-  render() {
-    if (this.state.selectedAccount.cash_flow === true) {
-      return null
-    } else {
-      return (
-        <div className="budget-exclusion">
-          <div className="label">
-            Budget Exclusion
-          </div>
-          <div className="input">
-            <input
-             type="checkbox"
-             value={this.state.budget_exclusion}
-             onChange={this.state.onChange}
-             checked={this.state.budget_exclusion ? 'checked' : ''}
-            />
-         </div>
-       </div>
-      )
-    }
-  }
-};
+import React, { Component } from "react"
+import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
+import FormContainer from "./FormContainer"
 
 class Form extends Component {
   constructor(props) {
@@ -58,10 +19,6 @@ class Form extends Component {
     this.subtransactionsAttributes = this.subtransactionsAttributes.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState(nextProps)
-  }
-
   updateTransaction(ev) {
     this.setState({ [ev.target.name]:  ev.target.value })
   }
@@ -70,11 +27,13 @@ class Form extends Component {
     this.setState({ budget_item_id: ev.value })
   }
 
-  addSubtransactions() {
+  addSubtransactions(ev) {
+    ev.preventDefault()
     this.setState({ subtransactions: [{}, {}] })
   }
 
-  addSubtransaction() {
+  addSubtransaction(ev) {
+    ev.preventDefault()
     const { subtransactions } = this.state
     subtransactions.push({})
     this.setState({ subtransactions: subtransactions })
@@ -135,83 +94,18 @@ class Form extends Component {
 
   render() {
     return (
-      <div className="transaction-wrapper">
-        <div className="transaction">
-          <div className="transaction-form-row">
-            <Link to="#" onClick={this.state.closeForm} className="fas fa-times" />
-            <div className="clearance-date">
-              <input
-               type="text"
-               name="clearance_date"
-               placeholder="clearance date"
-               onChange={this.updateTransaction}
-               value={this.state.clearance_date}
-              />
-            </div>
-            <div className="description">
-              <input
-               type="text"
-               name="description"
-               placeholder="description"
-               onChange={this.updateTransaction}
-               value={this.state.description}
-              />
-            </div>
-            <div className="amount">
-              <input
-               type="text"
-               name="amount"
-               placeholder="amount"
-               value={this.state.amount}
-               onChange={this.updateTransaction}
-               disabled={this.hasSubtransactions()}
-              />
-            </div>
-            <div className='budget-item-select'>
-              <BudgetItemSelect
-               updateSelect={this.updateSelect}
-               hasSubtransactions={this.hasSubtransactions()}
-              />
-            </div>
-            <div className="transaction-submit">
-              <button type="submit" onClick={this.submitTransaction}>
-              Create Transaction
-              </button>
-            </div>
-          </div>
-          <SubtransactionsForm
-           {...this.state}
-           removeSubtransaction={this.removeSubtransaction}
-           updateParent={this.updateParent}
-          />
-          <div className="transaction-form-row options">
-            <SubtransactionsButton
-             {...this.state}
-             addSubtransactions={this.addSubtransactions}
-             addSubtransaction={this.addSubtransaction}
-            />
-            <div className="check-number">
-              <Icon className="fas fa-money-check" />&nbsp;
-              <input
-               type="text"
-               name="check_number"
-               value={this.state.check_number}
-               onChange={this.updateTransaction}
-               placeholder="check #"
-              />
-            </div>
-            <div className="input-notes">
-              <textarea
-                placeholder="notes"
-                name="notes"
-                value={this.state.notes}
-                onChange={this.updateTransaction}
-              />
-            </div>
-            <BudgetExclusion onChange={this.updateTransaction} {...this.state} />
-          </div>
-        </div>
-      </div>
+      <FormContainer
+        {...this.state}
+        addSubtransactions={this.addSubtransactions}
+        addSubtransaction={this.addSubtransaction}
+        closeForm={this.state.closeForm}
+        disabled={this.hasSubtransactions()}
+        removeSubtransaction={this.removeSubtransaction}
+        submitTransaction={this.submitTransaction}
+        updateParent={this.updateParent}
+        updateSelect={this.updateSelect}
+        updateTransaction={this.updateTransaction}
+      />
     )
   }
 }

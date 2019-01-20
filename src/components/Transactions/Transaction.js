@@ -1,83 +1,14 @@
-import React, { Component } from 'react';
-import BudgetCategories from './BudgetCategories'
-import Subtransaction from './Subtransaction'
-import LeftIcon from './LeftIcon'
-import Icon from '../Icons/Icon'
-import DateFormatter from '../../shared/Functions/DateFormatter'
-import MoneyFormatter from '../../shared/Functions/MoneyFormatter'
-
-const Description = (props) => {
-  if (props.description === null) {
-    return (
-      <div className="description">
-        {props.budget_category}&nbsp;
-        <Icon className={props.icon_class_name} />
-      </div>
-    )
-  } else {
-    return (
-      <div className="description">
-        {props.description}
-      </div>
-    )
-  }
-}
-
-const ClearanceDate = (props) => {
-  const displayDate = props.clearance_date === null ? 'pending' : DateFormatter(props.clearance_date)
-
-  return (
-    <div className="clearance-date">
-      {displayDate}
-    </div>
-  )
-}
-
-const CheckNumber = (props) => {
-  if (props.check_number) {
-    return (
-      <div className="check-number">
-        <Icon className="fas fa-money-check" />&nbsp;
-        Check: {props.check_number}
-      </div>
-    )
-  } else {
-    return null
-  }
-}
-
-const BudgetExclusion = (props) => {
-  if (props.budget_exclusion) {
-    return (
-      <div className="exclusion">
-        {props.budget_exclusion ? 'budget exclusion' : ''}
-      </div>
-    )
-  } else {
-    return null
-  }
-}
-
-const Notes = (props) => {
-  if (props.notes) {
-    return(
-      <div className="notes">
-        <Icon className="fas fa-sticky-note" />&nbsp;
-        {props.notes}
-      </div>
-    )
-  } else {
-    return null
-  }
-}
-
-const Subtransactions = (props) => {
-    return (
-      props.subtransactions.map((sub) => {
-        return <Subtransaction key={sub.id}  showDetail={props.showDetail} {...sub} />
-      })
-    )
-}
+import React, { Component } from "react";
+import Amount from "./Amount"
+import Balance from "./Balance"
+import BudgetCategories from "./BudgetCategories"
+import BudgetExclusion from "./BudgetExclusion"
+import CheckNumber from "./CheckNumber"
+import ClearanceDate from "./ClearanceDate"
+import Description from "./Description"
+import Notes from "./Notes"
+import LeftIcon from "./LeftIcon"
+import Subtransactions from "./Subtransactions"
 
 class Transaction extends Component {
   constructor(props) {
@@ -89,7 +20,7 @@ class Transaction extends Component {
     this.collapseDetail = this.collapseDetail.bind(this)
   }
 
-  componentWillReceiveProps(nextProps, prevState) {
+  componentWillReceiveProps(nextProps) {
     this.setState(nextProps)
   }
 
@@ -103,31 +34,34 @@ class Transaction extends Component {
     this.setState({ showDetail: false })
   }
 
-  render({ amount, subtransactions } = this.state) {
+  render() {
+    const { amount, balance, budget_category, budget_exclusion, check_number, clearance_date,
+            description, icon_class_name, notes, showDetail, subtransactions } = this.state
     return(
       <div className="transaction-wrapper">
         <div className="transaction">
           <div className="left-icon">
             <LeftIcon
-             expandDetail={this.expandDetail}
-             collapseDetail={this.collapseDetail}
-             {...this.state}
+              showDetail={showDetail}
+              subtransactions={subtransactions}
+              expandDetail={this.expandDetail}
+              collapseDetail={this.collapseDetail}
             />
           </div>
-          <ClearanceDate {...this.state} />
-          <Description {...this.state} />
-          <div className="amount">
-            {MoneyFormatter(amount)}
-          </div>
-          <div className="balance">
-            {MoneyFormatter(this.state.balance)}
-          </div>
-          <CheckNumber {...this.state} />
+          <ClearanceDate clearanceDate={clearance_date} />
+          <Description
+            budgetCategory={budget_category}
+            iconClassName={icon_class_name}
+            description={description}
+          />
+          <Amount amount={amount} />
+          <Balance balance={balance} />
+          <CheckNumber checkNumber={check_number} />
           <BudgetCategories {...this.state} />
-          <BudgetExclusion {...this.state} />
-          <Notes {...this.state} />
+          <BudgetExclusion budgetExclusion={budget_exclusion} />
+          <Notes notes={notes} />
         </div>
-        <Subtransactions {...this.state} />
+        <Subtransactions showDetail={showDetail} subtransactions={subtransactions} />
       </div>
     )
   }

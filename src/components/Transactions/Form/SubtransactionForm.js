@@ -29,7 +29,8 @@ class SubtransactionForm extends Component {
      )
   }
 
-  removeSubtransaction() {
+  removeSubtransaction(ev) {
+    ev.preventDefault()
     this.state.removeSubtransaction(this.state._id)
   }
 
