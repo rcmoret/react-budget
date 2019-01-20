@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import Icon from "../Icons/Icon"
+import AccountFormContainer from './AccountFormContainer'
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 
 class AccountForm extends Component {
@@ -56,53 +56,14 @@ class AccountForm extends Component {
 
   render() {
     return (
-      <div className="account-edit">
-        <div>
-          <h3>
-            {this.state.name ? this.state.name : "Add new"}
-          </h3>
-          <hr />
-          <div className="form-row">
-            <div className="label">
-              <label>
-                Name
-              </label>
-            </div>
-            <div className="input">
-              <input type="text" name="account[name]" value={this.state.name} onChange={this.updateName} />
-            </div>
-          </div>
-          <div className="form-row">
-            <div className="label">
-              <label>
-                Priority
-              </label>
-            </div>
-            <div className="input">
-              <input type="number" name="account[priority]" value={this.state.priority} onChange={this.updatePriority} />
-            </div>
-          </div>
-          <div className="form-row">
-            <div className="label">
-              <label>
-                Cash Flow
-              </label>
-            </div>
-            <div className="input">
-              <input type="checkbox" name="account[cash_flow]" checked={this.state.cash_flow} onChange={this.updateCashFlow} />
-            </div>
-          </div>
-          <div className="form-row">
-            <button type="submit" className="submit" onClick={this.submitForm}>
-              {this.state.id ? "Update" : "Create"} Account <Icon className="far fa-save" />
-            </button>
-            &nbsp;
-            <button type="cancel" className="cancel" onClick={this.state.closeForm}>
-              Cancel <Icon className="fas fa-times" />
-            </button>
-          </div>
-        </div>
-      </div>
+      <AccountFormContainer
+        {...this.state}
+        updateName={this.updateName}
+        updatePriority={this.updatePriority}
+        updateCashFlow={this.updateCashFlow}
+        closeForm={this.state.closeForm}
+        submitForm={this.submitForm}
+      />
     )
   }
 }

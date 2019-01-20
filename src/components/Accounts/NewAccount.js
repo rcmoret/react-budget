@@ -1,7 +1,6 @@
 import React, { Component } from "react"
-import { Link } from "react-router-dom"
 import AccountForm from "./AccountForm"
-import Icon from "../Icons/Icon"
+import AddNewRow from "./AddNewRow"
 
 class NewAccount extends Component {
   constructor(props) {
@@ -28,15 +27,7 @@ class NewAccount extends Component {
       )
     } else {
       return(
-        <div className="account-edit">
-          <div>
-            <h3>
-              <Link to="#" onClick={this.showForm}>
-                <Icon className="fas fa-plus" /> Add new
-              </Link>
-            </h3>
-          </div>
-        </div>
+        <AddNewRow showForm={this.showForm} />
       )
     }
   }

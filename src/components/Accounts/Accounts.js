@@ -1,20 +1,6 @@
 import React, { Component } from "react"
-import Account from "./Account"
-import AccountOptions from "./AccountOptions"
-import Transactions from "../Transactions/Transactions"
+import AccountsContainer from "./AccountsContainer"
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
-
-const AccountDetail = (props) => {
-  if (props.selectedAccount.id === 0) {
-    return(
-      <AccountOptions {...props} />
-    )
-  } else {
-    return(
-      <Transactions selectedAccount={props.selectedAccount} />
-    )
-  }
-}
 
 class Accounts extends Component {
   constructor(props) {
@@ -61,17 +47,10 @@ class Accounts extends Component {
       return null
     } else {
       return (
-        <div className="accounts">
-          {this.orderedAccounts().map((account) =>
-            <Account
-              key={account.id}
-              {...account}
-            />
-          )
-          }
-          <AccountDetail selectedAccount={this.selectedAccount()} />
-          <hr/>
-        </div>
+        <AccountsContainer
+          accounts={this.orderedAccounts()}
+          selectedAccount={this.selectedAccount()}
+        />
       )
     }
   }

@@ -1,7 +1,6 @@
 import React, { Component } from "react"
-import AccountShow from "./AccountShow"
-import NewAccount from "./NewAccount"
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
+import IndexContainer from "./IndexContainer"
 
 class AccountsIndex extends Component {
   constructor(props) {
@@ -44,19 +43,12 @@ class AccountsIndex extends Component {
 
   render() {
     return (
-      <div className="accounts">
-        <div className="account-show">
-          {this.orderedAccounts().map((account) =>
-            <AccountShow
-              key={account.id}
-              {...account}
-              onUpdate={this.onUpdate}
-            />
-          )
-          }
-          <NewAccount {...this.state} onSave={this.onSave} />
-        </div>
-      </div>
+      <IndexContainer
+        {...this.state}
+        accounts={this.orderedAccounts()}
+        onUpdate={this.onUpdate}
+        onSave={this.onSave}
+      />
     )
   }
 }
