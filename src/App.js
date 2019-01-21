@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { Provider } from 'react-redux'
 import Accounts from './components/Accounts/Accounts';
 import AccountIndex from './components/Accounts/AccountIndex';
 import BudgetIndex from './components/Budget/Index';
