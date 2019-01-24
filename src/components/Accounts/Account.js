@@ -3,7 +3,8 @@ import { Link } from "react-router-dom"
 import MoneyFormatter from "../../shared/Functions/MoneyFormatter"
 
 const Account = (props) => {
-  const { id, name, balance, isSelected } = props
+  const { id, name, balance, selectedAccountId } = props
+  const isSelected = selectedAccountId === id
   return (
     <Link to={`/accounts/${id}`}>
       <div className={`account ${isSelected ? "active" : "" }`}>

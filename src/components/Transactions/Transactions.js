@@ -31,12 +31,12 @@ class Transactions extends Component {
   }
 
   componentWillMount() {
-    this.fetchTransactions(this.state.selectedAccount.id)
+    this.fetchTransactions(this.state.selectedAccountId)
   }
 
-  componentWillReceiveProps(nextProps, prevState) {
+  componentWillReceiveProps(nextProps) {
     this.setState(nextProps)
-    this.fetchTransactions(nextProps.selectedAccount.id)
+    this.fetchTransactions(nextProps.selectedAccountId)
   }
 
   dateRange() {
