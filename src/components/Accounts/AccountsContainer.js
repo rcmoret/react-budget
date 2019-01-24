@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux';
 import Account from "./Account"
 import AccountOptions from "./AccountOptions"
-import Transactions from "../Transactions/Transactions"
+import TransactionsWrapper from "../Transactions/Wrapper"
 
 const AccountDetail = (props) => {
   if (props.selectedAccountId === 0) {
@@ -11,7 +11,7 @@ const AccountDetail = (props) => {
     )
   } else {
     return(
-      <Transactions selectedAccountId={props.selectedAccountId} />
+      <TransactionsWrapper accountId={props.selectedAccountId} />
     )
   }
 }

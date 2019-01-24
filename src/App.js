@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { createStore, combineReducers } from 'redux'
 import accountsReducer from "./reducers/accounts"
+import transactionsReducer from "./reducers/transactions"
 import Accounts from './components/Accounts/Accounts';
 import AccountIndex from './components/Accounts/AccountIndex';
 import BudgetIndex from './components/Budget/Index';
@@ -13,6 +14,7 @@ import './App.css';
 const store = createStore(
                   combineReducers({
                     accounts: accountsReducer,
+                    transactions: transactionsReducer,
                   })
 )
 
