@@ -1,4 +1,5 @@
 import React from 'react'
+import ResetButton from "./ResetButton"
 import Icon from "../Icons/Icon"
 
 const AccountFormContainer = (props) => (
@@ -39,10 +40,10 @@ const AccountFormContainer = (props) => (
         </div>
       </div>
       <div className="form-row">
+        <ResetButton {...props} />
         <button type="submit" className="submit" onClick={props.submitForm}>
           {props.id ? "Update" : "Create"} Account <Icon className="far fa-save" />
         </button>
-        &nbsp;
         <button type="cancel" className="cancel" onClick={props.closeForm}>
           Cancel <Icon className="fas fa-times" />
         </button>

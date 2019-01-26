@@ -58,6 +58,7 @@
   padding: 0.75%;
   font-size: 0.8em;
   border: none;
+  margin-right: 0.75%;
 }
 
 .account-edit button.submit {
@@ -68,9 +69,12 @@
 .account-edit button.cancel {
   background-color: #FF3C52;
 }
+
+.account-edit button.reset {
+  background-color: #8AB6FF;
+}
+
 .account-edit .label, .account-edit .input {
   display: inline-block;
   width: 8%;
 }
-
-

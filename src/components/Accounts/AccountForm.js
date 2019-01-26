@@ -1,43 +1,29 @@
-import React, { Component } from "react"
+import React from "react"
+import { connect } from "react-redux"
+import { addNew, resetForm, updateNew } from "../../actions/accounts"
 import AccountFormContainer from './AccountFormContainer'
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 
-class AccountForm extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      ...props
-    }
-    this.updateName = this.updateName.bind(this)
-    this.updatePriority = this.updatePriority.bind(this)
-    this.updateCashFlow = this.updateCashFlow.bind(this)
-    this.submitForm = this.submitForm.bind(this)
-    this.accountBody = this.accountBody.bind(this)
+const AccountForm = (props) => {
+  const updateName = (e) => {
+    props.dispatch(updateNew({ name: e.target.value }))
   }
 
-  updateName(ev) {
-    this.setState({ name: ev.target.value })
+  const updatePriority = (e) => {
+    props.dispatch(updateNew({ priority: e.target.value }))
   }
 
-  updatePriority(ev) {
-    this.setState({ priority: ev.target.value })
+  const updateCashFlow = (e) => {
+    props.dispatch(updateNew({ cash_flow: !props.cash_flow }))
   }
 
-  updateCashFlow(ev) {
-    this.setState({ cash_flow: !this.state.cash_flow })
-  }
-
-  accountBody() {
+  const submitForm = (_e) => {
+    const url  = ApiUrlBuilder(["accounts"])
     const body = {
-      name: this.state.name,
-      priority: this.state.priority,
-      cash_flow: this.state.cash_flow,
+      name: props.name,
+      priority: props.priority,
+      cash_flow: props.cash_flow,
     }
-    return JSON.stringify(body)
-  }
-
-  submitForm(ev) {
-    const url  = this.state.account_id ? ApiUrlBuilder(["accounts", this.state.account_id]) : ApiUrlBuilder(["accounts"])
     fetch(url,
       {
         method: "POST",
@@ -45,27 +31,23 @@ class AccountForm extends Component {
           "Accept": "application/json",
           "Content-Type": "application/json",
         },
-        body: this.accountBody(),
+        body: JSON.stringify(body),
       }
     )
       .then(resp => resp.json())
-      .then(data => this.state.onSave(data))
-      .then(() => this.setState({ name: "", priority: "" }))
-      .then(() => this.state.closeForm())
+      .then(data => props.dispatch(addNew(data)))
+      .then(() => props.dispatch(resetForm()))
   }
 
-  render() {
-    return (
-      <AccountFormContainer
-        {...this.state}
-        updateName={this.updateName}
-        updatePriority={this.updatePriority}
-        updateCashFlow={this.updateCashFlow}
-        closeForm={this.state.closeForm}
-        submitForm={this.submitForm}
-      />
-    )
-  }
+  return (
+    <AccountFormContainer
+      {...props}
+      updateName={updateName}
+      updatePriority={updatePriority}
+      updateCashFlow={updateCashFlow}
+      submitForm={submitForm}
+    />
+  )
 }
 
 AccountForm.defaultProps = {
@@ -74,4 +56,4 @@ AccountForm.defaultProps = {
   cash_flow: true,
 }
 
-export default AccountForm
+export default connect(state => state.accounts.newAccount)(AccountForm)

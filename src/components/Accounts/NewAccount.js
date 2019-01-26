@@ -1,40 +1,37 @@
-import React, { Component } from "react"
+import React from "react"
+import { connect } from "react-redux"
+import { toggleShowNewForm } from "../../actions/accounts"
 import AccountForm from "./AccountForm"
 import AddNewRow from "./AddNewRow"
 
-class NewAccount extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      ...props,
-    }
-    this.showForm = this.showForm.bind(this)
-    this.closeForm = this.closeForm.bind(this)
+const NewAccount = (props) => {
+  const showForm = (e) => {
+    e.preventDefault()
+    props.dispatch(toggleShowNewForm({ showForm: true }))
   }
 
-  showForm() {
-    this.setState({ showForm: true })
+  const closeForm = (e) => {
+    e.preventDefault()
+    props.dispatch(toggleShowNewForm({ showForm: false }))
   }
 
-  closeForm() {
-    this.setState({ showForm: false })
-  }
-
-  render() {
-    if (this.state.showForm) {
-      return (
-        <AccountForm onSave={this.state.onSave} closeForm={this.closeForm} {...this.state} />
-      )
-    } else {
-      return(
-        <AddNewRow showForm={this.showForm} />
-      )
-    }
+  if (props.showNewForm) {
+    return (
+      <AccountForm closeForm={closeForm} />
+    )
+  } else {
+    return(
+      <AddNewRow showForm={showForm} />
+    )
   }
 }
 
 NewAccount.defaultProps = {
-  showForm: false,
+  showNewForm: false,
 }
 
-export default NewAccount
+const mapStateToProps = (state) => {
+  return { showNewForm: state.accounts.showNewForm }
+}
+
+export default connect(mapStateToProps)(NewAccount)

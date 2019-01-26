@@ -5,14 +5,13 @@ import NewAccount from "./NewAccount"
 const IndexContainer = (props) => (
   <div className="accounts">
     <div className="account-show">
-      {props.accounts.map((account) =>
+      {props.collection.map((account) =>
         <AccountShow
           key={account.id}
           {...account}
-          onUpdate={props.onUpdate}
         />
       )}
-      <NewAccount {...props} onSave={props.onSave} />
+      <NewAccount {...props} />
     </div>
   </div>
 )
