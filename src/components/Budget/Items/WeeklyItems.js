@@ -1,36 +1,22 @@
-import React, { Component } from 'react';
-import Discretionary from '../Discretionary/Discretionary'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { weeklyFetched } from "../../../actions/budget"
+import Discretionary from "../Discretionary/Discretionary"
 import WeeklyGroup from "./WeeklyGroup"
-import ApiUrlBuilder from '../../../shared/Functions/ApiUrlBuilder'
+import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 
 class WeeklyItems extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      ...props
-    }
-    this.revenues = this.revenues.bind(this)
-    this.expenses = this.expenses.bind(this)
-  }
-
   componentWillMount() {
-    fetch(ApiUrlBuilder(['budget', 'weekly_items']))
+    const url = ApiUrlBuilder(['budget', 'weekly_items'])
+    fetch(url)
       .then(response => response.json())
-      .then(data => this.setState({
-        items: data
-      })
-     )
-  }
-
-  revenues() {
-    return this.state.items.filter((item) => !item.expense)
-  }
-
-  expenses() {
-    return this.state.items.filter((item) => item.expense)
+      .then(data => this.props.dispatch(weeklyFetched(data)))
   }
 
   render() {
+    const { collection } = this.props
+    const expenses = collection.filter((item) => item.expense)
+    const revenues = collection.filter((item) => !item.expense)
     return(
       <div className="weekly-items">
         <h3>Weekly Items</h3>
@@ -39,15 +25,15 @@ class WeeklyItems extends Component {
           <h4>Discretionary</h4>
           <Discretionary />
         </div>
-        <WeeklyGroup collection={this.revenues()} title="Revenues" />
-        <WeeklyGroup collection={this.expenses()} title="Expenses" />
+        <WeeklyGroup collection={revenues} title="Revenues" />
+        <WeeklyGroup collection={expenses} title="Expenses" />
       </div>
     )
   }
 }
 
 WeeklyItems.defaultProps = {
-  items: [],
+  collection: [],
 }
 
-export default WeeklyItems
+export default connect(state => state.budget.weekly)(WeeklyItems)

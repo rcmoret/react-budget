@@ -1,48 +1,34 @@
-import React, { Component } from 'react';
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
+import { monthlyFetched } from "../../../actions/budget"
 import MonthlyGroup from "./MonthlyGroup"
-import ApiUrlBuilder from '../../../shared/Functions/ApiUrlBuilder'
 
 class MonthlyItems extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      ...props
-    }
-    this.revenues = this.revenues.bind(this)
-    this.expenses = this.expenses.bind(this)
-  }
-
   componentWillMount() {
-    fetch(ApiUrlBuilder(['budget', 'monthly_items']))
+    const url = ApiUrlBuilder(['budget', 'monthly_items'])
+    fetch(url)
       .then(response => response.json())
-      .then(data => this.setState({
-        items: data
-      })
-     )
-  }
-
-  revenues() {
-    return this.state.items.filter((item) => !item.expense)
-  }
-
-  expenses() {
-    return this.state.items.filter((item) => item.expense)
+      .then(data => this.props.dispatch(monthlyFetched(data)))
   }
 
   render() {
+    const { collection } = this.props
+    const revenues = collection.filter(item => !item.expense)
+    const expenses = collection.filter(item => item.expense)
     return(
       <div className="monthly-items">
         <h3>Monthly Items</h3>
         <hr/>
-        <MonthlyGroup collection={this.revenues()} title="Revenues" />
-        <MonthlyGroup collection={this.expenses()} title="Expenses" />
+        <MonthlyGroup collection={revenues} title="Revenues" />
+        <MonthlyGroup collection={expenses} title="Expenses" />
       </div>
     )
   }
 }
 
 MonthlyItems.defaultProps = {
-  items: [],
+  collection: [],
 }
 
-export default MonthlyItems;
+export default connect(state => state.budget.monthly)(MonthlyItems)
