@@ -1,47 +1,33 @@
-import React, { Component } from "react";
-import BudgetCategory from "./Category";
-import Header from "./Header"
-import NewBudgetCategory from "./NewCategory";
+import React, { Component } from "react"
+import { connect } from "react-redux"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
+import { categoriesFetched } from "../../../actions/budget"
+import BudgetCategory from "./Category"
+import Header from "./Header"
+import NewBudgetCategory from "./NewCategory"
 
 class BudgetCategories extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      ...props
-    }
-    this.onSave = this.onSave.bind(this)
-  }
-
   componentWillMount() {
-    fetch(ApiUrlBuilder(['budget', 'categories']))
+    const url = ApiUrlBuilder(['budget', 'categories'])
+    fetch(url)
       .then(response => response.json())
-      .then(data => this.setState({
-        categories: data
-      })
-     )
-  }
-
-  onSave(category) {
-    let { categories } = this.state
-    categories.push(category)
-    this.setState({ categories: categories })
+      .then(data => this.props.dispatch(categoriesFetched(data)))
   }
 
   render() {
-    const { categories } = this.state
+    const { collection } = this.props
     return (
       <div className="categories">
         <h2>Budget Categories</h2>
         <Header />
-        {categories.map((category) =>
+        {collection.map((category) =>
           <BudgetCategory
             key={category.id}
             {...category}
            />
          )}
         <div className="budget-category">
-          <NewBudgetCategory onSave={this.onSave} />
+          <NewBudgetCategory />
         </div>
       </div>
     )
@@ -52,4 +38,4 @@ BudgetCategories.defaultProps = {
   categories: [],
 }
 
-export default BudgetCategories;
+export default connect(state => state.budget.categories)(BudgetCategories)
