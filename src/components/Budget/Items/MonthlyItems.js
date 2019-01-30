@@ -15,7 +15,9 @@ class MonthlyItems extends Component {
   render() {
     const { collection } = this.props
     const revenues = collection.filter(item => !item.expense)
+      .sort((a, b) => (Math.abs(b.amount) - Math.abs(a.amount)))
     const expenses = collection.filter(item => item.expense)
+      .sort((a, b) => (Math.abs(b.amount) - Math.abs(a.amount)))
     return(
       <div className="monthly-items">
         <h3>Monthly Items</h3>

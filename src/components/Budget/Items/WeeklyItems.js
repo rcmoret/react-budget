@@ -16,7 +16,9 @@ class WeeklyItems extends Component {
   render() {
     const { collection } = this.props
     const expenses = collection.filter((item) => item.expense)
+      .sort((a, b) => (Math.abs(b.amount) - Math.abs(a.amount)))
     const revenues = collection.filter((item) => !item.expense)
+      .sort((a, b) => (Math.abs(b.amount) - Math.abs(a.amount)))
     return(
       <div className="weekly-items">
         <h3>Weekly Items</h3>
