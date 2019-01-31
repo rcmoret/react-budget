@@ -1,131 +1,108 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
+import { connect } from "react-redux"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
+import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
+import { addCategory, updateNewCategory } from "../../../actions/budget"
 
-class NewBudgetCategory extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      ...props,
-    }
-    this.createNewCategory = this.createNewCategory.bind(this)
-    this.updateName = this.updateName.bind(this)
-    this.updateDefaultAmount = this.updateDefaultAmount.bind(this)
-    this.updateExpense = this.updateExpense.bind(this)
-    this.updateMonthly = this.updateMonthly.bind(this)
-    this.resetForm = this.resetForm.bind(this)
-    this.categoryBody = this.categoryBody.bind(this)
+const NewBudgetCategory = (props) => {
+  const updateName = (e) => {
+    props.dispatch(updateNewCategory({ name: e.target.value }))
   }
 
-  updateName(ev) {
-    const { category } = this.state
-    category['name'] = ev.target.value
-    this.setState({ category: category })
+  const updateDefaultAmount = (e) => {
+    props.dispatch(updateNewCategory({ default_amount: e.target.value }))
   }
 
-  updateDefaultAmount(ev) {
-    const { category } = this.state
-    category['default_amount'] = ev.target.value
-    this.setState({ category: category })
+  const updateExpense = (e) => {
+    props.dispatch(updateNewCategory({ expense: e.target.value }))
   }
 
-  updateExpense(ev) {
-    const { category } = this.state
-    category['expense'] = ev.target.value
-    this.setState({ category: category })
+  const updateMonthly = (e) => {
+    props.dispatch(updateNewCategory({ monthly: e.target.value }))
   }
 
-  updateMonthly(ev) {
-    const { category } = this.state
-    category['monthly'] = ev.target.value
-    this.setState({ category: category })
-  }
-
-  resetForm() {
-    this.setState({
-      category: {
+  const resetForm = (_e) => {
+    props.dispatch(updateNewCategory(
+      {
         name: '',
         default_amount: '',
-        expense: null,
         monthly: null,
+        expense: null
       }
-    })
+    ))
   }
 
-  categoryBody() {
-    const body = {
-      name: this.state.category.name,
-      default_amount: Math.floor(parseFloat(this.state.category.default_amount) * 100),
-      monthly: this.state.category.monthly,
-      expense: this.state.category.expense,
-    }
-    return JSON.stringify(body)
+  const postBody = {
+    name: props.name,
+    default_amount: decimalToInt(props.default_amount),
+    monthly: props.monthly,
+    expense: props.expense,
   }
 
-  createNewCategory(ev) {
-    fetch(ApiUrlBuilder(['budget', 'categories']),
+  const createNewCategory = (e) => {
+    const url = ApiUrlBuilder(['budget', 'categories'])
+    fetch(url,
           {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
             },
-            body: this.categoryBody()
+            body: JSON.stringify(postBody)
         })
         .then(response => response.json())
-        .then(data => this.state.onSave(data))
-        .then(() => this.resetForm())
+        .then(data => props.dispatch(addCategory(data)))
+        .then(() => resetForm())
+  // }
   }
 
-  render() {
-    const { name, default_amount, expense, monthly } = this.state.category
-    return (
-      <div>
-        <label>Name</label>
-        <input type="text" name="category[name]" onChange={this.updateName} value={name} />
-        <label>Default Amount</label>
-        <input type="text" name="category[default_amount]" onChange={this.updateDefaultAmount} value={default_amount} />
-        <label>Expense</label>
-        <input type="radio"
-         name="category[expense]"
-         value="true"
-         onChange={this.updateExpense}
-         checked={expense === "true" ? "checked" : ""}
-         />
-        <label>Revenue</label>
-        <input type="radio"
-         name="category[expense]"
-         value="false"
-         onChange={this.updateExpense}
-         checked={expense === "false" ? "checked" : ""}
-         />
-        <label>Monthly</label>
-        <input type="radio"
-         name="category[monthly]"
-         value="true"
-         onChange={this.updateMonthly}
-         checked={monthly === "true" ? "checked" : ""}
-         />
-        <label>Weekly</label>
-        <input type="radio"
-         name="category[monthly]"
-         value="false"
-         onChange={this.updateMonthly}
-         checked={monthly === "false" ? "checked" : ""}
-         />
-        <br/>
-        <button type="submit" onClick={this.createNewCategory}>
-          Create
-        </button>
-      </div>
-    )
-  }
+
+  return (
+    <div>
+      <label>Name</label>
+      <input type="text" name="category[name]" onChange={updateName} value={props.name} />
+      <label>Default Amount</label>
+      <input type="text" name="category[default_amount]" onChange={updateDefaultAmount} value={props.default_amount} />
+      <label>Expense</label>
+      <input type="radio"
+       name="category[expense]"
+       value="true"
+       onChange={updateExpense}
+       checked={props.expense === "true" ? "checked" : ""}
+       />
+      <label>Revenue</label>
+      <input type="radio"
+       name="category[expense]"
+       value="false"
+       onChange={updateExpense}
+       checked={props.expense === "false" ? "checked" : ""}
+       />
+      <label>Monthly</label>
+      <input type="radio"
+       name="category[monthly]"
+       value="true"
+       onChange={updateMonthly}
+       checked={props.monthly === "true" ? "checked" : ""}
+       />
+      <label>Weekly</label>
+      <input type="radio"
+       name="category[monthly]"
+       value="false"
+       onChange={updateMonthly}
+       checked={props.monthly === "false" ? "checked" : ""}
+       />
+      <br/>
+      <button type="submit" onClick={createNewCategory}>
+        Create
+      </button>
+    </div>
+  )
 }
 
 NewBudgetCategory.defaultProps = {
-  category: {
-    name: '',
-    default_amount: '',
-  },
+  name: '',
+  default_amount: '',
+  showForm: false,
 }
 
-export default NewBudgetCategory
+export default connect(state => state.budget.newCategory)(NewBudgetCategory)
