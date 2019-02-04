@@ -18,7 +18,6 @@ class Transactions extends Component {
 
   render() {
     const { budgetCategory, collection } = this.state
-    console.log(budgetCategory)
     if (collection.length > 0) {
       return (
         <div className="budget-transactions">

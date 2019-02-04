@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import { connect } from "react-redux"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
@@ -53,7 +53,6 @@ const NewBudgetCategory = (props) => {
         .then(response => response.json())
         .then(data => props.dispatch(addCategory(data)))
         .then(() => resetForm())
-  // }
   }
 
 

@@ -41,7 +41,6 @@ const AccountShow = (props) => {
       priority: props.priority,
       cash_flow: props.cash_flow,
     }
-    console.log(body)
     fetch(url,
       {
         method: "PUT",
