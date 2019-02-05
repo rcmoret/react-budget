@@ -22,6 +22,10 @@ export const updateNewCategory = (payload) => {
   return { type: "budget/UPDATE_NEW_CATEGORY", payload: payload }
 }
 
+export const updateMonthlyItem = (payload) => {
+  return { type: "budget/UPDATE_MONTHLY_ITEM", payload: payload }
+}
+
 export const updateWeeklyItem = (payload) => {
   return { type: "budget/UPDATE_WEEKLY_ITEM", payload: payload }
 }

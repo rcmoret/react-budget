@@ -1,24 +1,29 @@
-import React, { Component } from 'react'
-import MonthlyItemContainer from "./MonthlyItemContainer"
+import React from "react"
+import Amount from "./Amount"
+import Icon from "../../Icons/Icon"
 
-class MonthlyItem extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      ...props
-    }
-    this.updateParent = this.updateParent.bind(this)
-  }
-
-  updateParent(newState) {
-    this.setState(newState)
-  }
-
-  render() {
-    return (
-      <MonthlyItemContainer {...this.state} updateParent={this.updateParent} />
-    );
-  }
+const MonthlyItem = (props) => {
+  return (
+    <div className='budget-item'>
+      <div className="budget-item-detail">
+        <div className='budget-item-description'>
+          <div className="caret">
+            <Icon className="fas fa-caret-right" />
+          </div>
+          {props.name}
+          &nbsp;
+          <Icon className={props.icon_class_name} />
+        </div>
+        <div className='budget-item-amount'>
+          <Amount
+           absolute={true}
+           {...props}
+           remaining={props.amount}
+          />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default MonthlyItem;

@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux"
 import AmountContainer from "./AmountContainer"
-import AmountInput from "./AmountInput"
+import WeeklyAmountInput from "./WeeklyAmountInput"
 
 const WeeklyAmount = (props) => {
   if (props.updateItem) {
     return (
-      <AmountInput
+      <WeeklyAmountInput
         amount={props.amount}
         categoryId={props.category_id}
         floatAmount={props.floatAmount}

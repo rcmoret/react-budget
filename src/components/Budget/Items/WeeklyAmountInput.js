@@ -1,18 +1,18 @@
 import React from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { editWeeklyAmount, updateWeeklyAmount } from "../../../actions/budget"
+import { editWeeklyItem, updateWeeklyItem } from "../../../actions/budget"
 import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 
-const AmountInput = (props) => {
+const WeeklyAmountInput = (props) => {
   const floatAmount = props.floatAmount || (props.amount / 100.0).toFixed(2)
 
   const handleChange = (e) => {
     e.preventDefault()
     const newValue = e.target.value
     const remaining = decimalToInt(newValue) - props.spent
-    props.dispatch(editWeeklyAmount({
+    props.dispatch(editWeeklyItem({
       id: props.id,
       floatAmount: newValue,
       remaining: remaining
@@ -22,7 +22,7 @@ const AmountInput = (props) => {
   const reset = (e) => {
     e.preventDefault()
     const remaining = props.amount - props.spent
-    props.dispatch(editWeeklyAmount({
+    props.dispatch(editWeeklyItem({
       id: props.id,
       floatAmount: ((props.amount / 100.0).toFixed(2)),
       updateItem: false,
@@ -45,8 +45,8 @@ const AmountInput = (props) => {
       }
     )
     .then(response => response.json())
-    .then(data => props.dispatch(updateWeeklyAmount(data)))
-    .then(() => props.dispatch(editWeeklyAmount({ id: props.id, floatAmount: null, updateItem: false })))
+    .then(data => props.dispatch(updateWeeklyItem(data)))
+    .then(() => props.dispatch(editWeeklyItem({ id: props.id, floatAmount: null, updateItem: false })))
   }
 
 
@@ -66,4 +66,4 @@ const AmountInput = (props) => {
   )
 }
 
-export default connect((_state, ownProps) => ownProps)(AmountInput)
+export default connect((_state, ownProps) => ownProps)(WeeklyAmountInput)
