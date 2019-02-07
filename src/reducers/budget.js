@@ -68,6 +68,17 @@ export default (state = initialState, action) => {
           collection: action.payload,
         },
     }
+    case "budget/FETCHED_WEEKLY_TRANSACTIONS":
+      return {
+        ...state,
+        weekly: {
+          collection: updateItemInCollection({
+            updatedItem: { id: action.payload.id, collection: action.payload.collection },
+            collection: state.weekly.collection,
+            save: false
+            })
+        }
+      }
     case "budget/MONTHLY_FETCHED":
       return { ...state, monthly: { collection: action.payload } }
     case "budget/TOGGLE_DISCRETIONARY_DETAIL":
