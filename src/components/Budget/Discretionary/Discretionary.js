@@ -1,49 +1,24 @@
-import React, { Component } from 'react'
-import ApiUrlBuilder from '../../../shared/Functions/ApiUrlBuilder'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
+import { fetchedDiscretionary } from "../../../actions/budget"
 import DiscretionaryContainer from "./DiscretionaryContainer"
 
 class Discretionary extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      name: 'spending cache',
-      remaining: 0,
-      showDetail: false,
-    }
-    this.expandDetail = this.expandDetail.bind(this)
-    this.collapseDetail = this.collapseDetail.bind(this)
-  }
-
   componentWillMount() {
-    fetch(ApiUrlBuilder(['budget', 'discretionary']))
+    const url = ApiUrlBuilder(['budget', 'discretionary'])
+    fetch(url)
       .then(response => response.json())
-      .then(data => this.setState({
-        ...data
-        })
-     )
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState(nextProps)
-  }
-
-  expandDetail(ev) {
-    this.setState({ showDetail: true })
-  }
-
-  collapseDetail(ev) {
-    this.setState({ showDetail: false })
+      .then(data => {
+        this.props.dispatch(fetchedDiscretionary(data))
+      })
   }
 
   render() {
     return (
-      <DiscretionaryContainer
-        {...this.state}
-        expandDetail={this.expandDetail}
-        collapseDetail={this.collapseDetail}
-      />
+      <DiscretionaryContainer />
     )
   }
 }
 
-export default Discretionary;
+export default connect((_state, ownProps) => ownProps)(Discretionary)

@@ -1,48 +1,37 @@
-import React, { Component } from 'react'
-import Details from '../Shared/Details'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { fetchedDiscretionaryTransactions } from "../../../actions/budget"
+import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
+import Details from "../Shared/Details"
 import OverUnderBudget from "./OverUnderBudget"
-import Remaining from '../Shared/Remaining'
-import SpentOrDeposited from '../Shared/SpentOrDeposited'
-import Transactions from './../Shared/Transactions'
-import ApiUrlBuilder from '../../../shared/Functions/ApiUrlBuilder'
+import Remaining from "../Shared/Remaining"
+import SpentOrDeposited from "../Shared/SpentOrDeposited"
+import Transactions from "./../Shared/Transactions"
 
 class DiscretionaryDetail extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      ...props
+  componentDidUpdate() {
+    const url = ApiUrlBuilder(["budget", "discretionary", "transactions"])
+    if (this.props.collection.length === 0 && this.props.showDetail) {
+      fetch(url)
+        .then(response => response.json())
+        .then(data => this.props.dispatch(fetchedDiscretionaryTransactions(data)))
     }
-    this.url = this.url.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-      this.setState(nextProps)
-  }
-
-  url() {
-    return ApiUrlBuilder(['budget', 'discretionary', 'transactions'])
-  }
-
-  render() {
-    if (this.state.showDetail) {
-      const { expense, over_under_budget, remaining, spent } = this.state
-      const { budgeted_per_day, budgeted_per_week, remaining_per_day, remaining_per_week } = this.state
+  render () {
+    if (this.props.showDetail) {
+      const { collection, expense, over_under_budget, total_remaining, spent } = this.props
       return (
         <div className="detail-wrapper">
           <OverUnderBudget overUnderBudget={over_under_budget} />
           <SpentOrDeposited expense={expense} spent={spent} />
-          <Remaining remaining={remaining} />
+          <Remaining remaining={total_remaining} />
           <hr />
-          <Details
-            budgetedPerDay={budgeted_per_day}
-            budgetedPerWeek={budgeted_per_week}
-            remainingPerDay={remaining_per_day}
-            remainingPerWeek={remaining_per_week}
-          />
+          <Details {...this.props} />
           <hr />
           <Transactions
             budgetCategory="Discretionary"
-            url={this.url()}
+            collection={collection}
           />
         </div>
       )
@@ -52,7 +41,4 @@ class DiscretionaryDetail extends Component {
   }
 }
 
-DiscretionaryDetail.defaultProps = {
-}
-
-export default DiscretionaryDetail;
+export default connect(state => state.budget.discretionary)(DiscretionaryDetail)
