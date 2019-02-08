@@ -1,4 +1,5 @@
 import { updateItemInCollection } from "./shared"
+import objectifyWeekly from "../shared/models/weeklyBudgetItem"
 
 const initialState = {
   discretionary: {
@@ -104,14 +105,19 @@ export default (state = initialState, action) => {
         ...state,
         weekly: {
           collection: updateItemInCollection({
-            updatedItem: action.payload,
+            updatedItem: objectifyWeekly(action.payload),
             collection: state.weekly.collection,
             save: true
             })
         }
       }
     case "budget/WEEKLY_FETCHED":
-      return { ...state, weekly: { collection: action.payload } }
+      return {
+        ...state,
+        weekly: {
+          collection: action.payload.map(item => objectifyWeekly(item))
+        }
+    }
     default:
       return state
   }

@@ -10,7 +10,7 @@ import Transactions from "../Shared/Transactions"
 class WeeklyDetail extends Component {
 
   componentDidUpdate() {
-    const collection = this.props.collection || []
+    const { collection } = this.props
     const { category_id, id } = this.props
     const url = ApiUrlBuilder(['budget', 'categories', category_id, 'items', id, 'transactions'])
     if (collection.length === 0 && this.props.showDetail) {
@@ -23,9 +23,9 @@ class WeeklyDetail extends Component {
   }
 
   render() {
-    const collection = this.props.collection || []
+    const { collection } = this.props
     if (this.props.showDetail) {
-      const { budgeted_per_day, budgeted_per_week, remaining_per_day, remaining_per_week } = this.props
+      const { budgetedPerDay, budgetedPerWeek, remainingPerDay, remainingPerWeek } = this.props
       return (
         <div className="detail-wrapper">
           <SpentOrDeposited {...this.props} />
@@ -35,10 +35,10 @@ class WeeklyDetail extends Component {
           </div>
           <hr />
           <Details
-            budgetedPerDay={budgeted_per_day}
-            budgetedPerWeek={budgeted_per_week}
-            remainingPerDay={remaining_per_day}
-            remainingPerWeek={remaining_per_week}
+            budgetedPerDay={budgetedPerDay}
+            budgetedPerWeek={budgetedPerWeek}
+            remainingPerDay={remainingPerDay}
+            remainingPerWeek={remainingPerWeek}
           />
           <hr />
           <Transactions
