@@ -1,4 +1,5 @@
 import { updateItemInCollection } from "./shared"
+import objectifyMonthly from "../shared/models/monthlyBudgetItem"
 import objectifyWeekly from "../shared/models/weeklyBudgetItem"
 
 const initialState = {
@@ -81,7 +82,12 @@ export default (state = initialState, action) => {
         }
       }
     case "budget/MONTHLY_FETCHED":
-      return { ...state, monthly: { collection: action.payload } }
+      return {
+        ...state,
+        monthly: {
+          collection: action.payload.map(item => objectifyMonthly(item))
+        }
+      }
     case "budget/TOGGLE_DISCRETIONARY_DETAIL":
       return { ...state, discretionary: { ...state.discretionary, ...action.payload } }
     case "budget/UPDATE_DISCRETIONARY":
