@@ -1,17 +1,15 @@
 import { updateItemInCollection } from "./shared"
+import objectifyDiscretionary from "../shared/models/discretionary"
 import objectifyMonthly from "../shared/models/monthlyBudgetItem"
 import objectifyWeekly from "../shared/models/weeklyBudgetItem"
 
 const initialState = {
   discretionary: {
-    remaining: {
-      remaining_budgeted: 0,
-      available_cash: 0,
-      charged: 0
-    },
-    available_cash: 0,
+    balance: 0,
     spent: 0,
-    over_under_budget: 0,
+    total_remaining: 0,
+    days_remaining: 1,
+    total_days: 1,
     collection: [],
   },
   categories: { collection: [] },
@@ -49,18 +47,9 @@ export default (state = initialState, action) => {
         }
       }
     case "budget/FETCHED_DISCRETIONARY":
-      const { available_cash, charged, remaining_budgeted } = action.payload.remaining
-      const total_remaining = available_cash + charged + remaining_budgeted
-      const { over_under_budget, spent } = action.payload
-      const amount = total_remaining - spent - over_under_budget
       return {
         ...state,
-        discretionary: {
-          ...action.payload,
-          total_remaining: total_remaining,
-          amount: amount,
-          collection: state.discretionary.collection,
-        }
+        discretionary: objectifyDiscretionary(action.payload, state)
       }
     case "budget/FETCHED_DISCRETIONARY_TRANSACTIONS":
       return {
@@ -91,8 +80,10 @@ export default (state = initialState, action) => {
     case "budget/TOGGLE_DISCRETIONARY_DETAIL":
       return { ...state, discretionary: { ...state.discretionary, ...action.payload } }
     case "budget/UPDATE_DISCRETIONARY":
-      debugger
-      return state
+      return {
+        ...state,
+        discretionary: objectifyDiscretionary(state.discretionary, state)
+      }
     case "budget/UPDATE_NEW_CATEGORY":
       return { ...state, newCategory: { ...state.newCategory, ...action.payload } }
     case "budget/UPDATE_MONTHLY_ITEM":

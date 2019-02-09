@@ -20,10 +20,10 @@ class DiscretionaryDetail extends Component {
 
   render () {
     if (this.props.showDetail) {
-      const { collection, expense, over_under_budget, total_remaining, spent } = this.props
+      const { collection, expense, overUnderBudgetAmount, total_remaining, spent } = this.props
       return (
         <div className="detail-wrapper">
-          <OverUnderBudget overUnderBudget={over_under_budget} />
+          <OverUnderBudget overUnderBudgetAmount={overUnderBudgetAmount} />
           <SpentOrDeposited expense={expense} spent={spent} />
           <Remaining remaining={total_remaining} />
           <hr />

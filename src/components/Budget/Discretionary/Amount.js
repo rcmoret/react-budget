@@ -5,13 +5,13 @@ const Amount = (props) => {
   if (props.showDetail) {
     return (
       <span>
-        {MoneyFormatter(props.amount, { absolute: true })}
+        {MoneyFormatter(props.amount)}
       </span>
     )
   } else {
     return (
       <span>
-        {MoneyFormatter(props.total_remaining, { absolute: true })}
+        {MoneyFormatter(props.total_remaining)}
       </span>
     )
   }
