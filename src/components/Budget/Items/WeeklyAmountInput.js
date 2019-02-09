@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { editWeeklyItem, updateWeeklyItem } from "../../../actions/budget"
+import { editWeeklyItem, updateDiscretionary, updateWeeklyItem } from "../../../actions/budget"
 import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 
@@ -45,8 +45,12 @@ const WeeklyAmountInput = (props) => {
       }
     )
     .then(response => response.json())
-    .then(data => props.dispatch(updateWeeklyItem(data)))
-    .then(() => props.dispatch(editWeeklyItem({ id: props.id, floatAmount: null, updateItem: false })))
+    .then(data => props.dispatch(updateWeeklyItem({
+      ...data,
+      floatAmount: null,
+      updateItem: false
+    })))
+    .then(() => props.dispatch(updateDiscretionary()))
   }
 
 

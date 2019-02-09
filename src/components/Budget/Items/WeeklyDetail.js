@@ -8,7 +8,6 @@ import SpentOrDeposited from "../Shared/SpentOrDeposited"
 import Transactions from "../Shared/Transactions"
 
 class WeeklyDetail extends Component {
-
   componentDidUpdate() {
     const { collection } = this.props
     const { category_id, id } = this.props
@@ -23,7 +22,8 @@ class WeeklyDetail extends Component {
   }
 
   render() {
-    const { collection } = this.props
+    const { collection, difference, expense, overUnderBudget } = this.props
+    const operator = !overUnderBudget ? "" : (expense ? "-" : "+")
     if (this.props.showDetail) {
       const { budgetedPerDay, budgetedPerWeek, remainingPerDay, remainingPerWeek } = this.props
       return (
@@ -31,7 +31,9 @@ class WeeklyDetail extends Component {
           <SpentOrDeposited {...this.props} />
           <div className="budget-item-detail">
             <div className="detail-description remaining">Remaining: </div>
-            <div className="detail-amount"> {MoneyFormatter(this.props.remaining)} </div>
+            <div className="detail-amount">
+              {operator} {MoneyFormatter(difference, { absolute: true })}
+            </div>
           </div>
           <hr />
           <Details

@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { weeklyFetched } from "../../../actions/budget"
+import { updateDiscretionary, weeklyFetched } from "../../../actions/budget"
 import Discretionary from "../Discretionary/Discretionary"
 import WeeklyGroup from "./WeeklyGroup"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
@@ -11,6 +11,7 @@ class WeeklyItems extends Component {
     fetch(url)
       .then(response => response.json())
       .then(data => this.props.dispatch(weeklyFetched(data)))
+      .then(() => this.props.dispatch(updateDiscretionary()))
   }
 
   render() {

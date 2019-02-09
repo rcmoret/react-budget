@@ -99,17 +99,20 @@ export default (state = initialState, action) => {
             })
         }
       }
-    case "budget/UPDATE_WEEKLY_ITEM":
+    case "budget/UPDATE_WEEKLY_ITEM": {
+      const weeklyItem = state.weekly.collection.find(item => item.id === action.payload.id)
+      const updatedWeeklyItem = objectifyWeekly({...weeklyItem, ...action.payload })
       return {
         ...state,
         weekly: {
           collection: updateItemInCollection({
-            updatedItem: objectifyWeekly(action.payload),
+            updatedItem: updatedWeeklyItem,
             collection: state.weekly.collection,
             save: true
             })
         }
       }
+    }
     case "budget/WEEKLY_FETCHED":
       return {
         ...state,
