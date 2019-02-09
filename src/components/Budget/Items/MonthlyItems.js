@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
-import { monthlyFetched } from "../../../actions/budget"
+import { monthlyFetched, updateDiscretionary } from "../../../actions/budget"
 import MonthlyGroup from "./MonthlyGroup"
 
 class MonthlyItems extends Component {
@@ -10,6 +10,7 @@ class MonthlyItems extends Component {
     fetch(url)
       .then(response => response.json())
       .then(data => this.props.dispatch(monthlyFetched(data)))
+      .then(() => this.props.dispatch(updateDiscretionary()))
   }
 
   render() {

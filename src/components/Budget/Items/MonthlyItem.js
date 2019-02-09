@@ -1,5 +1,5 @@
 import React from "react"
-import Amount from "./Amount"
+import MonthlyAmount from "./MonthlyAmount"
 import Icon from "../../Icons/Icon"
 
 const MonthlyItem = (props) => {
@@ -15,7 +15,7 @@ const MonthlyItem = (props) => {
           <Icon className={props.icon_class_name} />
         </div>
         <div className='budget-item-amount'>
-          <Amount
+          <MonthlyAmount
            absolute={true}
            {...props}
            remaining={props.amount}

@@ -87,11 +87,13 @@ export default (state = initialState, action) => {
     case "budget/UPDATE_NEW_CATEGORY":
       return { ...state, newCategory: { ...state.newCategory, ...action.payload } }
     case "budget/UPDATE_MONTHLY_ITEM":
+      const monthlyItem = state.monthly.collection.find(item => item.id === action.payload.id)
+      const updatedMonthlyItem = objectifyMonthly({...monthlyItem, ...action.payload })
       return {
         ...state,
         monthly: {
           collection: updateItemInCollection({
-            updatedItem: action.payload,
+            updatedItem: updatedMonthlyItem,
             collection: state.monthly.collection,
             save: true
             })
