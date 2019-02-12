@@ -6,34 +6,32 @@ import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 
 const WeeklyAmountInput = (props) => {
-  const floatAmount = props.floatAmount || (props.amount / 100.0).toFixed(2)
-
   const handleChange = (e) => {
     e.preventDefault()
     const newValue = e.target.value
-    const remaining = decimalToInt(newValue) - props.spent
+    const difference = decimalToInt(e.target.value) - props.spent
     props.dispatch(editWeeklyItem({
       id: props.id,
       floatAmount: newValue,
-      remaining: remaining
+      difference: difference
     }))
   }
 
   const reset = (e) => {
     e.preventDefault()
-    const remaining = props.amount - props.spent
+    const difference = props.amount - props.spent
     props.dispatch(editWeeklyItem({
       id: props.id,
       floatAmount: ((props.amount / 100.0).toFixed(2)),
+      difference: difference,
       updateItem: false,
-      remaining: remaining
     }))
   }
 
   const saveChange = (e) => {
     e.preventDefault()
     const body = { amount: decimalToInt(props.floatAmount) }
-    const url = ApiUrlBuilder(["budget", "categories", props.categoryId, "items", props.id])
+    const url = ApiUrlBuilder(["budget", "categories", props.budget_category_id, "items", props.id])
     fetch(url,
       {
         method: "PUT",
@@ -44,13 +42,13 @@ const WeeklyAmountInput = (props) => {
         body: JSON.stringify(body),
       }
     )
-    .then(response => response.json())
-    .then(data => props.dispatch(updateWeeklyItem({
-      ...data,
-      floatAmount: null,
-      updateItem: false
-    })))
-    .then(() => props.dispatch(updateDiscretionary()))
+      .then(response => response.json())
+      .then(data => props.dispatch(updateWeeklyItem({
+        ...data,
+        floatAmount: null,
+        updateItem: false
+      })))
+      .then(() => props.dispatch(updateDiscretionary()))
   }
 
 
@@ -61,10 +59,10 @@ const WeeklyAmountInput = (props) => {
       <Link to="#" onClick={reset} className="fas fa-times" />
       <br/>
       <input
-       name="amount"
-       value={floatAmount}
-       onChange={handleChange}
-       autcomplete="false"
+        name="amount"
+        value={props.floatAmount}
+        onChange={handleChange}
+        autcomplete="false"
       />
     </span>
   )

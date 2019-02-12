@@ -29,7 +29,7 @@ const MonthlyAmountInput = (props) => {
   const saveChange = (e) => {
     e.preventDefault()
     const body = { amount: decimalToInt(props.floatAmount) }
-    const url = ApiUrlBuilder(["budget", "categories", props.category_id, "items", props.id])
+    const url = ApiUrlBuilder(["budget", "categories", props.budget_category_id, "items", props.id])
     fetch(url,
       {
         method: "PUT",

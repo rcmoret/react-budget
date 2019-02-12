@@ -1,18 +1,33 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import MonthlyItems from './Items/MonthlyItems'
-import WeeklyItems from './Items/WeeklyItems'
+import React, { Component } from "react"
+import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
+import { connect } from "react-redux"
+import { itemsFetched, updateDiscretionary } from "../../actions/budget"
+import { Link } from "react-router-dom"
+import MonthlyItems from "./Items/MonthlyItems"
+import WeeklyItems from "./Items/WeeklyItems"
 
-const BudgetIndex = (_props) => (
-  <div id='budget'>
-    <WeeklyItems />
-    <MonthlyItems />
-    <Link to="/budget/categories">
-      <div className="category-link">
-        <h3>Manage Budget Categories</h3>
+class BudgetIndex extends Component {
+  componentWillMount() {
+    const url = ApiUrlBuilder(["budget", "items"])
+    fetch(url)
+      .then(response => response.json())
+      .then(data => this.props.dispatch(itemsFetched(data)))
+      .then(() => this.props.dispatch(updateDiscretionary()))
+  }
+
+  render() {
+    return (
+      <div id='budget'>
+        <WeeklyItems />
+        <MonthlyItems />
+        <Link to="/budget/categories">
+          <div className="category-link">
+            <h3>Manage Budget Categories</h3>
+          </div>
+        </Link>
       </div>
-    </Link>
-  </div>
-)
+    )
+  }
+}
 
-export default BudgetIndex
+export default connect()(BudgetIndex)

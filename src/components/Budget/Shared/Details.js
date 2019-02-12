@@ -10,7 +10,7 @@ const Details = (props) => (
           Per Day:
         </div>
         <div className="amount">
-          {MoneyFormatter(props.budgetedPerDay)}
+          {MoneyFormatter(props.budgetedPerDay, { absolute: true })}
         </div>
       </div>
       <div className="per-detail">
@@ -18,7 +18,7 @@ const Details = (props) => (
           Per Week:
         </div>
         <div className="amount">
-          {MoneyFormatter(props.budgetedPerWeek)}
+          {MoneyFormatter(props.budgetedPerWeek, { absolute: true })}
         </div>
       </div>
     </div>
@@ -29,7 +29,7 @@ const Details = (props) => (
           Per Day:
         </div>
         <div className="amount">
-          {MoneyFormatter(props.remainingPerDay)}
+          {MoneyFormatter(props.remainingPerDay, { absolute: true })}
         </div>
       </div>
       <div className="per-detail">
@@ -37,7 +37,7 @@ const Details = (props) => (
           Per Week:
         </div>
         <div className="amount">
-          {MoneyFormatter(props.remainingPerWeek)}
+          {MoneyFormatter(props.remainingPerWeek, { absolute: true })}
         </div>
       </div>
     </div>

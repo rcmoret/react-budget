@@ -29,14 +29,14 @@ const WeeklyItem = (props) => {
             />
           </div>
           {props.name}
-          { ' ' }
+          { " " }
           <Icon className={props.iconClassName} />
         </div>
         <div className='budget-item-amount'>
           <WeeklyAmount
-           expandDetail={expandDetail}
-           absolute={true}
-           {...props}
+            expandDetail={expandDetail}
+            absolute={true}
+            {...props}
           />
         </div>
       </div>

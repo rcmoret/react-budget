@@ -11,7 +11,7 @@ import Transactions from "./../Shared/Transactions"
 class DiscretionaryDetail extends Component {
   componentDidUpdate() {
     const url = ApiUrlBuilder(["budget", "discretionary", "transactions"])
-    if (this.props.collection.length === 0 && this.props.showDetail) {
+    if (this.props.showDetail && !this.props.fetchedTransactions ) {
       fetch(url)
         .then(response => response.json())
         .then(data => this.props.dispatch(fetchedDiscretionaryTransactions(data)))

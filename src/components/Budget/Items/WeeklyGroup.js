@@ -1,5 +1,5 @@
 import React from "react"
-import WeeklyItem from './WeeklyItem';
+import WeeklyItem from "./WeeklyItem"
 
 const WeeklyGroup = (props) => {
   const { collection, title } = props
@@ -7,12 +7,12 @@ const WeeklyGroup = (props) => {
     return (
       <div className="budget-group">
         <h4>{title}</h4>
-          {collection.map((item) =>
-            <WeeklyItem
-              key={item.id}
-              {...item}
-            />
-           )}
+        {collection.map(item =>
+          <WeeklyItem
+            key={item.id}
+            {...item}
+          />
+        )}
       </div>
     )
   } else {

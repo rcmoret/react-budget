@@ -1,24 +1,48 @@
-import React, { Component } from "react"
+import React from "react"
 import { connect } from "react-redux"
-import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
-import { fetchedDiscretionary } from "../../../actions/budget"
-import DiscretionaryContainer from "./DiscretionaryContainer"
+import { toggleDiscretionaryDetail } from "../../../actions/budget"
+import Amount from "./Amount"
+import Caret from "./../Shared/Caret"
+import DiscretionaryDetail from "./DiscretionaryDetail"
+import Icon from "../../Icons/Icon"
 
-class Discretionary extends Component {
-  componentWillMount() {
-    const url = ApiUrlBuilder(['budget', 'discretionary'])
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        this.props.dispatch(fetchedDiscretionary(data))
-      })
+const Discretionary = (props) => {
+  const expandDetail = (e) => {
+    e.preventDefault()
+    props.dispatch(toggleDiscretionaryDetail({ showDetail: true }))
   }
 
-  render() {
-    return (
-      <DiscretionaryContainer />
-    )
+  const collapseDetail = (e) => {
+    e.preventDefault()
+    props.dispatch(toggleDiscretionaryDetail({ showDetail: false }))
   }
+
+  return (
+    <div className='budget-item'>
+      <div className="budget-item-detail">
+        <div className='budget-item-description'>
+          <div className="caret">
+            <Caret
+              showDetail={props.showDetail}
+              expandDetail={expandDetail}
+              collapseDetail={collapseDetail}
+            />
+          </div>
+          Discretionary
+          {" "}
+          <Icon className='fa fa-money-bill-alt' />
+        </div>
+        <div className='budget-item-amount'>
+          <Amount
+            amount={props.amount}
+            showDetail={props.showDetail}
+            total_remaining={props.total_remaining}
+          />
+        </div>
+      </div>
+      <DiscretionaryDetail {...props} />
+    </div>
+  )
 }
 
-export default connect((_state, ownProps) => ownProps)(Discretionary)
+export default connect(state => state.budget.discretionary)(Discretionary)

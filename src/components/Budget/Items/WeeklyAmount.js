@@ -8,7 +8,7 @@ const WeeklyAmount = (props) => {
     return (
       <WeeklyAmountInput
         amount={props.amount}
-        categoryId={props.category_id}
+        budget_category_id={props.budget_category_id}
         floatAmount={props.floatAmount}
         id={props.id}
         spent={props.spent}
