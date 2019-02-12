@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from "react-redux"
-import AddTransaction from './AddTransaction'
-import Transaction from './Transaction';
-import DateFormatter from '../../shared/Functions/DateFormatter'
+import AddTransaction from "./AddTransaction"
+import Transaction from "./Transaction";
+import DateFormatter from "../../shared/Functions/DateFormatter"
 
 const Transactions = (props) => {
   const dateRange = () => {
@@ -66,14 +66,6 @@ const Transactions = (props) => {
     <AddTransaction {...props} />
     </div>
   )
-}
-
-Transactions.defaultProps = {
-  collection: [],
-  metadata: {
-    date_range: ['', ''],
-    prior_balance: 0,
-  },
 }
 
 export default connect(state => state.transactions)(Transactions)

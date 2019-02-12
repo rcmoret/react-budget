@@ -5,11 +5,6 @@ import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
 import Transactions from "./Transactions"
 
 class Wrapper extends Component {
-  constructor(props) {
-    super(props)
-    this.fetchTransactions = this.fetchTransactions.bind(this)
-  }
-
   fetchTransactions(accountId) {
     if (!Number.isInteger(accountId)) {
       return
