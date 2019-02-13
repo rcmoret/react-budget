@@ -8,11 +8,13 @@ import WeeklyItems from "./Items/WeeklyItems"
 
 class BudgetIndex extends Component {
   componentWillMount() {
-    const url = ApiUrlBuilder(["budget", "items"])
-    fetch(url)
-      .then(response => response.json())
-      .then(data => this.props.dispatch(itemsFetched(data)))
-      .then(() => this.props.dispatch(updateDiscretionary()))
+    if (!this.props.itemsFetched) {
+      const url = ApiUrlBuilder(["budget", "items"])
+      fetch(url)
+        .then(response => response.json())
+        .then(data => this.props.dispatch(itemsFetched(data)))
+        .then(() => this.props.dispatch(updateDiscretionary()))
+    }
   }
 
   render() {
@@ -30,4 +32,4 @@ class BudgetIndex extends Component {
   }
 }
 
-export default connect()(BudgetIndex)
+export default connect(state => state.budget)(BudgetIndex)

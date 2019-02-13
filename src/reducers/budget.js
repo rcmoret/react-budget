@@ -16,6 +16,7 @@ const initialState = {
   monthly: [],
   weekly: [],
   newCategory: { name: "", default_amount: "", showForm: false },
+  itemsFetched: false,
 }
 
 export default (state = initialState, action) => {
@@ -75,6 +76,7 @@ export default (state = initialState, action) => {
       weekly: action.payload.collection
         .filter(item => !item.monthly)
         .map(item => objectifyWeekly(item, action.payload.metadata)),
+      itemsFetched: true,
     }
   case "budget/WEEKLY_FETCHED":
     return {
