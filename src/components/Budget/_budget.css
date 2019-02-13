@@ -211,3 +211,11 @@
 .budget-item span.update-amount input {
   text-align: right;
 }
+
+.budget-group-header {
+  width: 100%;
+}
+
+.budget-group-header .title {
+  width: 94%
+}
