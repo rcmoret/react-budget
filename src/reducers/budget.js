@@ -76,11 +76,6 @@ export default (state = initialState, action) => {
         })
       }
     }
-  case "budget/FETCHED_DISCRETIONARY":
-    return {
-      ...state,
-      discretionary: objectifyDiscretionary(action.payload, state)
-    }
   case "budget/FETCHED_DISCRETIONARY_TRANSACTIONS":
     return {
       ...state,

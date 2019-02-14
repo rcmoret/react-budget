@@ -22,10 +22,6 @@ export const editWeeklyItem = (payload) => {
   return { type: "budget/EDIT_WEEKLY_ITEM", payload: payload }
 }
 
-export const fetchedDiscretionary = (payload) => {
-  return { type: "budget/FETCHED_DISCRETIONARY", payload: payload }
-}
-
 export const fetchedDiscretionaryTransactions = (payload) => {
   return { type: "budget/FETCHED_DISCRETIONARY_TRANSACTIONS", payload: payload }
 }
