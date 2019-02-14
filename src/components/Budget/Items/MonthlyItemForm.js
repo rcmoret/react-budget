@@ -1,11 +1,12 @@
 import React, { Component } from "react"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
-import { addWeeklyItem, categoriesFetched, editNewWeeklyItem, toggleWeeklyItemForm, updateDiscretionary } from "../../../actions/budget"
+import { addMonthlyItem, categoriesFetched, editNewMonthlyItem, toggleMonthlyItemForm, updateDiscretionary } from "../../../actions/budget"
 import { connect } from "react-redux"
 import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
 import Select from "react-select";
 
-class WeeklyItemForm extends Component {
+
+class MonthlyItemForm extends Component {
   constructor(props) {
     super(props)
     this.onCategoryChange = this.onCategoryChange.bind(this)
@@ -24,14 +25,15 @@ class WeeklyItemForm extends Component {
 
   onCategoryChange(e) {
     const category = this.props.categories.find(category => category.id === e.value)
-    this.props.dispatch(editNewWeeklyItem({
+    debugger
+    this.props.dispatch(editNewMonthlyItem({
       budget_category_id: e.value,
       amount: parseFloat(category.default_amount / 100.0).toFixed(2)
     }))
   }
 
   onAmountChange(e) {
-    this.props.dispatch(editNewWeeklyItem({
+    this.props.dispatch(editNewMonthlyItem({
       amount: e.target.value
     }))
   }
@@ -56,11 +58,11 @@ class WeeklyItemForm extends Component {
     })
     .then(response => response.json())
     .then(data => this.props.dispatch(
-      addWeeklyItem(data)
+      addMonthlyItem(data)
     ))
     .then(() => {
-      this.props.dispatch(toggleWeeklyItemForm({ showForm: false }))
-      this.props.dispatch(editNewWeeklyItem({ amount: "", budget_category_id: null }))
+      this.props.dispatch(toggleMonthlyItemForm({ showForm: false }))
+      this.props.dispatch(editNewMonthlyItem({ amount: "", budget_category_id: null }))
     })
     .then(() => this.props.dispatch(updateDiscretionary()))
   }
@@ -88,7 +90,7 @@ class WeeklyItemForm extends Component {
           <button
             className="new-item-submit"
             type="submit"
-            name="weekly-item-submit"
+            name="monthly-item-submit"
             onClick={this.onSave}
           >
             CREATE
@@ -102,26 +104,20 @@ class WeeklyItemForm extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const currentCategoryIds = state.budget.weekly.collection.map(item => item.budget_category_id)
-  const categories = state.budget.categories.collection.filter(category => {
-    return !category.monthly && !currentCategoryIds.includes(category.id)
-  })
-  const collection = categories.map(category => {
-    return {
-      value: category.id,
-      label: category.name,
-    }
-  })
-  const options = collection.sort((a, b) => {
+  const { collection } = state.budget.categories
+  const categories = collection.filter(c => c.monthly)
+  const options = categories.map(category => {
+    return { value: category.id, label: category.name, }
+  }).sort((a, b) => {
     return a.label.toLowerCase() < b.label.toLowerCase() ? -1 : 1
   })
-  const { newItem } = state.budget.weekly
+  const { newItem } = state.budget.monthly
   const value = options.find(option => option.value === newItem.budget_category_id)
   const { month, year } = state.budget.metadata
   return {
     options: options,
     categories: categories,
-    showForm: state.budget.weekly.showForm,
+    showForm: state.budget.monthly.showForm,
     categoriesFetched: state.budget.categories.fetched,
     value: value,
     amount: newItem.amount,
@@ -131,4 +127,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(WeeklyItemForm)
+export default connect(mapStateToProps)(MonthlyItemForm)

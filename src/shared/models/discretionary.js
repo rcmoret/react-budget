@@ -1,5 +1,5 @@
 export default (payload, state) => {
-  const monthlyItems = state.monthly
+  const monthlyItems = state.monthly.collection
   const weeklyItems = state.weekly.collection
   const items = [...monthlyItems, ...weeklyItems]
   const remainingBudgeted = items.reduce((acc, item) => {

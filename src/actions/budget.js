@@ -2,6 +2,10 @@ export const addCategory = (newCategory) => {
   return { type: "budget/ADD_CATEGORY", payload: newCategory }
 }
 
+export const addMonthlyItem = (payload) => {
+  return { type: "budget/ADD_MONTHLY_ITEM", payload: payload }
+}
+
 export const addWeeklyItem = (payload) => {
   return { type: "budget/ADD_WEEKLY_ITEM", payload: payload }
 }
@@ -12,6 +16,10 @@ export const categoriesFetched = (collection) => {
 
 export const editMonthlyItem = (payload) => {
   return { type: "budget/EDIT_MONTHLY_ITEM", payload: payload }
+}
+
+export const editNewMonthlyItem = (payload) => {
+  return { type: "budget/EDIT_NEW_MONTHLY_ITEM", payload: payload }
 }
 
 export const editNewWeeklyItem = (payload) => {
@@ -40,6 +48,10 @@ export const monthlyFetched = (response) => {
 
 export const toggleDiscretionaryDetail = (payload) => {
   return { type: "budget/TOGGLE_DISCRETIONARY_DETAIL", payload: payload }
+}
+
+export const toggleMonthlyItemForm = (payload) => {
+  return { type: "budget/TOGGLE_MONTHLY_ITEM_FORM", payload: payload }
 }
 
 export const toggleWeeklyItemForm = (payload) => {

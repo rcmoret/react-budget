@@ -1,18 +1,18 @@
 import React from "react"
 import { connect } from "react-redux"
 import MonthlyGroup from "./MonthlyGroup"
+import MonthlyHeader from "./MonthlyHeader"
 
 const MonthlyItems = (props) => (
   <div className="monthly-items">
-    <h3>Monthly Items</h3>
-    <hr/>
+    <MonthlyHeader />
     <MonthlyGroup collection={props.revenues} title="Revenues" />
     <MonthlyGroup collection={props.expenses} title="Expenses" />
   </div>
 )
 
 const mapStateToProps = (state) => {
-  const collection = state.budget.monthly
+  const { collection } = state.budget.monthly
   return {
     revenues: collection.filter(item => !item.expense)
       .sort((a, b) => (Math.abs(b.amount) - Math.abs(a.amount))),
