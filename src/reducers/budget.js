@@ -12,19 +12,49 @@ const initialState = {
     total_days: 1,
     collection: [],
   },
-  categories: { collection: [] },
+  categories: { collection: [], fetch: false },
   monthly: [],
-  weekly: [],
+  weekly: {
+    collection: [],
+    showForm: false,
+    newItem: {
+      amount: "",
+      budget_category_id: null,
+    },
+  },
   newCategory: { name: "", default_amount: "", showForm: false },
   itemsFetched: false,
+  metadata: {
+    month: 12,
+    year: 2099,
+  }
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
   case "budget/ADD_CATEGORY":
     return { ...state, categories: { collection: [...state.categories.collection, action.payload ] } }
+  case "budget/ADD_WEEKLY_ITEM":
+    return {
+      ...state,
+      weekly: {
+        ...state.weekly,
+        collection: [
+          ...state.weekly.collection,
+          objectifyWeekly(action.payload, state.metadata)
+        ]
+      }
+    }
   case "budget/CATEGORIES_FETCHED":
-    return { ...state, categories: { collection: action.payload } }
+    return { ...state, categories: { collection: action.payload, fetched: true } }
+  case "budget/EDIT_NEW_WEEKLY_ITEM":
+    return {
+      ...state,
+      weekly: {
+        ...state.weekly,
+        newItem: { ...state.weekly.newItem, ...action.payload }
+      }
+    }
   case "budget/EDIT_MONTHLY_ITEM":
     return {
       ...state,
@@ -37,11 +67,14 @@ export default (state = initialState, action) => {
   case "budget/EDIT_WEEKLY_ITEM":
     return {
       ...state,
-      weekly: updateItemInCollection({
-        updatedItem: action.payload,
-        collection: state.weekly,
-        save: false
-      })
+      weekly: {
+        ...state.weekly,
+        collection: updateItemInCollection({
+          updatedItem: action.payload,
+          collection: state.weekly.collection,
+          save: false
+        })
+      }
     }
   case "budget/FETCHED_DISCRETIONARY":
     return {
@@ -60,11 +93,14 @@ export default (state = initialState, action) => {
   case "budget/FETCHED_WEEKLY_TRANSACTIONS":
     return {
       ...state,
-      weekly: updateItemInCollection({
-        updatedItem: { id: action.payload.id, collection: action.payload.collection },
-        collection: state.weekly,
-        save: false
-      })
+      weekly: {
+        ...state.weekly,
+        collection: updateItemInCollection({
+          updatedItem: { id: action.payload.id, collection: action.payload.collection },
+          collection: state.weekly.collection,
+          save: false
+        })
+      }
     }
   case "budget/ITEMS_FETCHED":
     return {
@@ -73,20 +109,19 @@ export default (state = initialState, action) => {
       monthly: action.payload.collection
         .filter(item => item.monthly)
         .map(item => objectifyMonthly(item)),
-      weekly: action.payload.collection
-        .filter(item => !item.monthly)
-        .map(item => objectifyWeekly(item, action.payload.metadata)),
-      itemsFetched: true,
-    }
-  case "budget/WEEKLY_FETCHED":
-    return {
-      ...state,
       weekly: {
-        collection: action.payload.map(item => objectifyWeekly(item))
-      }
+        ...state.weekly,
+        collection: action.payload.collection
+          .filter(item => !item.monthly)
+          .map(item => objectifyWeekly(item, action.payload.metadata)),
+      },
+      itemsFetched: true,
+      metadata: action.payload.metadata
     }
   case "budget/TOGGLE_DISCRETIONARY_DETAIL":
     return { ...state, discretionary: { ...state.discretionary, ...action.payload } }
+  case "budget/TOGGLE_WEEKLY_ITEM_FORM":
+    return { ...state, weekly: { ...state.weekly, ...action.payload } }
   case "budget/UPDATE_DISCRETIONARY":
     return {
       ...state,
@@ -106,15 +141,18 @@ export default (state = initialState, action) => {
       })
     }
   case "budget/UPDATE_WEEKLY_ITEM": {
-    const weeklyItem = state.weekly.find(item => item.id === action.payload.id)
-    const updatedWeeklyItem = objectifyWeekly({ ...weeklyItem, ...action.payload }, state.discretionary)
+    const weeklyItem = state.weekly.collection.find(item => item.id === action.payload.id)
+    const updatedWeeklyItem = objectifyWeekly({ ...weeklyItem, ...action.payload }, state.metadata)
     return {
       ...state,
-      weekly: updateItemInCollection({
-        updatedItem: updatedWeeklyItem,
-        collection: state.weekly,
-        save: true
-      })
+      weekly: {
+        ...state.weekly,
+        collection: updateItemInCollection({
+          updatedItem: updatedWeeklyItem,
+          collection: state.weekly.collection,
+          save: true
+        })
+      }
     }
   }
   default:

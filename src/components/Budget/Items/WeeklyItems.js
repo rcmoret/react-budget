@@ -25,7 +25,7 @@ const WeeklyItems = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  return { collection: state.budget.weekly }
+  return { collection: state.budget.weekly.collection }
 }
 
 export default connect(mapStateToProps)(WeeklyItems)

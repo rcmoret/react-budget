@@ -217,5 +217,71 @@
 }
 
 .budget-group-header .title {
-  width: 94%
+  width: 94%;
+}
+
+#budget .select-wrapper {
+  width: 50%;
+  display: inline-block;
+}
+
+#budget .select-wrapper div {
+  display: flex;
+}
+
+#budget .budget-category-select-container {
+  width: 100%;
+  display: block;
+}
+
+#budget .budget-category-select__control {
+  display: block;
+  width: 95%;
+}
+
+#budget .budget-category-select__value-container {
+  width: 80%;
+}
+
+#budget .budget-category-select .budget-category-select__menu {
+  margin-left: 10%;
+  width: 90%;
+}
+
+#budget .budget-category-select .budget-category-select__menu-list {
+  display: block;
+  width: 100%
+}
+
+#budget .budget-category-select .budget-category-select__option {
+  display: block;
+  width: 100%
+}
+
+#budget .new-budget-item {
+  width: 100%;
+}
+
+#budget .select-wrapper .budget-category-select__menu {
+  display: inline-block;
+}
+
+#budget .select-wrapper .budget-category-select__menu-list {
+  display: inherit;
+}
+
+#budget input.new-item-amount {
+  text-align: right;
+  height: 28px;
+  font-size: 1.2em;
+  width: 22%;
+}
+
+#budget button.new-item-submit {
+  background-color: #59D176;
+  border-radius: 8px;
+  padding: 1.5% 4%;
+  font-size: 0.8em;
+  border: none;
+  margin-left: 4%;
 }

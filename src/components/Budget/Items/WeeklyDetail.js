@@ -9,12 +9,11 @@ import Transactions from "../Shared/Transactions"
 
 class WeeklyDetail extends Component {
   componentDidUpdate() {
-    const { collection } = this.props
-    const { budget_category_id, id } = this.props
+    const { budget_category_id, collection, id, showDetail, transaction_count } = this.props
     const url = ApiUrlBuilder(
       ["budget", "categories", budget_category_id, "items", id, "transactions"]
     )
-    if (collection.length === 0 && this.props.showDetail) {
+    if (collection.length < transaction_count && showDetail) {
       fetch(url)
         .then(response => response.json())
         .then(data => this.props.dispatch(

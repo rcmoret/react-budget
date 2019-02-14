@@ -1,5 +1,7 @@
 export default (attributes, metadata) => {
-  const { amount, expense, spent } = attributes
+  const { amount, expense } = attributes
+  const spent = attributes.spent || 0
+  const transactions_count = attributes.transactions_count || 0
   const { days_remaining, total_days } = metadata
   const floatAmount = attributes.floatAmount || parseFloat(attributes.amount / 100.0).toFixed(2)
   const difference = amount - spent
@@ -14,6 +16,8 @@ export default (attributes, metadata) => {
   return ({
     collection: [],
     ...attributes,
+    spent: spent,
+    transactions_count: transactions_count,
     floatAmount: floatAmount,
     remaining: remaining,
     difference: difference,
