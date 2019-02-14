@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
-import { addMonthlyItem, categoriesFetched, editNewMonthlyItem, toggleMonthlyItemForm, updateDiscretionary } from "../../../actions/budget"
+import { addMonthlyItem, categoriesFetched, editNewMonthlyItem, toggleMonthlyItemForm } from "../../../actions/budget"
 import { connect } from "react-redux"
 import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
 import Select from "react-select";
@@ -25,7 +25,6 @@ class MonthlyItemForm extends Component {
 
   onCategoryChange(e) {
     const category = this.props.categories.find(category => category.id === e.value)
-    debugger
     this.props.dispatch(editNewMonthlyItem({
       budget_category_id: e.value,
       amount: parseFloat(category.default_amount / 100.0).toFixed(2)
@@ -64,7 +63,6 @@ class MonthlyItemForm extends Component {
       this.props.dispatch(toggleMonthlyItemForm({ showForm: false }))
       this.props.dispatch(editNewMonthlyItem({ amount: "", budget_category_id: null }))
     })
-    .then(() => this.props.dispatch(updateDiscretionary()))
   }
 
   render() {

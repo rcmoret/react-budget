@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
-import { addWeeklyItem, categoriesFetched, editNewWeeklyItem, toggleWeeklyItemForm, updateDiscretionary } from "../../../actions/budget"
+import { addWeeklyItem, categoriesFetched, editNewWeeklyItem, toggleWeeklyItemForm } from "../../../actions/budget"
 import { connect } from "react-redux"
 import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
 import Select from "react-select";
@@ -62,7 +62,6 @@ class WeeklyItemForm extends Component {
       this.props.dispatch(toggleWeeklyItemForm({ showForm: false }))
       this.props.dispatch(editNewWeeklyItem({ amount: "", budget_category_id: null }))
     })
-    .then(() => this.props.dispatch(updateDiscretionary()))
   }
 
   render() {

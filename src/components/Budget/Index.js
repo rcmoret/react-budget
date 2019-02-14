@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 import { connect } from "react-redux"
-import { itemsFetched, updateDiscretionary } from "../../actions/budget"
+import { itemsFetched } from "../../actions/budget"
 import { Link } from "react-router-dom"
 import MonthlyItems from "./Items/MonthlyItems"
 import WeeklyItems from "./Items/WeeklyItems"
@@ -13,7 +13,6 @@ class BudgetIndex extends Component {
       fetch(url)
         .then(response => response.json())
         .then(data => this.props.dispatch(itemsFetched(data)))
-        .then(() => this.props.dispatch(updateDiscretionary()))
     }
   }
 

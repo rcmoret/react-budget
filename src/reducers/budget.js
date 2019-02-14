@@ -1,7 +1,5 @@
 import { updateItemInCollection } from "./shared"
-import objectifyDiscretionary from "../shared/models/discretionary"
-import objectifyMonthly from "../shared/models/monthlyBudgetItem"
-import objectifyWeekly from "../shared/models/weeklyBudgetItem"
+import * as Helpers from "./helpers/budgetHelpers"
 
 const initialState = {
   discretionary: {
@@ -42,27 +40,9 @@ export default (state = initialState, action) => {
   case "budget/ADD_CATEGORY":
     return { ...state, categories: { collection: [...state.categories.collection, action.payload ] } }
   case "budget/ADD_MONTHLY_ITEM":
-    return {
-      ...state,
-      monthly: {
-        ...state.monthly,
-        collection: [
-          ...state.monthly.collection,
-          objectifyMonthly(action.payload, state.metadata)
-        ],
-      },
-    }
+    return Helpers.addMonthlyItem(action.payload, state)
   case "budget/ADD_WEEKLY_ITEM":
-    return {
-      ...state,
-      weekly: {
-        ...state.weekly,
-        collection: [
-          ...state.weekly.collection,
-          objectifyWeekly(action.payload, state.metadata)
-        ]
-      }
-    }
+    return Helpers.addWeeklyItem(action.payload, state)
   case "budget/CATEGORIES_FETCHED":
     return { ...state, categories: { collection: action.payload, fetched: true } }
   case "budget/EDIT_NEW_MONTHLY_ITEM":
@@ -127,66 +107,19 @@ export default (state = initialState, action) => {
       }
     }
   case "budget/ITEMS_FETCHED":
-    return {
-      ...state,
-      discretionary: objectifyDiscretionary(action.payload.metadata, state),
-      monthly: {
-        ...state.monthly,
-        collection: action.payload.collection
-          .filter(item => item.monthly)
-          .map(item => objectifyMonthly(item)),
-      },
-      weekly: {
-        ...state.weekly,
-        collection: action.payload.collection
-          .filter(item => !item.monthly)
-          .map(item => objectifyWeekly(item, action.payload.metadata)),
-      },
-      itemsFetched: true,
-      metadata: action.payload.metadata
-    }
+    return Helpers.createMonth(action.payload, state)
   case "budget/TOGGLE_DISCRETIONARY_DETAIL":
     return { ...state, discretionary: { ...state.discretionary, ...action.payload } }
   case "budget/TOGGLE_MONTHLY_ITEM_FORM":
     return { ...state, monthly: { ...state.monthly, ...action.payload } }
   case "budget/TOGGLE_WEEKLY_ITEM_FORM":
     return { ...state, weekly: { ...state.weekly, ...action.payload } }
-  case "budget/UPDATE_DISCRETIONARY":
-    return {
-      ...state,
-      discretionary: objectifyDiscretionary(state.discretionary, state)
-    }
   case "budget/UPDATE_NEW_CATEGORY":
     return { ...state, newCategory: { ...state.newCategory, ...action.payload } }
   case "budget/UPDATE_MONTHLY_ITEM":
-    const monthlyItem = state.monthly.find(item => item.id === action.payload.id)
-    const updatedMonthlyItem = objectifyMonthly({...monthlyItem, ...action.payload })
-    return {
-      ...state,
-      monthly: {
-        ...state.monthly,
-        collection: updateItemInCollection({
-          updatedItem: updatedMonthlyItem,
-          collection: state.monthly.collection,
-          save: true
-        })
-      },
-    }
-  case "budget/UPDATE_WEEKLY_ITEM": {
-    const weeklyItem = state.weekly.collection.find(item => item.id === action.payload.id)
-    const updatedWeeklyItem = objectifyWeekly({ ...weeklyItem, ...action.payload }, state.metadata)
-    return {
-      ...state,
-      weekly: {
-        ...state.weekly,
-        collection: updateItemInCollection({
-          updatedItem: updatedWeeklyItem,
-          collection: state.weekly.collection,
-          save: true
-        })
-      }
-    }
-  }
+    return Helpers.updateMonthlyItem(action.payload, state)
+  case "budget/UPDATE_WEEKLY_ITEM":
+    return Helpers.updateWeeklyItem(action.payload, state)
   default:
     return state
   }

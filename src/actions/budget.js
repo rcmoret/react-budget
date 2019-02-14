@@ -58,10 +58,6 @@ export const toggleWeeklyItemForm = (payload) => {
   return { type: "budget/TOGGLE_WEEKLY_ITEM_FORM", payload: payload }
 }
 
-export const updateDiscretionary = (payload) => {
-  return { type: "budget/UPDATE_DISCRETIONARY", payload: payload }
-}
-
 export const updateNewCategory = (payload) => {
   return { type: "budget/UPDATE_NEW_CATEGORY", payload: payload }
 }

@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import { editMonthlyItem, updateDiscretionary, updateMonthlyItem } from "../../../actions/budget"
+import { editMonthlyItem, updateMonthlyItem } from "../../../actions/budget"
 import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 
@@ -44,7 +44,6 @@ const MonthlyAmountInput = (props) => {
     .then(data => {
       props.dispatch(updateMonthlyItem({...data, floatAmount: null, updateItem: false }))
     })
-    .then(() => props.dispatch(updateDiscretionary()))
   }
 
   return (
