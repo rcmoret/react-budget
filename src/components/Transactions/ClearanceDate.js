@@ -1,8 +1,8 @@
 import React from "react"
-import DateFormatter from "../../shared/Functions/DateFormatter"
+import * as DateFormatter from "../../shared/Functions/DateFormatter"
 
 const ClearanceDate = (props) => {
-  const displayDate = props.clearanceDate === null ? 'pending' : DateFormatter(props.clearanceDate)
+  const displayDate = props.clearanceDate === null ? 'pending' : DateFormatter.fromDateString(props.clearanceDate)
 
   return (
     <div className="clearance-date">

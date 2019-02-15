@@ -2,14 +2,14 @@ import React from 'react';
 import { connect } from "react-redux"
 import AddTransaction from "./AddTransaction"
 import Transaction from "./Transaction";
-import DateFormatter from "../../shared/Functions/DateFormatter"
+import * as DateFormatter from "../../shared/Functions/DateFormatter"
 
 const Transactions = (props) => {
   const dateRange = () => {
     let str = "Transactions from: "
-    str += DateFormatter(props.metadata.date_range[0])
+    str += DateFormatter.fromDateString(props.metadata.date_range[0])
     str += " to "
-    str += DateFormatter(props.metadata.date_range[1])
+    str += DateFormatter.fromDateString(props.metadata.date_range[1])
     return str
   }
 

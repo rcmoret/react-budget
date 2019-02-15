@@ -1,24 +1,50 @@
-
-const DateFormatter = (dateString) => {
-  const MonthDictionary = {
-    "01": "Jan.",
-    "02": "Feb.",
-    "03": "Mar.",
-    "04": "Apr.",
-    "05": "May",
-    "06": "June",
-    "07": "July",
-    "08": "Aug.",
-    "09": "Sep.",
-    "10": "Oct.",
-    "11": "Nov.",
-    "12": "Dec.",
+const MonthDictionary = (mo) => {
+  switch(parseInt(mo)) {
+  case 1:
+    return { short: "Jan.", long: "January" }
+  case 2:
+    return { short: "Feb.", long: "February" }
+  case 3:
+    return { short: "Mar.", long: "March" }
+  case 4:
+    return { short: "Apr.", long: "April" }
+  case 5:
+    return { short: "May", long: "May" }
+  case 6:
+    return { short: "June", long: "June" }
+  case 7:
+    return { short: "July", long: "July" }
+  case 8:
+    return { short: "Aug.", long: "August" }
+  case 9:
+    return { short: "Sep.", long: "September" }
+  case 10:
+    return { short: "Oct.", long: "October" }
+  case 11:
+    return { short: "Nov.", long: "November" }
+  case 12:
+    return { short: "Dec.", long: "December" }
+  default:
+    return { short: "", long: "" }
   }
-
-  const dateElements = dateString.split("-")
-  const month = MonthDictionary[dateElements[1]]
-  const day = parseInt(dateElements[2]) + ","
-  return [month, day, dateElements[0]].join(" ")
 }
 
-export default DateFormatter
+const formatted = ({ month, day, year, format }) => {
+  const monthString = MonthDictionary(month)
+  switch(format) {
+    case "monthYear":
+      return `${monthString.long} ${year}`
+    default:
+      return `${monthString.short} ${day}, ${year}`
+  }
+}
+
+export const fromDateString = (dateString, opts = { format: 'default' }) => {
+  const dateElements = dateString.split("-")
+  const month = dateElements[1]
+  const day = parseInt(dateElements[2] || 0)
+  const year = parseInt(dateElements[0] || 1900)
+  return formatted({ month: month, year: year, day: day, format: opts.format })
+}
+
+export default formatted
