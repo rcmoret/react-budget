@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Header = () => (
+export default () => (
   <header>
-    <h1>Checkbook & Budget</h1>
+    <h1>Checkbook &amp; Budget</h1>
     <NavLink to='/accounts'>
       <div className='tab'>
         <h2>Accounts</h2>
@@ -16,5 +16,3 @@ const Header = () => (
     </NavLink>
   </header>
 )
-
-export default Header
