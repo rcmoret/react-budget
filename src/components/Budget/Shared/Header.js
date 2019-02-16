@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Header = () => (
-  <div className="labels">
+  <div className="budget-item-transaction-row">
     <div className="budget-transaction-cell">
       Date
     </div>

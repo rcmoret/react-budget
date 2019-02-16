@@ -3,9 +3,6 @@ import { connect } from "react-redux"
 import { fetchedDiscretionaryTransactions } from "../../../actions/budget"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 import Details from "../Shared/Details"
-import OverUnderBudget from "./OverUnderBudget"
-import Remaining from "../Shared/Remaining"
-import SpentOrDeposited from "../Shared/SpentOrDeposited"
 import Transactions from "./../Shared/Transactions"
 
 class DiscretionaryDetail extends Component {
@@ -20,18 +17,14 @@ class DiscretionaryDetail extends Component {
 
   render () {
     if (this.props.showDetail) {
-      const { collection, expense, overUnderBudgetAmount, total_remaining, spent } = this.props
       return (
         <div className="detail-wrapper">
-          <OverUnderBudget overUnderBudgetAmount={overUnderBudgetAmount} />
-          <SpentOrDeposited expense={expense} spent={spent} />
-          <Remaining remaining={total_remaining} />
           <hr />
           <Details {...this.props} />
           <hr />
           <Transactions
             budgetCategory="Discretionary"
-            collection={collection}
+            collection={this.props.collection}
           />
         </div>
       )

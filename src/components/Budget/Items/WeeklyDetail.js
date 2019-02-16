@@ -1,10 +1,8 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
-import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
 import { fetchedWeeklyTransactions } from "../../../actions/budget"
 import Details from "../Shared/Details"
-import SpentOrDeposited from "../Shared/SpentOrDeposited"
 import Transactions from "../Shared/Transactions"
 
 class WeeklyDetail extends Component {
@@ -23,19 +21,11 @@ class WeeklyDetail extends Component {
   }
 
   render() {
-    const { collection, difference, expense, overUnderBudget } = this.props
-    const operator = !overUnderBudget ? "" : (expense ? "-" : "+")
     if (this.props.showDetail) {
-      const { budgetedPerDay, budgetedPerWeek, remainingPerDay, remainingPerWeek } = this.props
+      const { budgetedPerDay, budgetedPerWeek, collection,
+              name, remainingPerDay, remainingPerWeek } = this.props
       return (
         <div className="detail-wrapper">
-          <SpentOrDeposited {...this.props} />
-          <div className="budget-item-detail">
-            <div className="detail-description remaining">Remaining: </div>
-            <div className="detail-amount">
-              {operator} {MoneyFormatter(difference, { absolute: true })}
-            </div>
-          </div>
           <hr />
           <Details
             budgetedPerDay={budgetedPerDay}
@@ -45,7 +35,7 @@ class WeeklyDetail extends Component {
           />
           <hr />
           <Transactions
-            budgetCategory={this.props.name}
+            budgetCategory={name}
             collection={collection}
           />
         </div>

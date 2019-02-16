@@ -107,7 +107,11 @@ export default (state = initialState, action) => {
       }
     }
   case "budget/ITEMS_FETCHED":
-    return Helpers.createMonth(action.payload, state)
+    return Helpers.createMonthly(action.payload, state)
+  case "budget/REMOVE_WEEKLY_ITEM":
+    return Helpers.removeWeekly(action.payload, state)
+  case "budget/REMOVE_MONTHLY_ITEM":
+    return Helpers.removeMonthly(action.payload, state)
   case "budget/TOGGLE_DISCRETIONARY_DETAIL":
     return { ...state, discretionary: { ...state.discretionary, ...action.payload } }
   case "budget/TOGGLE_MONTHLY_ITEM_FORM":

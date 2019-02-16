@@ -52,18 +52,18 @@ const WeeklyAmountInput = (props) => {
 
 
   return (
-    <span className="update-amount">
-      <Link to="#" onClick={saveChange} className="fas fa-check" />
-      &nbsp;
-      <Link to="#" onClick={reset} className="fas fa-times" />
-      <br/>
+    <div className='budget-item-amount'>
       <input
         name="amount"
         value={props.floatAmount}
         onChange={handleChange}
         autcomplete="false"
       />
-    </span>
+      {" "}
+      <Link to="#" onClick={saveChange} className="fas fa-check" />
+      {" "}
+      <Link to="#" onClick={reset} className="fas fa-times" />
+    </div>
   )
 }
 

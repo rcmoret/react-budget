@@ -9,7 +9,7 @@ export default (payload, state) => {
     return acc += item.overUnderBudgetAmount
   }, 0)
   const total_remaining = payload.balance + remainingBudgeted
-  const amount = total_remaining + overUnderBudgetAmount - payload.spent
+  const amount = total_remaining - overUnderBudgetAmount - payload.spent
   const budgetedPerDay = Math.floor(amount / payload.total_days)
   const budgetedPerWeek = budgetedPerDay * 7
   const remainingPerDay = Math.floor(total_remaining / payload.days_remaining)

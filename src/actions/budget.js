@@ -46,6 +46,14 @@ export const monthlyFetched = (response) => {
   return { type: "budget/MONTHLY_FETCHED", payload: response }
 }
 
+export const removeMonthlyItem = ({ id }) => {
+  return { type: "budget/REMOVE_MONTHLY_ITEM", payload: id }
+}
+
+export const removeWeeklyItem = ({ id }) => {
+  return { type: "budget/REMOVE_WEEKLY_ITEM", payload: id }
+}
+
 export const toggleDiscretionaryDetail = (payload) => {
   return { type: "budget/TOGGLE_DISCRETIONARY_DETAIL", payload: payload }
 }

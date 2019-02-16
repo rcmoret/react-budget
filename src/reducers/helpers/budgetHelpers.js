@@ -3,7 +3,7 @@ import objectifyDiscretionary from "../../shared/models/discretionary"
 import objectifyMonthly from "../../shared/models/monthlyBudgetItem"
 import objectifyWeekly from "../../shared/models/weeklyBudgetItem"
 
-export const createMonth = (payload, state) => {
+export const createMonthly = (payload, state) => {
   const { collection, metadata } = payload
   const monthlyCollection = collection.filter(item => item.monthly)
     .map(item => objectifyMonthly(item))
@@ -76,6 +76,50 @@ export const addWeeklyItem = (item, state) => {
     },
     monthly: {
       collection: state.monthly.collection
+    }
+  }
+
+  return {
+    ...state,
+    discretionary: objectifyDiscretionary(state.discretionary, collections),
+    weekly: {
+      ...state.weekly,
+      collection: newCollection,
+    },
+  }
+}
+
+export const removeMonthly = (id, state) => {
+  const newCollection = state.monthly.collection.filter(item => item.id !== id)
+
+  const collections = {
+    weekly: {
+      collection: state.weekly.collection,
+    },
+    monthly: {
+      collection: newCollection,
+    }
+  }
+
+  return {
+    ...state,
+    discretionary: objectifyDiscretionary(state.discretionary, collections),
+    monthly: {
+      ...state.monthly,
+      collection: newCollection,
+    },
+  }
+}
+
+export const removeWeekly = (id, state) => {
+  const newCollection = state.weekly.collection.filter(item => item.id !== id)
+
+  const collections = {
+    weekly: {
+      collection: newCollection,
+    },
+    monthly: {
+      collection: state.monthly.collection,
     }
   }
 

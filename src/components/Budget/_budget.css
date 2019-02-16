@@ -46,7 +46,7 @@
   width: 60%;
 }
 
-#budget .budget-item .budget-item-description.remaining, .budget-item-detail .detail-description {
+#budget .budget-item .budget-item-description.remaining {
   margin-left: 4.5%;
 }
 
@@ -55,47 +55,16 @@
   text-decoration: none;
 }
 
-.budget-item-description .caret {
-  width: 7.5%;
+.budget-item .caret {
+  width: 3.5%;
+  vertical-align: top;
 }
 
-#budget .budget-item .budget-item-amount {
-  text-align: right;
-}
-
-.budget-item .budget-item-amount, .budget-item .detail-amount {
-  margin-right: 3%;
-}
-
-.budget-item .budget-item-detail, .budget-item .per-details {
+.budget-item .per-details {
   width: 100%;
 }
 
-#budget .budget-item-detail {
-  display: flex;
-  justify-content: space-between;
-  padding: 0;
-}
-
-.budget-item-detail .detail-description {
-  font-size: 0.8em;
-  width: 60%;
-}
-
-.budget-item-detail .detail-amount {
-  width: 22%;
-  text-align: right;
-}
-
-.budget-item .budget-item-detail.remaining .detail-description {
-  font-size: 1em;
-}
-
-.budget-item-detail.remaining .detail-amount {
-  margin-left: 2%;
-}
-
-.budget-item-detail .detail-amount.underscore {
+.detail-amount.underscore {
   border-bottom: solid 1px black;
 }
 
@@ -132,7 +101,7 @@
   text-align: right;
 }
 
-#budget .budget-transactions, #budget .budget-transactions .budget-item-detail {
+#budget .budget-transactions {
   padding: 0;
   font-size: 0.9em;
   width: 100%;
@@ -141,20 +110,6 @@
 
 #budget .detail-wrapper {
   width: 100%
-}
-
-#budget .budget-item-detail .budget-transaction-cell {
-  padding: 0;
-  width: 24.5%;
-}
-
-#budget .budget-item-detail .labels {
-  width: 100%;
-  padding: 0;
-}
-
-#budget .budget-item-detail .amount {
-  text-align: right;
 }
 
 .categories {
@@ -302,4 +257,46 @@
 
 #budget .budget-links a {
   margin-right: 5%;
+}
+
+#budget span.hidden {
+  opacity: 0;
+}
+
+#budget .budget-item-description div {
+  display: block;
+}
+
+#budget .budget-item-amounts {
+  width: 30%;
+  margin-right: 3%;
+  text-align: right;
+}
+
+#budget .budget-item-amounts div {
+  display: block;
+  text-align: right;
+}
+
+#budget .budget-item-amounts input {
+  text-align: right;
+  width: 60%
+}
+
+.item-delete-button, .discretionary-icon {
+  vertical-align: top;
+}
+
+.budget-item-transaction-row, .budget-item-transaction-row div {
+  width: 100%;
+}
+
+.budget-item-transaction-row .budget-transaction-cell {
+  width: 25%;
+}
+
+.budget-item-transaction-row .budget-transaction-cell.amount {
+  text-align: right;
+  margin-right: 5%;
+  width: 18%;
 }

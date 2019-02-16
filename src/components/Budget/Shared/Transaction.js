@@ -4,8 +4,8 @@ import MoneyFormatter from '../../../shared/Functions/MoneyFormatter'
 const Transaction = (props) => {
   const displayDescription = props.description || props.budgetCategory
   return (
-    <span>
-      <div className="budget-item-detail">
+    <div className="budget-item-transaction-row">
+      <div>
         <div className="budget-transaction-cell">
           {props.clearance_date ? props.clearance_date : 'pending'}
         </div>
@@ -15,12 +15,12 @@ const Transaction = (props) => {
         <div className="budget-transaction-cell">
           {displayDescription}
         </div>
-        <div className="budget-transaction-cell">
+        <div className="budget-transaction-cell amount">
           {MoneyFormatter(props.amount)}
         </div>
       </div>
       <hr/>
-    </span>
+    </div>
   )
 }
 

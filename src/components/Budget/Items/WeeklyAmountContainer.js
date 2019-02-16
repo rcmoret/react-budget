@@ -18,19 +18,19 @@ const AmountContainer = (props) => {
   const operator = !overUnderBudget ? "" : (expense ? "-" : "+")
   if (showDetail) {
     return (
-      <span>
+      <div className="update-amount">
         <Link to="#" onClick={updateItem}>
           {MoneyFormatter(amount, { absolute: absolute })}
         </Link>
-      </span>
+      </div>
     )
   } else {
     return (
-      <span>
+      <div className="update-amount">
         <Link to="#" onClick={updateItem}>
           {operator} {MoneyFormatter(difference, { absolute: absolute })}
         </Link>
-      </span>
+      </div>
     )
   }
 }

@@ -7,7 +7,6 @@ const Transactions = (props) => {
   if (collection.length > 0) {
     return (
       <div className="budget-transactions">
-        <div className="budget-item-detail">
         <Header />
         <hr/>
         {collection.map((transaction) =>
@@ -18,7 +17,6 @@ const Transactions = (props) => {
           />
         )}
       </div>
-    </div>
     )
   } else {
     return null

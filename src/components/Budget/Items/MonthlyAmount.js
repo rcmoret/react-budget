@@ -19,11 +19,11 @@ const Amount = (props) => {
     )
   } else {
     return (
-      <span>
+      <div className="update-amount">
         <Link to="#" onClick={updateMonthlyItem}>
           {MoneyFormatter(amount, { absolute: absolute })}
         </Link>
-      </span>
+      </div>
     )
   }
 }

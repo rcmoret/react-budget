@@ -36,6 +36,8 @@ const formatted = ({ month, day, year, format }) => {
       return `${monthString.long} ${year}`
     case "numericMonthYear":
       return `${month}/${year}`
+    case "shortMonthYear":
+      return `${monthString.short} ${year}`
     default:
       return `${monthString.short} ${day}, ${year}`
   }
