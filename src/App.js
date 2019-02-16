@@ -30,8 +30,8 @@ const App = () => (
             <Route exact path='/accounts' component={Accounts} />
             <Route exact path='/accounts/index' component={AccountIndex} />
             <Route path='/accounts/:id' component={Accounts} />
-            <Route exact path='/budget' component={BudgetIndex} />
             <Route exact path='/budget/categories' component={BudgetCategories} />
+            <Route path='/budget/:month?/:year?' component={BudgetIndex} />
           </Switch>
         </div>
       </Router>

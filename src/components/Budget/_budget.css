@@ -285,3 +285,21 @@
   border: none;
   margin-left: 4%;
 }
+
+#budget .budget-banner {
+  width: 100%;
+}
+
+#budget .budget-banner h2 {
+  margin-left: 2%;
+}
+
+#budget .budget-banner .budget-links {
+  margin-left: 2%;
+  width: 100%;
+  font-size: 0.8em;
+}
+
+#budget .budget-links a {
+  margin-right: 5%;
+}

@@ -34,6 +34,8 @@ const formatted = ({ month, day, year, format }) => {
   switch(format) {
     case "monthYear":
       return `${monthString.long} ${year}`
+    case "numericMonthYear":
+      return `${month}/${year}`
     default:
       return `${monthString.short} ${day}, ${year}`
   }
@@ -45,6 +47,22 @@ export const fromDateString = (dateString, opts = { format: 'default' }) => {
   const day = parseInt(dateElements[2] || 0)
   const year = parseInt(dateElements[0] || 1900)
   return formatted({ month: month, year: year, day: day, format: opts.format })
+}
+
+export const nextMonth = ({ month, year }) => {
+  if (month === 12) {
+    return { month: 1, year: (year + 1) }
+  } else {
+    return { month: (month + 1), year: year }
+  }
+}
+
+export const prevMonth = ({ month, year }) => {
+  if (month === 1) {
+    return { month: 12, year: (year - 1) }
+  } else {
+    return { month: (month - 1), year: year }
+  }
 }
 
 export default formatted
