@@ -1,52 +1,72 @@
-#budget div {
+.budget h4 {
+  text-align: center;
+}
+
+.budget .weekly-items, .budget .monthly-items, .budget nav {
+  padding: 0 2%;
+  vertical-align: top;
   display: inline-block;
 }
 
-#budget h4 {
-  text-align: center;
-}
-
-#budget .weekly-items, #budget .monthly-items {
-  padding: 0 2%;
+.budget .weekly-items, .budget .monthly-items {
   width: 35%;
-  vertical-align: top;
 }
 
-#budget .category-link {
-  width: 12%;
+.budget nav {
+  width: 13%;
+}
+
+.budget nav div {
+  width: 100%;
+}
+
+.budget .category-link, .budget .icon-link {
   vertical-align: top;
-  background-color: #FFA439;
   text-align: center;
+  padding: 1%
 }
 
-#budget a .category-link {
+.budget .category-link {
+  background-color: #FFA439;
+}
+
+.budget .icon-link {
+  background-color: #39FFA2;
+}
+
+.budget a .category-link, .budget a .icon-link {
   color: black;
   text-decoration: none;
   border-radius: 20px;
   margin-right: 2%;
+  margin-bottom: 2%;
 }
 
-#budget .budget-item {
+.budget .budget-item {
   background-color: #efefef;
   padding: 2% 3%;
   width: 100%;
   border-radius: 15px;
 }
 
-#budget .budget-group {
+.budget .budget-item div {
+  display: inline-block;
+}
+
+.budget .budget-group {
   width: 100%;
   padding: 0;
 }
 
-#budget .budget-group .budget-item:nth-of-type(2n) {
+.budget .budget-group .budget-item:nth-of-type(2n) {
   background-color: white;
 }
 
-#budget .budget-item .budget-item-description {
+.budget .budget-item .budget-item-description {
   width: 60%;
 }
 
-#budget .budget-item .budget-item-description.remaining {
+.budget .budget-item .budget-item-description.remaining {
   margin-left: 4.5%;
 }
 
@@ -68,7 +88,7 @@
   border-bottom: solid 1px black;
 }
 
-#budget .per-details {
+.budget .per-details {
   padding: 0;
 }
 
@@ -77,13 +97,13 @@
   text-align: center;
 }
 
-#budget .per-details .detail-group {
+.budget .per-details .detail-group {
   width: 48%;
   padding: 0;
   margin-right: 1%;
 }
 
-#budget .per-details .detail-group:first-of-type {
+.budget .per-details .detail-group:first-of-type {
   border-right: 1px solid #6B6B6B;
 }
 
@@ -101,14 +121,14 @@
   text-align: right;
 }
 
-#budget .budget-transactions {
+.budget .budget-transactions {
   padding: 0;
   font-size: 0.9em;
   width: 100%;
   display: inline-block;
 }
 
-#budget .detail-wrapper {
+.budget .detail-wrapper {
   width: 100%
 }
 
@@ -159,7 +179,7 @@
   background-color: #efefef;
 }
 
-#budget a {
+.budget a {
   color: black;
 }
 
@@ -173,66 +193,67 @@
 
 .budget-group-header .title {
   width: 94%;
+  display: inline-block;
 }
 
-#budget .select-wrapper {
+.budget .select-wrapper {
   width: 50%;
   display: inline-block;
 }
 
-#budget .select-wrapper div {
+.budget .select-wrapper div {
   display: flex;
 }
 
-#budget .budget-category-select-container {
+.budget .budget-category-select-container {
   width: 100%;
   display: block;
 }
 
-#budget .budget-category-select__control {
+.budget .budget-category-select__control {
   display: block;
   width: 95%;
 }
 
-#budget .budget-category-select__value-container {
+.budget .budget-category-select__value-container {
   width: 80%;
 }
 
-#budget .budget-category-select .budget-category-select__menu {
+.budget .budget-category-select .budget-category-select__menu {
   margin-left: 10%;
   width: 90%;
 }
 
-#budget .budget-category-select .budget-category-select__menu-list {
+.budget .budget-category-select .budget-category-select__menu-list {
   display: block;
   width: 100%
 }
 
-#budget .budget-category-select .budget-category-select__option {
+.budget .budget-category-select .budget-category-select__option {
   display: block;
   width: 100%
 }
 
-#budget .new-budget-item {
+.budget .new-budget-item {
   width: 100%;
 }
 
-#budget .select-wrapper .budget-category-select__menu {
+.budget .select-wrapper .budget-category-select__menu {
   display: inline-block;
 }
 
-#budget .select-wrapper .budget-category-select__menu-list {
+.budget .select-wrapper .budget-category-select__menu-list {
   display: inherit;
 }
 
-#budget input.new-item-amount {
+.budget input.new-item-amount {
   text-align: right;
   height: 28px;
   font-size: 1.2em;
   width: 22%;
 }
 
-#budget button.new-item-submit {
+.budget button.new-item-submit {
   background-color: #59D176;
   border-radius: 8px;
   padding: 1.5% 4%;
@@ -241,44 +262,44 @@
   margin-left: 4%;
 }
 
-#budget .budget-banner {
+.budget .budget-banner {
   width: 100%;
 }
 
-#budget .budget-banner h2 {
+.budget .budget-banner h2 {
   margin-left: 2%;
 }
 
-#budget .budget-banner .budget-links {
+.budget .budget-banner .budget-links {
   margin-left: 2%;
   width: 100%;
   font-size: 0.8em;
 }
 
-#budget .budget-links a {
+.budget .budget-links a {
   margin-right: 5%;
 }
 
-#budget span.hidden {
+.budget span.hidden {
   opacity: 0;
 }
 
-#budget .budget-item-description div {
+.budget .budget-item-description div {
   display: block;
 }
 
-#budget .budget-item-amounts {
+.budget .budget-item-amounts {
   width: 30%;
   margin-right: 3%;
   text-align: right;
 }
 
-#budget .budget-item-amounts div {
+.budget .budget-item-amounts div {
   display: block;
   text-align: right;
 }
 
-#budget .budget-item-amounts input {
+.budget .budget-item-amounts input {
   text-align: right;
   width: 60%
 }
