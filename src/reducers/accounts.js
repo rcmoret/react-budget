@@ -19,6 +19,11 @@ export default (state = initialState, action) => {
           save: false
         })
       }
+    case "accounts/DELETED_ACCOUNT":
+      return {
+        ...state,
+        collection: state.collection.filter(acct => acct.id !== action.payload.id)
+      }
     case "accounts/FETCHED":
       return { ...state, collection: action.payload }
     case "accounts/RESET_FORM":

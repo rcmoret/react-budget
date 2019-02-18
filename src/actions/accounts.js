@@ -2,6 +2,10 @@ export const addNew = (newAccount) => {
   return { type: "accounts/ADD_NEW", payload: newAccount }
 }
 
+export const deletedAccount = (payload) => {
+  return { type: "accounts/DELETED_ACCOUNT", payload: payload }
+}
+
 export const editItem = (payload) => {
   return { type: "accounts/EDIT_ITEM", payload: payload }
 }

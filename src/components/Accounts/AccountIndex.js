@@ -14,11 +14,8 @@ class AccountsIndex extends Component {
   }
 
   render() {
-    const orderedAccounts = this.props.accounts.sort((a, b) => {
-        return a.priority - b.priority
-      })
     return (
-      <IndexContainer collection={orderedAccounts} />
+      <IndexContainer collection={this.props.accounts} />
     )
   }
 }
@@ -28,6 +25,11 @@ AccountsIndex.defaultProps = {
 }
 
 const mapStateToProps = (state) => {
+  const { collection } = state.accounts
+  const accounts = collection.sort((a, b) => {
+    return a.priority - b.priority
+  })
+
   return { accounts: state.accounts.collection }
 }
 

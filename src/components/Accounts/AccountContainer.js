@@ -1,30 +1,38 @@
 import React from "react"
+import Icon from "../Icons/Icon"
 import { Link } from "react-router-dom"
 import MoneyFormatter from "../../shared/Functions/MoneyFormatter"
 
-const AccountContainer = (props) => (
+const AccountContainer = ({ balance, cash_flow, destroy, name, priority, showForm }) => (
   <div className="account-edit">
     <div>
       <h3>
-        {props.name}
-      &nbsp;
+        {name}
+        {" "}
         <Link
           to="#"
           className="far fa-edit"
-          onClick={props.showForm}
+          onClick={showForm}
         />
       </h3>
       <div className="cash-flow">
-        {props.cash_flow ? "Cash Flow" : "Non-Cash Flow"}
+        {cash_flow ? "Cash Flow" : "Non-Cash Flow"}
       </div>
       <div className="balance">
-        Balance: {MoneyFormatter(props.balance)}
+        Balance: {MoneyFormatter(balance)}
       </div>
       <div className="priority">
-        Priority: {props.priority}
+        Priority: {priority}
+      </div>
+      <div>
+        <button type="delete" onClick={destroy} className="delete-account">
+          Delete
+          {" "}
+          <Icon className="fas fa-trash" />
+        </button>
       </div>
     </div>
   </div>
 )
 
-export default AccountContainer;
+export default AccountContainer

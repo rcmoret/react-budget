@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
-import { editItem, updateItem } from "../../actions/accounts"
+import { deletedAccount, editItem, updateItem } from "../../actions/accounts"
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 import AccountFormContainer from "./AccountFormContainer"
 import AccountContainer from "./AccountContainer"
@@ -29,6 +29,15 @@ const AccountShow = (props) => {
     props.dispatch(editItem({ id: props.id, cash_flow: !props.cash_flow }))
   }
 
+  const destroy = (e) => {
+    const confirmation = window.confirm(`Do you really want to delete ${props.name} Account?`)
+    if (!confirmation) { return }
+    const { id } = props
+    const url = ApiUrlBuilder(["accounts", id])
+    fetch(url, { method: "delete" })
+    .then(() => props.dispatch(deletedAccount({ id: id })))
+  }
+
   const resetForm = (e) => {
     const originalProps = props.originalProps || props
     props.dispatch(editItem({ ...originalProps, originalProps: null }))
@@ -41,16 +50,14 @@ const AccountShow = (props) => {
       priority: props.priority,
       cash_flow: props.cash_flow,
     }
-    fetch(url,
-      {
-        method: "PUT",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      }
-    )
+    fetch(url, {
+      method: "PUT",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    })
     .then(response => response.json())
     .then(data => props.dispatch(updateItem(data)))
     .then(() => props.dispatch(editItem({ id: props.id, showForm: false })))
@@ -72,6 +79,7 @@ const AccountShow = (props) => {
     return (
       <AccountContainer
         {...props}
+        destroy={destroy}
         showForm={showForm}
       />
     )

@@ -4,51 +4,44 @@ import Account from "./Account"
 import AccountOptions from "./AccountOptions"
 import TransactionsWrapper from "../Transactions/Wrapper"
 
-const AccountDetail = (props) => {
-  if (props.selectedAccountId === 0) {
+const AccountDetail = ({ selectedAccountId }) => {
+  if (selectedAccountId === 0) {
     return(
-      <AccountOptions {...props} />
+      <AccountOptions />
     )
   } else {
     return(
-      <TransactionsWrapper accountId={props.selectedAccountId} />
+      <TransactionsWrapper accountId={selectedAccountId} />
     )
   }
 }
 
-AccountDetail.defaultProps = {
-  selectedAccount: {
-    id: 0,
-  },
-}
-
-const AccountsContainer = (props) => {
-  const orderedAccounts = props.accounts.sort((a, b) => {
-      return a.priority - b.priority
-    })
-
+const AccountsContainer = ({ collection, selectedAccountId }) => {
   return (
     <div className="accounts">
-      {orderedAccounts.map((account) =>
+      {collection.map(account =>
         <Account
           key={account.id}
           {...account}
-          selectedAccountId={props.selectedAccountId}
+          selectedAccountId={selectedAccountId}
         />
       )}
-      <AccountDetail selectedAccountId={props.selectedAccountId} />
+      <AccountDetail selectedAccountId={selectedAccountId} />
       <hr/>
     </div>
   )
 }
 
-AccountsContainer.defaultProps = {
-  accounts: [],
-  selectedAccountId: 0,
-}
-
 function mapStateToProps(state, ownProps) {
-  return { accounts: state.accounts.collection, ...ownProps }
+  const collection = state.accounts.collection.sort((a, b) => {
+      return a.priority - b.priority
+    })
+  const { selectedAccountId } = ownProps
+
+  return {
+    collection: collection,
+    selectedAccounId: selectedAccountId
+  }
 }
 
 export default connect(mapStateToProps)(AccountsContainer)
