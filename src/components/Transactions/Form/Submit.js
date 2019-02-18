@@ -1,11 +1,9 @@
 import React from "react"
 
-const Submit = (props) => (
+export default ({ submitTransaction }) => (
   <div className="transaction-submit">
-    <button type="submit" onClick={props.submitTransaction}>
+    <button type="submit" onClick={submitTransaction}>
       Create Transaction
     </button>
   </div>
 )
-
-export default Submit

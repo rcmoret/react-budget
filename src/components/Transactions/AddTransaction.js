@@ -1,49 +1,39 @@
-import React, { Component } from "react"
-import AddTransactionContainer from "./AddTransactionContainer"
+import React from "react"
+import { connect } from "react-redux"
+import { Link } from "react-router-dom"
+import { toggleForm } from "../../actions/transactions"
 import Form from "./Form/Form"
+import Icon from "../Icons/Icon"
 
-class AddTransaction extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      ...props
-    }
-    this.showForm = this.showForm.bind(this)
-    this.closeForm = this.closeForm.bind(this)
-  }
-
-  componentWillReceiveProps(nextProps, prevState) {
-    this.setState(nextProps)
-  }
-
-  showForm(e) {
+const AddTransaction = ({ dispatch, showForm }) => {
+  const expandForm = (e) => {
     e.preventDefault()
-    this.setState({ showForm: true })
+    dispatch(toggleForm({ showForm: true }))
   }
 
-  closeForm(e) {
-    e.preventDefault()
-    this.setState({ showForm: false })
-  }
-
-  render() {
-    if (this.state.showForm) {
-      return (
-        <Form
-          selectedAccount={this.state.selectedAccount}
-          closeForm={this.closeForm}
-          createTransaction={this.state.createTransaction}
-        />
-      )
-    } else {
-      return (
-        <AddTransactionContainer showForm={this.showForm} />
-      )
-    }
+  if (showForm) {
+    return (
+      <Form />
+    )
+  } else {
+    return (
+      <div className="transaction-wrapper">
+        <div className="transaction">
+          <div className="left-icon">
+          </div>
+          <Link to="#" onClick={expandForm}>
+            <Icon className="fas fa-plus" />&nbsp;
+            <strong>Add New Transaction</strong>
+          </Link>
+        </div>
+      </div>
+    )
   }
 }
 
-AddTransaction.defaultProps = {
+const mapStateToProps = (state) => {
+  const { showForm } = state.transactions
+  return { showForm: showForm }
 }
 
-export default AddTransaction;
+export default connect(mapStateToProps)(AddTransaction)

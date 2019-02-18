@@ -1,4 +1,4 @@
-import { updateItemInCollection } from "./shared"
+import { updateItemInCollection } from "./helpers/shared"
 import * as Helpers from "./helpers/budgetHelpers"
 
 const initialState = {

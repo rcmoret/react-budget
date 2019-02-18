@@ -1,15 +1,13 @@
 import React from "react"
 
-const BudgetExclusion = (props) => {
-  if (props.budgetExclusion) {
+export default ({ budgetExclusion }) => {
+  if (budgetExclusion) {
     return (
       <div className="exclusion">
-        {props.budgetExclusion ? "budget exclusion" : ""}
+        budget exclusion
       </div>
     )
   } else {
     return null
   }
 }
-
-export default BudgetExclusion

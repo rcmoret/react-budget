@@ -1,4 +1,4 @@
-import { updateItemInCollection } from "../shared"
+import { updateItemInCollection } from "./shared"
 import objectifyDiscretionary from "../../shared/models/discretionary"
 import objectifyMonthly from "../../shared/models/monthlyBudgetItem"
 import objectifyWeekly from "../../shared/models/weeklyBudgetItem"

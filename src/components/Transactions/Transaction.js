@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux"
 import Amount from "./Amount"
 import Balance from "./Balance"
 import BudgetCategories from "./BudgetCategories"

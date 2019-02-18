@@ -48,7 +48,7 @@ const mapStateToProps = (state) => {
 
   const collectionWithBalance = () => {
     let balance = metadata.prior_balance
-    return collection.map(transaction => {
+    return orderedTransactions.map(transaction => {
       balance += transaction.amount
       return { balance: balance, ...transaction }
     })
@@ -63,11 +63,11 @@ const mapStateToProps = (state) => {
   }
 
   return {
+    ...state.transactions,
     startDate: startDate,
     endDate: endDate,
     initialTransaction: initialTransaction,
     collection: collectionWithBalance(),
-    ...state.transactions,
   }
 }
 

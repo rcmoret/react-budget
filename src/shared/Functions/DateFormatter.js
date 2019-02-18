@@ -36,6 +36,8 @@ const formatted = ({ month, day, year, format }) => {
       return `${monthString.long} ${year}`
     case "numericMonthYear":
       return `${month}/${year}`
+    case "object":
+      return { month: month, year: year, day: day }
     case "shortMonthYear":
       return `${monthString.short} ${year}`
     default:
@@ -43,9 +45,9 @@ const formatted = ({ month, day, year, format }) => {
   }
 }
 
-export const fromDateString = (dateString, opts = { format: 'default' }) => {
+export const fromDateString = (dateString, opts = { format: "default" }) => {
   const dateElements = dateString.split("-")
-  const month = dateElements[1]
+  const month = parseInt(dateElements[1] || 0)
   const day = parseInt(dateElements[2] || 0)
   const year = parseInt(dateElements[0] || 1900)
   return formatted({ month: month, year: year, day: day, format: opts.format })
@@ -64,6 +66,70 @@ export const prevMonth = ({ month, year }) => {
     return { month: 12, year: (year - 1) }
   } else {
     return { month: (month - 1), year: year }
+  }
+}
+
+export const isInRange = (dateString, dateRange) => {
+  if (dateString === null) {
+    return false
+  }
+  return onOrAfter(dateString, dateRange[0]) && onOrBefore(dateString, dateRange[1])
+}
+
+const onOrAfter = (dateString, targetString) => {
+  if (dateString === null) { return false }
+  const object = fromDateString(dateString, { format: "object" })
+  const target = fromDateString(targetString, { format: "object" })
+  if (object.year > target.year) {
+    return true
+  } else if (object.year < target.year) {
+    return false
+  } else { // in the same year
+    if (object.month > target.month) {
+      return true
+    } else if (object.month < target.month) {
+      return false
+    } else { // in same month/year
+      return object.day >= target.day
+    }
+  }
+}
+
+const onOrBefore = (dateString, targetString) => {
+  if (dateString === null) { return false }
+  const object = fromDateString(dateString, { format: "object" })
+  const target = fromDateString(targetString, { format: "object" })
+  if (object.year < target.year) {
+    return true
+  } else if (object.year > target.year) {
+    return false
+  } else { // in the same year
+    if (object.month < target.month) {
+      return true
+    } else if (object.month > target.month) {
+      return false
+    } else { // in same month/year
+      return object.day <= target.day
+    }
+  }
+}
+
+export const before = (dateString, targetString) => {
+  if (dateString === null) { return false }
+  const object = fromDateString(dateString, { format: "object" })
+  const target = fromDateString(targetString, { format: "object" })
+  if (object.year < target.year) {
+    return true
+  } else if (object.year > target.year) {
+    return false
+  } else { // in the same year
+    if (object.month < target.month) {
+      return true
+    } else if (object.month > target.month) {
+      return false
+    } else { // in same month/year
+      return object.day < target.day
+    }
   }
 }
 
