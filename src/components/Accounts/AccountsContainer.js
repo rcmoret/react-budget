@@ -4,19 +4,23 @@ import Account from "./Account"
 import AccountOptions from "./AccountOptions"
 import TransactionsWrapper from "../Transactions/Wrapper"
 
-const AccountDetail = ({ selectedAccountId }) => {
+const AccountDetail = ({ month, year, selectedAccountId }) => {
   if (selectedAccountId === 0) {
     return(
       <AccountOptions />
     )
   } else {
     return(
-      <TransactionsWrapper accountId={selectedAccountId} />
+      <TransactionsWrapper
+        accountId={selectedAccountId}
+        month={month}
+        year={year}
+      />
     )
   }
 }
 
-const AccountsContainer = ({ collection, selectedAccountId }) => {
+const AccountsContainer = ({ collection, month, year, selectedAccountId }) => {
   return (
     <div className="accounts">
       {collection.map(account =>
@@ -26,7 +30,11 @@ const AccountsContainer = ({ collection, selectedAccountId }) => {
           selectedAccountId={selectedAccountId}
         />
       )}
-      <AccountDetail selectedAccountId={selectedAccountId} />
+      <AccountDetail
+        selectedAccountId={selectedAccountId}
+        month={month}
+        year={year}
+      />
       <hr/>
     </div>
   )
@@ -36,11 +44,13 @@ function mapStateToProps(state, ownProps) {
   const collection = state.accounts.collection.sort((a, b) => {
       return a.priority - b.priority
     })
-  const { selectedAccountId } = ownProps
+  const { month, year, selectedAccountId } = ownProps
 
   return {
     collection: collection,
-    selectedAccounId: selectedAccountId
+    selectedAccounId: selectedAccountId,
+    month: month,
+    year: year,
   }
 }
 

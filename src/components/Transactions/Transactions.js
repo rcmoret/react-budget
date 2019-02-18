@@ -1,20 +1,36 @@
 import React from 'react';
 import { connect } from "react-redux"
 import AddTransaction from "./AddTransaction"
-import Transaction from "./Transaction";
-import * as DateFormatter from "../../shared/Functions/DateFormatter"
+import Icon from "../Icons/Icon"
+import { Link } from "react-router-dom"
+import Transaction from "./Transaction"
+import formatted, * as DateFormatter from "../../shared/Functions/DateFormatter"
 
 const Transactions = (props) => {
-  const dateRange = `Transactions from: ${props.startDate} to ${props.endDate}`
+  const { accountId, endDate, nextMonth, prevMonth, startDate } = props
+  const nextMonthUrl = `/accounts/${accountId}/${nextMonth.month}/${nextMonth.year}`
+  const prevMonthUrl = `/accounts/${accountId}/${prevMonth.month}/${prevMonth.year}`
 
   return (
     <div className="transactions">
       <h2>Transactions</h2>
-      <div className='transaction-metadata'>
-        {dateRange}
+      <div className="transaction-metadata">
+        <div className="date-range">
+          {startDate} to {endDate}
+        </div>
+        <div className="page-links">
+          <Link to={prevMonthUrl}>
+            <Icon className="fas fa-angle-double-left" />
+            {formatted({ ...prevMonth, format: "numericMonthYear" })}
+          </Link>
+          <Link to={nextMonthUrl}>
+            {formatted({ ...nextMonth, format: "numericMonthYear" })}
+            <Icon className="fas fa-angle-double-right" />
+          </Link>
+        </div>
       </div>
       <hr/>
-      <Transaction key='0' {...props.initialTransaction} />
+      <Transaction key="0" {...props.initialTransaction} />
       {props.collection.map(transaction =>
         <Transaction
           key={transaction.id}
@@ -26,7 +42,7 @@ const Transactions = (props) => {
   )
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   const { collection, metadata } = state.transactions
   const startDate = DateFormatter.fromDateString(metadata.date_range[0])
   const endDate =  DateFormatter.fromDateString(metadata.date_range[1])
@@ -62,12 +78,19 @@ const mapStateToProps = (state) => {
     subtransactions: [],
   }
 
+  const { month, year } = ownProps
+  const nextMonth = DateFormatter.nextMonth({ month: month, year: year })
+  const prevMonth = DateFormatter.prevMonth({ month: month, year: year })
+
   return {
     ...state.transactions,
     startDate: startDate,
     endDate: endDate,
     initialTransaction: initialTransaction,
     collection: collectionWithBalance(),
+    prevMonth: prevMonth,
+    nextMonth: nextMonth,
+    ...ownProps,
   }
 }
 

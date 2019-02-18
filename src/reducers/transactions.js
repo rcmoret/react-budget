@@ -6,6 +6,7 @@ const initialState = {
   metadata: {
     date_range: ["", ""],
     prior_balance: 0,
+    query_options: {},
   },
   collection: [],
   budgetItems: {

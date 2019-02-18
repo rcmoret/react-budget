@@ -52,3 +52,12 @@
 .subtransaction {
   font-size: 0.8em;
 }
+
+.transaction-metadata .date-range {
+  display: block;
+  margin-bottom: 1%;
+}
+
+.page-links a {
+  margin-right: 8%;
+}

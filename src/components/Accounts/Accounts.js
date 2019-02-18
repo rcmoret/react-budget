@@ -12,12 +12,32 @@ class Accounts extends Component {
       .then(data => this.props.dispatch(fetchedAccounts(data)))
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
+  }
+
   render() {
-      const selectedAccountId = parseInt(this.props.match.params.id || 0)
+      const { month, year, selectedAccountId } = this.props
       return (
-        <AccountsContainer selectedAccountId={selectedAccountId} />
+        <AccountsContainer
+          selectedAccountId={selectedAccountId}
+          month={month}
+          year={year}
+        />
       )
   }
 }
 
-export default connect((_state, ownProps) => ownProps)(Accounts)
+const mapStateToProps = (_state, ownProps) => {
+  const selectedAccountId = parseInt(ownProps.match.params.id || 0)
+  const today = new Date()
+  const month = parseInt(ownProps.match.params.month) || today.getMonth() + 1
+  const year = parseInt(ownProps.match.params.year) || today.getFullYear()
+  return {
+    selectedAccountId: selectedAccountId,
+    month: month,
+    year: year,
+  }
+}
+
+export default connect(mapStateToProps)(Accounts)

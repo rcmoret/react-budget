@@ -30,7 +30,7 @@ const mapStateToProps = (state) => {
     return a.priority - b.priority
   })
 
-  return { accounts: state.accounts.collection }
+  return { accounts: accounts }
 }
 
 export default connect(mapStateToProps)(AccountsIndex)

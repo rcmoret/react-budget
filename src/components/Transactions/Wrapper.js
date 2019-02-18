@@ -5,30 +5,38 @@ import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
 import Transactions from "./Transactions"
 
 class Wrapper extends Component {
-  fetchTransactions(accountId) {
+  fetchTransactions(accountId, monthYear) {
     if (!Number.isInteger(accountId)) {
       return
     } else {
-    const url = ApiUrlBuilder(['accounts', accountId, 'transactions'])
-      fetch(url)
-        .then(response => response.json())
-        .then(data => this.props.dispatch(fetchedTransactions(data)))
+    const url = ApiUrlBuilder(
+      ['accounts', accountId, 'transactions'], { ...monthYear }
+    )
+    fetch(url)
+      .then(response => response.json())
+      .then(data => this.props.dispatch(fetchedTransactions(data)))
     }
   }
 
   componentWillMount() {
-    this.fetchTransactions(this.props.accountId)
+    const { month, year } = this.props
+    this.fetchTransactions(this.props.accountId, { month: month, year: year })
   }
 
   componentWillReceiveProps(nextProps) {
-    this.fetchTransactions(nextProps.accountId)
+    const { month, year } = nextProps
+    this.fetchTransactions(nextProps.accountId, { month: month, year: year })
   }
 
   render() {
     return (
-      <Transactions />
+      <Transactions {...this.props} />
     )
   }
 }
 
-export default connect((_state, ownProps) => ownProps)(Wrapper)
+const mapStateToProps = (_state, ownProps) => {
+  return ownProps
+}
+
+export default connect(mapStateToProps)(Wrapper)

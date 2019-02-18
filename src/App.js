@@ -29,7 +29,8 @@ const App = () => (
           <Switch>
             <Route exact path='/accounts' component={Accounts} />
             <Route exact path='/accounts/index' component={AccountIndex} />
-            <Route path='/accounts/:id' component={Accounts} />
+            <Route path='/accounts/:id/:month?/:year?' component={Accounts} />
+            <Route path='/accounts/:id/' component={Accounts} />
             <Route exact path='/budget/categories' component={BudgetCategories} />
             <Route path='/budget/:month?/:year?' component={BudgetIndex} />
           </Switch>
