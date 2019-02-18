@@ -300,3 +300,52 @@
   margin-right: 5%;
   width: 18%;
 }
+
+.category-name, .category-default-amount {
+  vertical-align: top;
+}
+
+.category-default-amount input, .category-name input {
+  height: 25px;
+  width: 90%;
+}
+
+.category-default-amount input {
+  text-align: right;
+}
+
+.category-options {
+  display: inline-block;
+  width: 8%;
+  margin-left: 2%;
+}
+
+.category-options .option {
+  display: block;
+  margin-left: 2%;
+}
+
+.category-options .option .label {
+  width: 65%;
+  display: inline-block;
+}
+
+.budget-icon-select {
+  width: 20%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.category-submit {
+  vertical-align: top;
+  display: inline-block;
+  margin-left: 2%;
+}
+
+.category-submit button {
+  font-size: 1.2em;
+  padding: 15% 18%;
+  background-color: #59D176;
+  border: none;
+  border-radius: 15px;
+}

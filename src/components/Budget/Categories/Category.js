@@ -1,25 +1,24 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Icon from '../../Icons/Icon';
+import React from "react"
+import { Link } from "react-router-dom"
+import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
+import Icon from "../../Icons/Icon"
 
-const BudgetCategory = (props) => (
+export default ({ default_amount, expense, icon_class_name, monthly, name }) => (
   <div className="budget-category">
-    <div className="category-name">{props.name}</div>
+    <div className="category-name">{name}</div>
     <div className="category-default-amount">
-      ${parseFloat(props.default_amount / 100.0).toFixed(2)}
+      {MoneyFormatter(default_amount, { absoulte: false })}
     </div>
     <div className="category-detail">
-      {props.monthly ? "monthly" : "weekly"}
-      &nbsp;
-      {props.expense ? "expense" : "revenue"}
+      {monthly ? "monthly" : "weekly"}
+      {" "}
+      {expense ? "expense" : "revenue"}
     </div>
     <div className="category-icon">
-      <Icon className={props.icon_class_name} />
+      <Icon className={icon_class_name} />
     </div>
     <div className="category-edit">
       <Link to="#" className="far fa-edit"/>
     </div>
   </div>
 )
-
-export default BudgetCategory;
