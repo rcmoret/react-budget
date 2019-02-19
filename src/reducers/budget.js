@@ -34,10 +34,6 @@ const initialState = {
     icon_id: "",
   },
   itemsFetched: false,
-  icons: {
-    fetched: false,
-    collection: [],
-  },
   metadata: {
     month: 12,
     year: 2099,
@@ -113,14 +109,6 @@ export default (state = initialState, action) => {
           collection: state.weekly.collection,
           save: false
         })
-      }
-    }
-  case "budget/ICONS_FETCHED":
-    return {
-      ...state,
-      icons: {
-        collection: action.payload,
-        fetched: true,
       }
     }
   case "budget/ITEMS_FETCHED":

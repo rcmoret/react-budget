@@ -77,3 +77,11 @@
   display: inline-block;
   width: 8%;
 }
+
+button.delete-account {
+  font-size: 0.8em;
+  border: none;
+  border-radius: 10px;
+  margin-top: 1%;
+  background-color: #FF3C52;
+}

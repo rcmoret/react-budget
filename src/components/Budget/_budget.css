@@ -27,11 +27,11 @@
 }
 
 .budget .category-link {
-  background-color: #FFA439;
+  background-color: #E8AF0C;
 }
 
 .budget .icon-link {
-  background-color: #39FFA2;
+  background-color: #2CC47D;
 }
 
 .budget a .category-link, .budget a .icon-link {
@@ -369,12 +369,4 @@
   background-color: #59D176;
   border: none;
   border-radius: 15px;
-}
-
-button.delete-account {
-  font-size: 0.8em;
-  border: none;
-  border-radius: 10px;
-  margin-top: 1%;
-  background-color: #FF3C52;
 }

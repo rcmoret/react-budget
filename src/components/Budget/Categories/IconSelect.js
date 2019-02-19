@@ -14,7 +14,7 @@ const IconSelect = ({ options, onChange, value }) => (
 )
 
 const mapStateToProps = (state, ownProps) => {
-  const { collection } = state.budget.icons
+  const { collection } = state.icons
   const labelFor = (icon) => <span>{icon.name} <span className={icon.class_name}></span></span>
   const iconOptions = collection.map(icon => {
     return { value: icon.id, label: labelFor(icon) }
