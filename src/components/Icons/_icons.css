@@ -1,0 +1,43 @@
+.icons {
+  width: 100%;
+  padding: 2%;
+}
+
+.icons .column {
+  vertical-align: top;
+  display: inline-block;
+  width: 42%;
+  margin-right: 4%;
+}
+
+.icons .icon {
+  background: #efefef;
+  padding: 2% 4%;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.icons .icon:nth-of-type(2n) {
+  background-color: white;
+}
+
+.new-icon-form {
+  width: 100%;
+  margin-bottom: 2%;
+}
+
+.icon-form-row div {
+  display: inline-block;
+  width: 8%;
+  margin-bottom: 0.5%;
+}
+
+.icon-form button {
+  border-radius: 8px;
+  padding: 5%;
+  font-size: 1.2em;
+  border: none;
+  margin-right: 0.75%;
+  background-color: #59D176;
+}

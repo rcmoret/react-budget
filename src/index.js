@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './components/index.css';
 import './components/Accounts/_account.css';
 import './components/Budget/_budget.css';
+import "./components/Icons/_icons.css"
 import './components/Transactions/_transaction.css';
 import './components/Transactions/_transaction_form.css';
 import App from './App';
