@@ -53,6 +53,7 @@ class Index extends Component {
       <div className="icons">
         <div className="new-icon-form">
           <NewIconForm
+            buttonText="Create"
             icon={this.props.newIcon}
             onChange={this.onChange}
             onSubmit={this.onSubmit}

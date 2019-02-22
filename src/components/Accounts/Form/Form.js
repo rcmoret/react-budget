@@ -1,12 +1,12 @@
-import React from 'react'
+import React from "react"
 import ResetButton from "./ResetButton"
-import Icon from "../Icons/Icon"
+import Icon from "../../Icons/Icon"
 
-const AccountFormContainer = (props) => (
+export default (props) => (
   <div className="account-edit">
     <div>
       <h3>
-        {props.name ? props.name : "Add new"}
+        {props.title}
       </h3>
       <hr />
       <div className="form-row">
@@ -16,7 +16,7 @@ const AccountFormContainer = (props) => (
           </label>
         </div>
         <div className="input">
-          <input type="text" name="account[name]" value={props.name} onChange={props.updateName} />
+          <input type="text" name="name" value={props.name} onChange={props.updateName} />
         </div>
       </div>
       <div className="form-row">
@@ -26,7 +26,7 @@ const AccountFormContainer = (props) => (
           </label>
         </div>
         <div className="input">
-          <input type="number" name="account[priority]" value={props.priority} onChange={props.updatePriority} />
+          <input type="number" name="priority" value={props.priority} onChange={props.updatePriority} />
         </div>
       </div>
       <div className="form-row">
@@ -36,7 +36,12 @@ const AccountFormContainer = (props) => (
           </label>
         </div>
         <div className="input">
-          <input type="checkbox" name="account[cash_flow]" checked={props.cash_flow} onChange={props.updateCashFlow} />
+          <input
+            type="checkbox"
+            name="cash_flow"
+            checked={props.cash_flow}
+            onChange={props.updateCashFlow}
+          />
         </div>
       </div>
       <div className="form-row">
@@ -51,5 +56,3 @@ const AccountFormContainer = (props) => (
     </div>
   </div>
 )
-
-export default AccountFormContainer

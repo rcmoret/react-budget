@@ -1,48 +1,58 @@
-import { updateItemInCollection } from "./helpers/shared"
-
 const initialState = {
   collection: [],
   showNewForm: false,
-  newAccount: {},
+  newAccount: {
+    cash_flow: true,
+    name: "",
+    priority: "",
+  },
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case "accounts/ADD_NEW":
+    case "accounts/CREATED":
       return { ...state, collection: [...state.collection, action.payload] }
-    case "accounts/EDIT_ITEM":
-      return {
-        ...state,
-        collection: updateItemInCollection({
-          updatedItem: action.payload,
-          collection: state.collection,
-          save: false
-        })
-      }
-    case "accounts/DELETED_ACCOUNT":
+    case "accounts/DELETED":
       return {
         ...state,
         collection: state.collection.filter(acct => acct.id !== action.payload.id)
       }
     case "accounts/FETCHED":
       return { ...state, collection: action.payload }
-    case "accounts/RESET_FORM":
-      return { ...state, newAccount: {}, showNewForm: false }
-    case "accounts/TOGGLE_SHOW_NEW_FORM":
-      return { ...state, showNewForm: action.payload }
-    case "accounts/UPDATE_ITEM":
+    case "accounts/RESET":
       return {
         ...state,
-        collection: updateItemInCollection({
-          updatedItem: action.payload,
-          collection: state.collection,
-          save: true
-        })
+        collection: updated(action.payload, state.collection)
+      }
+    case "accounts/RESET_FORM":
+      return {
+        ...state,
+        newAccount: initialState.newAccount,
+        showNewForm: false
+      }
+    case "accounts/TOGGLE_SHOW_NEW_FORM":
+      return { ...state, showNewForm: action.payload }
+    case "accounts/UPDATE":
+      return {
+        ...state,
+        collection: update(action.payload, state.collection)
+      }
+    case "accounts/UPDATED":
+      return {
+        ...state,
+        collection: updated(action.payload, state.collection)
       }
     case "accounts/UPDATE_NEW":
-      return { ...state, newAccount: {...state.newAccount, ...action.payload } }
+      return {
+        ...state,
+        newAccount: { ...state.newAccount, ...action.payload }
+      }
+    case "accounts/UPDATE_PROPS":
+      return {
+        ...state,
+        collection: updateProps(action.payload, state.collection)
+      }
     case "transactions/CREATE_TRANSACTION":
-      console.log(updateBalance(action.payload, state.collection))
       return {
         ...state,
         collection: updateBalance(action.payload, state.collection),
@@ -50,6 +60,42 @@ export default (state = initialState, action) => {
     default:
       return state
   }
+}
+
+const update = (payload, collection) => {
+  return collection.map(account => {
+    if (account.id !== payload.id) {
+      return account
+    } else {
+      return { ...account, ...payload }
+    }
+  })
+}
+
+const updated = (payload, collection) => {
+  return collection.map(account => {
+    if (account.id !== payload.id) {
+      return account
+    } else {
+      return { ...account, ...payload, updatedProps: null }
+    }
+  })
+}
+
+const updateProps = (payload, collection) => {
+  return collection.map(account => {
+    if (account.id !== payload.id) {
+      return account
+    } else {
+      return {
+        ...account,
+        updatedProps: {
+          ...account.updatedProps,
+          ...payload
+        }
+      }
+    }
+  })
 }
 
 const updateBalance = (payload, collection) => {

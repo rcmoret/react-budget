@@ -1,8 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
 import Icon from "./Icon"
+import ResetButton from "./ResetButton"
 
-const Form = ({ buttonText, class_name, name, onChange, onSubmit }) => (
+const Form = ({ buttonText, class_name, id, name, onChange, onSubmit }) => (
   <div className="icon-form">
     <div className="icon-form-row">
       <div>
@@ -36,10 +37,17 @@ const Form = ({ buttonText, class_name, name, onChange, onSubmit }) => (
       <div>
         <button
           type="submit"
+          className="submit"
           onClick={onSubmit}
         >
           {buttonText}
         </button>
+      </div>
+      <div>
+        <ResetButton
+          id={id}
+          reset
+        />
       </div>
     </div>
     <div className="icon-form-row">
@@ -53,9 +61,9 @@ const Form = ({ buttonText, class_name, name, onChange, onSubmit }) => (
 )
 
 const mapStateToProps = (_state, ownProps) => {
-  const { icon, onChange, onSubmit } = ownProps
+  const { buttonText, icon, onChange, onSubmit } = ownProps
   return {
-    buttonText: "Create",
+    buttonText: buttonText,
     ...icon,
     onSubmit: onSubmit,
     onChange: onChange,

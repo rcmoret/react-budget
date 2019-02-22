@@ -1,10 +1,10 @@
 import React from "react"
-import Icon from "../Icons/Icon"
+import Icon from "../../Icons/Icon"
 
-const ResetButton = (props) => {
-  if (props.id) {
+const ResetButton = ({ id, resetForm }) => {
+  if (id) {
     return (
-      <button type="reset" className="reset" onClick={props.resetForm}>
+      <button type="reset" className="reset" onClick={resetForm}>
         <Icon className="fas fa-redo-alt fa-flip-horizontal" />{ " " }
         Reset
       </button>

@@ -2,8 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import MoneyFormatter from "../../shared/Functions/MoneyFormatter"
 
-const Account = (props) => {
-  const { id, name, balance, selectedAccountId } = props
+export default ({ id, name, balance, selectedAccountId }) => {
   const isSelected = selectedAccountId === id
   return (
     <Link to={`/accounts/${id}`}>
@@ -15,5 +14,3 @@ const Account = (props) => {
     </Link>
   )
 }
-
-export default Account

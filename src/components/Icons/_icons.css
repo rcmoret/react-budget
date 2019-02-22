@@ -18,6 +18,10 @@
   justify-content: space-between;
 }
 
+.icons .icon a {
+  color: black
+}
+
 .icons .icon:nth-of-type(2n) {
   background-color: white;
 }
@@ -25,6 +29,10 @@
 .new-icon-form {
   width: 100%;
   margin-bottom: 2%;
+}
+
+.column .icon-form-row div {
+  width: 50%;
 }
 
 .icon-form-row div {
@@ -38,6 +46,17 @@
   padding: 5%;
   font-size: 1.2em;
   border: none;
-  margin-right: 0.75%;
+  margin: 1.75% 0.75% 1.75% 0;
+}
+
+.icon-form button.submit {
   background-color: #59D176;
+}
+
+.icon-form button.cancel {
+  background-color: #FF3C52;
+}
+
+span.preview {
+  font-size: 2.5em;
 }
