@@ -1,3 +1,5 @@
+import { update, updated, updateProps } from "./helpers/shared"
+
 const initialState = {
   collection: [],
   showNewForm: false,
@@ -60,42 +62,6 @@ export default (state = initialState, action) => {
     default:
       return state
   }
-}
-
-const update = (payload, collection) => {
-  return collection.map(account => {
-    if (account.id !== payload.id) {
-      return account
-    } else {
-      return { ...account, ...payload }
-    }
-  })
-}
-
-const updated = (payload, collection) => {
-  return collection.map(account => {
-    if (account.id !== payload.id) {
-      return account
-    } else {
-      return { ...account, ...payload, updatedProps: null }
-    }
-  })
-}
-
-const updateProps = (payload, collection) => {
-  return collection.map(account => {
-    if (account.id !== payload.id) {
-      return account
-    } else {
-      return {
-        ...account,
-        updatedProps: {
-          ...account.updatedProps,
-          ...payload
-        }
-      }
-    }
-  })
 }
 
 const updateBalance = (payload, collection) => {
