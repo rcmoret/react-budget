@@ -1,17 +1,11 @@
 import React, { Component } from "react"
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 import { connect } from "react-redux"
-import { created, fetched, updateNew } from "../../actions/icons"
-import NewIconForm from "./Form/Form"
+import { fetched } from "../../actions/icons"
+import New from "./New"
 import Show from "./Show"
 
 class Index extends Component {
-  constructor(props) {
-    super(props)
-    this.onChange = this.onChange.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
-  }
-
   componentWillMount() {
     if (!this.props.fetched) {
       const url = ApiUrlBuilder(["icons"])
@@ -30,35 +24,11 @@ class Index extends Component {
     }
   }
 
-  onChange(e) {
-    const action = updateNew({[e.target.name]: e.target.value })
-    this.props.dispatch(action)
-  }
-
-  onSubmit() {
-    const url = ApiUrlBuilder(["icons"])
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(this.props.newIcon),
-  })
-  .then(resp => resp.json())
-  .then(data => this.props.dispatch(created(data)))
-  }
-
   render() {
     return (
       <div className="icons">
         <div className="new-icon-form">
-          <NewIconForm
-            buttonText="Create"
-            icon={this.props.newIcon}
-            onChange={this.onChange}
-            onSubmit={this.onSubmit}
-          />
+          <New />
         </div>
         <div className="column">
           {this.props.firstColumn.map(icon =>
