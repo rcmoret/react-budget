@@ -20,7 +20,8 @@ const store = createStore(
                     budget: budgetReducer,
                     icons: iconsReducer,
                     transactions: transactionsReducer,
-                  })
+                  }),
+                  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 )
 
 const App = () => (
