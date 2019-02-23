@@ -357,16 +357,24 @@
   vertical-align: top;
 }
 
-.category-submit {
+.category-submit, .category-reset {
   vertical-align: top;
   display: inline-block;
   margin-left: 2%;
 }
 
-.category-submit button {
+
+.category-submit button, .category-reset button {
   font-size: 1.2em;
   padding: 15% 18%;
-  background-color: #59D176;
   border: none;
   border-radius: 15px;
+}
+
+.category-submit button.submit {
+  background-color: #59D176;
+}
+
+.category-reset button.reset {
+  background-color: #8AB6FF; /* blue */
 }

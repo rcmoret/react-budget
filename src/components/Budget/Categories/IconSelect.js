@@ -20,7 +20,7 @@ const mapStateToProps = (state, ownProps) => {
     return { value: icon.id, label: labelFor(icon) }
   })
   const options = [{ value: null, label: "" }, ...iconOptions]
-  const value = options.find(option => option.value === state.budget.newCategory.icon_id)
+  const value = options.find(option => option.value === ownProps.iconId)
 
   return {
     options: options,

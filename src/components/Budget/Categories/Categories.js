@@ -1,11 +1,11 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
-import { categoriesFetched } from "../../../actions/budget"
-import { fetched as iconsFetched } from "../../../actions/icons"
 import BudgetCategory from "./Category"
+import { categoriesFetched } from "../../../actions/budget"
 import Header from "./Header"
-import NewBudgetCategory from "./NewCategory"
+import { fetched as iconsFetched } from "../../../actions/icons"
+import NewBudgetCategory from "./New"
 
 class BudgetCategories extends Component {
   componentWillMount() {

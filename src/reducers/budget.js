@@ -1,4 +1,4 @@
-import { updateItemInCollection } from "./helpers/shared"
+import { updateProps, updateItemInCollection } from "./helpers/shared"
 import * as Helpers from "./helpers/budgetHelpers"
 
 const initialState = {
@@ -31,7 +31,7 @@ const initialState = {
     name: "",
     default_amount: "",
     showForm: false,
-    icon_id: "",
+    icon_id: null,
   },
   itemsFetched: false,
   metadata: {
@@ -42,6 +42,29 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+  case "budget/categories/CREATED":
+    return {
+      ...state,
+      categories: {
+        collection: [
+          ...state.categories.collection,
+          action.payload
+        ]
+      }
+    }
+  case "budget/categories/RESET_NEW_FORM":
+    return {
+      ...state,
+      newCategory: initialState.newCategory
+    }
+  case "budget/categories/UPDATE_NEW":
+    return {
+      ...state,
+      newCategory: {
+        ...state.newCategory,
+        ...action.payload,
+      }
+    }
   case "budget/ADD_CATEGORY":
     return { ...state, categories: { collection: [...state.categories.collection, action.payload ] } }
   case "budget/ADD_MONTHLY_ITEM":
