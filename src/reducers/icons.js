@@ -20,6 +20,11 @@ export default (state = initialState, action) => {
         ],
         newIcon: initialState.newIcon
       }
+    case "icons/DELETED":
+      return {
+        ...state,
+        collection: state.collection.filter(icon => icon.id !== action.payload.id)
+      }
     case "icons/UPDATE_NEW":
       return {
         ...state,

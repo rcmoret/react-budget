@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
-import { update } from "../../actions/icons"
+import { deleted, update } from "../../actions/icons"
 import { Link } from "react-router-dom"
 import Edit from "./Edit"
 import Icon from "./Icon"
@@ -11,6 +11,12 @@ const Show = (props) => {
 
   const renderForm = (e) => {
     const action = update({ id: id, showForm: true })
+    props.dispatch(action)
+  }
+
+  const destroy = (e) => {
+    e.preventDefault()
+    const action = deleted({ id: id })
     props.dispatch(action)
   }
 
@@ -37,7 +43,11 @@ const Show = (props) => {
             onClick={renderForm}
           />
           {" "}
-          <Icon className="fas fa-trash" />
+          <Link
+            to="#"
+            onClick={destroy}
+            className="fas fa-trash"
+          />
         </div>
       </div>
     )
