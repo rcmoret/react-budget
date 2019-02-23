@@ -1,6 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
-import Icon from "./Icon"
+import CancelButton from "./CancelButton"
+import Icon from "../Icon"
 import ResetButton from "./ResetButton"
 
 const Form = ({ buttonText, class_name, id, name, onChange, onSubmit }) => (
@@ -34,7 +35,7 @@ const Form = ({ buttonText, class_name, id, name, onChange, onSubmit }) => (
       </div>
     </div>
     <div className="icon-form-row">
-      <div>
+      <div className="button">
         <button
           type="submit"
           className="submit"
@@ -43,10 +44,14 @@ const Form = ({ buttonText, class_name, id, name, onChange, onSubmit }) => (
           {buttonText}
         </button>
       </div>
-      <div>
+      <div className="button">
         <ResetButton
           id={id}
-          reset
+        />
+      </div>
+      <div className="button">
+        <CancelButton
+          id={id}
         />
       </div>
     </div>

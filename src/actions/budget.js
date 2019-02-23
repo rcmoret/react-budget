@@ -38,10 +38,6 @@ export const fetchedWeeklyTransactions = (payload) => {
   return { type: "budget/FETCHED_WEEKLY_TRANSACTIONS", payload: payload }
 }
 
-export const iconsFetched = (response) => {
-  return { type: "budget/ICONS_FETCHED", payload: response }
-}
-
 export const itemsFetched = (response) => {
   return { type: "budget/ITEMS_FETCHED", payload: response }
 }

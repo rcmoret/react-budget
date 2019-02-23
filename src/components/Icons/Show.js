@@ -1,42 +1,24 @@
 import React from "react"
 import { connect } from "react-redux"
-import { editIcon, updateIcon } from "../../actions/icons"
+import { update } from "../../actions/icons"
 import { Link } from "react-router-dom"
-import Form from "./Form"
+import Edit from "./Edit"
 import Icon from "./Icon"
 
 const Show = (props) => {
-  const { id, class_name, name, showForm } = props
-
-  const icon = {
-    id: id,
-    class_name: class_name,
-    name: name,
-  }
+  const { icon } = props
+  const { id, class_name, name, showForm } = icon
 
   const renderForm = (e) => {
-    const action = editIcon({ id: id, showForm: true })
-    props.dispatch(action)
-  }
-
-  const onChange = (e) => {
-    const action = editIcon({ id: id, [e.target.name]: e.target.value })
-    props.dispatch(action)
-  }
-
-  const onSubmit = (e) => {
-    const action = updateIcon({ id: id })
+    const action = update({ id: id, showForm: true })
     props.dispatch(action)
   }
 
   if (showForm) {
     return (
       <div className="icon">
-        <Form
-          buttonText="Update"
+        <Edit
           icon={icon}
-          onChange={onChange}
-          onSubmit={onSubmit}
         />
       </div>
     )

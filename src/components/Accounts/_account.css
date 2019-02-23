@@ -66,11 +66,11 @@
 }
 
 .account-edit button.cancel {
-  background-color: #FF3C52;
+  background-color: #FF3C52; /* red */
 }
 
 .account-edit button.reset {
-  background-color: #8AB6FF;
+  background-color: #8AB6FF; /* blue */
 }
 
 .account-edit .label, .account-edit .input {

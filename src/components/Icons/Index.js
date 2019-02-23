@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 import { connect } from "react-redux"
-import { createIcon, editNewIcon, iconsFetched } from "../../actions/icons"
-import NewIconForm from "./Form"
+import { created, fetched, updateNew } from "../../actions/icons"
+import NewIconForm from "./Form/Form"
 import Show from "./Show"
 
 class Index extends Component {
@@ -17,7 +17,7 @@ class Index extends Component {
       const url = ApiUrlBuilder(["icons"])
       fetch(url)
       .then(response => response.json())
-      .then(data => this.props.dispatch(iconsFetched(data)))
+      .then(data => this.props.dispatch(fetched(data)))
     }
   }
 
@@ -26,12 +26,13 @@ class Index extends Component {
       const url = ApiUrlBuilder(["icons"])
       fetch(url)
       .then(response => response.json())
-      .then(data => this.props.dispatch(iconsFetched(data)))
+      .then(data => this.props.dispatch(fetched(data)))
     }
   }
 
   onChange(e) {
-    this.props.dispatch(editNewIcon({ [e.target.name]: e.target.value }))
+    const action = updateNew({[e.target.name]: e.target.value })
+    this.props.dispatch(action)
   }
 
   onSubmit() {
@@ -45,7 +46,7 @@ class Index extends Component {
       body: JSON.stringify(this.props.newIcon),
   })
   .then(resp => resp.json())
-  .then(data => this.props.dispatch(createIcon(data)))
+  .then(data => this.props.dispatch(created(data)))
   }
 
   render() {
@@ -63,7 +64,7 @@ class Index extends Component {
           {this.props.firstColumn.map(icon =>
             <Show
               key={icon.id}
-              {...icon}
+              icon={icon}
             />
           )}
         </div>
@@ -71,7 +72,7 @@ class Index extends Component {
           {this.props.secondColumn.map(icon =>
             <Show
               key={icon.id}
-              {...icon}
+              icon={icon}
             />
           )}
         </div>

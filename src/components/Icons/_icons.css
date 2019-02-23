@@ -41,10 +41,15 @@
   margin-bottom: 0.5%;
 }
 
+.column .icon-form-row .button {
+  width: 30%;
+  margin-right: 1%;
+}
+
 .icon-form button {
   border-radius: 8px;
-  padding: 5%;
-  font-size: 1.2em;
+  padding: 4%;
+  font-size: 1.0em;
   border: none;
   margin: 1.75% 0.75% 1.75% 0;
 }
@@ -53,8 +58,12 @@
   background-color: #59D176;
 }
 
+.icon-form button.reset {
+  background-color: #8AB6FF; /* blue */
+}
+
 .icon-form button.cancel {
-  background-color: #FF3C52;
+  background-color: #FF3C52; /* red */
 }
 
 span.preview {
