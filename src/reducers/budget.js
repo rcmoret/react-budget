@@ -1,4 +1,4 @@
-import { updateProps, updateItemInCollection } from "./helpers/shared"
+import { update, updated, updateProps, updateItemInCollection } from "./helpers/shared"
 import * as Helpers from "./helpers/budgetHelpers"
 
 const initialState = {
@@ -52,6 +52,14 @@ export default (state = initialState, action) => {
         ]
       }
     }
+  case "budget/categories/RESET":
+    console.log(action.payload)
+    return {
+      ...state,
+      categories: {
+        collection: updated(action.payload, state.categories.collection)
+      }
+    }
   case "budget/categories/RESET_NEW_FORM":
     return {
       ...state,
@@ -63,6 +71,30 @@ export default (state = initialState, action) => {
       newCategory: {
         ...state.newCategory,
         ...action.payload,
+      }
+    }
+  case "budget/categories/UPDATE_PROPS":
+    return {
+      ...state,
+      categories: {
+        ...state.categories,
+        collection: updateProps(action.payload, state.categories.collection),
+      }
+    }
+  case "budget/categories/UPDATE":
+    return {
+      ...state,
+      categories: {
+        ...state.categories,
+        collection: update(action.payload, state.categories.collection),
+      }
+    }
+  case "budget/categories/UPDATED":
+    return {
+      ...state,
+      categories: {
+        ...state.categories,
+        collection: updated(action.payload, state.categories.collection),
       }
     }
   case "budget/ADD_CATEGORY":

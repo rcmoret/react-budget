@@ -1,11 +1,11 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
-import BudgetCategory from "./Category"
 import { categoriesFetched } from "../../../actions/budget"
 import Header from "./Header"
 import { fetched as iconsFetched } from "../../../actions/icons"
 import NewBudgetCategory from "./New"
+import Show from "./Show"
 
 class BudgetCategories extends Component {
   componentWillMount() {
@@ -30,10 +30,10 @@ class BudgetCategories extends Component {
         <h2>Budget Categories</h2>
         <Header />
         <NewBudgetCategory />
-        {collection.map((category) =>
-          <BudgetCategory
+        {collection.map(category =>
+          <Show
             key={category.id}
-            {...category}
+            category={category}
            />
          )}
       </div>

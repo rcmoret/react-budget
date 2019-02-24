@@ -1,4 +1,6 @@
 import React from "react"
+
+import CancelButton from "./CancelButton"
 import IconSelect from "./IconSelect"
 
 export default (props) => (
@@ -26,18 +28,20 @@ export default (props) => (
         <div className="label">Monthly</div>
         <input type="radio"
          name="monthly"
-         value="true"
+         value={true}
          onChange={props.onChange}
          checked={props.monthly === "true" ? "checked" : ""}
+         disabled={props.optionsDisabled}
          />
       </div>
       <div className="option">
         <div className="label">Weekly</div>
         <input type="radio"
          name="monthly"
-         value="false"
+         value={false}
          onChange={props.onChange}
          checked={props.monthly === "false" ? "checked" : ""}
+         disabled={props.optionsDisabled}
          />
       </div>
     </div>
@@ -46,18 +50,20 @@ export default (props) => (
         <div className="label">Expense</div>
         <input type="radio"
          name="expense"
-         value="true"
+         value={true}
          onChange={props.onChange}
          checked={props.expense === "true" ? "checked" : ""}
+         disabled={props.optionsDisabled}
          />
       </div>
       <div className="option">
         <div className="label">Revenue</div>
         <input type="radio"
          name="expense"
-         value="false"
+         value={false}
          onChange={props.onChange}
          checked={props.expense === "false" ? "checked" : ""}
+         disabled={props.optionsDisabled}
          />
       </div>
     </div>
@@ -65,15 +71,18 @@ export default (props) => (
       onChange={props.onSelectChange}
       iconId={props.icon_id}
     />
-    <div className="category-submit">
+    <div className="category-button">
       <button type="submit" className="submit" onClick={props.onSubmit}>
-        Create
+        {props.label}
       </button>
     </div>
-    <div className="category-reset">
+    <div className="category-button">
       <button type="reset" className="reset" onClick={props.resetForm}>
         Reset
       </button>
     </div>
+    <CancelButton
+      {...props}
+    />
   </div>
 )

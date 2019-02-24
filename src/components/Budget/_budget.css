@@ -357,24 +357,29 @@
   vertical-align: top;
 }
 
-.category-submit, .category-reset {
+.category-button {
   vertical-align: top;
   display: inline-block;
   margin-left: 2%;
 }
 
-
-.category-submit button, .category-reset button {
+.category-button button {
   font-size: 1.2em;
-  padding: 15% 18%;
+  line-height: 1.2em;
+  padding: 18%;
   border: none;
   border-radius: 15px;
+  min-height: 2.5em;
 }
 
-.category-submit button.submit {
-  background-color: #59D176;
+.category-button button.submit {
+  background-color: #59D176; /* green */
 }
 
-.category-reset button.reset {
+.category-button button.reset {
   background-color: #8AB6FF; /* blue */
+}
+
+.category-button button.cancel {
+  background-color: #FF3C52; /* red */
 }

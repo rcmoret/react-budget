@@ -3,20 +3,19 @@ import { created, resetNewForm, updateNew, } from "../../../actions/budget/categ
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 import { connect } from "react-redux"
 import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
-import Form from "./Form"
+import Form from "./Form/Form"
 
 const NewBudgetCategory = (props) => {
-  const { newCategory } = props
+  const { dispatch, newCategory } = props
 
   const onChange = (e) => {
     const action = updateNew({ [e.target.name]: e.target.value })
-    props.dispatch(action)
+    dispatch(action)
   }
 
   const onSelectChange = (e) => {
     const action = updateNew({ icon_id: e.value })
-    console.log(e.value)
-    props.dispatch(action)
+    dispatch(action)
   }
 
   const onSubmit = (e) => {
@@ -34,9 +33,9 @@ const NewBudgetCategory = (props) => {
       body: JSON.stringify(postBody)
     })
     .then(response => response.json())
-    .then(data =>{
-      props.dispatch(created(data))
-      props.dispatch(resetNewForm())
+    .then(data => {
+      dispatch(created(data))
+      dispatch(resetNewForm())
     })
   }
 
@@ -49,9 +48,11 @@ const NewBudgetCategory = (props) => {
   return (
     <Form
       {...newCategory}
+      label="Create"
       onChange={onChange}
       onSelectChange={onSelectChange}
       onSubmit={onSubmit}
+      optionsDisabled={false}
       resetForm={resetForm}
     />
   )

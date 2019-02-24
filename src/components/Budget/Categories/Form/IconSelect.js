@@ -15,9 +15,8 @@ const IconSelect = ({ options, onChange, value }) => (
 
 const mapStateToProps = (state, ownProps) => {
   const { collection } = state.icons
-  const labelFor = (icon) => <span>{icon.name} <span className={icon.class_name}></span></span>
   const iconOptions = collection.map(icon => {
-    return { value: icon.id, label: labelFor(icon) }
+    return { value: icon.id, label: icon.name }
   })
   const options = [{ value: null, label: "" }, ...iconOptions]
   const value = options.find(option => option.value === ownProps.iconId)
