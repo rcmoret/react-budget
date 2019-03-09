@@ -7,11 +7,12 @@ import Transactions from "./../Shared/Transactions"
 
 class DiscretionaryDetail extends Component {
   componentDidUpdate() {
-    const url = ApiUrlBuilder(["budget", "discretionary", "transactions"])
-    if (this.props.showDetail && !this.props.fetchedTransactions ) {
+    const { dispatch, fetchedTransactions, month, showDetail, year } = this.props
+    const url = ApiUrlBuilder(["budget", "discretionary", "transactions"], { month: month, year: year })
+    if (showDetail && !fetchedTransactions ) {
       fetch(url)
         .then(response => response.json())
-        .then(data => this.props.dispatch(fetchedDiscretionaryTransactions(data)))
+        .then(data => dispatch(fetchedDiscretionaryTransactions(data)))
     }
   }
 
@@ -34,4 +35,8 @@ class DiscretionaryDetail extends Component {
   }
 }
 
-export default connect(state => state.budget.discretionary)(DiscretionaryDetail)
+const mapStateToProps = (state) => {
+  return { ...state.budget.metadata, ...state.budget.discretionary }
+}
+
+export default connect(mapStateToProps)(DiscretionaryDetail)
