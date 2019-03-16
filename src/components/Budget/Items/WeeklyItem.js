@@ -59,7 +59,7 @@ const WeeklyItem = (props) => {
         <div className="item-name">
           {props.name}
           { " " }
-          <Icon className={props.iconClassName} />
+          <Icon className={props.icon_class_name} />
         </div>
         <WeeklyDetailLabels
           descriptor={descriptor}
