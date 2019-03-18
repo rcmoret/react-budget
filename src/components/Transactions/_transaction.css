@@ -8,8 +8,8 @@
   background-color: #efefef;
 }
 
-.transaction div {
-  display: inline-block;
+.transaction  {
+  display: flex;
 }
 
 .transaction .left-icon {

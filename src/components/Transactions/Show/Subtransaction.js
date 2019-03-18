@@ -1,7 +1,7 @@
 import React from "react";
-import MoneyFormatter from "../../shared/Functions/MoneyFormatter"
+import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
 
-const Subtransaction = (props) => {
+export default (props) => {
   if (props.showDetail) {
     return (
       <div className="transaction subtransaction">
@@ -26,5 +26,3 @@ const Subtransaction = (props) => {
     return null
   }
 }
-
-export default Subtransaction;

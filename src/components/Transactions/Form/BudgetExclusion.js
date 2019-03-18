@@ -1,6 +1,10 @@
 import React from "react"
 
 export default ({ budget_exclusion, onChange, selectedAccount }) => {
+  const update = (e) => {
+    onChange({ budget_exclusion: !budget_exclusion })
+  }
+
   if (selectedAccount.cash_flow === true) {
     return null
   } else {
@@ -13,7 +17,7 @@ export default ({ budget_exclusion, onChange, selectedAccount }) => {
           <input
            type="checkbox"
            value={budget_exclusion}
-           onChange={onChange}
+           onChange={update}
            checked={budget_exclusion ? 'checked' : ''}
           />
        </div>

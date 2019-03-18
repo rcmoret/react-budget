@@ -1,15 +1,19 @@
 import React from "react"
 
-const ClearanceDate = (props) => (
-  <div className="clearance-date">
-    <input
-     type="text"
-     name="clearance_date"
-     placeholder="clearance date"
-     onChange={props.updateTransaction}
-     value={props.clearanceDate}
-    />
-  </div>
-)
+export default ({ clearanceDate, onChange }) => {
+  const update = (e) => {
+    onChange({ clearance_date: e.target.value })
+  }
 
-export default ClearanceDate
+  return (
+    <div className="clearance-date">
+      <input
+       type="text"
+       name="clearance_date"
+       placeholder="clearance date"
+       onChange={update}
+       value={clearanceDate}
+      />
+    </div>
+  )
+}

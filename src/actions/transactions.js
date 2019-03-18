@@ -1,3 +1,4 @@
+// old actions
 export const addSubtransaction = (payload) => {
   return { type: "transactions/ADD_SUBTRANSACTION", payload: payload }
 }
@@ -36,4 +37,24 @@ export const resetForm = () => {
 
 export const toggleForm = (payload) => {
   return { type: "transactions/TOGGLE_FORM", payload: payload }
+}
+
+// new actions
+export const addSubtransactionToNew = () => {
+  return { type: "transactions/ADD_SUBTRANSACTION_TO_NEW", payload: null }
+}
+
+export const created = (payload) => {
+  return { type: "transactions/CREATED", payload: payload }
+}
+
+export const resetNew = () => {
+  return { type: "transactions/RESET_NEW", payload: null }
+}
+
+export const updateNew = (payload) => {
+  return { type: "transactions/UPDATE_NEW", payload: payload }
+}
+export const updateNewSubtransaction = (payload) => {
+  return { type: "transactions/UPDATE_NEW_SUBTRANSACTION", payload: payload }
 }

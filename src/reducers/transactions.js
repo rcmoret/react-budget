@@ -13,36 +13,56 @@ const initialState = {
     collection: [],
     fetched: false,
   },
-  showForm: false,
   new: {
     clearance_date: "",
     description: "",
     amount: "",
     check_number: "",
+    showForm: false,
     subtransactions: [],
   },
 }
 
+const emptySubtransaction = {
+  description: "",
+  amount: "",
+  budget_item_id: null
+}
+
 export default (state = initialState, action) => {
   switch(action.type) {
-    case "transactions/ADD_SUBTRANSACTION":
-      if (action.payload.id) {
-        return state
+    case "transactions/ADD_SUBTRANSACTION_TO_NEW":
+      if (state.new.subtransactions.length > 0) {
+        return {
+          ...state,
+          new: {
+            ...state.new,
+            subtransactions: [
+              ...state.new.subtransactions,
+              emptySubtransaction
+            ]
+          }
+        }
       } else {
-        return helpers.addSubtransaction(state)
+        return {
+          ...state,
+          new: {
+            ...state.new,
+            subtransactions: [
+              emptySubtransaction,
+              emptySubtransaction
+            ]
+          }
+        }
       }
-    case "transactions/ADD_SUBTRANSACTIONS":
-      if (action.payload.id) {
-        return state
-      } else {
-        return helpers.addSubtransactions(state)
+    case "transactions/CREATED":
+      return {
+        ...state,
+        collection: [
+          ...state.collection,
+          action.payload
+        ]
       }
-    case "transactions/CREATE_TRANSACTION":
-      return helpers.createTransaction(action.payload, state)
-    case "transactions/EDIT_NEW":
-      return { ...state, new: { ...state.new, ...action.payload } }
-    case "transactions/EDIT_SUBTRANSACTION":
-      return helpers.editSubtransaction(action.payload, state)
     case "transactions/FETCHED":
       return {
         ...state,
@@ -61,20 +81,21 @@ export default (state = initialState, action) => {
           year: action.payload.metadata.year,
         },
       }
-    case "transactions/REMOVE_SUBTRANSACTION":
-      return helpers.removeSubtransaction(action.payload._id, state)
-    case "transactions/RESET_FORM":
+    case "transactions/RESET_NEW":
       return {
         ...state,
-        new: initialState.new,
-        showForm: false,
-        budgetItems: {
-          ...state.budgetItems,
-          fetched: false
+        new: initialState.new
+      }
+    case "transactions/UPDATE_NEW":
+      return {
+        ...state,
+        new: {
+          ...state.new,
+          ...action.payload
         }
       }
-    case "transactions/TOGGLE_FORM":
-      return { ...state, ...action.payload }
+    case "transactions/UPDATE_NEW_SUBTRANSACTION":
+      return helpers.updateNewSubtransaction(state, action.payload)
     default:
       return state
   }

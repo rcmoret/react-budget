@@ -1,4 +1,5 @@
 import React from "react";
+
 import Amount from "./Amount"
 import Balance from "./Balance"
 import BudgetCategories from "./BudgetCategories"
@@ -10,7 +11,7 @@ import Notes from "./Notes"
 import LeftIcon from "./LeftIcon"
 import Subtransactions from "./Subtransactions"
 
-const Transaction = (props) => {
+export default (props) => {
   const expandDetail = (e) => {
     e.preventDefault()
     // { showDetail: true }
@@ -51,5 +52,3 @@ const Transaction = (props) => {
     </div>
   )
 }
-
-export default Transaction

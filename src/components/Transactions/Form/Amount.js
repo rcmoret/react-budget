@@ -1,16 +1,47 @@
 import React from "react"
 
-const Amount = (props) => (
-  <div className="amount">
-    <input
-     type="text"
-     name="amount"
-     placeholder="amount"
-     value={props.amount}
-     onChange={props.updateTransaction}
-     disabled={props.disabled}
-    />
-  </div>
-)
+import SubtransactionAmount from "./SubtransactionAmount"
 
-export default Amount
+const Amounts = ({ amount, onChange, onSubChange, subtransactions }) => {
+  const update = (e) => {
+    onChange({ amount: e.target.value })
+  }
+
+  if (subtransactions.length > 0) {
+    const total = subtransactions.reduce((acc, sub) => acc + (parseFloat(sub.amount) || 0), 0)
+    return (
+      <div className="amount">
+        <input
+         type="text"
+         name="amount"
+         placeholder="amount"
+         value={total}
+         disabled={true}
+        />
+        {subtransactions.map((sub, index) =>
+          <SubtransactionAmount
+            key={index}
+            _id={sub.id || index}
+            amount={sub.amount}
+            onSubChange={onSubChange}
+          />
+        )}
+      </div>
+    )
+  } else {
+    return (
+      <div className="amount">
+        <input
+         type="text"
+         name="amount"
+         placeholder="amount"
+         value={amount}
+         onChange={update}
+         disabled={false}
+        />
+      </div>
+    )
+  }
+}
+
+export default Amounts

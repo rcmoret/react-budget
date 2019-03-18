@@ -1,5 +1,5 @@
 import React from "react";
-import Icon from "../Icons/Icon"
+import Icon from "../../Icons/Icon"
 
 const BudgetCategories = (props) => {
   const budgetItems = () => {
@@ -23,11 +23,12 @@ const BudgetCategories = (props) => {
       <div className="budget-categories">
         [
           {items.map((item, index) =>
-            <div key={index}>
+            <span key={index}>
               {index > 0 && ', '}
-              {item.budget_category}&nbsp;
+              {item.budget_category}
+              {" "}
               <Icon className={item.icon_class_name} />
-            </div>
+            </span>
         )}
         ]
       </div>

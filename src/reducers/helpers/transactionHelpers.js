@@ -93,3 +93,19 @@ export const removeSubtransaction = (_id, state) => {
     }
   }
 }
+
+export const updateNewSubtransaction = (state, payload) => {
+  const { subtransactions } = state.new
+  const { index, attributes } = payload
+  const updatedSubtransactions = subtransactions.map((sub, n) => {
+    return n === index ? { ...sub, ...attributes } : sub
+  })
+
+  return {
+    ...state,
+    new: {
+      ...state.new,
+      subtransactions: updatedSubtransactions,
+    }
+  }
+}

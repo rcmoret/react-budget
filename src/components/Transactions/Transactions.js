@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import AddTransaction from "./AddTransaction"
 import Icon from "../Icons/Icon"
 import { Link } from "react-router-dom"
-import Transaction from "./Transaction"
+import Transaction from "./Show/Show"
 import formatted, * as DateFormatter from "../../shared/Functions/DateFormatter"
 
 const Transactions = (props) => {

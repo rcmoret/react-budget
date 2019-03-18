@@ -1,19 +1,22 @@
 import React from "react"
 import { connect } from "react-redux"
+
 import { Link } from "react-router-dom"
-import { toggleForm } from "../../actions/transactions"
-import Form from "./Form/Form"
+import { updateNew } from "../../actions/transactions"
+
 import Icon from "../Icons/Icon"
+import New from "./New"
 
 const AddTransaction = ({ dispatch, showForm }) => {
   const expandForm = (e) => {
     e.preventDefault()
-    dispatch(toggleForm({ showForm: true }))
+    const action = updateNew({ showForm: true })
+    dispatch(action)
   }
 
   if (showForm) {
     return (
-      <Form />
+      <New />
     )
   } else {
     return (
@@ -22,7 +25,8 @@ const AddTransaction = ({ dispatch, showForm }) => {
           <div className="left-icon">
           </div>
           <Link to="#" onClick={expandForm}>
-            <Icon className="fas fa-plus" />&nbsp;
+            <Icon className="fas fa-plus" />
+            {" "}
             <strong>Add New Transaction</strong>
           </Link>
         </div>
@@ -32,7 +36,7 @@ const AddTransaction = ({ dispatch, showForm }) => {
 }
 
 const mapStateToProps = (state) => {
-  const { showForm } = state.transactions
+  const { showForm } = state.transactions.new
   return { showForm: showForm }
 }
 
