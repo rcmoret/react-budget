@@ -2,6 +2,10 @@ export const created = (payload) => {
   return { type: "budget/categories/CREATED", payload: payload }
 }
 
+export const deleted = (payload) => {
+  return { type: "budget/categories/DELETED", payload: payload }
+}
+
 export const reset = ({ id }) => {
   return { type: "budget/categories/RESET", payload: { id: id, showForm: false } }
 }

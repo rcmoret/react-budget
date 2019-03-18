@@ -140,13 +140,18 @@
 .category-default-amount,
 .category-icon,
 .category-detail,
-.category-edit {
+.category-edit,
+.category-delete {
   display: inline-block;
 }
 
-.category-edit a {
+.category-delete a, .category-edit a {
   color: black;
   text-decoration: none;
+}
+
+.category-delete {
+  margin-left: 2%;
 }
 
 .category-name {

@@ -52,6 +52,14 @@ export default (state = initialState, action) => {
         ]
       }
     }
+  case "budget/categories/DELETED":
+    return {
+      ...state,
+      categories: {
+        ...state.categories,
+        collection: state.categories.collection.filter(category => category.id !== action.payload)
+      }
+    }
   case "budget/categories/RESET":
     console.log(action.payload)
     return {

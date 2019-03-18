@@ -1,9 +1,10 @@
 import React from "react"
 import { connect } from "react-redux"
 
+import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 import { Link } from "react-router-dom"
 import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
-import { update } from "../../../actions/budget/categories"
+import { deleted, update } from "../../../actions/budget/categories"
 
 import Edit from "./Edit"
 import Icon from "../../Icons/Icon"
@@ -15,6 +16,19 @@ const Show = (props) => {
     e.preventDefault()
     const action = update({ id: id, showForm: true })
     props.dispatch(action)
+  }
+
+  const deleteCategory = (e) => {
+    e.preventDefault()
+    const url = ApiUrlBuilder(["budget", "categories", id])
+    const confirmation = window.confirm(`Are you sure you want to delete ${name}?`)
+    if (confirmation) {
+      const url = ApiUrlBuilder(["budget", "categories", id])
+      fetch(url, { method: "delete" })
+        .then(() => props.dispatch(props.dispatch(deleted(id))))
+    } else {
+      return
+    }
   }
 
   if (showForm) {
@@ -43,6 +57,13 @@ const Show = (props) => {
             to="#"
             onClick={revealForm}
             className="far fa-edit"
+          />
+        </div>
+        <div className="category-delete">
+          <Link
+            to="#"
+            onClick={deleteCategory}
+            className="far fa-trash-alt"
           />
         </div>
       </div>
