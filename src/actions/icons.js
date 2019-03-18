@@ -2,8 +2,8 @@ export const created = (payload) => {
   return { type: "icons/CREATED", payload: payload }
 }
 
-export const deleted = ({ id }) => {
-  return { type: "icons/DELETED", payload: { id: id } }
+export const deleted = (id) => {
+  return { type: "icons/DELETED", payload: id }
 }
 
 export const fetched = (response) => {

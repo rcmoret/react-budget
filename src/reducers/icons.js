@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
     case "icons/DELETED":
       return {
         ...state,
-        collection: state.collection.filter(icon => icon.id !== action.payload.id)
+        collection: state.collection.filter(icon => icon.id !== action.payload)
       }
     case "icons/UPDATE_NEW":
       return {

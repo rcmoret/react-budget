@@ -1,7 +1,10 @@
 import React from "react"
 import { connect } from "react-redux"
+
+import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 import { deleted, update } from "../../actions/icons"
 import { Link } from "react-router-dom"
+
 import Edit from "./Edit"
 import Icon from "./Icon"
 
@@ -16,8 +19,12 @@ const Show = (props) => {
 
   const destroy = (e) => {
     e.preventDefault()
-    const action = deleted({ id: id })
-    props.dispatch(action)
+    const confirmation = window.confirm(`Are you sure you want to delete ${name}?`)
+    if (confirmation) {
+      const url = ApiUrlBuilder(["icons", id])
+      fetch(url, { method: "delete" })
+        .then(() => props.dispatch(deleted(id)))
+    }
   }
 
   if (showForm) {
