@@ -1,4 +1,7 @@
 import React from "react";
+import { connect } from "react-redux"
+
+import { edit } from "../../../actions/transactions"
 
 import Amount from "./Amount"
 import Balance from "./Balance"
@@ -11,19 +14,22 @@ import Notes from "./Notes"
 import LeftIcon from "./LeftIcon"
 import Subtransactions from "./Subtransactions"
 
-export default (props) => {
+const Show = (props) => {
+  const { amount, balance, budget_category, budget_exclusion, check_number, clearance_date,
+          description, icon_class_name, id, notes, showDetail, subtransactions } = props
+
   const expandDetail = (e) => {
     e.preventDefault()
-    // { showDetail: true }
+    const action = edit({ id: id, showDetail: true })
+    props.dispatch(action)
   }
 
   const collapseDetail = (e) => {
     e.preventDefault()
-    // { showDetail: false }
+    const action = edit({ id: id, showDetail: false })
+    props.dispatch(action)
   }
 
-  const { amount, balance, budget_category, budget_exclusion, check_number, clearance_date,
-          description, icon_class_name, notes, showDetail, subtransactions } = props
   return(
     <div className="transaction-wrapper">
       <div className="transaction">
@@ -52,3 +58,5 @@ export default (props) => {
     </div>
   )
 }
+
+export default connect((_state, ownProps) => ownProps)(Show)

@@ -6,6 +6,10 @@ export const created = (payload) => {
   return { type: "transactions/CREATED", payload: payload }
 }
 
+export const edit = (payload) => {
+  return { type: "transactions/EDIT", payload: payload }
+}
+
 export const fetchedTransactions = (response) => {
   return { type: "transactions/FETCHED", payload: response }
 }

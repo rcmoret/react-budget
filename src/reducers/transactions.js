@@ -63,6 +63,8 @@ export default (state = initialState, action) => {
           action.payload
         ]
       }
+    case "transactions/EDIT":
+      return helpers.editTransaction(state, action.payload)
     case "transactions/FETCHED":
       return {
         ...state,

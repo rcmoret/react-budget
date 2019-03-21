@@ -1,5 +1,14 @@
 import { before, isInRange } from "../../shared/Functions/DateFormatter"
 
+export const editTransaction = (state, payload) => {
+  return {
+    ...state,
+    collection: state.collection.map(txn => {
+      return txn.id !== payload.id ? txn : { ...txn, ...payload }
+    })
+  }
+}
+
 const newSubtransaction = ({ id }) => {
   return { _id: id, amount: "", description: "", budget_item_id: "" }
 }
