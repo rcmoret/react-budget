@@ -54,7 +54,7 @@ export default (state = initialState, action) => {
         ...state,
         collection: updateProps(action.payload, state.collection)
       }
-    case "transactions/CREATE_TRANSACTION":
+    case "transactions/CREATED":
       return {
         ...state,
         collection: updateBalance(action.payload, state.collection),

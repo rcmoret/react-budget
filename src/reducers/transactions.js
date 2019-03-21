@@ -56,13 +56,7 @@ export default (state = initialState, action) => {
         }
       }
     case "transactions/CREATED":
-      return {
-        ...state,
-        collection: [
-          ...state.collection,
-          action.payload
-        ]
-      }
+      return helpers.createTransaction(state, action.payload)
     case "transactions/EDIT":
       return helpers.editTransaction(state, action.payload)
     case "transactions/FETCHED":
