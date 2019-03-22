@@ -22,7 +22,11 @@ export const createTransaction = (state, payload) => {
       ...state.metadata,
       prior_balance: newPrior,
     },
-    collection: collection
+    collection: collection,
+    budgetItems: {
+      ...state.budgetItems,
+      fetched: false
+    },
   }
 }
 
