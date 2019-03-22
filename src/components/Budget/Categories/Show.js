@@ -20,7 +20,6 @@ const Show = (props) => {
 
   const deleteCategory = (e) => {
     e.preventDefault()
-    const url = ApiUrlBuilder(["budget", "categories", id])
     const confirmation = window.confirm(`Are you sure you want to delete ${name}?`)
     if (confirmation) {
       const url = ApiUrlBuilder(["budget", "categories", id])
