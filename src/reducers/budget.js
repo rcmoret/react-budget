@@ -192,6 +192,11 @@ export default (state = initialState, action) => {
     return Helpers.updateMonthlyItem(action.payload, state)
   case "budget/UPDATE_WEEKLY_ITEM":
     return Helpers.updateWeeklyItem(action.payload, state)
+  case "transactions/CREATED":
+    return {
+      ...state,
+      itemsFetched: false,
+    }
   default:
     return state
   }
