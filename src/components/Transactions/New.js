@@ -32,32 +32,34 @@ const New = (props) => {
     dispatch(action)
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = () => {
     const url = ApiUrlBuilder(["accounts", selectedAccount.id, "transactions"])
     const subtransactions_attributes = subtransactions.map(sub => {
       let adjusted = (parseFloat(sub.amount)) * 100 || null
       return { ...sub, amount: adjusted }
     })
     const adjustedAmount = (parseFloat(amount)) * 100 || null
+    const description = transaction.description === "" ? null : transaction.description
     const postBody = {
       // accountId: selectedAccountId, this shouldn't be needed since it part of the url
       ...transaction,
+      description: description,
       amount: adjustedAmount,
       subtransactions_attributes: subtransactions_attributes,
     }
     fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        "Accept": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(postBody)
     })
-    .then(response => response.json())
-    .then(data => {
-      dispatch(created(data))
-      dispatch(resetNew())
-    })
+      .then(response => response.json())
+      .then(data => {
+        dispatch(created(data))
+        dispatch(resetNew())
+      })
   }
 
   return (
