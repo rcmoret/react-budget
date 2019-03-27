@@ -9,10 +9,12 @@
 }
 
 .transaction  {
-  display: flex;
+  display: inline-block;
+  width: 98%;
 }
 
 .transaction .left-icon {
+  display: inline-block;
   color: #737373;
   width: 1.5%;
 }
@@ -27,29 +29,38 @@
 }
 
 .transaction .clearance-date {
+  display: inline-block;
   width: 8%;
 }
 
 .transaction .description {
+  display: inline-block;
   width: 20%;
 }
 
 .transaction .balance, .transaction .amount {
+  display: inline-block;
   width: 8%;
   text-align: right;
 }
 
-.transaction .budget-categories, .transaction .balance, .transaction .check-number {
+.transaction .budget-categories, .transaction .balance, .transaction .check-number, .transaction .notes {
+  display: inline-block;
   margin-right: 1%;
 }
 
 .transaction .exclusion {
+  display: inline-block;
   font-style: italic;
   font-size: 0.8em;
   margin-right: 1%
 }
 
-.subtransaction {
+.transaction-delete-button {
+  display: inline-block;
+}
+
+.subtransaction-show {
   font-size: 0.8em;
 }
 

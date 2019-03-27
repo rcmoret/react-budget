@@ -13,6 +13,7 @@ const Show = (props) => {
   const { id, class_name, name, showForm } = icon
 
   const renderForm = (e) => {
+    e.preventDefault()
     const action = update({ id: id, showForm: true })
     props.dispatch(action)
   }

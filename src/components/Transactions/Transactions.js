@@ -1,10 +1,12 @@
-import React from 'react';
+import React from "react"
 import { connect } from "react-redux"
-import AddTransaction from "./AddTransaction"
-import Icon from "../Icons/Icon"
+
 import { Link } from "react-router-dom"
-import Transaction from "./Show/Show"
+
+import AddTransaction from "./AddTransaction"
 import formatted, * as DateFormatter from "../../shared/Functions/DateFormatter"
+import Icon from "../Icons/Icon"
+import Transaction from "./Show/Show"
 
 const Transactions = (props) => {
   const { accountId, endDate, nextMonth, prevMonth, startDate } = props
@@ -35,9 +37,10 @@ const Transactions = (props) => {
         <Transaction
           key={transaction.id}
           {...transaction}
+          deletable={true}
         />
       )}
-    <AddTransaction />
+      <AddTransaction />
     </div>
   )
 }

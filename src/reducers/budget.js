@@ -197,6 +197,11 @@ export default (state = initialState, action) => {
       ...state,
       itemsFetched: false,
     }
+  case "transactions/DELETED":
+    return {
+      ...state,
+      itemsFetched: false,
+    }
   default:
     return state
   }

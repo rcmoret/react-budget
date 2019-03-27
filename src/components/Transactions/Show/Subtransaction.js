@@ -4,7 +4,7 @@ import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
 export default (props) => {
   if (props.showDetail) {
     return (
-      <div className="transaction subtransaction">
+      <div className="transaction subtransaction-show">
         <div className="left-icon">
         </div>
         <div className="clearance-date">
