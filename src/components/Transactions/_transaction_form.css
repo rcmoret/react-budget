@@ -1,9 +1,5 @@
-.transaction.form {
+.transaction-form {
   margin-top: 1%;
-}
-
-.transaction.form .clearance-date {
-  width: 100%;
 }
 
 .clearance-date input {
@@ -11,9 +7,20 @@
   margin-left: 5%;
 }
 
+.transaction-form .description {
+  display: inline-block;
+  vertical-align: top;
+  width: 20%;
+}
+
 .description input {
   width: 95%;
   margin-left: 5%;
+}
+
+.transaction-form .amount {
+  display: inline-block;
+  vertical-align: top;
 }
 
 .amount input {
@@ -25,6 +32,11 @@
 .budget-item-select {
   width: 20%;
   margin-right: 2%;
+}
+
+.transaction-form .budget-item-select {
+  display: inline-block;
+  vertical-align: top;
 }
 
 .budget-item-select div {
@@ -66,7 +78,7 @@
   vertical-align: top;
 }
 
-.transaction.form textarea {
+.transaction-form textarea {
   resize: none;
   width: 100%;
 }
@@ -76,12 +88,12 @@
   margin-left: -0.5%;
 }
 
-.transaction.form .budget-exclusion {
-  margin-left: 3%;
-  width: 20%;
+.transaction-form .budget-exclusion {
+  display: inline-block;
+  vertical-align: top;
 }
 
-.transaction.form .add-subtransactions {
+.transaction-form .add-subtransactions {
   margin-right: 2%;
 }
 
@@ -89,17 +101,28 @@
   width: 20%;
 }
 
-.transaction.form .transaction-submit {
+.transaction-form .transaction-submit {
+  display: inline-block;
+  vertical-align: top;
   width: 20%;
   margin-left: 1.5%;
 }
 
-.transaction.form button {
+.transaction-form button {
   background-color: #59D176;
   border-radius: 8px;
   padding: 5%;
   font-size: 0.8em;
   border: none;
+}
+
+.left-stuff {
+  width: 10%;
+  display: inline-block;
+}
+
+.left-stuff div {
+  display: inline-block
 }
 
 .left-stuff .option {
@@ -108,4 +131,9 @@
 
 .subtransaction {
   margin-top: 20.2px;
+}
+
+.transaction-form .additional-options {
+  display: inline-block;
+  vertical-align: top;
 }

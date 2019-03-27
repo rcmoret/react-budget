@@ -18,17 +18,19 @@ const Form = (props) => {
     description, notes, subtransactions } = transaction
 
   return (
-    <div className="transaction form">
-      <Link
-        to="#"
-        onClick={resetForm}
-        className="fas fa-times"
-      />
+    <div className="transaction-form transaction-wrapper">
       <div className="left-stuff">
-        <ClearanceDate
-          clearanceDate={clearance_date}
-          onChange={onChange}
-        />
+        <div>
+          <Link
+            to="#"
+            onClick={resetForm}
+            className="fas fa-times"
+          />
+          <ClearanceDate
+            clearanceDate={clearance_date}
+            onChange={onChange}
+          />
+        </div>
         <AddSubtransactionLink
           subtransactions={subtransactions}
           addSubtransaction={addSubtransaction}
@@ -61,12 +63,12 @@ const Form = (props) => {
           onChange={onChange}
           check_number={check_number}
         />
-        <BudgetExclusion
-          onChange={onChange}
-          budget_exclusion={budget_exclusion}
-          selectedAccount={selectedAccount}
-        />
       </div>
+      <BudgetExclusion
+        onChange={onChange}
+        budget_exclusion={budget_exclusion}
+        selectedAccount={selectedAccount}
+      />
       <SubmitButton
         onSubmit={onSubmit}
       />
