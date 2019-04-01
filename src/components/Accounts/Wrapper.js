@@ -41,8 +41,8 @@ const mapStateToProps = (state, ownProps) => {
   const month = parseInt(ownProps.match.params.month) || today.getMonth() + 1
   const year = parseInt(ownProps.match.params.year) || today.getFullYear()
   const collection = state.accounts.collection.sort((a, b) => {
-      return a.priority - b.priority
-    })
+    return a.priority - b.priority
+  })
   return {
     collection: collection,
     selectedAccountId: selectedAccountId,

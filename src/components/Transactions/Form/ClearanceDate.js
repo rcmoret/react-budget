@@ -8,11 +8,11 @@ export default ({ clearanceDate, onChange }) => {
   return (
     <div className="clearance-date">
       <input
-       type="text"
-       name="clearance_date"
-       placeholder="clearance date"
-       onChange={update}
-       value={clearanceDate}
+        type="text"
+        name="clearance_date"
+        placeholder="clearance date"
+        onChange={update}
+        value={clearanceDate || ""}
       />
     </div>
   )

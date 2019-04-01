@@ -77,7 +77,7 @@ const mapStateToProps = (state, ownProps) => {
     balance: metadata.prior_balance,
     clearance_date: metadata.date_range[0],
     amount: null,
-    description: 'Balance',
+    description: "Balance",
     subtransactions: [],
   }
 

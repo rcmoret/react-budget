@@ -1,6 +1,6 @@
 import { before, isInRange } from "../../shared/Functions/DateFormatter"
 
-export const editTransaction = (state, payload) => {
+export const editTransaction = (payload, state) => {
   return {
     ...state,
     collection: state.collection.map(txn => {
@@ -9,7 +9,7 @@ export const editTransaction = (state, payload) => {
   }
 }
 
-export const createTransaction = (state, payload) => {
+export const createTransaction = (payload, state) => {
   const { clearance_date } = payload
   const { include_pending } = state.metadata.query_options
   const { prior_balance, date_range } = state.metadata
@@ -30,7 +30,7 @@ export const createTransaction = (state, payload) => {
   }
 }
 
-export const updateNewSubtransaction = (state, payload) => {
+export const updateNewSubtransaction = (payload, state) => {
   const { subtransactions } = state.new
   const { index, attributes } = payload
   const updatedSubtransactions = subtransactions.map((sub, n) => {

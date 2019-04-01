@@ -29,6 +29,7 @@ export const resetNew = () => {
 export const updateNew = (payload) => {
   return { type: "transactions/UPDATE_NEW", payload: payload }
 }
+
 export const updateNewSubtransaction = (payload) => {
   return { type: "transactions/UPDATE_NEW_SUBTRANSACTION", payload: payload }
 }

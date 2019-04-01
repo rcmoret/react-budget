@@ -56,14 +56,14 @@ export default (state = initialState, action) => {
       }
     }
   case "transactions/CREATED":
-    return helpers.createTransaction(state, action.payload)
+    return helpers.createTransaction(action.payload, state)
   case "transactions/DELETED":
     return {
       ...state,
       collection: state.collection.filter(txn => txn.id !== action.payload.id)
     }
   case "transactions/EDIT":
-    return helpers.editTransaction(state, action.payload)
+    return helpers.editTransaction(action.payload, state)
   case "transactions/FETCHED":
     return {
       ...state,
