@@ -1,6 +1,7 @@
 import objectifyMonthly from "../shared/models/monthlyBudgetItem"
 import objectifyWeekly from "../shared/models/weeklyBudgetItem"
 import * as helpers from "./helpers/transactionHelpers"
+import { updated, updateProps } from "./helpers/shared"
 
 const initialState = {
   metadata: {
@@ -64,6 +65,11 @@ export default (state = initialState, action) => {
     }
   case "transactions/EDIT":
     return helpers.editTransaction(action.payload, state)
+  case "transactions/EDIT_PROPS":
+    return {
+      ...state,
+      collection: updateProps(action.payload, state.collection)
+    }
   case "transactions/FETCHED":
     return {
       ...state,
@@ -97,6 +103,11 @@ export default (state = initialState, action) => {
     }
   case "transactions/UPDATE_NEW_SUBTRANSACTION":
     return helpers.updateNewSubtransaction(state, action.payload)
+  case "transactions/UPDATED":
+    return {
+      ...state,
+      collection: updated(action.payload, state.collection)
+    }
   default:
     return state
   }

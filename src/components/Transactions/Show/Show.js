@@ -12,13 +12,15 @@ import CheckNumber from "./CheckNumber"
 import ClearanceDate from "./ClearanceDate"
 import DeleteButton from "./DeleteButton"
 import Description from "./Description"
+import Edit from "../Edit"
+import EditLink from "./EditLink"
 import Notes from "./Notes"
 import LeftIcon from "./LeftIcon"
 import Subtransactions from "./Subtransactions"
 
 const Show = (props) => {
   const { account_id, amount, balance, budget_category, budget_exclusion, check_number, clearance_date,
-    description, icon_class_name, id, notes, showDetail, subtransactions } = props
+    description, icon_class_name, id, notes, showDetail, showForm, subtransactions } = props
 
   const expandDetail = (e) => {
     e.preventDefault()
@@ -45,34 +47,42 @@ const Show = (props) => {
     }
   }
 
-  return(
-    <div className="transaction-wrapper">
-      <div className="transaction">
-        <div className="left-icon">
-          <LeftIcon
-            showDetail={showDetail}
-            subtransactions={subtransactions}
-            expandDetail={expandDetail}
-            collapseDetail={collapseDetail}
+  if (showForm) {
+    return (
+      <Edit { ...props } />
+    )
+  } else {
+    return (
+      <div className="transaction-wrapper">
+        <div className="transaction">
+          <div className="left-icon">
+            <LeftIcon
+              showDetail={showDetail}
+              subtransactions={subtransactions}
+              expandDetail={expandDetail}
+              collapseDetail={collapseDetail}
+            />
+          </div>
+          <ClearanceDate clearanceDate={clearance_date} />
+          <Description
+            budgetCategory={budget_category}
+            iconClassName={icon_class_name}
+            description={description}
           />
+          <Amount amount={amount} />
+          <Balance balance={balance} />
+          <CheckNumber checkNumber={check_number} />
+          <BudgetCategories {...props} />
+          <BudgetExclusion budgetExclusion={budget_exclusion} />
+          <Notes notes={notes} />
         </div>
-        <ClearanceDate clearanceDate={clearance_date} />
-        <Description
-          budgetCategory={budget_category}
-          iconClassName={icon_class_name}
-          description={description}
-        />
-        <Amount amount={amount} />
-        <Balance balance={balance} />
-        <CheckNumber checkNumber={check_number} />
-        <BudgetCategories {...props} />
-        <BudgetExclusion budgetExclusion={budget_exclusion} />
-        <Notes notes={notes} />
+        <EditLink transactionId={id} editable={props.deletable} />
+        {" "}
+        <DeleteButton onClick={transactionDelete} deletable={props.deletable} />
+        <Subtransactions showDetail={showDetail} subtransactions={subtransactions} />
       </div>
-      <DeleteButton onClick={transactionDelete} deletable={props.deletable} />
-      <Subtransactions showDetail={showDetail} subtransactions={subtransactions} />
-    </div>
-  )
+    )
+  }
 }
 
 export default connect((_state, ownProps) => ownProps)(Show)

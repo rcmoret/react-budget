@@ -66,6 +66,7 @@ const New = (props) => {
     <Form
       transaction={transaction}
       addSubtransaction={addSubtransaction}
+      buttonText={props.buttonText}
       onChange={onChange}
       onSubChange={onSubChange}
       onSubmit={onSubmit}
@@ -83,6 +84,7 @@ const mapStateToProps = (state) => {
   return {
     transaction: transaction,
     selectedAccount: selectedAccount,
+    buttonText: "Create Transaction",
   }
 }
 export default connect(mapStateToProps)(New)

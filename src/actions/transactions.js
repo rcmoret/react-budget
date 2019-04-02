@@ -14,6 +14,10 @@ export const edit = (payload) => {
   return { type: "transactions/EDIT", payload: payload }
 }
 
+export const editProps = (payload) => {
+  return { type: "transactions/EDIT_PROPS", payload: payload }
+}
+
 export const fetchedTransactions = (response) => {
   return { type: "transactions/FETCHED", payload: response }
 }
@@ -32,4 +36,8 @@ export const updateNew = (payload) => {
 
 export const updateNewSubtransaction = (payload) => {
   return { type: "transactions/UPDATE_NEW_SUBTRANSACTION", payload: payload }
+}
+
+export const updated = (payload) => {
+  return { type: "transactions/UPDATED", payload: payload }
 }

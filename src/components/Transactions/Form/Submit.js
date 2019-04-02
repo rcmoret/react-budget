@@ -1,9 +1,9 @@
 import React from "react"
 
-export default ({ onSubmit }) => (
+export default ({ buttonText, onSubmit }) => (
   <div className="transaction-submit">
     <button type="submit" onClick={onSubmit}>
-      Create Transaction
+      {buttonText}
     </button>
   </div>
 )

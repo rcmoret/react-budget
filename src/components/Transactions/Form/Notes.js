@@ -10,7 +10,7 @@ export default ({ notes, onChange }) => {
       <textarea
         placeholder="notes"
         name="notes"
-        value={notes}
+        value={notes || ""}
         onChange={update}
       />
     </div>

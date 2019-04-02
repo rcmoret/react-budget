@@ -11,7 +11,7 @@ export default ({ budgetCategory, description, iconClassName }) => {
   } else {
     return (
       <div className="description">
-        {description}
+        {description || ""}
       </div>
     )
   }
