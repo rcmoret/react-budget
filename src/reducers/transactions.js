@@ -102,7 +102,7 @@ export default (state = initialState, action) => {
       }
     }
   case "transactions/UPDATE_NEW_SUBTRANSACTION":
-    return helpers.updateNewSubtransaction(state, action.payload)
+    return helpers.updateNewSubtransaction(action.payload, state)
   case "transactions/UPDATED":
     return {
       ...state,
