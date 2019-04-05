@@ -13,7 +13,17 @@ import Notes from "./Notes"
 import SubmitButton from "./Submit"
 
 const Form = (props) => {
-  const { addSubtransaction, buttonText, onChange, onSubChange, onSubmit, resetForm, selectedAccount, transaction } = props
+  const {
+    addSubtransaction,
+    budgetOptions,
+    buttonText,
+    onChange,
+    onSubChange,
+    onSubmit,
+    resetForm,
+    selectedAccount,
+    transaction
+  } = props
   const { amount, budget_exclusion, budget_item_id, check_number, clearance_date,
     description, notes, subtransactions } = transaction
 
@@ -52,6 +62,7 @@ const Form = (props) => {
         budget_item_id={budget_item_id}
         onChange={onChange}
         onSubChange={onSubChange}
+        options={budgetOptions}
         subtransactions={subtransactions}
       />
       <div className="additional-options">

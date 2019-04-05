@@ -4,7 +4,6 @@ import { connect } from "react-redux"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 import { fetchedBudgetItems } from "../../../actions/transactions"
 import { fromDateString } from "../../../shared/Functions/DateFormatter"
-import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
 import Select from "react-select"
 
 import SubtransactionBudgetItemSelect from "./SubtransactionBudgetItemSelect"
@@ -62,16 +61,7 @@ const BudgetItemSelect = (props) => {
 const mapStateToProps = (state, ownProps) => {
   const { fetched, month, year } = state.transactions.budgetItems
   const dateObject = fromDateString(state.transactions.metadata.date_range[0], { format: "object" })
-  const items = state.transactions.budgetItems.collection
-  const collection = items.filter(item => !item.monthly || item.deletable)
-  const labelFor = (item) => `${item.name} (${MoneyFormatter(item.remaining, { absolute: true })})`
-  const itemOptions = collection.map(item => {
-    return { value: item.id, label: labelFor(item) }
-  }).sort((a, b) => {
-    return a.label.toLowerCase() < b.label.toLowerCase() ? -1 : 1
-  })
-  const discretionary = { label: "Discretionary", value: null }
-  const options = [discretionary, ...itemOptions]
+  const { options } = ownProps
   const emptyOption = { label: "", value: null }
   const budget_item_id = ownProps.budget_item_id || null
   const value = options.find(opt => opt.value === budget_item_id) || emptyOption

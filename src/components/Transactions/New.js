@@ -3,11 +3,12 @@ import { connect } from "react-redux"
 
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 import { addSubtransactionToNew, created, resetNew, updateNew, updateNewSubtransaction } from "../../actions/transactions"
+import MoneyFormatter from "../../shared/Functions/MoneyFormatter"
 
 import Form from "./Form/Form"
 
 const New = (props) => {
-  const { dispatch, selectedAccount, transaction } = props
+  const { budgetOptions, dispatch, selectedAccount, transaction } = props
   const { amount, subtransactions } = transaction
 
   const addSubtransaction = (e) => {
@@ -41,7 +42,6 @@ const New = (props) => {
     const adjustedAmount = (parseFloat(amount)) * 100 || null
     const description = transaction.description === "" ? null : transaction.description
     const postBody = {
-      // accountId: selectedAccountId, this shouldn't be needed since it part of the url
       ...transaction,
       description: description,
       amount: adjustedAmount,
@@ -66,6 +66,7 @@ const New = (props) => {
     <Form
       transaction={transaction}
       addSubtransaction={addSubtransaction}
+      budgetOptions={budgetOptions}
       buttonText={props.buttonText}
       onChange={onChange}
       onSubChange={onSubChange}
@@ -80,11 +81,22 @@ const mapStateToProps = (state) => {
   const transaction = state.transactions.new
   const selectedAccountId = parseInt(state.transactions.metadata.query_options.account_id)
   const selectedAccount = state.accounts.collection.find(account => account.id === selectedAccountId)
+  const items = state.transactions.budgetItems.collection
+  const collection = items.filter(item => !item.monthly || item.deletable)
+  const labelFor = (item) => `${item.name} (${MoneyFormatter(item.remaining, { absolute: true })})`
+  const itemOptions = collection.map(item => {
+    return { value: item.id, label: labelFor(item) }
+  }).sort((a, b) => {
+    return a.label.toLowerCase() < b.label.toLowerCase() ? -1 : 1
+  })
+  const discretionary = { label: "Discretionary", value: null }
+  const budgetOptions = [discretionary, ...itemOptions]
 
   return {
-    transaction: transaction,
-    selectedAccount: selectedAccount,
     buttonText: "Create Transaction",
+    budgetOptions: budgetOptions,
+    selectedAccount: selectedAccount,
+    transaction: transaction,
   }
 }
 export default connect(mapStateToProps)(New)

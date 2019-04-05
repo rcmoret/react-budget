@@ -10,11 +10,11 @@ export default ({ description, onChange, onSubChange, subtransactions }) => {
   return (
     <div className="description">
       <input
-       type="text"
-       name="description"
-       placeholder="description"
-       onChange={update}
-       value={description}
+        type="text"
+        name="description"
+        placeholder="description"
+        onChange={update}
+        value={description || ""}
       />
       {subtransactions.map((sub, index) =>
         <SubtransactionDescription

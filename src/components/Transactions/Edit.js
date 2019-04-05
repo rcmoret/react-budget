@@ -3,11 +3,12 @@ import { connect } from "react-redux"
 
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 import { edit, editProps, updated } from "../../actions/transactions"
+import MoneyFormatter from "../../shared/Functions/MoneyFormatter"
 
 import Form from "./Form/Form"
 
 const Edit = (props) => {
-  const { dispatch, transaction } = props
+  const { budgetOptions, dispatch, transaction } = props
   const { account_id, amount, id } = transaction
   // const addSubtransaction = (e) => {
   // }
@@ -49,6 +50,7 @@ const Edit = (props) => {
   if (transaction.showForm) {
     return (
       <Form
+        budgetOptions={budgetOptions}
         onChange={onChange}
         onSubmit={onSubmit}
         resetForm={resetForm}
@@ -65,14 +67,25 @@ const mapStateToProps = (state, ownProps) => {
     amount: parseFloat(ownProps.amount / 100.0).toFixed(2),
     ...ownProps.updatedProps
   }
+  const items = state.transactions.budgetItems.collection
+  const collection = items.filter(item => !item.monthly || item.deletable || item.id === ownProps.budget_item_id)
+  const labelFor = (item) => `${item.name} (${MoneyFormatter(item.remaining, { absolute: true })})`
+  const itemOptions = collection.map(item => {
+    return { value: item.id, label: labelFor(item) }
+  }).sort((a, b) => {
+    return a.label.toLowerCase() < b.label.toLowerCase() ? -1 : 1
+  })
+  const discretionary = { label: "Discretionary", value: null }
+  const budgetOptions = [discretionary, ...itemOptions]
 
   return {
     transaction: {
       ...ownProps,
       ...updatedProps,
     },
-    selectedAccount: state.accounts.collection.find(acct => acct.id === ownProps.account_id),
     buttonText: "Update Transaction",
+    budgetOptions: budgetOptions,
+    selectedAccount: state.accounts.collection.find(acct => acct.id === ownProps.account_id),
   }
 }
 
