@@ -38,7 +38,7 @@ class BudgetIndex extends Component {
           <div>
             <Link to="/budget/categories">
               <div className="category-link">
-                <h3>Manage Budget Categories</h3>
+                <h3>Manage Categories</h3>
               </div>
             </Link>
           </div>
