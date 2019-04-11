@@ -1,11 +1,15 @@
-import React from 'react'
+import React from "react"
+import TransfersLink from "./TransfersLink"
 import ManageButton from "./ManageButton"
 import TransactionsWrapper from "../Transactions/Wrapper"
 
 export default ({ month, year, selectedAccountId }) => {
   if (selectedAccountId === 0) {
     return(
-      <ManageButton />
+      <div>
+        <TransfersLink />
+        <ManageButton />
+      </div>
     )
   } else {
     return(

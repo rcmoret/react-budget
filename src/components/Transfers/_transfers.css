@@ -1,0 +1,38 @@
+.transfers {
+  padding: 0 2%;
+}
+
+.transfers .transfer:first-of-type {
+  margin-top: 2%;
+}
+
+.transfers .transfer {
+  background-color: #efefef;
+  padding: 1%;
+  border-radius: 15px;
+}
+
+.transfers .transfer:nth-of-type(2n) {
+  background: white;
+}
+
+.transfer .clearance-date,
+.transfer .from-account,
+.transfer .to-account,
+.transfer .amount {
+  display: inline-block;
+  width: 20%;
+}
+
+.transfer .amount {
+  text-align: right;
+}
+
+.transfers-pagination {
+  margin-top: 15px;
+  margin-left: 15px;
+}
+
+.transfers-pagination a {
+  color: black;
+}

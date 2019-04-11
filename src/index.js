@@ -6,6 +6,7 @@ import './components/Budget/_budget.css';
 import "./components/Icons/_icons.css"
 import './components/Transactions/_transaction.css';
 import './components/Transactions/_transaction_form.css';
+import './components/Transfers/_transfers.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
