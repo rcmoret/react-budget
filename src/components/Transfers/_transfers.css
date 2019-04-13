@@ -46,3 +46,12 @@
   display: inline-block;
   margin-right: 10px;
 }
+
+.transfer-delete {
+  margin-left: 2%;
+  display: inline-block;
+}
+
+.transfer-delete a {
+  color: black;
+}

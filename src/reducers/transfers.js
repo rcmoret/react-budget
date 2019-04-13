@@ -30,6 +30,16 @@ export default (state = initialState, action) => {
       },
       newTransfer: initialNew,
     }
+  case "transfers/DELETED":
+    return {
+      ...state,
+      collection: state.collection.filter(transfer => transfer.id !== action.payload),
+      metadata: {
+        ...state.metadata,
+        total: (state.metadata.total - 1),
+        viewing: [state.metadata.viewing[0], (state.metadata.viewing[1] - 1)]
+      },
+    }
   case "transfers/FETCHED":
     return {
       ...state,

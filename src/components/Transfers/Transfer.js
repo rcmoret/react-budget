@@ -3,7 +3,9 @@ import React from "react"
 import * as DateFormatter from "../../shared/Functions/DateFormatter"
 import MoneyFormatter from "../../shared/Functions/MoneyFormatter"
 
-export default ({ from_transaction, to_transaction }) => {
+import DeleteButton from "./DeleteButton"
+
+export default ({ from_transaction, id, to_transaction }) => {
   const clearanceDate = () => {
     if (from_transaction.clearance_date) {
       return DateFormatter.fromDateString(from_transaction.clearance_date)
@@ -28,6 +30,7 @@ export default ({ from_transaction, to_transaction }) => {
       <div className="amount">
         {MoneyFormatter(to_transaction.amount)}
       </div>
+      <DeleteButton id={id} />
     </div>
   )
 }
