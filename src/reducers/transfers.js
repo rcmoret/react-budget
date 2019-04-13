@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
   case "transfers/DELETED":
     return {
       ...state,
-      collection: state.collection.filter(transfer => transfer.id !== action.payload),
+      collection: state.collection.filter(transfer => transfer.id !== action.payload.id),
       metadata: {
         ...state.metadata,
         total: (state.metadata.total - 1),

@@ -6,6 +6,7 @@ import MoneyFormatter from "../../shared/Functions/MoneyFormatter"
 import DeleteButton from "./DeleteButton"
 
 export default ({ from_transaction, id, to_transaction }) => {
+  const { amount } = to_transaction
   const clearanceDate = () => {
     if (from_transaction.clearance_date) {
       return DateFormatter.fromDateString(from_transaction.clearance_date)
@@ -30,7 +31,12 @@ export default ({ from_transaction, id, to_transaction }) => {
       <div className="amount">
         {MoneyFormatter(to_transaction.amount)}
       </div>
-      <DeleteButton id={id} />
+      <DeleteButton
+        id={id}
+        amount={amount}
+        from_account_id={from_transaction.account_id}
+        to_account_id={to_transaction.account_id}
+      />
     </div>
   )
 }

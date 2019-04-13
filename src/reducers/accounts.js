@@ -66,6 +66,16 @@ export default (state = initialState, action) => {
       ...state,
       collection: updateBalance(action.payload, state.collection),
     }
+  case "transfers/CREATED":
+    return {
+      ...state,
+      collection: updateAfterTransferCreate(action.payload, state.collection),
+    }
+  case "transfers/DELETED":
+    return {
+      ...state,
+      collection: updateAfterTransferDelete(action.payload, state.collection),
+    }
   default:
     return state
   }
@@ -78,6 +88,33 @@ const updateBalance = (payload, collection) => {
       return acct
     } else {
       return { ...acct, balance: (acct.balance + amount) }
+    }
+  })
+}
+
+const updateAfterTransferCreate = (payload, collection) => {
+  const { from_transaction, to_transaction } = payload
+  const { amount } = to_transaction
+  return collection.map(acct => {
+    if (from_transaction.account_id === acct.id) {
+      return { ...acct, balance: (acct.balance - amount) }
+    } else if (to_transaction.account_id === acct.id) {
+      return { ...acct, balance: (acct.balance + amount) }
+    } else {
+      return acct
+    }
+  })
+}
+
+const updateAfterTransferDelete = (payload, collection) => {
+  const { amount, from_account_id, to_account_id } = payload
+  return collection.map(acct => {
+    if (from_account_id === acct.id) {
+      return { ...acct, balance: (acct.balance + amount) }
+    } else if (to_account_id === acct.id) {
+      return { ...acct, balance: (acct.balance - amount) }
+    } else {
+      return acct
     }
   })
 }
