@@ -32,6 +32,8 @@ const MonthDictionary = (mo) => {
 const formatted = ({ month, day, year, format }) => {
   const monthString = MonthDictionary(month)
   switch(format) {
+  case "dateObject":
+    return new Date(year, month, day)
   case "monthYear":
     return `${monthString.long} ${year}`
   case "numericMonthYear":

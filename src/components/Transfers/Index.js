@@ -3,14 +3,24 @@ import { connect } from "react-redux"
 
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 import { fetched } from "../../actions/transfers"
+import { fetched as renderAccounts } from "../../actions/accounts"
 
+import Tabs from "../Accounts/Tabs"
 import Icon from "../Icons/Icon"
+import NewTransfer from "./NewTransfer"
 import PaginationLinks from "./PaginationLinks"
 import Transfer from "./Transfer"
 
-const Index = ({ collection, dispatch, fetchedTransfers, metadata }) => {
-  console.log(metadata)
+const Index = ({ accounts, accountsFetched, collection, dispatch, fetchedTransfers, metadata }) => {
   const { currentPage, total, viewing } = metadata
+
+  if(!accountsFetched) {
+    const url = ApiUrlBuilder(["accounts"])
+    fetch(url)
+      .then(response => response.json())
+      .then(data => dispatch(renderAccounts(data)))
+  }
+
   if (!fetchedTransfers) {
     const url = ApiUrlBuilder(["transfers"], { page: currentPage })
     fetch(url)
@@ -19,31 +29,41 @@ const Index = ({ collection, dispatch, fetchedTransfers, metadata }) => {
   }
 
   return (
-    <div className="transfers">
-      <h2>Recent Transfers</h2>
-      <hr/>
-
-      Viewing {viewing[0]} - {viewing[1]} of {total}
-      <div className="transfer">
-        <div className="clearance-date">
-          Clearance Date
-          {" "}
-          <Icon className="fas fa-calendar-alt" />
-        </div>
-        <div className="from-account">
-          From
-        </div>
-        <div className="to-account">
-          To
-        </div>
-        <div className="amount">
-          Amount
-        </div>
+    <div>
+      <div className="accounts">
+        <Tabs
+          collection={accounts}
+          selectedAccountId={0}
+        />
       </div>
-      {collection.map(transfer => (
-        <Transfer key={transfer.id} { ...transfer } />
-      ))}
-      <PaginationLinks />
+      <div className="transfers">
+        <h2>Recent Transfers</h2>
+        <hr/>
+
+        Viewing {viewing[0]} - {viewing[1]} of {total}
+        <div className="transfer">
+          <div className="clearance-date">
+            Clearance Date
+            {" "}
+            <Icon className="fas fa-calendar-alt" />
+          </div>
+          <div className="from-account">
+            From
+          </div>
+          <div className="to-account">
+            To
+          </div>
+          <div className="amount">
+            Amount
+          </div>
+        </div>
+        {collection.map(transfer => (
+          <Transfer key={transfer.id} { ...transfer } />
+        ))}
+        <hr />
+        <NewTransfer />
+        <PaginationLinks />
+      </div>
     </div>
   )
 }
@@ -51,22 +71,26 @@ const Index = ({ collection, dispatch, fetchedTransfers, metadata }) => {
 const mapStateToProps = (state) => {
   const date = new Date()
   const today = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0,10)
+  const { accountsFetched } = state.accounts
 
   const collection = state.transfers.collection.sort((a, b) => {
     if (a.from_transaction.clearance_date === b.from_transaction.clearance_date) {
       return 0
     } else if (a.from_transaction.clearance_date === null) {
       return b.from_transaction.clearance_date > today ? -1 : 1
-    } else if (b.clearance_date === null) {
+    } else if (b.from_transaction.clearance_date === null) {
       return a.from_transaction.clearance_date > today ? 1 : -1
     } else {
       // equailty is handled above
       return (a.from_transaction.clearance_date > b.from_transaction.clearance_date) ? 1 : -1
     }
   })
+
   return {
     ...state.transfers,
+    accounts: state.accounts.collection,
     collection: collection,
+    accountsFetched: accountsFetched,
   }
 }
 

@@ -32,11 +32,11 @@ const NewBudgetCategory = (props) => {
       },
       body: JSON.stringify(postBody)
     })
-    .then(response => response.json())
-    .then(data => {
-      dispatch(created(data))
-      dispatch(resetNewForm())
-    })
+      .then(response => response.json())
+      .then(data => {
+        dispatch(created(data))
+        dispatch(resetNewForm())
+      })
   }
 
   const resetForm = (e) => {

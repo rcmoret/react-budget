@@ -1,3 +1,9 @@
+const initialNew = {
+  to_account_id: null,
+  from_account_id: null,
+  amount: "",
+}
+
 const initialState = {
   metadata: {
     limit: 10,
@@ -8,10 +14,22 @@ const initialState = {
   },
   collection: [],
   fetchedTransfers: false,
+  newTransfer: initialNew,
 }
 
 export default (state = initialState, action) => {
   switch(action.type) {
+  case "transfers/CREATED":
+    return {
+      ...state,
+      collection: [...state.collection, action.payload],
+      metadata: {
+        ...state.metadata,
+        total: (state.metadata.total + 1),
+        viewing: [state.metadata.viewing[0], (state.metadata.viewing[1] + 1)]
+      },
+      newTransfer: initialNew,
+    }
   case "transfers/FETCHED":
     return {
       ...state,
@@ -20,6 +38,14 @@ export default (state = initialState, action) => {
       metadata: {
         ...state.metadata,
         ...action.payload.metadata,
+      }
+    }
+  case "transfers/UPDATE_NEW":
+    return {
+      ...state,
+      newTransfer: {
+        ...state.newTransfer,
+        ...action.payload
       }
     }
   case "transfers/UPDATE_PAGE":

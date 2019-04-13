@@ -2,6 +2,7 @@ import { update, updated, updateProps } from "./helpers/shared"
 
 const initialState = {
   collection: [],
+  accountsFetched: false,
   showNewForm: false,
   newAccount: {
     cash_flow: true,
@@ -20,7 +21,7 @@ export default (state = initialState, action) => {
       collection: state.collection.filter(acct => acct.id !== action.payload.id)
     }
   case "accounts/FETCHED":
-    return { ...state, collection: action.payload }
+    return { ...state, collection: action.payload, accountsFetched: true }
   case "accounts/RESET":
     return {
       ...state,
@@ -42,7 +43,8 @@ export default (state = initialState, action) => {
   case "accounts/UPDATED":
     return {
       ...state,
-      collection: updated(action.payload, state.collection)
+      collection: updated(action.payload, state.collection),
+      accountsFetched: false,
     }
   case "accounts/UPDATE_NEW":
     return {

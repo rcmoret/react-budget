@@ -36,3 +36,13 @@
 .transfers-pagination a {
   color: black;
 }
+
+.new-transfer-form {
+  margin-top: 10px;
+}
+
+.transfer-account-select {
+  width: 20%;
+  display: inline-block;
+  margin-right: 10px;
+}
