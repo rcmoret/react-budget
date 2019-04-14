@@ -1,10 +1,21 @@
 import { before, isInRange } from "../../shared/Functions/DateFormatter"
 
-export const editTransaction = (payload, state) => {
+export const editSubProps = (txn, newProps) => {
+  console.log(newProps)
   return {
-    ...state,
-    collection: state.collection.map(txn => {
-      return txn.id !== payload.id ? txn : { ...txn, ...payload }
+    ...txn,
+    subtransactions: txn.subtransactions.map(sub => {
+      if (sub.id !== newProps.subId) {
+        return sub
+      } else {
+        return {
+          ...sub,
+          updatedProps: {
+            ...sub.updatedProps,
+            ...newProps,
+          }
+        }
+      }
     })
   }
 }

@@ -18,6 +18,10 @@ export const editProps = (payload) => {
   return { type: "transactions/EDIT_PROPS", payload: payload }
 }
 
+export const editSubProps = (payload) => {
+  return { type: "transactions/EDIT_SUB_PROPS", payload: payload }
+}
+
 export const fetchedTransactions = (response) => {
   return { type: "transactions/FETCHED", payload: response }
 }

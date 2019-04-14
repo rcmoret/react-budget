@@ -64,11 +64,23 @@ export default (state = initialState, action) => {
       collection: state.collection.filter(txn => txn.id !== action.payload.id)
     }
   case "transactions/EDIT":
-    return helpers.editTransaction(action.payload, state)
+    return {
+      ...state,
+      collection: state.collection.map(txn => {
+        return txn.id !== action.payload.id ? txn : { ...txn, ...action.payload }
+      })
+    }
   case "transactions/EDIT_PROPS":
     return {
       ...state,
       collection: updateProps(action.payload, state.collection)
+    }
+  case "transactions/EDIT_SUB_PROPS":
+    return {
+      ...state,
+      collection: state.collection.map(txn => {
+        return txn.id === action.payload.txnId ? helpers.editSubProps(txn, action.payload) : txn
+      })
     }
   case "transactions/FETCHED":
     return {

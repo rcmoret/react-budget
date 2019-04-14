@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
-import { edit, editProps, updated } from "../../actions/transactions"
+import { edit, editProps, editSubProps, updated } from "../../actions/transactions"
 import MoneyFormatter from "../../shared/Functions/MoneyFormatter"
 
 import Form from "./Form/Form"
@@ -24,6 +24,11 @@ const Edit = (props) => {
     dispatch(action)
   }
 
+  const onSubChange = (subId, payload) => {
+    const action = editSubProps({ txnId: id, subId: subId, ...payload })
+    dispatch(action)
+  }
+
   const onSubmit = () => {
     const url = ApiUrlBuilder(["accounts", account_id, "transactions", id])
     const adjustedAmount = (parseFloat(amount)) * 100 || null
@@ -32,6 +37,13 @@ const Edit = (props) => {
       ...transaction,
       description: description,
       amount: adjustedAmount,
+      subtransactions_attributes: transaction.subtransactions.map(sub => {
+        return {
+          ...sub,
+          ...sub.updatedProps,
+          amount: (parseFloat(sub.updatedProps.amount) * 100),
+        }
+      })
     }
     fetch(url, {
       method: "PUT",
@@ -52,6 +64,7 @@ const Edit = (props) => {
       <Form
         budgetOptions={budgetOptions}
         onChange={onChange}
+        onSubChange={onSubChange}
         onSubmit={onSubmit}
         resetForm={resetForm}
         { ...props }
@@ -65,8 +78,21 @@ const Edit = (props) => {
 const mapStateToProps = (state, ownProps) => {
   const updatedProps = {
     amount: parseFloat(ownProps.amount / 100.0).toFixed(2),
-    ...ownProps.updatedProps
+    ...ownProps.updatedProps,
   }
+
+  const subtransactions = ownProps.subtransactions.map(sub => {
+    return {
+      ...sub,
+      amount: parseFloat(sub.amount / 100.0).toFixed(2),
+      ...sub.updatedProps,
+      updatedProps: {
+        amount: parseFloat(sub.amount / 100.0).toFixed(2),
+        ...sub.updatedProps,
+      }
+    }
+  })
+
   const items = state.transactions.budgetItems.collection
   const collection = items.filter(item => !item.monthly || item.deletable || item.id === ownProps.budget_item_id)
   const labelFor = (item) => `${item.name} (${MoneyFormatter(item.remaining, { absolute: true })})`
@@ -82,6 +108,7 @@ const mapStateToProps = (state, ownProps) => {
     transaction: {
       ...ownProps,
       ...updatedProps,
+      subtransactions: subtransactions,
     },
     buttonText: "Update Transaction",
     budgetOptions: budgetOptions,
