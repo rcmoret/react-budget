@@ -3,7 +3,7 @@ import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 import { addWeeklyItem, categoriesFetched, editNewWeeklyItem, toggleWeeklyItemForm } from "../../../actions/budget"
 import { connect } from "react-redux"
 import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
-import Select from "react-select";
+import Select from "react-select"
 
 class WeeklyItemForm extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class WeeklyItemForm extends Component {
 
   componentDidUpdate() {
     if (this.props.showForm && !this.props.categoriesFetched) {
-      const url = ApiUrlBuilder(['budget', 'categories'])
+      const url = ApiUrlBuilder(["budget", "categories"])
       fetch(url)
         .then(response => response.json())
         .then(data => this.props.dispatch(categoriesFetched(data)))
@@ -47,21 +47,21 @@ class WeeklyItemForm extends Component {
     }
     const url = ApiUrlBuilder(["budget", "categories", budget_category_id, "items"])
     fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        "Accept": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(body)
     })
-    .then(response => response.json())
-    .then(data => this.props.dispatch(
-      addWeeklyItem(data)
-    ))
-    .then(() => {
-      this.props.dispatch(toggleWeeklyItemForm({ showForm: false }))
-      this.props.dispatch(editNewWeeklyItem({ amount: "", budget_category_id: null }))
-    })
+      .then(response => response.json())
+      .then(data => this.props.dispatch(
+        addWeeklyItem(data)
+      ))
+      .then(() => {
+        this.props.dispatch(toggleWeeklyItemForm({ showForm: false }))
+        this.props.dispatch(editNewWeeklyItem({ amount: "", budget_category_id: null }))
+      })
   }
 
   render() {
