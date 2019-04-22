@@ -10,6 +10,7 @@ import transfersReducer from "./reducers/transfers"
 import AccountWrapper from "./components/Accounts/Wrapper"
 import AccountIndex from "./components/Accounts/Index"
 import BudgetIndex from "./components/Budget/Index"
+import BudgetSetUp from "./components/Budget/SetUp/Index"
 import BudgetCategories from "./components/Budget/Categories/Index"
 import Header from "./components/Header"
 import Icons from "./components/Icons/Index"
@@ -41,6 +42,7 @@ const App = () => (
             <Route path="/accounts/:id/" component={AccountWrapper} />
             <Route exact path="/budget/categories" component={BudgetCategories} />
             <Route exact path="/budget/icons" component={Icons} />
+            <Route exact path="/budget/set-up" component={BudgetSetUp} />
             <Route path="/budget/:month?/:year?" component={BudgetIndex} />
           </Switch>
         </div>

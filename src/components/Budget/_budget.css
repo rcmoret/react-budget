@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.set-up-workspace {
+  padding: 0 2%;
+}
+
 .budget .weekly-items, .budget .monthly-items, .budget nav {
   padding: 0 2%;
   vertical-align: top;
@@ -20,7 +24,7 @@
   width: 100%;
 }
 
-.budget .category-link, .budget .icon-link {
+.budget .category-link, .budget .icon-link, .budget .set-up-link {
   vertical-align: top;
   text-align: center;
   padding: 1%
@@ -34,7 +38,11 @@
   background-color: #2CC47D;
 }
 
-.budget a .category-link, .budget a .icon-link {
+.budget .set-up-link {
+  background-color: #C66FFF;
+}
+
+.budget a .category-link, .budget a .icon-link, .budget a .set-up-link {
   color: black;
   text-decoration: none;
   border-radius: 20px;

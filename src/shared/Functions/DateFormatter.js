@@ -29,7 +29,7 @@ const MonthDictionary = (mo) => {
   }
 }
 
-const formatted = ({ month, day, year, format }) => {
+export const formatted = ({ month, day, year, format }) => {
   const monthString = MonthDictionary(month)
   switch(format) {
   case "dateObject":

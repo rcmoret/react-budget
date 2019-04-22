@@ -3,8 +3,10 @@ import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 import { connect } from "react-redux"
 import { itemsFetched } from "../../actions/budget"
 import { Link } from "react-router-dom"
+
 import BudgetInfo from "./Info"
 import MonthlyItems from "./Items/MonthlyItems"
+import SetUpButton from "./SetUpButton"
 import WeeklyItems from "./Items/WeeklyItems"
 
 class BudgetIndex extends Component {
@@ -35,6 +37,12 @@ class BudgetIndex extends Component {
         <WeeklyItems />
         <MonthlyItems />
         <nav>
+          <SetUpButton
+            month={this.props.month}
+            year={this.props.year}
+            isFuture={this.props.isFuture}
+            requiresSetUp={!this.props.metadata.is_set_up}
+          />
           <div>
             <Link to="/budget/categories">
               <div className="category-link">
@@ -55,9 +63,10 @@ class BudgetIndex extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const today = new Date()
-  const month = ownProps.match.params.month || today.getMonth() + 1
-  const year = ownProps.match.params.year || today.getFullYear()
-  return { ...state.budget, month: parseInt(month), year: parseInt(year) }
+  const month = parseInt(ownProps.match.params.month || today.getMonth() + 1)
+  const year = parseInt(ownProps.match.params.year || today.getFullYear())
+  const isFuture = (year > today.getFullYear() || (year === today.getFullYear() && month > (today.getMonth() + 1)))
+  return { ...state.budget, month: month, year: year, isFuture: isFuture }
 }
 
 export default connect(mapStateToProps)(BudgetIndex)
