@@ -42,9 +42,6 @@ export const itemsFetched = (response) => {
   return { type: "budget/ITEMS_FETCHED", payload: response }
 }
 
-export const monthlyFetched = (response) => {
-  return { type: "budget/MONTHLY_FETCHED", payload: response }
-}
 
 export const removeMonthlyItem = ({ id }) => {
   return { type: "budget/REMOVE_MONTHLY_ITEM", payload: id }
@@ -76,8 +73,4 @@ export const updateMonthlyItem = (payload) => {
 
 export const updateWeeklyItem = (payload) => {
   return { type: "budget/UPDATE_WEEKLY_ITEM", payload: payload }
-}
-
-export const weeklyFetched = (response) => {
-  return { type: "budget/WEEKLY_FETCHED", payload: response }
 }
