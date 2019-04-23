@@ -42,7 +42,7 @@ const App = () => (
             <Route path="/accounts/:id/" component={AccountWrapper} />
             <Route exact path="/budget/categories" component={BudgetCategories} />
             <Route exact path="/budget/icons" component={Icons} />
-            <Route exact path="/budget/set-up" component={BudgetSetUp} />
+            <Route path="/budget/set-up/:month/:year" component={BudgetSetUp} />
             <Route path="/budget/:month?/:year?" component={BudgetIndex} />
           </Switch>
         </div>

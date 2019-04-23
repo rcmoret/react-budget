@@ -9,7 +9,7 @@ export default ({ month, year, isFuture, requiresSetUp }) => {
     return (
       <div>
         <Link
-          to="/budget/set-up"
+          to={`/budget/set-up/${month}/${year}`}
         >
           <div className="set-up-link">
             <h3>Set up {monthString}</h3>

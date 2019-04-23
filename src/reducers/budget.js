@@ -37,6 +37,22 @@ const initialState = {
   metadata: {
     month: 12,
     year: 2099,
+    is_closed_out: true,
+    is_set_up: true,
+  },
+  setup: {
+    baseMonth: {
+      month: 12,
+      year: 2099,
+      isFetched: false,
+      collection: [],
+    },
+    newMonth: {
+      month: 12,
+      year: 2099,
+      isFetched: false,
+      collection: [],
+    },
   }
 }
 
@@ -60,8 +76,33 @@ export default (state = initialState, action) => {
         collection: state.categories.collection.filter(category => category.id !== action.payload)
       }
     }
+  case "budget/BASE_MONTH_FETCHED":
+    return {
+      ...state,
+      setup: {
+        ...state.setup,
+        baseMonth: {
+          ...state.setup.baseMonth,
+          ...action.payload.metadata,
+          isFetched: true,
+          collection: action.payload.collection,
+        },
+      }
+    }
+  case "budget/NEW_MONTH_FETCHED":
+    return {
+      ...state,
+      setup: {
+        ...state.setup,
+        newMonth: {
+          ...state.setup.newMonth,
+          ...action.payload.metadata,
+          isFetched: true,
+          collection: action.payload.collection,
+        },
+      }
+    }
   case "budget/categories/RESET":
-    console.log(action.payload)
     return {
       ...state,
       categories: {

@@ -10,6 +10,10 @@ export const addWeeklyItem = (payload) => {
   return { type: "budget/ADD_WEEKLY_ITEM", payload: payload }
 }
 
+export const baseMonthFetched = (payload) => {
+  return { type: "budget/BASE_MONTH_FETCHED", payload: payload }
+}
+
 export const categoriesFetched = (collection) => {
   return { type: "budget/CATEGORIES_FETCHED", payload: collection }
 }
@@ -42,6 +46,9 @@ export const itemsFetched = (response) => {
   return { type: "budget/ITEMS_FETCHED", payload: response }
 }
 
+export const newMonthFetched = (payload) => {
+  return { type: "budget/NEW_MONTH_FETCHED", payload: payload }
+}
 
 export const removeMonthlyItem = ({ id }) => {
   return { type: "budget/REMOVE_MONTHLY_ITEM", payload: id }
