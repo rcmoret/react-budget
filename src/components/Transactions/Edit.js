@@ -31,7 +31,7 @@ const Edit = (props) => {
 
   const onSubmit = () => {
     const url = ApiUrlBuilder(["accounts", account_id, "transactions", id])
-    const adjustedAmount = (parseFloat(amount)) * 100 || null
+    const adjustedAmount = Math.round(parseFloat(amount) * 100) || null
     const description = transaction.description === "" ? null : transaction.description
     const body = {
       ...transaction,
@@ -41,7 +41,7 @@ const Edit = (props) => {
         return {
           ...sub,
           ...sub.updatedProps,
-          amount: (parseFloat(sub.updatedProps.amount) * 100),
+          amount: Math.round(parseFloat(sub.updatedProps.amount) * 100),
         }
       })
     }
