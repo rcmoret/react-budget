@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 2%;
   background-color: #548056;
+  background-image: url('/black-linen-2.png');
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
