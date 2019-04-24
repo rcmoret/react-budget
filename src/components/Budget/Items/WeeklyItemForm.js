@@ -43,7 +43,6 @@ class WeeklyItemForm extends Component {
       month: month,
       year: year,
       amount: decimalToInt(amount),
-      budget_category_id: budget_category_id,
     }
     const url = ApiUrlBuilder(["budget", "categories", budget_category_id, "items"])
     fetch(url, {

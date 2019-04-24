@@ -28,7 +28,11 @@ const MonthlyAmountInput = (props) => {
 
   const saveChange = (e) => {
     e.preventDefault()
-    const body = { amount: decimalToInt(props.floatAmount) }
+    const body = {
+      amount: decimalToInt(props.floatAmount),
+      month: props.month,
+      year: props.year,
+    }
     const url = ApiUrlBuilder(["budget", "categories", props.budget_category_id, "items", props.id])
     fetch(url,
       {
@@ -40,10 +44,10 @@ const MonthlyAmountInput = (props) => {
         body: JSON.stringify(body),
       }
     )
-    .then(response => response.json())
-    .then(data => {
-      props.dispatch(updateMonthlyItem({...data, floatAmount: null, updateItem: false }))
-    })
+      .then(response => response.json())
+      .then(data => {
+        props.dispatch(updateMonthlyItem({...data, floatAmount: null, updateItem: false }))
+      })
   }
 
   return (
@@ -62,4 +66,12 @@ const MonthlyAmountInput = (props) => {
   )
 }
 
-export default connect((_state, ownProps) => ownProps)(MonthlyAmountInput)
+const mapStateToProps = (state, ownProps) => {
+  return {
+    month: state.budget.metadata.month,
+    year: state.budget.metadata.year,
+    ...ownProps,
+  }
+}
+
+export default connect(mapStateToProps)(MonthlyAmountInput)
