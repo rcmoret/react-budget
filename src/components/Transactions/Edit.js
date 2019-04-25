@@ -95,7 +95,10 @@ const mapStateToProps = (state, ownProps) => {
 
   const items = state.transactions.budgetItems.collection
   const collection = items.filter(item => !item.monthly || item.deletable || item.id === ownProps.budget_item_id)
-  const labelFor = (item) => `${item.name} (${MoneyFormatter(item.remaining, { absolute: true })})`
+  const labelFor = (item) => {
+    const remaining = item.monthly ? item.amount : item.remaining
+    return `${item.name} (${MoneyFormatter(remaining, { absolute: true })})`
+  }
   const itemOptions = collection.map(item => {
     return { value: item.id, label: labelFor(item) }
   }).sort((a, b) => {
