@@ -1,7 +1,7 @@
 import objectifyMonthly from "../shared/models/monthlyBudgetItem"
 import objectifyWeekly from "../shared/models/weeklyBudgetItem"
 import * as helpers from "./helpers/transactionHelpers"
-import { updated, updateProps } from "./helpers/shared"
+import { updateProps } from "./helpers/shared"
 
 const initialState = {
   metadata: {

@@ -66,6 +66,20 @@ export default (state = initialState, action) => {
       ...state,
       collection: updateBalance(action.payload, state.collection),
     }
+  case "transactions/UPDATED":
+    return {
+      ...state,
+      collection: state.collection.map(acct => {
+        if (acct.id !== action.payload.account_id) {
+          return acct
+        } else {
+          return {
+            ...acct,
+            balance: (acct.balance + action.payload.amount - action.payload.originalAmount),
+          }
+        }
+      })
+    }
   case "transfers/CREATED":
     return {
       ...state,

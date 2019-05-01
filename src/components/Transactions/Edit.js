@@ -55,7 +55,7 @@ const Edit = (props) => {
     })
       .then(response => response.json())
       .then(data => {
-        dispatch(updated({ ...data, showForm: false }))
+        dispatch(updated({ ...data, showForm: false, originalAmount: transaction.originalAmount }))
       })
   }
 
@@ -112,6 +112,7 @@ const mapStateToProps = (state, ownProps) => {
       ...ownProps,
       ...updatedProps,
       subtransactions: subtransactions,
+      originalAmount: ownProps.amount,
     },
     buttonText: "Update Transaction",
     budgetOptions: budgetOptions,
