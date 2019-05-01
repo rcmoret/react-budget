@@ -41,6 +41,44 @@ export const createTransaction = (payload, state) => {
   }
 }
 
+export const updatedTransaction = (payload, state) => {
+  const { clearance_date } = payload
+  const { prior_balance, date_range } = state.metadata
+  const collection = updatedCollection(payload, state)
+  const newPrior = before(clearance_date, date_range[0]) ? (prior_balance + payload.amount) : prior_balance
+  return {
+    ...state,
+    metadata: {
+      ...state.metadata,
+      prior_balance: newPrior,
+    },
+    collection: collection,
+    budgetItems: {
+      ...state.budgetItems,
+      fetched: false
+    },
+  }
+}
+
+const updatedCollection = (payload, state) => {
+  const { clearance_date } = payload
+  const { include_pending } = state.metadata.query_options
+  const { date_range } = state.metadata
+  const inRange = isInRange(clearance_date, date_range)
+
+  if ((include_pending && clearance_date === null) || inRange) {
+    return state.collection.map(txn => {
+      if (txn.id !== payload.id) {
+        return txn
+      } else {
+        return {...txn, ...payload}
+      }
+    })
+  } else {
+    return state.collection.filter(txn => txn.id !== payload.id)
+  }
+}
+
 export const updateNewSubtransaction = (payload, state) => {
   const { subtransactions } = state.new
   const { index, attributes } = payload

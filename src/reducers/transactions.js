@@ -116,10 +116,7 @@ export default (state = initialState, action) => {
   case "transactions/UPDATE_NEW_SUBTRANSACTION":
     return helpers.updateNewSubtransaction(action.payload, state)
   case "transactions/UPDATED":
-    return {
-      ...state,
-      collection: updated(action.payload, state.collection)
-    }
+    return helpers.updatedTransaction(action.payload, state)
   default:
     return state
   }
