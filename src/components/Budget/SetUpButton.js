@@ -7,15 +7,13 @@ export default ({ month, year, isFuture, requiresSetUp }) => {
   if (requiresSetUp && isFuture) {
     const monthString = dateFormatter.formatted({ month: month, year: year, format: "monthYear" })
     return (
-      <div>
-        <Link
-          to={`/budget/set-up/${month}/${year}`}
-        >
-          <div className="set-up-link">
-            <h3>Set up {monthString}</h3>
-          </div>
-        </Link>
-      </div>
+      <Link
+        to={`/budget/set-up/${month}/${year}`}
+      >
+        <div className="budget-action">
+          <strong>Set up {monthString}</strong>
+        </div>
+      </Link>
     )
   } else {
     return null

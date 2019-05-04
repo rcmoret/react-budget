@@ -2,11 +2,10 @@ import React, { Component } from "react"
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 import { connect } from "react-redux"
 import { itemsFetched } from "../../actions/budget"
-import { Link } from "react-router-dom"
 
 import BudgetInfo from "./Info"
+import Menu from "./Menu"
 import MonthlyItems from "./Items/MonthlyItems"
-import SetUpButton from "./SetUpButton"
 import WeeklyItems from "./Items/WeeklyItems"
 
 class BudgetIndex extends Component {
@@ -36,26 +35,12 @@ class BudgetIndex extends Component {
         <BudgetInfo />
         <WeeklyItems />
         <MonthlyItems />
-        <nav>
-          <SetUpButton
-            month={this.props.month}
-            year={this.props.year}
-            isFuture={this.props.isFuture}
-            requiresSetUp={!this.props.metadata.is_set_up}
-          />
-          <div>
-            <Link to="/budget/categories">
-              <div className="category-link">
-                <h3>Manage Categories</h3>
-              </div>
-            </Link>
-          </div>
-          <Link to="/budget/icons">
-            <div className="icon-link">
-              <h3>Manage Icons</h3>
-            </div>
-          </Link>
-        </nav>
+        <Menu
+          month={this.props.month}
+          year={this.props.year}
+          isFuture={this.props.isFuture}
+          requiresSetUp={!this.props.metadata.is_set_up}
+        />
       </div>
     )
   }
@@ -66,7 +51,16 @@ const mapStateToProps = (state, ownProps) => {
   const month = parseInt(ownProps.match.params.month || today.getMonth() + 1)
   const year = parseInt(ownProps.match.params.year || today.getFullYear())
   const isFuture = (year > today.getFullYear() || (year === today.getFullYear() && month > (today.getMonth() + 1)))
-  return { ...state.budget, month: month, year: year, isFuture: isFuture }
+  if (!state.budget.metadata) {
+    debugger
+  }
+
+  return {
+    ...state.budget,
+    month: month,
+    year: year,
+    isFuture: isFuture
+  }
 }
 
 export default connect(mapStateToProps)(BudgetIndex)

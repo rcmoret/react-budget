@@ -62,6 +62,10 @@ export const toggleDiscretionaryDetail = (payload) => {
   return { type: "budget/TOGGLE_DISCRETIONARY_DETAIL", payload: payload }
 }
 
+export const toggleMenu = (payload) => {
+  return { type: "budget/TOGGLE_MENU", payload: payload }
+}
+
 export const toggleMonthlyItemForm = (payload) => {
   return { type: "budget/TOGGLE_MONTHLY_ITEM_FORM", payload: payload }
 }

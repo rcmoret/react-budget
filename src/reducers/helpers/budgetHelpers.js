@@ -31,7 +31,10 @@ export const createMonthly = (payload, state) => {
       collection: weeklyCollection,
     },
     itemsFetched: true,
-    metadata: metadata
+    metadata: {
+      ...state.metadata,
+      ...metadata,
+    }
   }
 }
 

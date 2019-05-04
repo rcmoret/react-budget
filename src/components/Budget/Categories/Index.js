@@ -34,8 +34,8 @@ class BudgetCategories extends Component {
           <Show
             key={category.id}
             category={category}
-           />
-         )}
+          />
+        )}
       </div>
     )
   }

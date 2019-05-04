@@ -11,7 +11,7 @@ const MoneyFormatter = (number, opts = { absolute: false, toFloat: false }) => {
 }
 
 export const decimalToInt = (amount) => {
-  return Math.floor(parseFloat(amount) * 100)
+  return Math.round(parseFloat(amount) * 100)
 }
 
 export default MoneyFormatter

@@ -1,5 +1,6 @@
 import { update, updated, updateProps, updateItemInCollection } from "./helpers/shared"
 import * as Helpers from "./helpers/budgetHelpers"
+import * as setupHelpers from "./helpers/setupHelpers"
 
 const initialState = {
   discretionary: {
@@ -40,6 +41,7 @@ const initialState = {
     is_closed_out: true,
     is_set_up: true,
   },
+  showMenu: false,
   setup: {
     baseMonth: {
       month: 12,
@@ -51,7 +53,12 @@ const initialState = {
       month: 12,
       year: 2099,
       isFetched: false,
+      reviewed: true,
       collection: [],
+      newItem: {
+        amount: 0,
+        budget_category_id: null,
+      },
     },
   }
 }
@@ -147,7 +154,16 @@ export default (state = initialState, action) => {
       }
     }
   case "budget/ADD_CATEGORY":
-    return { ...state, categories: { collection: [...state.categories.collection, action.payload ] } }
+    return {
+      ...state,
+      categories: {
+        collection:
+          [
+            ...state.categories.collection,
+            action.payload
+          ]
+      }
+    }
   case "budget/ADD_MONTHLY_ITEM":
     return Helpers.addMonthlyItem(action.payload, state)
   case "budget/ADD_WEEKLY_ITEM":
@@ -223,6 +239,11 @@ export default (state = initialState, action) => {
     return Helpers.removeMonthly(action.payload, state)
   case "budget/TOGGLE_DISCRETIONARY_DETAIL":
     return { ...state, discretionary: { ...state.discretionary, ...action.payload } }
+  case "budget/TOGGLE_MENU":
+    return {
+      ...state,
+      ...action.payload
+    }
   case "budget/TOGGLE_MONTHLY_ITEM_FORM":
     return { ...state, monthly: { ...state.monthly, ...action.payload } }
   case "budget/TOGGLE_WEEKLY_ITEM_FORM":
@@ -233,6 +254,73 @@ export default (state = initialState, action) => {
     return Helpers.updateMonthlyItem(action.payload, state)
   case "budget/UPDATE_WEEKLY_ITEM":
     return Helpers.updateWeeklyItem(action.payload, state)
+  case "budget/setup/ADD_ITEM":
+    return {
+      ...state,
+      setup: {
+        ...state.setup,
+        newMonth: {
+          ...state.setup.newMonth,
+          newItem: {
+            amount: 0,
+            budget_category_id: null,
+          },
+          collection: [
+            ...state.setup.newMonth.collection,
+            action.payload
+          ],
+        },
+      },
+    }
+  case "budget/setup/EDIT_ADD_NEW":
+    return {
+      ...state,
+      setup: {
+        ...state.setup,
+        newMonth: {
+          ...state.setup.newMonth,
+          reviewed: false,
+          newItem: {
+            ...state.setup.newMonth.newItem,
+            ...action.payload,
+          }
+        }
+      }
+    }
+  case "budget/setup/EDIT_REVIEW_ITEM":
+    return {
+      ...state,
+      setup: {
+        ...state.setup,
+        newMonth: {
+          ...state.setup.newMonth,
+          reviewed: false,
+          collection: setupHelpers.editReviewItem(action.payload, state.setup.newMonth.collection)
+        }
+      }
+    }
+  case "budget/setup/FINISH_REVIEW":
+    return {
+      ...state,
+      setup: {
+        ...state.setup,
+        newMonth: {
+          ...state.setup.newMonth,
+          reviewed: true,
+        }
+      }
+    }
+  case "budget/setup/NEXT_STEP":
+    return {
+      ...state,
+      setup: {
+        ...state.setup,
+        newMonth: {
+          ...state.setup.newMonth,
+          isReady: true
+        }
+      }
+    }
   case "transactions/CREATED":
     return {
       ...state,

@@ -5,10 +5,13 @@ import * as dateFormatter from "../../../shared/Functions/DateFormatter"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 import { baseMonthFetched, newMonthFetched } from "../../../actions/budget"
 
+import Introduction from "./Introduction"
+import Items from "./Items"
+
 const Index = (props) => {
-  const { baseMonth, newMonth, targetMonth, targetYear } = props
-  const monthString = dateFormatter.formatted({ month: newMonth.month, year: newMonth.year, format: 'monthYear' })
-  const baseMonthString = dateFormatter.formatted({ month: baseMonth.month, year: baseMonth.year, format: 'monthYear' })
+  const { baseMonth, dispatch, newMonth, targetMonth, targetYear } = props
+  const monthString = dateFormatter.formatted({ month: newMonth.month, year: newMonth.year, format: "monthYear" })
+  const baseMonthString = dateFormatter.formatted({ month: baseMonth.month, year: baseMonth.year, format: "monthYear" })
 
   if (!newMonth.isFetched) {
     const url = ApiUrlBuilder(["budget", "items"], { month: targetMonth, year: targetYear })
@@ -29,7 +32,19 @@ const Index = (props) => {
   return (
     <div className="set-up-workspace">
       <h2>Set Up {monthString}</h2>
-      <p>Based on {baseMonthString}</p>
+      <p><strong>Based on {baseMonthString}</strong></p>
+      <Introduction
+        baseMonthString={baseMonthString}
+        monthString={monthString}
+      />
+      <hr />
+      <Items
+        collection={newMonth.collection}
+        discretionary={props.discretionary}
+        dispatch={dispatch}
+        isReady={newMonth.isReady}
+        monthString={monthString}
+      />
     </div>
   )
 }
@@ -37,9 +52,12 @@ const Index = (props) => {
 const mapStateToProps = (state, ownProps) => {
   const targetMonth = parseInt(ownProps.match.params.month)
   const targetYear = parseInt(ownProps.match.params.year)
+  const newMonth = state.budget.setup.newMonth
+  const discretionary = newMonth.collection.reduce((acc, item) => acc += item.amount, 0)
 
   return {
-    newMonth: state.budget.setup.newMonth,
+    newMonth: newMonth,
+    discretionary: discretionary,
     baseMonth: state.budget.setup.baseMonth,
     targetMonth: targetMonth,
     targetYear: targetYear,
