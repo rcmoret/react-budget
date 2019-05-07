@@ -1,8 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import { finishReview } from "../../../actions/budget/setup"
-
 import AddNew from "./AddNew"
 import Review from "./Review"
 
