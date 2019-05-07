@@ -23,8 +23,13 @@ const PreviousMonth = ({ collection, isReady, prevMonthString, reviewItem }) => 
 }
 
 const Item = ({ item }) => (
-  <div>
-    {item.name} {MoneyFormatter(item.amount, { absolute: false })}
+  <div className="review-item-queued">
+    <div className="label">
+      {item.name}
+    </div>
+    <div className="amount">
+      {MoneyFormatter(item.amount, { absolute: false })}
+    </div>
   </div>
 )
 

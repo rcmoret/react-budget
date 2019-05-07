@@ -433,13 +433,13 @@ nav.budget-actions a .budget-action:hover {
   vertical-align: top;
 }
 
-.review-item {
+.review-item-current {
   background: #EFEFEF;
   padding: 10px 0 2px 10px;
   border-radius: 15px;
 }
 
-.review-item:nth-of-type(2n) {
+.review-item-current:nth-of-type(2n) {
   background: white;
 }
 
@@ -519,12 +519,13 @@ button.setup-next {
   margin: 10px 0;
 }
 
-.review-item {
+.review-item-current {
   background-color: #E9ECFF; /* light blue */
   padding: 10px 10px;
+  margin-bottom: 10px;
 }
 
-.review-item .top-line {
+.review-item-current .top-line {
   display: inline-block;
   width: 50%;
 }
@@ -548,4 +549,25 @@ button.setup-next {
 
 .review-item-form input {
   text-align: right;
+}
+
+.review-item-queued {
+  background-color: white;
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+
+.review-item-queued:nth-of-type(2n) {
+  background-color: #EFEFEF;
+}
+
+.review-item-queued .amount {
+  display: inline-block;
+  width: 18%;
+  text-align: right;
+}
+
+.review-item-queued .label {
+  display: inline-block;
+  width: 33%;
 }

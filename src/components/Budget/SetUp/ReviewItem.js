@@ -19,7 +19,7 @@ const ReviewItem = ({ amount, category, item, newMonthString, prevMonthString })
   }
 
   return (
-    <div className="review-item">
+    <div className="review-item-current">
       <div className="header">
         <div className="top-line"><strong>{item.name}</strong></div>
         <div className="top-line"><em>({description(item)})</em></div>
