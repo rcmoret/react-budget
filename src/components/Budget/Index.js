@@ -51,9 +51,6 @@ const mapStateToProps = (state, ownProps) => {
   const month = parseInt(ownProps.match.params.month || today.getMonth() + 1)
   const year = parseInt(ownProps.match.params.year || today.getFullYear())
   const isFuture = (year > today.getFullYear() || (year === today.getFullYear() && month > (today.getMonth() + 1)))
-  if (!state.budget.metadata) {
-    debugger
-  }
 
   return {
     ...state.budget,
