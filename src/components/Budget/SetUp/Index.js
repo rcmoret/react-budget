@@ -7,6 +7,7 @@ import { baseMonthFetched, newMonthFetched } from "../../../actions/budget"
 
 import Introduction from "./Introduction"
 import Items from "./Items"
+import PreviousMonth from "./PreviousMonth"
 
 const Index = (props) => {
   const { baseMonth, dispatch, newMonth, targetMonth, targetYear } = props
@@ -45,6 +46,7 @@ const Index = (props) => {
         isReady={newMonth.isReady}
         monthString={monthString}
       />
+      <PreviousMonth />
     </div>
   )
 }

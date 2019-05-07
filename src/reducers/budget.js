@@ -56,7 +56,7 @@ const initialState = {
       reviewed: true,
       collection: [],
       newItem: {
-        amount: 0,
+        amount: "0.00",
         budget_category_id: null,
       },
     },

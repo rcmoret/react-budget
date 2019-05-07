@@ -427,8 +427,10 @@ nav.budget-actions a .budget-action:hover {
   font-weight: 500;
 }
 
-.new-month-items {
+.new-month-items, .previous-month-items {
   width: 40%;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .review-item {
@@ -513,4 +515,37 @@ button.setup-next {
   cursor: pointer;
 }
 
+.setup-title {
+  margin: 10px 0;
+}
 
+.review-item {
+  background-color: #E9ECFF; /* light blue */
+  padding: 10px 10px;
+}
+
+.review-item .top-line {
+  display: inline-block;
+  width: 50%;
+}
+
+.review-item-form .option {
+  font-size: 0.9em;
+}
+
+.review-item-form .option .label {
+  width: 33%;
+}
+
+.review-item-form .option .label, .review-item-form .option .amount {
+  display: inline-block;
+}
+
+.review-item-form .option .amount {
+  width: 18%;
+  text-align: right;
+}
+
+.review-item-form input {
+  text-align: right;
+}
