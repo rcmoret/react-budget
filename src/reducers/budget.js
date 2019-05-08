@@ -334,6 +334,19 @@ export default (state = initialState, action) => {
         }
       }
     }
+  case "budget/setup/REQUEUE":
+    return {
+      ...state,
+      setup: {
+        ...state.setup,
+        baseMonth: {
+          ...state.setup.baseMonth,
+          collection: state.setup.baseMonth.collection.map(item =>
+            item.id === action.payload.id ? { ...item, ...action.payload } : item
+          )
+        }
+      }
+    }
   case "transactions/CREATED":
     return {
       ...state,

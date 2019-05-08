@@ -21,3 +21,7 @@ export const markReviewed = (payload) => {
 export const nextStep = () => {
   return { type: "budget/setup/NEXT_STEP" }
 }
+
+export const requeue = (payload) => {
+  return { type: "budget/setup/REQUEUE", payload: payload }
+}

@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 
 import * as dateFormatter from "../../../shared/Functions/DateFormatter"
-import { markReviewed } from "../../../actions/budget/setup"
+import { markReviewed, requeue } from "../../../actions/budget/setup"
 import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
 
 import Icon from "../../Icons/Icon"
@@ -23,6 +23,12 @@ const ReviewItem = ({ amount, category, dispatch, item, newMonthString, prevMont
 
   const ignore = () => {
     const action = markReviewed({ id: item.id })
+    dispatch(action)
+  }
+
+  const requeueItem = () => {
+    const requeuedAt = Date.now()
+    const action = requeue({ id: item.id, requeuedAt: requeuedAt })
     dispatch(action)
   }
 
@@ -59,7 +65,16 @@ const ReviewItem = ({ amount, category, dispatch, item, newMonthString, prevMont
             <Icon className="far fa-check-circle" />
           </div>
         </div>
+        <hr />
         <div className="extra-options">
+          <button
+            className="requeue"
+            onClick={requeueItem}
+          >
+            Requeue
+            {" "}
+            <Icon className="fas fa-retweet" />
+          </button>
           <button
             className="ignore"
             onClick={ignore}
