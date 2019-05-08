@@ -233,7 +233,7 @@
 }
 
 .budget button.new-item-submit {
-  background-color: #59D176;
+  background-color: #59D176; /* green */
   border-radius: 8px;
   padding: 1.5% 4%;
   font-size: 0.8em;
@@ -410,7 +410,7 @@ nav.budget-actions a .budget-action:hover {
 }
 
 .set-up-intro-input input {
-  height: 20px;
+  height: 33px;
   text-align: right;
 }
 
@@ -419,11 +419,12 @@ nav.budget-actions a .budget-action:hover {
 }
 
 .set-up-intro-create button {
-  height: 25px;
+  font-size: 1.0em;
+  height: 40px;
   border: none;
   background: #36BE7D;
   border-radius: 9px;
-  padding: 4px 8px;
+  padding: 4px 12px;
   font-weight: 500;
 }
 
@@ -547,10 +548,6 @@ button.setup-next {
   text-align: right;
 }
 
-.review-item-form input {
-  text-align: right;
-}
-
 .review-item-queued {
   background-color: white;
   padding: 2px 8px;
@@ -570,4 +567,33 @@ button.setup-next {
 .review-item-queued .label {
   display: inline-block;
   width: 33%;
+}
+
+.review-item-form .input .label {
+  display: inline-block;
+  width: 33%;
+}
+
+.review-item-form .input input {
+  display: inline-block;
+  text-align: right;
+  width: 100px;
+}
+
+.review-item-form .confirm-button {
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.review-item-form .extra-options {
+  margin-top: 10px;
+}
+
+.review-item-form button.ignore {
+  display: inline-block;
+  font-size: 1.0em;
+  background: #FFF6A2;
+  border: none;
+  border-radius: 5px;
+  padding: 4px 12px;
 }

@@ -56,7 +56,7 @@ const initialState = {
       reviewed: true,
       collection: [],
       newItem: {
-        amount: "0.00",
+        amount: "",
         budget_category_id: null,
       },
     },
@@ -318,6 +318,19 @@ export default (state = initialState, action) => {
         newMonth: {
           ...state.setup.newMonth,
           isReady: true
+        }
+      }
+    }
+  case "budget/setup/MARK_REVIEWED":
+    return {
+      ...state,
+      setup: {
+        ...state.setup,
+        baseMonth: {
+          ...state.setup.baseMonth,
+          collection: state.setup.baseMonth.collection.map(item =>
+            item.id === action.payload.id ? { ...item, reviewed: true } : item
+          )
         }
       }
     }

@@ -2,9 +2,12 @@ import React from "react"
 import { connect } from "react-redux"
 
 import * as dateFormatter from "../../../shared/Functions/DateFormatter"
+import { markReviewed } from "../../../actions/budget/setup"
 import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
 
-const ReviewItem = ({ amount, category, item, newMonthString, prevMonthString }) => {
+import Icon from "../../Icons/Icon"
+
+const ReviewItem = ({ amount, category, dispatch, item, newMonthString, prevMonthString }) => {
   const description = (item) => {
     if (item === undefined) {
       return ""
@@ -18,45 +21,75 @@ const ReviewItem = ({ amount, category, item, newMonthString, prevMonthString })
     e.preventDefault()
   }
 
+  const ignore = () => {
+    const action = markReviewed({ id: item.id })
+    dispatch(action)
+  }
+
   return (
     <div className="review-item-current">
       <div className="header">
         <div className="top-line"><strong>{item.name}</strong></div>
-        <div className="top-line"><em>({description(item)})</em></div>
+        <div className="top-line"><em>{description(item)}</em></div>
       </div>
       <div className="review-item-form">
         <p>How much to include in {newMonthString}?</p>
-        <div className="option">
-          <div className="label">
-            Default Amount:
-          </div>
-          <div className="amount">
-            {MoneyFormatter(category.default_amount, { absolute: false })}
-          </div>
-        </div>
-        <div className="option">
-          <div className="label">
-            Budgeted in {prevMonthString}:
-          </div>
-          <div className="amount">
-            {MoneyFormatter(item.amount, { absolute: false })}
-          </div>
-        </div>
-        <div className="option">
-          <div className="label">
-            {item.expense ? "Spent" : "Deposited"} in {prevMonthString}:
-          </div>
-          <div className="amount">
-            {MoneyFormatter(item.spent, { absolute: false })}
-          </div>
-        </div>
-        <input
-          onChange={onAmountChange}
-          value={amount}
+        <Option
+          amount={category.default_amount}
+          label="Default Amount"
         />
+        <Option
+          amount={item.amount}
+          label={`Budgeted in ${prevMonthString}`}
+        />
+        <Option
+          amount={item.spent}
+          label={`${item.expense ? "Spent" : "Deposited"} in ${prevMonthString}`}
+          hidden={item.spent === 0}
+        />
+        <div className="input">
+          <div className="label">
+            <em>Amount to include:</em>
+          </div>
+          <input
+            onChange={onAmountChange}
+            value={amount}
+          />
+          <div className="confirm-button">
+            <Icon className="far fa-check-circle" />
+          </div>
+        </div>
+        <div className="extra-options">
+          <button
+            className="ignore"
+            onClick={ignore}
+          >
+            Don't Include
+            {" "}
+            <Icon className="far fa-times-circle" />
+          </button>
+        </div>
       </div>
     </div>
   )
+}
+
+const Option = ({ amount, hidden, label }) => {
+  if (hidden) {
+    return null
+  } else {
+    return (
+      <div className="option">
+        <div className="label">
+          <input type="radio" name="review-option" />
+          {label}:
+        </div>
+        <div className="amount">
+          {MoneyFormatter(amount, { absolute: false })}
+        </div>
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = (state, ownProps) => {

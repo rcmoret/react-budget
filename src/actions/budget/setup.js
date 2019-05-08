@@ -14,6 +14,10 @@ export const finishReview = (payload) => {
   return { type: "budget/setup/FINISH_REVIEW", payload: payload }
 }
 
+export const markReviewed = (payload) => {
+  return { type: "budget/setup/MARK_REVIEWED", payload: payload }
+}
+
 export const nextStep = () => {
   return { type: "budget/setup/NEXT_STEP" }
 }

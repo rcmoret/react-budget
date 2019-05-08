@@ -89,6 +89,8 @@ const AddNew = ({ baseMonthString, categories, dispatch, newMonth }) => {
           onClick={postNewItem}
         >
           Add
+          {" "}
+          <Icon className="fas fa-plus" />
         </button>
       </div>
       <div className="set-up-intro-next">
