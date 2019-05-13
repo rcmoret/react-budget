@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 import { categoriesFetched } from "../../../actions/budget"
-import { addItem, editAddNew, nextStep } from "../../../actions/budget/setup"
+import { addItem, editNew, nextStep } from "../../../actions/budget/setup"
 import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
 import Select from "react-select"
 
@@ -42,7 +42,7 @@ const AddNew = ({ baseMonthString, categories, dispatch, newMonth }) => {
 
   const handleSelect = (e) => {
     const newCategory = categories.collection.find(category => category.id === e.value)
-    const action = editAddNew(
+    const action = editNew(
       {
         budget_category_id: newCategory.id,
         amount: parseFloat(Math.round(newCategory.default_amount / 100.0)).toFixed(2),
@@ -53,7 +53,7 @@ const AddNew = ({ baseMonthString, categories, dispatch, newMonth }) => {
 
   const handleAmountChange = (e) => {
     e.preventDefault()
-    const action = editAddNew({ amount: e.target.value })
+    const action = editNew({ amount: e.target.value })
     dispatch(action)
   }
 

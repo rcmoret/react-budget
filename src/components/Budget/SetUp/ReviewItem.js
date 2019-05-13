@@ -2,12 +2,17 @@ import React from "react"
 import { connect } from "react-redux"
 
 import * as dateFormatter from "../../../shared/Functions/DateFormatter"
-import { markReviewed, requeue } from "../../../actions/budget/setup"
+import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
+import { addItem, editNew, markReviewed, requeue } from "../../../actions/budget/setup"
 import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
+import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
 
 import Icon from "../../Icons/Icon"
 
-const ReviewItem = ({ amount, category, dispatch, item, newMonthString, prevMonthString }) => {
+const ReviewItem = ({ category, dispatch, item, month, newItem, prevMonthString, year }) => {
+  const newMonthString = dateFormatter.formatted({ month: month, year: year, format: "monthYear" })
+  const { amount, selectedOption } = newItem
+
   const description = (item) => {
     if (item === undefined) {
       return ""
@@ -15,10 +20,6 @@ const ReviewItem = ({ amount, category, dispatch, item, newMonthString, prevMont
     const adverb = item.monthly ? "monthly" : "day-to-day"
     const adjective = item.expense ? "expense" : "revenue"
     return `${adverb} ${adjective}`
-  }
-
-  const onAmountChange = (e) => {
-    e.preventDefault()
   }
 
   const ignore = () => {
@@ -32,6 +33,55 @@ const ReviewItem = ({ amount, category, dispatch, item, newMonthString, prevMont
     dispatch(action)
   }
 
+  const setDefaultAmount = () => {
+    const action = editNew({
+      amount: MoneyFormatter(category.default_amount, { toFloat: true }),
+      selectedOption: "defaultAmount",
+    })
+    dispatch(action)
+  }
+
+  const setPreviousAmount = () => {
+    const action = editNew({
+      amount: MoneyFormatter(item.amount, { toFloat: true }),
+      selectedOption: "previousAmount",
+    })
+    dispatch(action)
+  }
+
+  const setPreviousSpent =() => {
+    const action = editNew({
+      amount: MoneyFormatter(item.spent, { toFloat: true }),
+      selectedOption: "previousSpent",
+    })
+    dispatch(action)
+  }
+
+  const updateAmount = (e) => {
+    const action = editNew({ amount: e.target.value })
+    dispatch(action)
+  }
+
+  const createItem = () => {
+    const body = {
+      amount: decimalToInt(amount),
+      month: month,
+      year: year,
+    }
+    const url = ApiUrlBuilder(["budget/categories", category.id, "items"])
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body)
+    })
+      .then(response => response.json())
+      .then(data => dispatch(addItem(data)))
+      .then(() => dispatch(markReviewed({ id: item.id })))
+  }
+
   return (
     <div className="review-item-current">
       <div className="header">
@@ -43,27 +93,34 @@ const ReviewItem = ({ amount, category, dispatch, item, newMonthString, prevMont
         <Option
           amount={category.default_amount}
           label="Default Amount"
+          onClick={setDefaultAmount}
+          checked={selectedOption === "defaultAmount" ? "checked" : ""}
         />
         <Option
           amount={item.amount}
           label={`Budgeted in ${prevMonthString}`}
+          onClick={setPreviousAmount}
+          checked={selectedOption === "previousAmount" ? "checked" : ""}
         />
         <Option
           amount={item.spent}
-          label={`${item.expense ? "Spent" : "Deposited"} in ${prevMonthString}`}
           hidden={item.spent === 0}
+          label={`${item.expense ? "Spent" : "Deposited"} in ${prevMonthString}`}
+          onClick={setPreviousSpent}
+          checked={selectedOption === "previousSpent" ? "checked" : ""}
         />
         <div className="input">
           <div className="label">
             <em>Amount to include:</em>
           </div>
           <input
-            onChange={onAmountChange}
+            onChange={updateAmount}
             value={amount}
           />
-          <div className="confirm-button">
-            <Icon className="far fa-check-circle" />
-          </div>
+          <ConfirmationButton
+            amount={amount}
+            onClick={createItem}
+          />
         </div>
         <hr />
         <div className="extra-options">
@@ -89,14 +146,19 @@ const ReviewItem = ({ amount, category, dispatch, item, newMonthString, prevMont
   )
 }
 
-const Option = ({ amount, hidden, label }) => {
+const Option = ({ amount, checked, hidden, label, onClick }) => {
   if (hidden) {
     return null
   } else {
     return (
       <div className="option">
         <div className="label">
-          <input type="radio" name="review-option" />
+          <input
+            type="radio"
+            name="review-option"
+            onChange={onClick}
+            checked={checked}
+          />
           {label}:
         </div>
         <div className="amount">
@@ -107,20 +169,36 @@ const Option = ({ amount, hidden, label }) => {
   }
 }
 
+const ConfirmationButton = ({ amount, onClick }) => {
+  if (amount === "") {
+    return null
+  } else {
+    return (
+      <div className="confirm-button">
+        <button onClick={onClick}>
+          <Icon className="far fa-check-circle" />
+          {" "}
+          Include
+        </button>
+      </div>
+    )
+  }
+}
+
 const mapStateToProps = (state, ownProps) => {
   const { item } = ownProps
   const { baseMonth, newMonth } = state.budget.setup
   const prevMonthString = dateFormatter.formatted({ month: baseMonth.month, year: baseMonth.year, format: "monthYear" })
-  const newMonthString = dateFormatter.formatted({ month: newMonth.month, year: newMonth.year, format: "monthYear" })
-  const { amount } = state.budget.setup.newMonth.newItem
+  const { newItem } = state.budget.setup.newMonth
   const category = state.budget.categories.collection.find(category => category.id === item.budget_category_id)
 
   return {
     category: category,
     item: item,
-    newMonthString: newMonthString,
+    month: newMonth.month,
+    newItem: newItem,
     prevMonthString: prevMonthString,
-    amount: amount,
+    year: newMonth.year,
   }
 }
 

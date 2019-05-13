@@ -316,17 +316,18 @@
 
 .category-options {
   display: inline-block;
-  width: 8%;
+  width: 9%;
   margin-left: 2%;
 }
 
 .category-options .option {
   display: block;
   margin-left: 2%;
+  margin-right: 2%;
 }
 
 .category-options .option .label {
-  width: 65%;
+  width: 85%;
   display: inline-block;
 }
 
@@ -587,6 +588,16 @@ button.setup-next {
 .review-item-form .confirm-button {
   display: inline-block;
   margin-left: 5px;
+  width: 180px;
+}
+
+.confirm-button button {
+  background-color: #59D176; /* green */
+  border-radius: 8px;
+  padding: 1.5% 4%;
+  font-size: 0.5em;
+  border: none;
+  margin-left: 4%;
 }
 
 .review-item-form .extra-options {

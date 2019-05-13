@@ -58,6 +58,7 @@ const initialState = {
       newItem: {
         amount: "",
         budget_category_id: null,
+        selectedOption: "",
       },
     },
   }
@@ -262,8 +263,9 @@ export default (state = initialState, action) => {
         newMonth: {
           ...state.setup.newMonth,
           newItem: {
-            amount: 0,
+            amount: "",
             budget_category_id: null,
+            selectedOption: "",
           },
           collection: [
             ...state.setup.newMonth.collection,
@@ -272,7 +274,7 @@ export default (state = initialState, action) => {
         },
       },
     }
-  case "budget/setup/EDIT_ADD_NEW":
+  case "budget/setup/EDIT_NEW":
     return {
       ...state,
       setup: {
@@ -331,6 +333,14 @@ export default (state = initialState, action) => {
           collection: state.setup.baseMonth.collection.map(item =>
             item.id === action.payload.id ? { ...item, reviewed: true } : item
           )
+        },
+        newMonth: {
+          ...state.setup.newMonth,
+          newItem: {
+            amount: "",
+            budget_category_id: null,
+            selectedOption: "",
+          }
         }
       }
     }
