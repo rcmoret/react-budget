@@ -12,6 +12,9 @@ export default ({ collection, discretionary, dispatch, isReady, monthString }) =
     return (
       <div className="new-month-items">
         <h4>{monthString} Items</h4>
+        <Discretionary
+          amount={discretionary}
+        />
         <div className="setup-title">
           <strong>Revenues</strong>
         </div>
@@ -32,9 +35,6 @@ export default ({ collection, discretionary, dispatch, isReady, monthString }) =
             {...item}
           />
         )}
-        <Discretionary
-          amount={discretionary}
-        />
       </div>
     )
   } else {

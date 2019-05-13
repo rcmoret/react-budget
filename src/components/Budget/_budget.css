@@ -434,6 +434,10 @@ nav.budget-actions a .budget-action:hover {
   vertical-align: top;
 }
 
+.previous-month-items {
+  margin-right: 20px;
+}
+
 .review-item-current {
   background: #EFEFEF;
   padding: 10px 0 2px 10px;
@@ -504,7 +508,7 @@ nav.budget-actions a .budget-action:hover {
 
 .setup-discretionary {
   margin-top: 7px;
-  border-top: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
 button.setup-next {

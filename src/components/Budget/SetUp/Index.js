@@ -39,6 +39,7 @@ const Index = (props) => {
         monthString={monthString}
       />
       <hr />
+      <PreviousMonth />
       <Items
         collection={newMonth.collection}
         discretionary={props.discretionary}
@@ -46,7 +47,6 @@ const Index = (props) => {
         isReady={newMonth.isReady}
         monthString={monthString}
       />
-      <PreviousMonth />
     </div>
   )
 }
