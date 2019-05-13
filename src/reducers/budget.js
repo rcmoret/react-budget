@@ -354,6 +354,14 @@ export default (state = initialState, action) => {
           collection: state.setup.baseMonth.collection.map(item =>
             item.id === action.payload.id ? { ...item, ...action.payload } : item
           )
+        },
+        newMonth: {
+          ...state.setup.newMonth,
+          newItem: {
+            amount: "",
+            budget_category_id: null,
+            selectedOption: "",
+          }
         }
       }
     }
