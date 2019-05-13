@@ -3,7 +3,7 @@ const MoneyFormatter = (number, opts = { absolute: false, toFloat: false }) => {
     return ""
   } else if (opts.toFloat) {
     const num = opts.absolute ? Math.abs(number) : number
-    return (num / 100.0)
+    return parseFloat(num / 100.0).toFixed(2)
   } else {
     const num = opts.absolute ? Math.abs(number) : number
     return "$" + (num / 100.0).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
