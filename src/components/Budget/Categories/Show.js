@@ -44,7 +44,7 @@ const Show = (props) => {
           {MoneyFormatter(default_amount, { absoulte: false })}
         </div>
         <div className="category-detail">
-          {monthly ? "monthly" : "weekly"}
+          {monthly ? "monthly" : "day-to-day"}
           {" "}
           {expense ? "expense" : "revenue"}
         </div>

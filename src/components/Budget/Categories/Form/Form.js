@@ -27,44 +27,44 @@ export default (props) => (
       <div className="option">
         <div className="label">Monthly</div>
         <input type="radio"
-         name="monthly"
-         value={true}
-         onChange={props.onChange}
-         checked={props.monthly === "true" ? "checked" : ""}
-         disabled={props.optionsDisabled}
-         />
+          name="monthly"
+          value={true}
+          onChange={props.onChange}
+          checked={props.monthly === "true" ? "checked" : ""}
+          disabled={props.optionsDisabled}
+        />
       </div>
       <div className="option">
-        <div className="label">Weekly</div>
+        <div className="label">Day-to-Day</div>
         <input type="radio"
-         name="monthly"
-         value={false}
-         onChange={props.onChange}
-         checked={props.monthly === "false" ? "checked" : ""}
-         disabled={props.optionsDisabled}
-         />
+          name="monthly"
+          value={false}
+          onChange={props.onChange}
+          checked={props.monthly === "false" ? "checked" : ""}
+          disabled={props.optionsDisabled}
+        />
       </div>
     </div>
     <div className="category-options">
       <div className="option">
         <div className="label">Expense</div>
         <input type="radio"
-         name="expense"
-         value={true}
-         onChange={props.onChange}
-         checked={props.expense === "true" ? "checked" : ""}
-         disabled={props.optionsDisabled}
-         />
+          name="expense"
+          value={true}
+          onChange={props.onChange}
+          checked={props.expense === "true" ? "checked" : ""}
+          disabled={props.optionsDisabled}
+        />
       </div>
       <div className="option">
         <div className="label">Revenue</div>
         <input type="radio"
-         name="expense"
-         value={false}
-         onChange={props.onChange}
-         checked={props.expense === "false" ? "checked" : ""}
-         disabled={props.optionsDisabled}
-         />
+          name="expense"
+          value={false}
+          onChange={props.onChange}
+          checked={props.expense === "false" ? "checked" : ""}
+          disabled={props.optionsDisabled}
+        />
       </div>
     </div>
     <IconSelect

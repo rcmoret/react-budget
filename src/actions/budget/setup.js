@@ -2,8 +2,8 @@ export const addItem = (payload) => {
   return { type: "budget/setup/ADD_ITEM", payload: payload }
 }
 
-export const editAddNew = (payload) => {
-  return { type: "budget/setup/EDIT_ADD_NEW", payload: payload }
+export const editNew = (payload) => {
+  return { type: "budget/setup/EDIT_NEW", payload: payload }
 }
 
 export const editReviewItem = (payload) => {

@@ -20,7 +20,7 @@ const WeeklyHeader = (props) => {
   return (
     <div className="budget-group-header">
       <div className="title">
-        <h3>Weekly Items</h3>
+        <h3>Day-to-Day Items</h3>
       </div>
       <Link
         to="#"

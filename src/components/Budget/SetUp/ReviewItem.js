@@ -12,7 +12,7 @@ const ReviewItem = ({ amount, category, dispatch, item, newMonthString, prevMont
     if (item === undefined) {
       return ""
     }
-    const adverb = item.monthly ? "monthly" : "weekly"
+    const adverb = item.monthly ? "monthly" : "day-to-day"
     const adjective = item.expense ? "expense" : "revenue"
     return `${adverb} ${adjective}`
   }
