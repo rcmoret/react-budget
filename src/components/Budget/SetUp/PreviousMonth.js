@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 import * as dateFormatter from "../../../shared/Functions/DateFormatter"
 import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
 
+import Icon from "../../Icons/Icon"
 import ReviewItem from "./ReviewItem"
 
 const PreviousMonth = ({ collection, isReady, prevMonthString, reviewItem }) => {
@@ -11,7 +12,7 @@ const PreviousMonth = ({ collection, isReady, prevMonthString, reviewItem }) => 
     return (
       <div className="previous-month-items">
         <h4>{prevMonthString}'s Items</h4>
-        <ReviewItem item={reviewItem} />
+        <Review item={reviewItem} />
         {collection.map(item =>
           <Item key={item.id} item={item} />
         )}
@@ -19,6 +20,28 @@ const PreviousMonth = ({ collection, isReady, prevMonthString, reviewItem }) => 
     )
   } else {
     return null
+  }
+}
+
+const Review = ({ item }) => {
+  if (item) {
+    return (
+      <ReviewItem item={item} />
+    )
+  } else {
+    return (
+      <div className="review-item-current">
+        <div className="review-item-form">
+          <div className="confirm-button">
+            <button>
+              <strong>Mark Setup Complete</strong>
+              {" "}
+              <Icon className="far fa-check-square" />
+            </button>
+          </div>
+        </div>
+      </div>
+    )
   }
 }
 
