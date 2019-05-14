@@ -37,9 +37,9 @@ const mapStateToProps = (state, ownProps) => {
     if (a.expense && !b.expense) {
       return 1
     } else if (!a.expense && !b.expense) {
-      return a.amount < b.amount ? 1 : -1
+      return a.amount <= b.amount ? 1 : -1
     } else if (a.expense && b.expense) {
-      return a.amount > b.amount ? 1 : -1
+      return a.amount >= b.amount ? 1 : -1
     } else { /* a is revenue && b.expense */
       return -1
     }

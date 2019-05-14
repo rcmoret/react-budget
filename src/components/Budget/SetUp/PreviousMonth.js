@@ -44,7 +44,7 @@ const mapStateToProps = (state) => {
       } else if (!a.requeuedAt && b.requeuedAt) {
         return -1
       } else if (a.expense === b.expense) {
-        return Math.abs(a.amount) > Math.abs(b.amount) ? -1 : 1
+        return Math.abs(a.amount) >= Math.abs(b.amount) ? -1 : 1
       } else {
         return a.expense ? 1 : -1
       }
