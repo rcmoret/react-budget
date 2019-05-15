@@ -54,6 +54,7 @@ const initialState = {
       year: 2099,
       isFetched: false,
       reviewed: true,
+      set_up_completed_at: null,
       collection: [],
       newItem: {
         amount: "",
@@ -364,6 +365,22 @@ export default (state = initialState, action) => {
           }
         }
       }
+    }
+  case "budget/setup/UPDATE_METADATA":
+    return {
+      ...state,
+      itemsFetched: false,
+      metadata: {
+        ...state.metadata,
+        ...action.payload,
+      },
+      setup: {
+        ...state.setup,
+        newMonth: {
+          ...state.setup.newMonth,
+          ...action.payload,
+        },
+      },
     }
   case "transactions/CREATED":
     return {

@@ -25,3 +25,7 @@ export const nextStep = () => {
 export const requeue = (payload) => {
   return { type: "budget/setup/REQUEUE", payload: payload }
 }
+
+export const updateMetadata = (payload) => {
+  return { type: "budget/setup/UPDATE_METADATA", payload: payload }
+}

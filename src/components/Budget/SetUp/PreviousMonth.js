@@ -2,17 +2,24 @@ import React from "react"
 import { connect } from "react-redux"
 
 import * as dateFormatter from "../../../shared/Functions/DateFormatter"
+import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
+import { updateMetadata } from "../../../actions/budget/setup"
 
 import Icon from "../../Icons/Icon"
+import { Redirect } from "react-router"
 import ReviewItem from "./ReviewItem"
 
-const PreviousMonth = ({ collection, isReady, prevMonthString, reviewItem }) => {
-  if (isReady) {
+const PreviousMonth = ({ collection, dispatch, newMonth, prevMonthString, reviewItem }) => {
+  if (newMonth.isReady) {
     return (
       <div className="previous-month-items">
         <h4>{prevMonthString}'s Items</h4>
-        <Review item={reviewItem} />
+        <Review
+          dispatch={dispatch}
+          item={reviewItem}
+          newMonth={newMonth}
+        />
         {collection.map(item =>
           <Item key={item.id} item={item} />
         )}
@@ -23,17 +30,37 @@ const PreviousMonth = ({ collection, isReady, prevMonthString, reviewItem }) => 
   }
 }
 
-const Review = ({ item }) => {
-  if (item) {
+const Review = ({ dispatch, item, newMonth }) => {
+  const { month, year } = newMonth
+  const markComplete = (e) => {
+    e.preventDefault()
+    const url = ApiUrlBuilder(["intervals", month, year])
+    const now = new Date()
+    const body = JSON.stringify({ set_up_completed_at: now })
+    fetch(url, {
+      method: "PUT",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: body,
+    })
+      .then(response => response.json())
+      .then(data => dispatch(updateMetadata(data)))
+  }
+
+  if (item && !newMonth.set_up_completed_at) {
     return (
       <ReviewItem item={item} />
     )
-  } else {
+  } else if (!newMonth.set_up_completed_at) {
     return (
       <div className="review-item-current">
         <div className="review-item-form">
           <div className="confirm-button">
-            <button>
+            <button
+              onClick={markComplete}
+            >
               <strong>Mark Setup Complete</strong>
               {" "}
               <Icon className="far fa-check-square" />
@@ -42,8 +69,13 @@ const Review = ({ item }) => {
         </div>
       </div>
     )
+  } else {
+    return (
+      <Redirect to={`/budget/${month}/${year}`} />
+    )
   }
 }
+
 
 const Item = ({ item }) => (
   <div className="review-item-queued">
@@ -56,7 +88,7 @@ const Item = ({ item }) => (
   </div>
 )
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   let collection = state.budget.setup.baseMonth.collection
     .filter(item => !item.reviewed)
     .sort((a, b) => {
@@ -78,7 +110,7 @@ const mapStateToProps = (state) => {
 
   return {
     collection: collection,
-    isReady: state.budget.setup.newMonth.isReady,
+    newMonth: state.budget.setup.newMonth,
     prevMonthString: prevMonthString,
     reviewItem: reviewItem,
   }

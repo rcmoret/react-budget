@@ -12,7 +12,7 @@ const Edit = (props) => {
     props.dispatch(action)
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = () => {
     const url = ApiUrlBuilder(["icons", id])
     fetch(url, {
       method: "PUT",
@@ -22,12 +22,11 @@ const Edit = (props) => {
       },
       body: JSON.stringify(props.icon.updatedProps),
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data)
-      props.dispatch(updated(data))
-      props.dispatch(update({ id: id, showForm: false }))
-    })
+      .then(response => response.json())
+      .then(data => {
+        props.dispatch(updated(data))
+        props.dispatch(update({ id: id, showForm: false }))
+      })
   }
 
   const formProps = { ...props.icon, ...props.icon.updatedProps }
