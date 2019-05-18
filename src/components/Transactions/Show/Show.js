@@ -71,8 +71,8 @@ const Show = (props) => {
           />
           <Amount amount={amount} />
           <Balance balance={balance} />
-          <CheckNumber checkNumber={check_number} />
           <BudgetCategories {...props} />
+          <CheckNumber checkNumber={check_number} />
           <BudgetExclusion budgetExclusion={budget_exclusion} />
           <Notes notes={notes} />
         </div>
