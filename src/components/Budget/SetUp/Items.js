@@ -5,8 +5,19 @@ import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
 import Discretionary from "./Discretionary"
 
 export default ({ collection, discretionary, dispatch, isReady, monthString }) => {
-  const revenues = collection.filter(item => !item.expense)
-  const expenses = collection.filter(item => item.expense)
+  const sortFn = (a, b) => {
+    if (a.budget_category_id !== b.budget_cateogry_id) {
+      return a.name < b.name ? -1 : 1
+    } else {
+      if (a.amount === b.amount) {
+        return a.id - b.id
+      } else {
+        return Math.abs(a.amount) - Math.abs(b.amount)
+      }
+    }
+  }
+  const revenues = collection.filter(item => !item.expense).sort(sortFn)
+  const expenses = collection.filter(item => item.expense).sort(sortFn)
 
   if (isReady) {
     return (
