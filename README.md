@@ -1,44 +1,40 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+This project works in conjunction with my [budget api](https://github.com/rcmoret/budget-api)
 
-In the project directory, you can run:
+## Getting started
 
+### API Configuration
+`cp src/shared/Constants/Api.js.example src/shared/Constants/Api.js`<br>
+By default, the api is expected to be running locally (`127.0.0.1`) on port `8088`.<br>
+Change `src/shared/Constants/Api.js` to match your api set up.
+
+### `npm install`
 ### `npm start`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### Accounts
+#### Manage
+Each account appears as a tile with a name and its balance across the top.<br>
+From here you can select 'Manage Accounts'. From here you can create, modify, delete (usually soft delete) accounts. 
 
-### `npm test`
+#### Transfers
+View, create and delete transfers
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Transactions
+Clicking on a tile renders that accounts transactions which are paginated by month. Creating and update individual transactions is available here. Transactions are paginated by month and the url will change to reflect the month (`accounts/:account_id/:month/:year`). The absence of month and year will default to the current month/year.
 
-### `npm run build`
+### Budget
+#### Items Index
+Items are also paginated by month and follows a similar pattern to transactions index. Items are organized by day-to-day/monthly and also by revenues/expenses. Day-to-day (and discrectionary) items have additional information which can be seen by clicking the caret for the item. Item amount is the only editable datum for an item so clicking on the amount renders an input for updating. 
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Category Index
+Create, read, update and delete are available for categories
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+#### Icons
+Create, read, update and delete are available for icons
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### New Month Workflow
+...
