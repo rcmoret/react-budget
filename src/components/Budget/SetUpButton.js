@@ -8,7 +8,7 @@ export default ({ month, year, isFuture, requiresSetUp }) => {
     const monthString = dateFormatter.formatted({ month: month, year: year, format: "monthYear" })
     return (
       <Link
-        to={`/budget/set-up/${month}/${year}`}
+        to={`/budget/set-up/${month}/${year}/intro`}
       >
         <div className="budget-action">
           <strong>Set up {monthString}</strong>

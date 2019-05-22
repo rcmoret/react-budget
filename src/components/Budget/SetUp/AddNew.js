@@ -1,17 +1,22 @@
 import React from "react"
 import { connect } from "react-redux"
 
+import * as dateFormatter from "../../../shared/Functions/DateFormatter"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 import { categoriesFetched } from "../../../actions/budget"
-import { addItem, editNew, nextStep } from "../../../actions/budget/setup"
+import { addItem, editNew } from "../../../actions/budget/setup"
 import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
+import { Link } from "react-router-dom"
 import Select from "react-select"
 
 import Icon from "../../Icons/Icon"
+import Items from "./Items"
 
-const AddNew = ({ baseMonthString, categories, dispatch, newMonth }) => {
+const AddNew = ({ baseMonth, categories, discretionary, dispatch, newMonth }) => {
   const { newItem, month, year } = newMonth
   const { budget_category_id, amount } = newItem
+  const baseMonthString = dateFormatter.formatted({ month: baseMonth.month, year: baseMonth.year, format: "monthYear" })
+  const monthString = dateFormatter.formatted({ month: month, year: year, format: "monthYear" })
 
   if (!categories.fetch) {
     const categoryUrl = ApiUrlBuilder(["budget", "categories"])
@@ -57,53 +62,56 @@ const AddNew = ({ baseMonthString, categories, dispatch, newMonth }) => {
     dispatch(action)
   }
 
-  const setupNext = (e) => {
-    e.preventDefault()
-    const action = nextStep()
-    dispatch(action)
-  }
-
   return (
-    <div className="set-up-intro">
-      <p>
-        Is there anything that was not in {baseMonthString}'s budget that you want to add before continuing?
-      </p>
-      <div className="set-up-intro-select">
-        <Select
-          options={categories.options}
-          onChange={handleSelect}
-          value={categories.value}
-          isSearchable={true}
-        />
+    <div className="set-up-workspace">
+      <div className="set-up-intro">
+        <p>
+          Is there anything that was not in {baseMonthString}'s budget that you want to add before continuing?
+        </p>
+        <div className="set-up-intro-select">
+          <Select
+            options={categories.options}
+            onChange={handleSelect}
+            value={categories.value}
+            isSearchable={true}
+          />
+        </div>
+        <div className="set-up-intro-input">
+          <input
+            type="text"
+            placeholder="amount"
+            value={amount}
+            onChange={handleAmountChange}
+          />
+        </div>
+        <div className="set-up-intro-create">
+          <button
+            onClick={postNewItem}
+          >
+            Add
+            {" "}
+            <Icon className="fas fa-plus" />
+          </button>
+        </div>
+        <div className="set-up-intro-next">
+          <p>Or click below to continue</p>
+          <Link
+            className="setup-next"
+            to={`/budget/set-up/${month}/${year}`}
+          >
+            Continue
+            {" "}
+            <Icon className="fas fa-arrow-alt-circle-right" />
+          </Link>
+        </div>
       </div>
-      <div className="set-up-intro-input">
-        <input
-          type="text"
-          placeholder="amount"
-          value={amount}
-          onChange={handleAmountChange}
-        />
-      </div>
-      <div className="set-up-intro-create">
-        <button
-          onClick={postNewItem}
-        >
-          Add
-          {" "}
-          <Icon className="fas fa-plus" />
-        </button>
-      </div>
-      <div className="set-up-intro-next">
-        <p>Or click below to continue</p>
-        <button
-          className="setup-next"
-          onClick={setupNext}
-        >
-          Continue
-          {" "}
-          <Icon className="fas fa-arrow-alt-circle-right" />
-        </button>
-      </div>
+      <Items
+        collection={newMonth.collection}
+        discretionary={discretionary}
+        dispatch={dispatch}
+        isReady={newMonth.isReady}
+        monthString={monthString}
+      />
     </div>
   )
 }
@@ -112,6 +120,7 @@ const mapStateToProps = (state, ownProps) => {
   const { categories, setup } = state.budget
   const { newMonth } = setup
   const newWeeklyItemCategoryIds = newMonth.collection.map(item => item.budget_category_id)
+  const discretionary = newMonth.collection.reduce((acc, item) => acc += item.amount, 0)
   const availableCategories = categories.collection.filter(category =>
     !newWeeklyItemCategoryIds.includes(category.id) || category.monthly
   )
@@ -123,13 +132,15 @@ const mapStateToProps = (state, ownProps) => {
   const value = options.find(opt => opt.value === newMonth.newItem.budget_category_id)
 
   return {
+    baseMonth: setup.baseMonth,
     categories: {
       fetch: categories.fetched,
       collection: categories.collection,
       options: options,
       value: value,
     },
-    ...ownProps
+    discretionary: discretionary,
+    newMonth: newMonth,
   }
 }
 

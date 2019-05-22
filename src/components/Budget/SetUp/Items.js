@@ -19,38 +19,34 @@ export default ({ collection, discretionary, dispatch, isReady, monthString }) =
   const revenues = collection.filter(item => !item.expense).sort(sortFn)
   const expenses = collection.filter(item => item.expense).sort(sortFn)
 
-  if (isReady) {
-    return (
-      <div className="new-month-items">
-        <h4>{monthString} Items</h4>
-        <Discretionary
-          amount={discretionary}
-        />
-        <div className="setup-title">
-          <strong>Revenues</strong>
-        </div>
-        {revenues.map(item =>
-          <Item
-            key={item.id}
-            dispatch={dispatch}
-            {...item}
-          />
-        )}
-        <div className="setup-title">
-          <strong>Expenses</strong>
-        </div>
-        {expenses.map(item =>
-          <Item
-            key={item.id}
-            dispatch={dispatch}
-            {...item}
-          />
-        )}
+  return (
+    <div className="new-month-items">
+      <h4>{monthString} Items</h4>
+      <Discretionary
+        amount={discretionary}
+      />
+      <div className="setup-title">
+        <strong>Revenues</strong>
       </div>
-    )
-  } else {
-    return null
-  }
+      {revenues.map(item =>
+        <Item
+          key={item.id}
+          dispatch={dispatch}
+          {...item}
+        />
+      )}
+      <div className="setup-title">
+        <strong>Expenses</strong>
+      </div>
+      {expenses.map(item =>
+        <Item
+          key={item.id}
+          dispatch={dispatch}
+          {...item}
+        />
+      )}
+    </div>
+  )
 }
 
 const Item = ({ dispatch, name, amount }) => {

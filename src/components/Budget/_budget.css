@@ -395,13 +395,18 @@ nav.budget-actions a .budget-action:hover {
   background: #E2DDF4;
 }
 
+.set-up-intro {
+  width: 50%;
+  display: inline-block;
+}
+
 .set-up-intro, .set-up-intro a {
   margin-bottom: 15px;
 }
 
 .set-up-intro-select {
   display: inline-block;
-  width: 18%;
+  width: 33%;
   margin-right: 10px;
 }
 

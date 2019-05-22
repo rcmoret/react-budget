@@ -53,7 +53,7 @@ const initialState = {
       month: 12,
       year: 2099,
       isFetched: false,
-      reviewed: true,
+      reviewed: false,
       set_up_completed_at: null,
       collection: [],
       newItem: {

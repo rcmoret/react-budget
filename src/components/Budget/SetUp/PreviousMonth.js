@@ -11,23 +11,19 @@ import { Redirect } from "react-router"
 import ReviewItem from "./ReviewItem"
 
 const PreviousMonth = ({ collection, dispatch, newMonth, prevMonthString, reviewItem }) => {
-  if (newMonth.isReady) {
-    return (
-      <div className="previous-month-items">
-        <h4>{prevMonthString}'s Items</h4>
-        <Review
-          dispatch={dispatch}
-          item={reviewItem}
-          newMonth={newMonth}
-        />
-        {collection.map(item =>
-          <Item key={item.id} item={item} />
-        )}
-      </div>
-    )
-  } else {
-    return null
-  }
+  return (
+    <div className="previous-month-items">
+      <h4>{prevMonthString}'s Items</h4>
+      <Review
+        dispatch={dispatch}
+        item={reviewItem}
+        newMonth={newMonth}
+      />
+      {collection.map(item =>
+        <Item key={item.id} item={item} />
+      )}
+    </div>
+  )
 }
 
 const Review = ({ dispatch, item, newMonth }) => {

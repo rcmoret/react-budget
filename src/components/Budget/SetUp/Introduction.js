@@ -1,37 +1,60 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import AddNew from "./AddNew"
+import * as dateFormatter from "../../../shared/Functions/DateFormatter"
+import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
+import { baseMonthFetched, newMonthFetched } from "../../../actions/budget"
+import { Redirect } from "react-router"
+
 import Review from "./Review"
 
-const Intro = ({ baseMonthString, collection, monthString, newMonth, reviewQueue }) => {
+const Intro = (props) => {
+  const { baseMonth, collection, newMonth, targetMonth, targetYear } = props
   const { month, year } = newMonth
-  if (newMonth.isReady) {
-    return null
-  } else if (reviewQueue > 0 || !newMonth.reviewed) {
+  const monthString = dateFormatter.formatted({ month: newMonth.month, year: newMonth.year, format: "monthYear" })
+  const emptyCollection = newMonth.isFetched &&  collection.length === 0
+
+  if (!newMonth.isFetched) {
+    const url = ApiUrlBuilder(["budget", "items"], { month: targetMonth, year: targetYear })
+    fetch(url)
+      .then(response => response.json())
+      .then(data => props.dispatch(newMonthFetched(data)))
+  }
+
+  if (newMonth.isFetched && !baseMonth.isFetched) {
+    const month = targetMonth === 1 ? 12 : (targetMonth - 1)
+    const year = targetMonth === 1 ? (targetYear - 1) : targetYear
+    const url = ApiUrlBuilder(["budget", "items"], { month: month, year: year })
+    fetch(url)
+      .then(response => response.json())
+      .then(data => props.dispatch(baseMonthFetched(data)))
+  }
+
+  if (emptyCollection || newMonth.reviewed) {
     return (
-      <div className="set-up-intro">
-        <p>
-          Looks like there are some items already created for {monthString}. Let's review those first.
-        </p>
-        <Review
-          collection={collection}
-          month={month}
-          year={year}
-        />
-      </div>
+      <Redirect to={`/budget/set-up/${month}/${year}/add-new`} />
     )
-  } else {
+  } else { // show the reivew items
     return (
-      <AddNew
-        baseMonthString={baseMonthString}
-        newMonth={newMonth}
-      />
+      <div className="set-up-workspace">
+        <div className="set-up-intro">
+          <p>
+            Looks like there are some items already created for {monthString}. Let's review those first.
+          </p>
+          <Review
+            collection={collection}
+            month={month}
+            year={year}
+          />
+        </div>
+      </div>
     )
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
+  const targetMonth = parseInt(ownProps.match.params.month)
+  const targetYear = parseInt(ownProps.match.params.year)
   const newMonth = state.budget.setup.newMonth
   const collection = newMonth.collection.sort((a, b) => {
     if (a.expense && !b.expense) {
@@ -44,12 +67,13 @@ const mapStateToProps = (state, ownProps) => {
       return -1
     }
   })
-  const reviewQueue = collection.reduce((acc, item) => acc += (item.reviewed ? 0 : 1), 0)
 
   return {
+    baseMonth: state.budget.setup.baseMonth,
     collection: collection,
-    reviewQueue: reviewQueue,
     newMonth: newMonth,
+    targetMonth: targetMonth,
+    targetYear: targetYear,
     ...ownProps
   }
 }

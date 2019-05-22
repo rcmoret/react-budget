@@ -11,6 +11,8 @@ import AccountWrapper from "./components/Accounts/Wrapper"
 import AccountIndex from "./components/Accounts/Index"
 import BudgetIndex from "./components/Budget/Index"
 import BudgetSetUp from "./components/Budget/SetUp/Index"
+import BudgetSetUpAddNew from "./components/Budget/SetUp/AddNew"
+import BudgetSetUpIntro from "./components/Budget/SetUp/Introduction"
 import BudgetCategories from "./components/Budget/Categories/Index"
 import Header from "./components/Header"
 import Icons from "./components/Icons/Index"
@@ -42,6 +44,8 @@ const App = () => (
             <Route path="/accounts/:id/" component={AccountWrapper} />
             <Route exact path="/budget/categories" component={BudgetCategories} />
             <Route exact path="/budget/icons" component={Icons} />
+            <Route path="/budget/set-up/:month/:year/add-new" component={BudgetSetUpAddNew} />
+            <Route path="/budget/set-up/:month/:year/intro" component={BudgetSetUpIntro} />
             <Route path="/budget/set-up/:month/:year" component={BudgetSetUp} />
             <Route path="/budget/:month?/:year?" component={BudgetIndex} />
           </Switch>
