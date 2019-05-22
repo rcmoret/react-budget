@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 import { connect } from "react-redux"
 import { itemsFetched } from "../../actions/budget"
@@ -8,52 +8,40 @@ import Menu from "./Menu"
 import MonthlyItems from "./Items/MonthlyItems"
 import WeeklyItems from "./Items/WeeklyItems"
 
-class BudgetIndex extends Component {
-  componentWillMount() {
-    if (!this.props.itemsFetched) {
-      const { month, year } = this.props
-      const url = ApiUrlBuilder(["budget", "items"], { month: month, year: year })
-      fetch(url)
-        .then(response => response.json())
-        .then(data => this.props.dispatch(itemsFetched(data)))
-    }
+const BudgetIndex = (props) => {
+  if (!props.itemsFetched || !props.isCurrent) {
+    const { month, year } = props
+    const url = ApiUrlBuilder(["budget/items"], { month: month, year: year })
+    fetch(url)
+      .then(response => response.json())
+      .then(data => props.dispatch(itemsFetched(data)))
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { month, year } = this.props
-    if (!(month === nextProps.month && year === nextProps.year)) {
-      const url = ApiUrlBuilder(["budget", "items"], { month: nextProps.month, year: nextProps.year })
-      fetch(url)
-        .then(response => response.json())
-        .then(data => this.props.dispatch(itemsFetched(data)))
-    }
-  }
-
-  render() {
-    return (
-      <div className="budget">
-        <BudgetInfo />
-        <WeeklyItems />
-        <MonthlyItems />
-        <Menu
-          month={this.props.month}
-          year={this.props.year}
-          isFuture={this.props.isFuture}
-          requiresSetUp={!this.props.metadata.is_set_up}
-        />
-      </div>
-    )
-  }
+  return (
+    <div className="budget">
+      <BudgetInfo />
+      <WeeklyItems />
+      <MonthlyItems />
+      <Menu
+        month={props.month}
+        year={props.year}
+        isFuture={props.isFuture}
+        requiresSetUp={!props.metadata.is_set_up}
+      />
+    </div>
+  )
 }
 
 const mapStateToProps = (state, ownProps) => {
+  const month = parseInt(ownProps.match.params.month)
+  const year = parseInt(ownProps.match.params.year)
+  const isCurrent = state.budget.metadata.month === month && state.budget.metadata.year === year
   const today = new Date()
-  const month = parseInt(ownProps.match.params.month || today.getMonth() + 1)
-  const year = parseInt(ownProps.match.params.year || today.getFullYear())
   const isFuture = (year > today.getFullYear() || (year === today.getFullYear() && month > (today.getMonth() + 1)))
 
   return {
     ...state.budget,
+    isCurrent: isCurrent,
     month: month,
     year: year,
     isFuture: isFuture
