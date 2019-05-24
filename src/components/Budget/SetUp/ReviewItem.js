@@ -3,13 +3,13 @@ import { connect } from "react-redux"
 
 import * as dateFormatter from "../../../shared/Functions/DateFormatter"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
-import { addItem, editNew, markReviewed, requeue } from "../../../actions/budget/setup"
+import { addItem, editNew, markReviewed, requeue, updateExisting } from "../../../actions/budget/setup"
 import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
 import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
 
 import Icon from "../../Icons/Icon"
 
-const ReviewItem = ({ category, dispatch, item, month, newItem, prevMonthString, year }) => {
+const ReviewItem = ({ category, dayToDayItem, dispatch, item, month, newItem, prevMonthString, year }) => {
   const newMonthString = dateFormatter.formatted({ month: month, year: year, format: "monthYear" })
   const { amount, selectedOption } = newItem
 
@@ -82,6 +82,26 @@ const ReviewItem = ({ category, dispatch, item, month, newItem, prevMonthString,
       .then(() => dispatch(markReviewed({ id: item.id })))
   }
 
+  const updateItem = () => {
+    const body = {
+      amount: (decimalToInt(amount) + dayToDayItem.amount),
+    }
+    const url = ApiUrlBuilder(["budget/categories", dayToDayItem.budget_category_id, "items", dayToDayItem.id])
+    fetch(url,
+      {
+        method: "PUT",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      }
+    )
+      .then(response => response.json())
+      .then(data => dispatch(updateExisting(data)))
+      .then(() => dispatch(markReviewed({ id: item.id })))
+  }
+
   return (
     <div className="review-item-current">
       <div className="header">
@@ -89,7 +109,10 @@ const ReviewItem = ({ category, dispatch, item, month, newItem, prevMonthString,
         <div className="top-line"><em>{description(item)}</em></div>
       </div>
       <div className="review-item-form">
-        <p>How much to include in {newMonthString}?</p>
+        <Header
+          dayToDayItem={dayToDayItem}
+          newMonthString={newMonthString}
+        />
         <Option
           amount={category.default_amount}
           label="Default Amount"
@@ -111,7 +134,7 @@ const ReviewItem = ({ category, dispatch, item, month, newItem, prevMonthString,
         />
         <div className="input">
           <div className="label">
-            <em>Amount to include:</em>
+            <em>{dayToDayItem ? "Additional amount" : "Amount"} to include:</em>
           </div>
           <input
             onChange={updateAmount}
@@ -119,7 +142,9 @@ const ReviewItem = ({ category, dispatch, item, month, newItem, prevMonthString,
           />
           <ConfirmationButton
             amount={amount}
-            onClick={createItem}
+            createItem={createItem}
+            dayToDayItem={dayToDayItem}
+            updateItem={updateItem}
           />
         </div>
         <hr />
@@ -146,6 +171,27 @@ const ReviewItem = ({ category, dispatch, item, month, newItem, prevMonthString,
   )
 }
 
+const Header = ({ dayToDayItem, newMonthString }) => {
+  if (dayToDayItem) {
+    return (
+      <div>
+        <p>
+          You already included {MoneyFormatter(dayToDayItem.amount, { absolute: false })} for {dayToDayItem.name} in {newMonthString}'s budget.
+        </p>
+        <p>
+          How much additional to include?
+        </p>
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        <p>How much to include in {newMonthString}?</p>
+      </div>
+    )
+  }
+}
+
 const Option = ({ amount, checked, hidden, label, onClick }) => {
   if (hidden) {
     return null
@@ -169,7 +215,8 @@ const Option = ({ amount, checked, hidden, label, onClick }) => {
   }
 }
 
-const ConfirmationButton = ({ amount, onClick }) => {
+const ConfirmationButton = ({ amount, createItem, dayToDayItem, updateItem }) => {
+  const onClick = dayToDayItem ? updateItem : createItem
   if (amount === "") {
     return null
   } else {
@@ -191,9 +238,11 @@ const mapStateToProps = (state, ownProps) => {
   const prevMonthString = dateFormatter.formatted({ month: baseMonth.month, year: baseMonth.year, format: "monthYear" })
   const { newItem } = state.budget.setup.newMonth
   const category = state.budget.categories.collection.find(category => category.id === item.budget_category_id)
+  const dayToDayItem = item.monthly ? null : newMonth.collection.find(i => i.budget_category_id === item.budget_category_id)
 
   return {
     category: category,
+    dayToDayItem: dayToDayItem,
     item: item,
     month: newMonth.month,
     newItem: newItem,

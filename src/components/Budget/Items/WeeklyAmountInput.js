@@ -35,7 +35,7 @@ const WeeklyAmountInput = (props) => {
       month: props.month,
       year: props.year,
     }
-    const url = ApiUrlBuilder(["budget", "categories", props.budget_category_id, "items", props.id])
+    const url = ApiUrlBuilder(["budget/categories", props.budget_category_id, "items", props.id])
     fetch(url,
       {
         method: "PUT",

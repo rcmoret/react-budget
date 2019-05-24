@@ -26,6 +26,10 @@ export const requeue = (payload) => {
   return { type: "budget/setup/REQUEUE", payload: payload }
 }
 
+export const updateExisting = (payload) => {
+  return { type: "budget/setup/UPDATE_EXISTING", payload: payload }
+}
+
 export const updateMetadata = (payload) => {
   return { type: "budget/setup/UPDATE_METADATA", payload: payload }
 }

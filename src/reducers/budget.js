@@ -366,6 +366,24 @@ export default (state = initialState, action) => {
         }
       }
     }
+  case "budget/setup/UPDATE_EXISTING":
+    return {
+      ...state,
+      setup: {
+        ...state.setup,
+        newMonth: {
+          ...state.setup.newMonth,
+          newItem: {
+            amount: "",
+            budget_category_id: null,
+            selectedOption: "",
+          },
+          collection: state.setup.newMonth.collection.map(item => {
+            return item.id === action.payload.id ? action.payload : item
+          }),
+        },
+      },
+    }
   case "budget/setup/UPDATE_METADATA":
     return {
       ...state,
