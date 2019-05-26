@@ -95,13 +95,12 @@ const AddNew = ({ baseMonth, categories, discretionary, dispatch, newMonth }) =>
         </div>
         <div className="set-up-intro-next">
           <p>Or click below to continue</p>
-          <Link
-            className="setup-next"
-            to={`/budget/set-up/${month}/${year}`}
-          >
-            Continue
-            {" "}
-            <Icon className="fas fa-arrow-alt-circle-right" />
+          <Link to={`/budget/set-up/${month}/${year}`} >
+            <div className="setup-next">
+              Continue
+              {" "}
+              <Icon className="fas fa-arrow-alt-circle-right" />
+            </div>
           </Link>
         </div>
       </div>

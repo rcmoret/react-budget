@@ -517,13 +517,19 @@ nav.budget-actions a .budget-action:hover {
   border-bottom: 1px solid black;
 }
 
-button.setup-next {
+.setup-next {
   background-color: #8AB6FF; /* blue */
+  width: 90px;
+  padding: 4px;
   border: none;
   font-size: 0.9em;
   padding: 5px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.setup-next {
+  color: black;
 }
 
 .setup-title {

@@ -134,7 +134,7 @@ const ReviewItem = ({ category, dayToDayItem, dispatch, item, month, newItem, pr
         />
         <div className="input">
           <div className="label">
-            <em>{dayToDayItem ? "Additional amount" : "Amount"} to include:</em>
+            <em>{dayToDayItem ? "Additional" : "Amount to include"}: </em>
           </div>
           <input
             onChange={updateAmount}
@@ -147,6 +147,10 @@ const ReviewItem = ({ category, dayToDayItem, dispatch, item, month, newItem, pr
             updateItem={updateItem}
           />
         </div>
+        <Total
+          amount={amount}
+          dayToDayItem={dayToDayItem}
+        />
         <hr />
         <div className="extra-options">
           <button
@@ -232,6 +236,22 @@ const ConfirmationButton = ({ amount, createItem, dayToDayItem, updateItem }) =>
   }
 }
 
+const Total = ({ amount, dayToDayItem }) => {
+  if (dayToDayItem) {
+    return (
+      <div className="option">
+        <div className="label">
+          <em>Total: </em>
+        </div>
+        <div className="amount">
+          {MoneyFormatter((((parseFloat(amount) || 0) * 100) + dayToDayItem.amount), { absolute: false })}
+        </div>
+      </div>
+    )
+  } else {
+    return null
+  }
+}
 const mapStateToProps = (state, ownProps) => {
   const { item } = ownProps
   const { baseMonth, newMonth } = state.budget.setup
