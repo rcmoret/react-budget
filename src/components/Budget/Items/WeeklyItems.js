@@ -18,11 +18,38 @@ const WeeklyItems = (props) => (
 
 const mapStateToProps = (state) => {
   const { collection } = state.budget.weekly
+  const expenses = collection.filter(item => item.expense)
+    .sort((a, b) => {
+      if (a.difference === b.difference) {
+        return 0
+      } else if (a.difference > 0 && b.difference > 0) {
+        return (b.difference - a.difference)
+      } else if (a.difference > 0) {
+        return 1
+      } else if (b.difference > 0) {
+        return -1
+      } else {
+        return (a.difference - b.difference)
+      }
+    })
+  const revenues = collection.filter(item => !item.expense)
+    .sort((a, b) => {
+      if (a.difference === b.difference) {
+        return 0
+      } else if (a.difference < 0 && b.difference < 0) {
+        return (a.difference - b.difference)
+      } else if (a.difference < 0) {
+        return 1
+      } else if (b.difference < 0) {
+        return -1
+      } else {
+        return (b.difference - a.difference)
+      }
+    })
+
   return {
-    expenses: collection.filter(item => item.expense)
-      .sort((a, b) => (Math.abs(b.remaining) - Math.abs(a.remaining))),
-     revenues: collection.filter(item => !item.expense)
-      .sort((a, b) => (Math.abs(b.remaining) - Math.abs(a.remaining))),
+    expenses: expenses,
+    revenues: revenues,
   }
 }
 
