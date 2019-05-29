@@ -13,11 +13,14 @@ const MonthlyItems = (props) => (
 
 const mapStateToProps = (state) => {
   const { collection } = state.budget.monthly
+  const revenues = collection.filter(item => !item.expense && item.deletable)
+    .sort((a, b) => (Math.abs(b.amount) - Math.abs(a.amount)))
+  const expenses = collection.filter(item => item.expense && item.deletable)
+    .sort((a, b) => (Math.abs(b.amount) - Math.abs(a.amount)))
+
   return {
-    revenues: collection.filter(item => !item.expense)
-      .sort((a, b) => (Math.abs(b.amount) - Math.abs(a.amount))),
-    expenses: collection.filter(item => item.expense)
-      .sort((a, b) => (Math.abs(b.amount) - Math.abs(a.amount))),
+    revenues: revenues,
+    expenses: expenses,
   }
 }
 
