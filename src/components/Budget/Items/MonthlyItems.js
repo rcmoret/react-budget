@@ -1,5 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
+
+import ClearedItems from "./ClearedItems"
 import MonthlyGroup from "./MonthlyGroup"
 import MonthlyHeader from "./MonthlyHeader"
 
@@ -8,6 +10,7 @@ const MonthlyItems = (props) => (
     <MonthlyHeader />
     <MonthlyGroup collection={props.revenues} title="Revenues" />
     <MonthlyGroup collection={props.expenses} title="Expenses" />
+    <ClearedItems />
   </div>
 )
 
