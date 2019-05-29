@@ -23,16 +23,16 @@ const MonthlyItem = (props) => {
   }
 
   return (
-    <div className='budget-item'>
+    <div className="budget-item">
       <div className="caret">
         <Icon className="fas fa-caret-right" />
       </div>
-      <div className='budget-item-description'>
+      <div className="budget-item-description">
         {props.name}
         {" "}
         <Icon className={props.icon_class_name} />
       </div>
-      <div className='budget-item-amounts'>
+      <div className="budget-item-amounts">
         <MonthlyAmount
           absolute={true}
           {...props}
