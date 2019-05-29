@@ -38,7 +38,6 @@ const Menu = (props) => {
 
 const Title = ({ dispatch, showOptions }) => {
   const toggleCaret = (e) => {
-    console.log(e)
     e.preventDefault()
     const action = toggleMenu({ showOptions: !showOptions })
     dispatch(action)

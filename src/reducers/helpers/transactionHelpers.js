@@ -1,7 +1,6 @@
 import { before, isInRange } from "../../shared/Functions/DateFormatter"
 
 export const editSubProps = (txn, newProps) => {
-  console.log(newProps)
   return {
     ...txn,
     subtransactions: txn.subtransactions.map(sub => {

@@ -18,7 +18,6 @@ const Edit = (props) => {
 
   const onSelectChange = (e) => {
     const action = updateProps({ id: id, icon_id: e.value })
-    console.log(e.value)
     props.dispatch(action)
   }
 
