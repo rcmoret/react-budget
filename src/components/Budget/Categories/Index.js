@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import { connect } from "react-redux"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 import { categoriesFetched } from "../../../actions/budget"
@@ -7,49 +7,48 @@ import { fetched as iconsFetched } from "../../../actions/icons"
 import NewBudgetCategory from "./New"
 import Show from "./Show"
 
-class BudgetCategories extends Component {
-  componentWillMount() {
-    if (!this.props.fetched) {
-      const categoryUrl = ApiUrlBuilder(["budget", "categories"])
-      fetch(categoryUrl)
-        .then(response => response.json())
-        .then(data => this.props.dispatch(categoriesFetched(data)))
-    }
-    if (!this.props.iconsFetched) {
-      const iconsUrl = ApiUrlBuilder(["icons"])
-      fetch(iconsUrl)
-        .then(response => response.json())
-        .then(data => this.props.dispatch(iconsFetched(data)))
-    }
+const BudgetCategories = (props) => {
+  const { collection, dispatch, fetched } = props
+
+  if (!fetched) {
+    const url = ApiUrlBuilder(["budget", "categories"])
+    fetch(url)
+      .then(response => response.json())
+      .then(data => dispatch(categoriesFetched(data)))
   }
 
-  render() {
-    const { collection } = this.props
-    return (
-      <div className="categories">
-        <h2>Budget Categories</h2>
-        <Header />
-        <NewBudgetCategory />
-        {collection.map(category =>
-          <Show
-            key={category.id}
-            category={category}
-          />
-        )}
-      </div>
-    )
+  if (!props.iconsFetched) {
+    const url = ApiUrlBuilder(["icons"])
+    fetch(url)
+      .then(response => response.json())
+      .then(data => dispatch(iconsFetched(data)))
   }
+
+  return (
+    <div className="categories">
+      <h2>Budget Categories</h2>
+      <Header />
+      <NewBudgetCategory />
+      {collection.map(category =>
+        <Show
+          key={category.id}
+          category={category}
+        />
+      )}
+    </div>
+  )
 }
 
 const mapStateToProps = (state) => {
-  const { collection, itemsFetched } = state.budget.categories
+  const { collection, fetched } = state.budget.categories
   const iconsFetched = state.icons.fetched
   const categories = collection.sort((a, b) => {
     return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
   })
+
   return {
     collection: categories,
-    fetched: itemsFetched,
+    fetched: fetched,
     iconsFetched: iconsFetched,
   }
 }

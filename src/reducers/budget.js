@@ -11,7 +11,10 @@ const initialState = {
     total_days: 1,
     collection: [],
   },
-  categories: { collection: [], fetch: false },
+  categories: {
+    collection: [],
+    fetched: false
+  },
   monthly: {
     collection: [],
     showForm: false,
