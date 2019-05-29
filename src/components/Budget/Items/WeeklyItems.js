@@ -20,30 +20,34 @@ const mapStateToProps = (state) => {
   const { collection } = state.budget.weekly
   const expenses = collection.filter(item => item.expense)
     .sort((a, b) => {
-      if (a.difference === b.difference) {
+      const aDiff = a.amount - a.spent
+      const bDiff = b.amount - b.spent
+      if (aDiff === bDiff) {
         return 0
-      } else if (a.difference > 0 && b.difference > 0) {
-        return (b.difference - a.difference)
-      } else if (a.difference > 0) {
+      } else if (aDiff > 0 && bDiff > 0) {
+        return (bDiff - aDiff)
+      } else if (aDiff > 0) {
         return 1
-      } else if (b.difference > 0) {
+      } else if (bDiff > 0) {
         return -1
       } else {
-        return (a.difference - b.difference)
+        return (aDiff - bDiff)
       }
     })
   const revenues = collection.filter(item => !item.expense)
     .sort((a, b) => {
-      if (a.difference === b.difference) {
+      const aDiff = a.amount - a.spent
+      const bDiff = b.amount - b.spent
+      if (aDiff === bDiff) {
         return 0
-      } else if (a.difference < 0 && b.difference < 0) {
-        return (a.difference - b.difference)
-      } else if (a.difference < 0) {
+      } else if (aDiff < 0 && bDiff < 0) {
+        return (aDiff - bDiff)
+      } else if (aDiff < 0) {
         return 1
-      } else if (b.difference < 0) {
+      } else if (bDiff < 0) {
         return -1
       } else {
-        return (b.difference - a.difference)
+        return (bDiff - aDiff)
       }
     })
 
