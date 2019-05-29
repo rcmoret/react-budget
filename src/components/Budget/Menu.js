@@ -3,15 +3,25 @@ import { connect } from "react-redux"
 
 import Icon from "../Icons/Icon"
 import { Link } from "react-router-dom"
-import { toggleMenu } from "../../actions/budget"
+import { toggleClearedItems, toggleMenu } from "../../actions/budget"
 import SetUpButton from "./SetUpButton"
 
-const Menu = ({ dispatch, month, year, isFuture, requiresSetUp, showMenu }) => {
+const Menu = (props) => {
+  const {
+    dispatch,
+    month,
+    year,
+    isFuture,
+    requiresSetUp,
+    showCleared,
+    showOptions
+  } = props
+
   return (
     <nav className="budget-actions">
       <Title
         dispatch={dispatch}
-        showMenu={showMenu}
+        showOptions={showOptions}
       />
       <Links
         dispatch={dispatch}
@@ -19,20 +29,22 @@ const Menu = ({ dispatch, month, year, isFuture, requiresSetUp, showMenu }) => {
         year={year}
         isFuture={isFuture}
         requiresSetUp={requiresSetUp}
-        showMenu={showMenu}
+        showCleared={showCleared}
+        showOptions={showOptions}
       />
     </nav>
   )
 }
 
-const Title = ({ dispatch, showMenu }) => {
+const Title = ({ dispatch, showOptions }) => {
   const toggleCaret = (e) => {
+    console.log(e)
     e.preventDefault()
-    const action = toggleMenu({ showMenu: !showMenu })
+    const action = toggleMenu({ showOptions: !showOptions })
     dispatch(action)
   }
 
-  const iconClassName = showMenu ? "fas fa-caret-down" : "fas fa-caret-right"
+  const iconClassName = showOptions ? "fas fa-caret-down" : "fas fa-caret-right"
 
   return (
     <h3>
@@ -49,8 +61,24 @@ const Title = ({ dispatch, showMenu }) => {
 }
 
 
-const Links = ({ dispatch, month, year, isFuture, requiresSetUp, showMenu }) => {
-  if (showMenu) {
+const Links = (props) => {
+  const {
+    dispatch,
+    month,
+    year,
+    isFuture,
+    requiresSetUp,
+    showCleared,
+    showOptions,
+  } = props
+
+  const toggleCleared = (e) => {
+    e.preventDefault()
+    const action = toggleClearedItems({ showCleared: !showCleared })
+    dispatch(action)
+  }
+
+  if (showOptions) {
     return (
       <div>
         <SetUpButton
@@ -70,6 +98,14 @@ const Links = ({ dispatch, month, year, isFuture, requiresSetUp, showMenu }) => 
             <strong>Manage Icons</strong>
           </div>
         </Link>
+        <Link
+          to="#"
+          onClick={toggleCleared}
+        >
+          <div className="budget-action">
+            <strong>{showCleared ? "Hide" : "Show"} Cleared Monthly Items</strong>
+          </div>
+        </Link>
       </div>
     )
   } else {
@@ -79,7 +115,8 @@ const Links = ({ dispatch, month, year, isFuture, requiresSetUp, showMenu }) => 
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    showMenu: state.budget.showMenu,
+    showOptions: state.budget.menuOptions.showOptions,
+    showCleared: state.budget.menuOptions.showCleared,
     ...ownProps
   }
 }

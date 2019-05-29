@@ -41,7 +41,10 @@ const initialState = {
     is_closed_out: true,
     is_set_up: true,
   },
-  showMenu: false,
+  menuOptions: {
+    showOptions: false,
+    showCleared: false,
+  },
   setup: {
     baseMonth: {
       month: 12,
@@ -239,12 +242,23 @@ export default (state = initialState, action) => {
     return Helpers.removeWeekly(action.payload, state)
   case "budget/REMOVE_MONTHLY_ITEM":
     return Helpers.removeMonthly(action.payload, state)
+  case "budget/TOGGLE_CLEARED_ITEMS":
+    return {
+      ...state,
+      menuOptions: {
+        ...state.menuOptions,
+        ...action.payload,
+      },
+    }
   case "budget/TOGGLE_DISCRETIONARY_DETAIL":
     return { ...state, discretionary: { ...state.discretionary, ...action.payload } }
   case "budget/TOGGLE_MENU":
     return {
       ...state,
-      ...action.payload
+      menuOptions: {
+        ...state.menuOptions,
+        ...action.payload,
+      },
     }
   case "budget/TOGGLE_MONTHLY_ITEM_FORM":
     return { ...state, monthly: { ...state.monthly, ...action.payload } }
