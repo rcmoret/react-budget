@@ -13,7 +13,8 @@ const initialState = {
   },
   categories: {
     collection: [],
-    fetched: false
+    fetched: false,
+    showForm: false,
   },
   monthly: {
     collection: [],
@@ -77,6 +78,7 @@ export default (state = initialState, action) => {
     return {
       ...state,
       categories: {
+        ...state.categories,
         collection: [
           ...state.categories.collection,
           action.payload
@@ -121,6 +123,7 @@ export default (state = initialState, action) => {
     return {
       ...state,
       categories: {
+        ...state.categories,
         collection: updated(action.payload, state.categories.collection)
       }
     }
@@ -128,6 +131,14 @@ export default (state = initialState, action) => {
     return {
       ...state,
       newCategory: initialState.newCategory
+    }
+  case "budget/categories/TOGGLE_NEW_FORM":
+    return {
+      ...state,
+      categories: {
+        ...state.categories,
+        showForm: action.payload.showForm,
+      }
     }
   case "budget/categories/UPDATE_NEW":
     return {
@@ -165,6 +176,7 @@ export default (state = initialState, action) => {
     return {
       ...state,
       categories: {
+        ...state.categories,
         collection:
           [
             ...state.categories.collection,
@@ -177,7 +189,14 @@ export default (state = initialState, action) => {
   case "budget/ADD_WEEKLY_ITEM":
     return Helpers.addWeeklyItem(action.payload, state)
   case "budget/CATEGORIES_FETCHED":
-    return { ...state, categories: { collection: action.payload, fetched: true } }
+    return {
+      ...state,
+      categories: {
+        ...state.categories,
+        collection: action.payload,
+        fetched: true
+      }
+    }
   case "budget/EDIT_NEW_MONTHLY_ITEM":
     return {
       ...state,

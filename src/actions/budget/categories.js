@@ -14,6 +14,10 @@ export const resetNewForm = () => {
   return { type: "budget/categories/RESET_NEW_FORM", payload: null }
 }
 
+export const toggleNewForm = (payload) => {
+  return { type: "budget/categories/TOGGLE_NEW_FORM", payload: payload }
+}
+
 export const update = (payload) => {
   return { type: "budget/categories/UPDATE", payload: payload }
 }

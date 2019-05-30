@@ -148,10 +148,28 @@
   font-style: italic;
 }
 
-.budget-category-labels, .budget-category {
+.budget-category-labels {
+  padding: 0 2%;
+  margin-bottom: -1%;
+}
+
+.budget-category-form {
+  padding: 0.5% 2%
+}
+
+.budget-category {
   background-color: white;
-  padding: 1% 2%;
+  padding: 1%;
   border-radius: 15px;
+  margin: 0 2%;
+}
+
+.add-new-category-button {
+  width: 100px;
+  background-color: #8AB6FF;
+  padding: 5px 15px;
+  border-radius: 8px;
+  color: black;
 }
 
 .budget-category:nth-of-type(2n) {
