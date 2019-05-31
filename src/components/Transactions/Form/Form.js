@@ -24,8 +24,16 @@ const Form = (props) => {
     selectedAccount,
     transaction
   } = props
-  const { amount, budget_exclusion, budget_item_id, check_number, clearance_date,
-    description, notes, subtransactions } = transaction
+  const {
+    amount,
+    budget_exclusion,
+    budget_item_id,
+    check_number,
+    clearance_date,
+    description,
+    notes,
+    subtransactions
+  } = transaction
 
   return (
     <div className="transaction-form transaction-wrapper">
