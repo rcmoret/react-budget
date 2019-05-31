@@ -164,6 +164,52 @@
   margin: 0 2%;
 }
 
+.budget-category-filters {
+  padding: 0 2%;
+}
+
+.budget-category-filters .title,
+.budget-category-filters .adjective,
+.budget-category-filters .adverb {
+  vertical-align: top;
+  margin-left: 2%;
+  display: inline-block;
+}
+
+.budget-category-filters .adjective,
+.budget-category-filters .adverb {
+  width: 13%;
+  border: 1px solid #999;
+  border-radius: 8px;
+}
+
+.adjective .options,
+.adverb .options {
+  padding: 5px;
+}
+
+.option {
+  display: flex;
+  justify-content: space-between;
+}
+
+.option .title {
+  display: inline-block;
+}
+
+.option .label, .option .radio {
+  display: inline-block;
+  margin-left: 2%;
+}
+
+.budget-category-filters a {
+  color: black;
+}
+
+.budget-category-filters span.active {
+  color: #8AB6FF;
+}
+
 .add-new-category-button {
   width: 100px;
   background-color: #8AB6FF;

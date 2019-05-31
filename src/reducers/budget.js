@@ -14,6 +14,11 @@ const initialState = {
   categories: {
     collection: [],
     fetched: false,
+    filters: [
+      { name: "adjective", value: "" },
+      { name: "adverb", value: "" },
+    ],
+    showFilters: false,
     showForm: false,
   },
   monthly: {
@@ -119,6 +124,14 @@ export default (state = initialState, action) => {
         },
       }
     }
+  case "budget/categories/APPLY_FILTER":
+    return {
+      ...state,
+      categories: {
+        ...state.categories,
+        filters: state.categories.filters.map(filter => filter.name === action.payload.name ? action.payload : filter)
+      }
+    }
   case "budget/categories/RESET":
     return {
       ...state,
@@ -131,6 +144,14 @@ export default (state = initialState, action) => {
     return {
       ...state,
       newCategory: initialState.newCategory
+    }
+  case "budget/categories/TOGGLE_CATEGORY_FILTERS":
+    return {
+      ...state,
+      categories: {
+        ...state.categories,
+        showFilters: action.payload.showFilters,
+      }
     }
   case "budget/categories/TOGGLE_NEW_FORM":
     return {

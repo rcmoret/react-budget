@@ -1,3 +1,7 @@
+export const applyFilter = (payload) => {
+  return { type: "budget/categories/APPLY_FILTER", payload: payload }
+}
+
 export const created = (payload) => {
   return { type: "budget/categories/CREATED", payload: payload }
 }
@@ -12,6 +16,10 @@ export const reset = ({ id }) => {
 
 export const resetNewForm = () => {
   return { type: "budget/categories/RESET_NEW_FORM", payload: null }
+}
+
+export const toggleCategoryFilters = (payload) => {
+  return { type: "budget/categories/TOGGLE_CATEGORY_FILTERS", payload: payload }
 }
 
 export const toggleNewForm = (payload) => {
