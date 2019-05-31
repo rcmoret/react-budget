@@ -36,10 +36,10 @@ const New = (props) => {
   const onSubmit = () => {
     const url = ApiUrlBuilder(["accounts", selectedAccount.id, "transactions"])
     const subtransactions_attributes = subtransactions.map(sub => {
-      let adjusted = (parseFloat(sub.amount)) * 100 || null
+      let adjusted = (parseFloat(sub.amount) || 0) || null
       return { ...sub, amount: adjusted }
     })
-    const adjustedAmount = (parseFloat(amount)) * 100 || null
+    const adjustedAmount = (parseFloat(amount) || 0) * 100
     const description = transaction.description === "" ? null : transaction.description
     const postBody = {
       ...transaction,
