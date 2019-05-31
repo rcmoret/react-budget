@@ -23,19 +23,21 @@ const Filters = (props) => {
     dispatch(action)
   }
 
+  const setFilter = (name, value) => dispatch(
+    applyFilter({ name: name, value: value })
+  )
+
   const setSearchTerm = (e) => {
-    const action = applyFilter({ name: "search", value: e.target.value })
-    dispatch(action)
+    const searchTerm = e.target.value.replace(/\\/, "")
+    setFilter("search", searchTerm)
   }
 
   const setAdjectiveFilter = (e) => {
-    const action = applyFilter({ name: "adjective", value: e.target.value })
-    dispatch(action)
+    setFilter("adjective", e.target.value)
   }
 
   const setAdverbFilter = (e) => {
-    const action = applyFilter({ name: "adverb", value: e.target.value })
-    dispatch(action)
+    setFilter("adverb", e.target.value)
   }
 
   if (showFilters) {
