@@ -170,7 +170,9 @@
 
 .budget-category-filters .title,
 .budget-category-filters .adjective,
-.budget-category-filters .adverb {
+.budget-category-filters .adverb,
+.budget-category-filters .search
+{
   vertical-align: top;
   margin-left: 2%;
   display: inline-block;
@@ -181,6 +183,10 @@
   width: 13%;
   border: 1px solid #999;
   border-radius: 8px;
+}
+
+.budget-category-filters .search .label {
+  margin-bottom: 7px;
 }
 
 .adjective .options,

@@ -5,12 +5,26 @@ import { applyFilter, toggleCategoryFilters } from "../../../actions/budget/cate
 import Icon from "../../Icons/Icon"
 import { Link } from "react-router-dom"
 
-const Filters = ({ adjectiveFilter, adverbFilter, appliedFilters, dispatch, showFilters }) => {
+const Filters = (props) => {
+  const {
+    adjectiveFilter,
+    adverbFilter,
+    appliedFilters,
+    dispatch,
+    searchFilter,
+    showFilters,
+  } = props
+
   const funnelClass = appliedFilters.length === 0 ? "" : "active"
 
   const toggleFilters = (e) => {
     e.preventDefault()
     const action = toggleCategoryFilters({ showFilters: !showFilters })
+    dispatch(action)
+  }
+
+  const setSearchTerm = (e) => {
+    const action = applyFilter({ name: "search", value: e.target.value })
     dispatch(action)
   }
 
@@ -41,6 +55,21 @@ const Filters = ({ adjectiveFilter, adverbFilter, appliedFilters, dispatch, show
         <div className="title">
           <strong>Filters</strong>
         </div>
+
+        <div className="search">
+          <div className="label">
+            Category Name
+          </div>
+          <div className="search-bar">
+            <input
+              type="text"
+              onChange={setSearchTerm}
+              placeholder="search"
+              value={searchFilter.value}
+            />
+          </div>
+        </div>
+
         <div className="adverb">
           <div className="options">
             <div className="title">
@@ -174,11 +203,13 @@ const mapStateToProps = (state) => {
   const appliedFilters = filters.filter(filter => filter.value !== "")
   const adjectiveFilter = filters.find(filter => filter.name === "adjective")
   const adverbFilter = filters.find(filter => filter.name === "adverb")
+  const searchFilter = filters.find(filter => filter.name === "search")
 
   return {
     adjectiveFilter: adjectiveFilter,
     adverbFilter: adverbFilter,
     appliedFilters: appliedFilters,
+    searchFilter: searchFilter,
     showFilters: showFilters
   }
 }

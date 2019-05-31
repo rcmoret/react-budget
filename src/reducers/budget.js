@@ -17,6 +17,7 @@ const initialState = {
     filters: [
       { name: "adjective", value: "" },
       { name: "adverb", value: "" },
+      { name: "search", value: "" },
     ],
     showFilters: false,
     showForm: false,

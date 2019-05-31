@@ -68,11 +68,41 @@ const mapStateToProps = (state) => {
       return true
     }
   }
-  const sortBy = (a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
+  const searchFilter = (category) => {
+    const filter = filters.find(filter => filter.name === "search")
+    if (filter.value === "") {
+      return true
+    } else {
+      const expression = new RegExp(filter.value, "i")
+      return category.name.match(expression)
+    }
+  }
+  const sortBy = (a, b) => {
+    const searchTerm = filters.find(filter => filter.name === "search").value
+    if (searchTerm === "") { return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1 }
+    const strictExp = new RegExp(`^${searchTerm}.*`, "i")
+    const looseExp = new RegExp(`(^|\\s)${searchTerm}.*`, "i")
+    if (a.name.match(strictExp) && b.name.match(strictExp)) {
+      return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
+    } else if (a.name.match(strictExp)) {
+      return -1
+    } else if (b.name.match(strictExp)) {
+      return 1
+    } else if (a.name.match(looseExp) && b.name.match(looseExp)) {
+      return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
+    } else if (a.name.match(looseExp)) {
+      return -1
+    } else if (b.name.match(looseExp)) {
+      return 1
+    } else {
+      return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
+    }
+  }
   const iconsFetched = state.icons.fetched
   const categories = collection
     .filter(adjectiveFilter)
     .filter(adverbFilter)
+    .filter(searchFilter)
     .sort(sortBy)
 
   return {
