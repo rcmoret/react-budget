@@ -468,6 +468,11 @@ export default (state = initialState, action) => {
       ...state,
       itemsFetched: false,
     }
+  case "transactions/UPDATED":
+    return {
+      ...state,
+      itemsFetched: false,
+    }
   default:
     return state
   }
