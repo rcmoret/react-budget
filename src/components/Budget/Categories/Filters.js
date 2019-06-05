@@ -28,8 +28,7 @@ const Filters = (props) => {
   )
 
   const setSearchTerm = (e) => {
-    const searchTerm = e.target.value.replace(/\\/, "")
-    setFilter("search", searchTerm)
+    setFilter("search", e.target.value)
   }
 
   const setAdjectiveFilter = (e) => {

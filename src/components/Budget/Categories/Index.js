@@ -68,17 +68,16 @@ const mapStateToProps = (state) => {
       return true
     }
   }
+  const searchTerm = filters.find(filter => filter.name === "search").value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
   const searchFilter = (category) => {
-    const filter = filters.find(filter => filter.name === "search")
-    if (filter.value === "") {
+    if (searchTerm === "") {
       return true
     } else {
-      const expression = new RegExp(filter.value, "i")
+      const expression = new RegExp(searchTerm, "i")
       return category.name.match(expression)
     }
   }
   const sortBy = (a, b) => {
-    const searchTerm = filters.find(filter => filter.name === "search").value
     if (searchTerm === "") { return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1 }
     const strictExp = new RegExp(`^${searchTerm}.*`, "i")
     const looseExp = new RegExp(`(^|\\s)${searchTerm}.*`, "i")
