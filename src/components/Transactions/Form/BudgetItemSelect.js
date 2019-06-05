@@ -9,8 +9,19 @@ import Select from "react-select"
 import SubtransactionBudgetItemSelect from "./SubtransactionBudgetItemSelect"
 
 const BudgetItemSelect = (props) => {
-  const { dateObject, dispatch, emptyOption, fetched, month,
-    onChange, onSubChange, options, subtransactions, value, year } = props
+  const {
+    dateObject,
+    dispatch,
+    emptyOption,
+    fetched,
+    month,
+    onChange,
+    onSubChange,
+    options,
+    subtransactions,
+    value,
+    year,
+  } = props
 
   if (!(fetched && month === dateObject.month && year === dateObject.year)) {
     const url = ApiUrlBuilder(["budget", "items"], { ...dateObject })
@@ -36,6 +47,7 @@ const BudgetItemSelect = (props) => {
           <SubtransactionBudgetItemSelect
             key={sub.id || index}
             _id={sub.id || index}
+            budget_item_id={sub.budget_item_id}
             onSubChange={onSubChange}
             options={options}
             {...sub}
