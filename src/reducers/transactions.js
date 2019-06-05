@@ -32,6 +32,38 @@ const emptySubtransaction = {
 
 export default (state = initialState, action) => {
   switch(action.type) {
+  case "budget/ADD_MONTHLY_ITEM":
+    if (parseInt(state.metadata.query_options.month) === action.payload.month &&
+        parseInt(state.metadata.query_options.year) === action.payload.year) {
+      return {
+        ...state,
+        budgetItems: {
+          ...state.budgetItems,
+          collection: [
+            ...state.budgetItems.collection,
+            objectifyMonthly(action.payload)
+          ]
+        }
+      }
+    } else {
+      return state
+    }
+  case "budget/ADD_WEEKLY_ITEM":
+    if (parseInt(state.metadata.query_options.month) === action.payload.month &&
+        parseInt(state.metadata.query_options.year) === action.payload.year) {
+      return {
+        ...state,
+        budgetItems: {
+          ...state.budgetItems,
+          collection: [
+            ...state.budgetItems.collection,
+            objectifyWeekly(action.payload)
+          ]
+        }
+      }
+    } else {
+      return state
+    }
   case "transactions/ADD_SUBTRANSACTION_TO_NEW":
     if (state.new.subtransactions.length > 0) {
       return {
