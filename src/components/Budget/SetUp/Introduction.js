@@ -34,7 +34,7 @@ const Intro = (props) => {
     return (
       <Redirect to={`/budget/set-up/${month}/${year}/add-new`} />
     )
-  } else { // show the reivew items
+  } else { // show the review items
     return (
       <div className="set-up-workspace">
         <div className="set-up-intro">

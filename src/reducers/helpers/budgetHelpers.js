@@ -111,6 +111,13 @@ export const removeMonthly = (id, state) => {
       ...state.monthly,
       collection: newCollection,
     },
+    setup: {
+      ...state.setup,
+      baseMonth: {
+        ...state.setup.baseMonth,
+        isFetched: false
+      },
+    },
   }
 }
 
@@ -132,6 +139,13 @@ export const removeWeekly = (id, state) => {
     weekly: {
       ...state.weekly,
       collection: newCollection,
+    },
+    setup: {
+      ...state.setup,
+      baseMonth: {
+        ...state.setup.baseMonth,
+        isFetched: false
+      },
     },
   }
 }
@@ -166,6 +180,17 @@ export const updateMonthlyItem = (item, state) => {
       ...state.monthly,
       collection: newCollection,
     },
+    setup: {
+      ...state.setup,
+      newMonth: {
+        ...state.newMonth,
+        isFetched: false,
+      },
+      baseMonth: {
+        ...state.baseMonth,
+        isFetched: false,
+      },
+    }
   }
 }
 
@@ -199,5 +224,16 @@ export const updateWeeklyItem = (item, state) => {
       ...state.weekly,
       collection: newCollection,
     },
+    setup: {
+      ...state.setup,
+      newMonth: {
+        ...state.newMonth,
+        isFetched: false,
+      },
+      baseMonth: {
+        ...state.baseMonth,
+        isFetched: false,
+      },
+    }
   }
 }
