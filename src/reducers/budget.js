@@ -187,11 +187,33 @@ export default (state = initialState, action) => {
       }
     }
   case "budget/categories/UPDATED":
-    return {
-      ...state,
-      categories: {
-        ...state.categories,
-        collection: updated(action.payload, state.categories.collection),
+    if (action.payload.monthly) {
+      return {
+        ...state,
+        categories: {
+          ...state.categories,
+          collection: updated(action.payload, state.categories.collection),
+        },
+        monthly: {
+          ...state.monthly,
+          collection: state.monthly.collection.map(item => {
+            return item.budget_category_id === action.payload.id ? { ...item, name: action.payload.name } : item
+          })
+        }
+      }
+    } else {
+      return {
+        ...state,
+        categories: {
+          ...state.categories,
+          collection: updated(action.payload, state.categories.collection),
+        },
+        weekly: {
+          ...state.weekly,
+          collection: state.weekly.collection.map(item => {
+            return item.budget_category_id === action.payload.id ? { ...item, name: action.payload.name } : item
+          })
+        }
       }
     }
   case "budget/ADD_CATEGORY":
