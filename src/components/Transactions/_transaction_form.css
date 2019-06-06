@@ -3,7 +3,7 @@
 }
 
 .clearance-date input {
-  width: 95%;
+  width: 85%;
   margin-left: 5%;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .amount input {
-  width: 90%;
+  width: 80%;
   margin-left: 15%;
   text-align: right;
 }
@@ -117,7 +117,7 @@
 }
 
 .left-stuff {
-  width: 10%;
+  width: 12%;
   display: inline-block;
 }
 
