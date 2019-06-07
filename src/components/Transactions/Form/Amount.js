@@ -15,7 +15,7 @@ const Amounts = ({ amount, onChange, onSubChange, subtransactions }) => {
          type="text"
          name="amount"
          placeholder="amount"
-         value={total}
+         value={parseFloat(total).toFixed(2)}
          disabled={true}
         />
         {subtransactions.map((sub, index) =>
