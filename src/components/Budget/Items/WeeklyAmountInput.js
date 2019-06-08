@@ -6,36 +6,58 @@ import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 
 const WeeklyAmountInput = (props) => {
+  const {
+    id,
+    amount,
+    budget_category_id,
+    dispatch,
+    floatAmount,
+    month,
+    spent,
+    year,
+  } = props
+
   const handleChange = (e) => {
     e.preventDefault()
-    const newValue = e.target.value
-    const difference = decimalToInt(e.target.value) - props.spent
-    props.dispatch(editWeeklyItem({
-      id: props.id,
-      floatAmount: newValue,
+    const difference = decimalToInt(e.target.value) - spent
+    const action = editWeeklyItem({
+      id: id,
+      floatAmount: e.target.value,
       difference: difference
-    }))
+    })
+    dispatch(action)
   }
 
   const reset = (e) => {
     e.preventDefault()
-    const difference = props.amount - props.spent
-    props.dispatch(editWeeklyItem({
-      id: props.id,
-      floatAmount: ((props.amount / 100.0).toFixed(2)),
+    const difference = amount - spent
+    const action = editWeeklyItem({
+      id: id,
+      floatAmount: (amount / 100.0).toFixed(2),
       difference: difference,
       updateItem: false,
-    }))
+    })
+    dispatch(action)
+  }
+
+  const handleKeyDown = (e) => {
+    if (e.which !== 13) {
+      return
+    } else if (e.target.value === (amount / 100.0).toFixed(2)) {
+      reset(e)
+    } else {
+      saveChange(e)
+    }
   }
 
   const saveChange = (e) => {
     e.preventDefault()
     const body = {
-      amount: decimalToInt(props.floatAmount),
-      month: props.month,
-      year: props.year,
+      amount: decimalToInt(floatAmount),
+      month: month,
+      year: year,
     }
-    const url = ApiUrlBuilder(["budget/categories", props.budget_category_id, "items", props.id])
+    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items", id])
     fetch(url,
       {
         method: "PUT",
@@ -56,12 +78,14 @@ const WeeklyAmountInput = (props) => {
 
 
   return (
-    <div className='budget-item-amount'>
+    <div className="budget-item-amount">
       <input
         name="amount"
-        value={props.floatAmount}
+        value={floatAmount}
+        onKeyDown={handleKeyDown}
         onChange={handleChange}
         autcomplete="false"
+        autoFocus
       />
       {" "}
       <Link to="#" onClick={saveChange} className="fas fa-check" />

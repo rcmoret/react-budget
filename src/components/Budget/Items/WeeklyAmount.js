@@ -4,26 +4,40 @@ import WeeklyAmountInput from "./WeeklyAmountInput"
 import WeeklyAmountContainer from "./WeeklyAmountContainer"
 
 const WeeklyAmount = (props) => {
-  if (props.updateItem) {
+  const {
+    id,
+    absolute,
+    amount,
+    budget_category_id,
+    difference,
+    expense,
+    floatAmount,
+    overUnderBudget,
+    showDetail,
+    spent,
+    updateItem,
+  } = props
+
+  if (updateItem) {
     return (
       <WeeklyAmountInput
-        amount={props.amount}
-        budget_category_id={props.budget_category_id}
-        floatAmount={props.floatAmount}
-        id={props.id}
-        spent={props.spent}
+        id={id}
+        amount={amount}
+        budget_category_id={budget_category_id}
+        floatAmount={floatAmount}
+        spent={spent}
       />
     )
   } else {
     return (
       <WeeklyAmountContainer
-        absolute={props.absolute}
-        amount={props.amount}
-        difference={props.difference}
-        expense={props.expense}
-        id={props.id}
-        overUnderBudget={props.overUnderBudget}
-        showDetail={props.showDetail}
+        id={id}
+        absolute={absolute}
+        amount={amount}
+        difference={difference}
+        expense={expense}
+        overUnderBudget={overUnderBudget}
+        showDetail={showDetail}
       />
     )
   }

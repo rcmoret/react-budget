@@ -6,34 +6,45 @@ import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 
 const MonthlyAmountInput = (props) => {
-  const floatAmount = props.floatAmount || (props.amount / 100.0).toFixed(2)
+  const {
+    id,
+    amount,
+    budget_category_id,
+    dispatch,
+    floatAmount,
+  } = props
 
   const handleChange = (e) => {
     e.preventDefault()
-    const newValue = e.target.value
-    props.dispatch(editMonthlyItem({
-      id: props.id,
-      floatAmount: newValue
-    }))
+    const action = editMonthlyItem({ id: id, floatAmount: e.target.value })
+    dispatch(action)
   }
 
   const reset = (e) => {
     e.preventDefault()
-    props.dispatch(editMonthlyItem({
-      id: props.id,
-      floatAmount: ((props.amount / 100.0).toFixed(2)),
-      updateItem: false
-    }))
+    const action = editMonthlyItem({
+      id: id,
+      floatAmount: (amount / 100.0).toFixed(2),
+      updateItem: false,
+    })
+    dispatch(action)
   }
 
+  const handleKeyDown = (e) => {
+    if (e.which !== 13) {
+      return
+    } else if (e.target.value === (amount / 100.0).toFixed(2)) {
+      reset(e)
+    } else {
+      saveChange(e)
+    }
+  }
   const saveChange = (e) => {
     e.preventDefault()
     const body = {
-      amount: decimalToInt(props.floatAmount),
-      month: props.month,
-      year: props.year,
+      amount: decimalToInt(floatAmount),
     }
-    const url = ApiUrlBuilder(["budget", "categories", props.budget_category_id, "items", props.id])
+    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items", id])
     fetch(url,
       {
         method: "PUT",
@@ -46,17 +57,19 @@ const MonthlyAmountInput = (props) => {
     )
       .then(response => response.json())
       .then(data => {
-        props.dispatch(updateMonthlyItem({...data, floatAmount: null, updateItem: false }))
+        dispatch(updateMonthlyItem({...data, floatAmount: null, updateItem: false }))
       })
   }
 
   return (
     <div className="budget-item-amount">
       <input
-       name="amount"
-       value={floatAmount}
-       onChange={handleChange}
-       autcomplete="false"
+        name="amount"
+        value={floatAmount}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        autcomplete="false"
+        autoFocus
       />
       {" "}
       <Link to="#" onClick={saveChange} className="fas fa-check" />
@@ -66,12 +79,6 @@ const MonthlyAmountInput = (props) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    month: state.budget.metadata.month,
-    year: state.budget.metadata.year,
-    ...ownProps,
-  }
-}
+const mapStateToProps = (state, ownProps) =>  ownProps
 
 export default connect(mapStateToProps)(MonthlyAmountInput)

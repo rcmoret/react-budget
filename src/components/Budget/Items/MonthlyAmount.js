@@ -6,16 +6,31 @@ import { editMonthlyItem } from "../../../actions/budget"
 import MonthlyAmountInput from "./MonthlyAmountInput"
 
 const Amount = (props) => {
+  const {
+    id,
+    absolute,
+    amount,
+    budget_category_id,
+    dispatch,
+    updateItem,
+  } = props
+
+  const floatAmount = props.floatAmount || (amount / 100.0).toFixed(2)
+
   const updateMonthlyItem = (e) => {
     e.preventDefault()
-    props.dispatch(editMonthlyItem({ id: props.id, updateItem: true }))
+    const action = editMonthlyItem({ id: id, updateItem: true })
+    dispatch(action)
   }
 
-  const { absolute, amount } = props
-
-  if (props.updateItem) {
+  if (updateItem) {
     return (
-      <MonthlyAmountInput {...props} />
+      <MonthlyAmountInput
+        id={id}
+        amount={amount}
+        budget_category_id={budget_category_id}
+        floatAmount={floatAmount}
+      />
     )
   } else {
     return (
