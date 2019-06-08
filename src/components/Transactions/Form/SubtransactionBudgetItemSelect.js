@@ -7,9 +7,9 @@ export default (props) => {
   const onChange = (e) => {
     onSubChange(_id, { budget_item_id: e.value })
   }
-  const value = { label: budget_category, value: budget_item_id }
-  const emptyValue = { label: "Discretionary", value: null }
-  const selectedValue = budget_category ? value : emptyValue
+  const value = options.find(option => option.value === budget_item_id)
+  const fallbackValue = { label: budget_category, value: budget_item_id }
+  const selectedValue = value || fallbackValue
 
   return (
     <div className="subtransaction-budget-item-select">
