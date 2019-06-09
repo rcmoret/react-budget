@@ -20,7 +20,7 @@ const BudgetCategories = (props) => {
       .then(data => dispatch(categoriesFetched(data)))
   }
 
-  if (!props.iconsFetched) {
+  if (fetched && !props.iconsFetched) {
     const url = ApiUrlBuilder(["icons"])
     fetch(url)
       .then(response => response.json())
