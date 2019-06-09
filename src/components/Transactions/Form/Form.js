@@ -24,6 +24,7 @@ const Form = (props) => {
     selectedAccount,
     transaction
   } = props
+
   const {
     amount,
     budget_exclusion,

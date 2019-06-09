@@ -84,11 +84,13 @@ const mapStateToProps = (state) => {
   const items = state.transactions.budgetItems.collection
   const collection = items.filter(item => !item.monthly || item.deletable)
   const labelFor = (item) => `${item.name} (${MoneyFormatter(item.remaining, { absolute: true })})`
-  const itemOptions = collection.map(item => {
-    return { value: item.id, label: labelFor(item) }
-  }).sort((a, b) => {
-    return a.label.toLowerCase() < b.label.toLowerCase() ? -1 : 1
-  })
+  const optionFor = (item) => ({ value: item.id, label: labelFor(item) })
+  const sortFn = (a, b) => a.label.toLowerCase() < b.label.toLowerCase() ? -1 : 1
+  const filterFn = (item) => !item.accrual
+  const itemOptions = collection
+    .filter(filterFn)
+    .map(optionFor)
+    .sort(sortFn)
   const discretionary = { label: "Discretionary", value: null }
   const budgetOptions = [discretionary, ...itemOptions]
 
