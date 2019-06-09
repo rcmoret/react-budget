@@ -58,6 +58,10 @@ export const removeWeeklyItem = ({ id }) => {
   return { type: "budget/REMOVE_WEEKLY_ITEM", payload: id }
 }
 
+export const toggleAccrualItems = (payload) => {
+  return { type: "budget/TOGGLE_CLEARED_ITEMS", payload: payload }
+}
+
 export const toggleClearedItems = (payload) => {
   return { type: "budget/TOGGLE_CLEARED_ITEMS", payload: payload }
 }

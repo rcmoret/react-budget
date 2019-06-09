@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 
 import Icon from "../Icons/Icon"
 import { Link } from "react-router-dom"
-import { toggleClearedItems, toggleMenu } from "../../actions/budget"
+import { toggleAccrualItems, toggleClearedItems, toggleMenu } from "../../actions/budget"
 import SetUpButton from "./SetUpButton"
 
 const Menu = (props) => {
@@ -13,8 +13,9 @@ const Menu = (props) => {
     year,
     isFuture,
     requiresSetUp,
+    showAccruals,
     showCleared,
-    showOptions
+    showOptions,
   } = props
 
   return (
@@ -29,8 +30,9 @@ const Menu = (props) => {
         year={year}
         isFuture={isFuture}
         requiresSetUp={requiresSetUp}
-        showCleared={showCleared}
+        showAccruals={showAccruals}
         showOptions={showOptions}
+        showCleared={showCleared}
       />
     </nav>
   )
@@ -67,9 +69,16 @@ const Links = (props) => {
     year,
     isFuture,
     requiresSetUp,
+    showAccruals,
     showCleared,
     showOptions,
   } = props
+
+  const toggleAccruals = (e) => {
+    e.preventDefault()
+    const action = toggleAccrualItems({ showAccruals: !showAccruals })
+    dispatch(action)
+  }
 
   const toggleCleared = (e) => {
     e.preventDefault()
@@ -105,6 +114,14 @@ const Links = (props) => {
             <strong>{showCleared ? "Hide" : "Show"} Cleared Monthly Items</strong>
           </div>
         </Link>
+        <Link
+          to="#"
+          onClick={toggleAccruals}
+        >
+          <div className="budget-action">
+            <strong>{showAccruals ? "Hide" : "Show"} Accruing Items</strong>
+          </div>
+        </Link>
       </div>
     )
   } else {
@@ -114,9 +131,8 @@ const Links = (props) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    showOptions: state.budget.menuOptions.showOptions,
-    showCleared: state.budget.menuOptions.showCleared,
-    ...ownProps
+    ...state.budget.menuOptions,
+    ...ownProps,
   }
 }
 

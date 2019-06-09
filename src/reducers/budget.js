@@ -52,8 +52,9 @@ const initialState = {
     is_set_up: true,
   },
   menuOptions: {
-    showOptions: false,
+    showAccruals: false,
     showCleared: false,
+    showOptions: false,
   },
   setup: {
     baseMonth: {
@@ -308,6 +309,14 @@ export default (state = initialState, action) => {
     return Helpers.removeWeekly(action.payload, state)
   case "budget/REMOVE_MONTHLY_ITEM":
     return Helpers.removeMonthly(action.payload, state)
+  case "budget/TOGGLE_ACCRUAL_ITEMS":
+    return {
+      ...state,
+      menuOptions: {
+        ...state.menuOptions,
+        ...action.payload,
+      },
+    }
   case "budget/TOGGLE_CLEARED_ITEMS":
     return {
       ...state,

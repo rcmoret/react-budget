@@ -18,7 +18,12 @@ const WeeklyItems = (props) => (
 
 const mapStateToProps = (state) => {
   const { collection } = state.budget.weekly
-  const expenses = collection.filter(item => item.expense)
+  const { showAccruals } = state.budget.menuOptions
+  const accrualFilter = (item) => !item.accrual || showAccruals
+
+  const expenses = collection
+    .filter(item => item.expense)
+    .filter(accrualFilter)
     .sort((a, b) => {
       const aDiff = a.amount - a.spent
       const bDiff = b.amount - b.spent
@@ -34,7 +39,10 @@ const mapStateToProps = (state) => {
         return (aDiff - bDiff)
       }
     })
-  const revenues = collection.filter(item => !item.expense)
+
+  const revenues = collection
+    .filter(item => !item.expense)
+    .filter(accrualFilter)
     .sort((a, b) => {
       const aDiff = a.amount - a.spent
       const bDiff = b.amount - b.spent
