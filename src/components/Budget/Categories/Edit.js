@@ -34,7 +34,7 @@ const Edit = (props) => {
     }
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = () => {
     const url = ApiUrlBuilder(["budget", "categories", id])
     fetch(url, {
       method: "PUT",
@@ -44,15 +44,16 @@ const Edit = (props) => {
       },
       body: JSON.stringify(putBody())
     })
-    .then(response => response.json())
-    .then(data => props.dispatch(updated({ ...data, showForm: false })))
+      .then(response => response.json())
+      .then(data => props.dispatch(updated({ ...data, showForm: false })))
   }
 
   const formProps = {
     ...category,
+    accrual: category.accrual.toString(),
     expense: category.expense.toString(),
-    monthly: category.monthly.toString(),
     default_amount: (category.default_amount / 100.0).toFixed(2),
+    monthly: category.monthly.toString(),
     ...category.updatedProps
   }
 

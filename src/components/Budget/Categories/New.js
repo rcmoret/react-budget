@@ -22,8 +22,8 @@ const NewBudgetCategory = (props) => {
     dispatch(action)
   }
 
-  const onSubmit = (e) => {
-    const url = ApiUrlBuilder(["budget", "categories"])
+  const onSubmit = () => {
+    const url = ApiUrlBuilder(["budget/categories"])
     const postBody = {
       ...newCategory,
       default_amount: decimalToInt(newCategory.default_amount),
@@ -46,7 +46,7 @@ const NewBudgetCategory = (props) => {
   const resetForm = (e) => {
     e.preventDefault()
     const action = resetNewForm()
-    props.dispatch(action)
+    dispatch(action)
   }
 
   const toggleForm = (e) => {

@@ -115,6 +115,7 @@
 .category-icon,
 .category-detail,
 .category-edit,
+.category-accrual,
 .category-delete {
   display: inline-block;
 }
@@ -129,11 +130,11 @@
 }
 
 .category-name {
-  width: 15%;
+  width: 12%;
 }
 
 .category-default-amount {
-  width: 15%;
+  width: 10%;
   text-align: right;
 }
 
@@ -388,6 +389,7 @@
   display: inline-block;
   width: 9%;
   margin-left: 2%;
+  vertical-align: top;
 }
 
 .category-options .option {
@@ -402,7 +404,7 @@
 }
 
 .budget-icon-select {
-  width: 20%;
+  width: 16%;
   display: inline-block;
   vertical-align: top;
 }

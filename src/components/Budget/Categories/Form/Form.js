@@ -67,6 +67,17 @@ export default (props) => (
         />
       </div>
     </div>
+    <div className="category-options">
+      <div className="option">
+        <div className="label">Accrual</div>
+        <input type="checkbox"
+          name="accrual"
+          value={props.accrual === "true" ? "false" : "true"}
+          onChange={props.onChange}
+          checked={props.accrual === "true" ? "checked" : ""}
+        />
+      </div>
+    </div>
     <IconSelect
       onChange={props.onSelectChange}
       iconId={props.icon_id}

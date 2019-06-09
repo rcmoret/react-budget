@@ -10,12 +10,26 @@ import Edit from "./Edit"
 import Icon from "../../Icons/Icon"
 
 const Show = (props) => {
-  const { default_amount, expense, icon_class_name, id, monthly, name, showForm } = props.category
+  const {
+    category,
+    dispatch,
+  } = props
+
+  const {
+    id,
+    accrual,
+    default_amount,
+    expense,
+    icon_class_name,
+    monthly,
+    name,
+    showForm,
+  } = category
 
   const revealForm = (e) => {
     e.preventDefault()
     const action = update({ id: id, showForm: true })
-    props.dispatch(action)
+    dispatch(action)
   }
 
   const deleteCategory = (e) => {
@@ -24,7 +38,7 @@ const Show = (props) => {
     if (confirmation) {
       const url = ApiUrlBuilder(["budget", "categories", id])
       fetch(url, { method: "delete" })
-        .then(() => props.dispatch(props.dispatch(deleted(id))))
+        .then(() => dispatch(deleted(id)))
     } else {
       return
     }
@@ -33,7 +47,7 @@ const Show = (props) => {
   if (showForm) {
     return (
       <Edit
-        category={props.category}
+        category={category}
       />
     )
   } else {
@@ -47,6 +61,9 @@ const Show = (props) => {
           {monthly ? "monthly" : "day-to-day"}
           {" "}
           {expense ? "expense" : "revenue"}
+        </div>
+        <div className="category-icon">
+          {accrual ? "accrual" : ""}
         </div>
         <div className="category-icon">
           <Icon className={icon_class_name} />

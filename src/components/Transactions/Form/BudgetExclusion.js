@@ -15,13 +15,13 @@ export default ({ budget_exclusion, onChange, selectedAccount }) => {
         </div>
         <div className="input">
           <input
-           type="checkbox"
-           value={budget_exclusion}
-           onChange={update}
-           checked={budget_exclusion ? 'checked' : ''}
+            type="checkbox"
+            value={budget_exclusion}
+            onChange={update}
+            checked={budget_exclusion ? "checked" : ""}
           />
-       </div>
-     </div>
+        </div>
+      </div>
     )
   }
 }

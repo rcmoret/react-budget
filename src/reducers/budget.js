@@ -41,6 +41,7 @@ const initialState = {
   newCategory: {
     name: "",
     default_amount: "",
+    accrual: "false",
     showForm: false,
     icon_id: null,
   },
@@ -198,7 +199,7 @@ export default (state = initialState, action) => {
         monthly: {
           ...state.monthly,
           collection: state.monthly.collection.map(item => {
-            return item.budget_category_id === action.payload.id ? { ...item, name: action.payload.name } : item
+            return item.budget_category_id === action.payload.id ? { ...item, name: action.payload.name, accrual: action.payload.accrual } : item
           })
         }
       }
@@ -212,7 +213,7 @@ export default (state = initialState, action) => {
         weekly: {
           ...state.weekly,
           collection: state.weekly.collection.map(item => {
-            return item.budget_category_id === action.payload.id ? { ...item, name: action.payload.name } : item
+            return item.budget_category_id === action.payload.id ? { ...item, name: action.payload.name, accrual: action.payload.accrual } : item
           })
         }
       }
@@ -339,8 +340,6 @@ export default (state = initialState, action) => {
     return { ...state, monthly: { ...state.monthly, ...action.payload } }
   case "budget/TOGGLE_WEEKLY_ITEM_FORM":
     return { ...state, weekly: { ...state.weekly, ...action.payload } }
-  case "budget/UPDATE_NEW_CATEGORY":
-    return { ...state, newCategory: { ...state.newCategory, ...action.payload } }
   case "budget/UPDATE_MONTHLY_ITEM":
     return Helpers.updateMonthlyItem(action.payload, state)
   case "budget/UPDATE_WEEKLY_ITEM":
