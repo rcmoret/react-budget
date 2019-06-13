@@ -31,7 +31,7 @@ const store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 )
 
-const App = () => (
+export default () => (
   <div className="App">
     <Provider store={store}>
       <Router>
@@ -45,7 +45,7 @@ const App = () => (
             <Route path="/accounts/:id/" component={AccountWrapper} />
             <Route exact path="/budget/categories" component={BudgetCategories} />
             <Route exact path="/budget/icons" component={Icons} />
-            <Route path="/budget/:month/:year" component={BudgetIndex} />
+            <Route exact path="/budget/:month/:year" component={BudgetIndex} />
             <Route path="/budget/set-up/:month/:year/add-new" component={BudgetSetUpAddNew} />
             <Route path="/budget/set-up/:month/:year/intro" component={BudgetSetUpIntro} />
             <Route path="/budget/set-up/:month/:year" component={BudgetSetUp} />
@@ -56,5 +56,3 @@ const App = () => (
     </Provider>
   </div>
 )
-
-export default App
