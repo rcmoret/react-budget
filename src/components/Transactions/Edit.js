@@ -101,7 +101,7 @@ const mapStateToProps = (state, ownProps) => {
   }
   const optionFor = (item) => ({ value: item.id, label: labelFor(item) })
   const sortFn = (a, b) => a.label.toLowerCase() < b.label.toLowerCase() ? -1 : 1
-  const filterFn = (item) => !item.accrual
+  const filterFn = (item) => !item.accrual || item.matureAccrual
   const itemOptions = collection
     .filter(filterFn)
     .map(optionFor)

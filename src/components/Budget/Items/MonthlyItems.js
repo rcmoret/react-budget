@@ -17,7 +17,7 @@ const MonthlyItems = (props) => (
 const mapStateToProps = (state) => {
   const { collection } = state.budget.monthly
   const { showAccruals } = state.budget.menuOptions
-  const accrualFilter = (item) => !item.accrual || showAccruals
+  const accrualFilter = (item) => !item.accrual || item.matureAccrual || showAccruals
 
   const revenues = collection
     .filter(item => !item.expense && item.deletable)

@@ -1,8 +1,19 @@
 export default (attributes, metadata) => {
-  const { amount, expense } = attributes
+  const {
+    accrual,
+    amount,
+    expense,
+    maturity_month,
+    maturity_year,
+    month,
+    year,
+  } = attributes
+  const {
+    days_remaining,
+    total_days,
+  } = metadata
   const spent = attributes.spent || 0
   const transactions_count = attributes.transactions_count || 0
-  const { days_remaining, total_days } = metadata
   const floatAmount = attributes.floatAmount || parseFloat(attributes.amount / 100.0).toFixed(2)
   const difference = amount - spent
   const remaining = expense ? Math.min(difference, 0) : Math.max(difference, 0)
@@ -12,6 +23,7 @@ export default (attributes, metadata) => {
   const budgetedPerWeek = (budgetedPerDay * 7)
   const remainingPerDay = Math.floor(remaining / days_remaining)
   const remainingPerWeek = (remainingPerDay * 7)
+  const matureAccrual = accrual && (maturity_month === month && maturity_year === year)
 
   return ({
     collection: [],
@@ -25,6 +37,7 @@ export default (attributes, metadata) => {
     overUnderBudgetAmount: overUnderBudgetAmount,
     budgetedPerDay: budgetedPerDay,
     budgetedPerWeek: budgetedPerWeek,
+    matureAccrual: matureAccrual,
     remainingPerDay: remainingPerDay,
     remainingPerWeek: remainingPerWeek,
   })
