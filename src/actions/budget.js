@@ -14,10 +14,6 @@ export const baseMonthFetched = (payload) => {
   return { type: "budget/BASE_MONTH_FETCHED", payload: payload }
 }
 
-export const categoriesFetched = (collection) => {
-  return { type: "budget/CATEGORIES_FETCHED", payload: collection }
-}
-
 export const editMonthlyItem = (payload) => {
   return { type: "budget/EDIT_MONTHLY_ITEM", payload: payload }
 }

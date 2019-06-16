@@ -2,6 +2,10 @@ export const applyFilter = (payload) => {
   return { type: "budget/categories/APPLY_FILTER", payload: payload }
 }
 
+export const categoriesFetched = (collection) => {
+  return { type: "budget/categories/FETCHED", payload: collection }
+}
+
 export const created = (payload) => {
   return { type: "budget/categories/CREATED", payload: payload }
 }

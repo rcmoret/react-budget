@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
-import { addMonthlyItem, categoriesFetched, editNewMonthlyItem, toggleMonthlyItemForm } from "../../../actions/budget"
+import { addMonthlyItem, editNewMonthlyItem, toggleMonthlyItemForm } from "../../../actions/budget"
+import { categoriesFetched } from "../../../actions/budget/categories"
 import { connect } from "react-redux"
 import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
 import Select from "react-select";

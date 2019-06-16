@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 
 import * as dateFormatter from "../../../shared/Functions/DateFormatter"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
-import { categoriesFetched } from "../../../actions/budget"
+import { categoriesFetched } from "../../../actions/budget/categories"
 import { addItem, editNew } from "../../../actions/budget/setup"
 import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
 import { Link } from "react-router-dom"

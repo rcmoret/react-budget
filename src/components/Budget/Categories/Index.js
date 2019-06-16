@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
-import { categoriesFetched } from "../../../actions/budget"
+import { categoriesFetched } from "../../../actions/budget/categories"
 import { fetched as iconsFetched } from "../../../actions/icons"
 
 import Filters from "./Filters"
