@@ -1,7 +1,7 @@
-import { update, updated, updateProps, updateItemInCollection } from "./helpers/shared"
 import * as Helpers from "./helpers/budgetHelpers"
 import * as setupHelpers from "./helpers/setupHelpers"
 import objectifyCategory from "../shared/models/category"
+import { update, updated, updateProps, updateItemInCollection } from "./helpers/shared"
 
 const initialState = {
   discretionary: {
@@ -83,6 +83,14 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+  case "budget/categories/APPLY_FILTER":
+    return {
+      ...state,
+      categories: {
+        ...state.categories,
+        filters: state.categories.filters.map(filter => filter.name === action.payload.name ? action.payload : filter)
+      }
+    }
   case "budget/categories/CREATED":
     return {
       ...state,
@@ -102,38 +110,13 @@ export default (state = initialState, action) => {
         collection: state.categories.collection.filter(category => category.id !== action.payload)
       }
     }
-  case "budget/BASE_MONTH_FETCHED":
-    return {
-      ...state,
-      setup: {
-        ...state.setup,
-        baseMonth: {
-          ...state.setup.baseMonth,
-          ...action.payload.metadata,
-          isFetched: true,
-          collection: action.payload.collection,
-        },
-      }
-    }
-  case "budget/NEW_MONTH_FETCHED":
-    return {
-      ...state,
-      setup: {
-        ...state.setup,
-        newMonth: {
-          ...state.setup.newMonth,
-          ...action.payload.metadata,
-          isFetched: true,
-          collection: action.payload.collection,
-        },
-      }
-    }
-  case "budget/categories/APPLY_FILTER":
+  case "budget/categories/FETCHED":
     return {
       ...state,
       categories: {
         ...state.categories,
-        filters: state.categories.filters.map(filter => filter.name === action.payload.name ? action.payload : filter)
+        collection: action.payload.map(category => objectifyCategory(category)),
+        fetched: true
       }
     }
   case "budget/categories/RESET":
@@ -165,6 +148,14 @@ export default (state = initialState, action) => {
         showForm: action.payload.showForm,
       }
     }
+  case "budget/categories/UPDATE":
+    return {
+      ...state,
+      categories: {
+        ...state.categories,
+        collection: update(action.payload, state.categories.collection),
+      }
+    }
   case "budget/categories/UPDATE_NEW":
     return {
       ...state,
@@ -179,14 +170,6 @@ export default (state = initialState, action) => {
       categories: {
         ...state.categories,
         collection: updateProps(action.payload, state.categories.collection),
-      }
-    }
-  case "budget/categories/UPDATE":
-    return {
-      ...state,
-      categories: {
-        ...state.categories,
-        collection: update(action.payload, state.categories.collection),
       }
     }
   case "budget/categories/UPDATED":
@@ -219,6 +202,32 @@ export default (state = initialState, action) => {
         }
       }
     }
+  case "budget/BASE_MONTH_FETCHED":
+    return {
+      ...state,
+      setup: {
+        ...state.setup,
+        baseMonth: {
+          ...state.setup.baseMonth,
+          ...action.payload.metadata,
+          isFetched: true,
+          collection: action.payload.collection,
+        },
+      }
+    }
+  case "budget/NEW_MONTH_FETCHED":
+    return {
+      ...state,
+      setup: {
+        ...state.setup,
+        newMonth: {
+          ...state.setup.newMonth,
+          ...action.payload.metadata,
+          isFetched: true,
+          collection: action.payload.collection,
+        },
+      }
+    }
   case "budget/ADD_CATEGORY":
     return {
       ...state,
@@ -235,15 +244,6 @@ export default (state = initialState, action) => {
     return Helpers.addMonthlyItem(action.payload, state)
   case "budget/ADD_WEEKLY_ITEM":
     return Helpers.addWeeklyItem(action.payload, state)
-  case "budget/CATEGORIES_FETCHED":
-    return {
-      ...state,
-      categories: {
-        ...state.categories,
-        collection: action.payload.map(category => objectifyCategory(category)),
-        fetched: true
-      }
-    }
   case "budget/EDIT_NEW_MONTHLY_ITEM":
     return {
       ...state,
