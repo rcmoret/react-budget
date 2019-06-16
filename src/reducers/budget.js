@@ -1,6 +1,7 @@
 import { update, updated, updateProps, updateItemInCollection } from "./helpers/shared"
 import * as Helpers from "./helpers/budgetHelpers"
 import * as setupHelpers from "./helpers/setupHelpers"
+import objectifyCategory from "../shared/models/category"
 
 const initialState = {
   discretionary: {
@@ -89,7 +90,7 @@ export default (state = initialState, action) => {
         ...state.categories,
         collection: [
           ...state.categories.collection,
-          action.payload
+          objectifyCategory(action.payload)
         ]
       }
     }
@@ -194,7 +195,7 @@ export default (state = initialState, action) => {
         ...state,
         categories: {
           ...state.categories,
-          collection: updated(action.payload, state.categories.collection),
+          collection: updated(objectifyCategory(action.payload), state.categories.collection),
         },
         monthly: {
           ...state.monthly,
@@ -239,7 +240,7 @@ export default (state = initialState, action) => {
       ...state,
       categories: {
         ...state.categories,
-        collection: action.payload,
+        collection: action.payload.map(category => objectifyCategory(category)),
         fetched: true
       }
     }
