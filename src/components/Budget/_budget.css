@@ -116,8 +116,10 @@
 .category-detail,
 .category-edit,
 .category-accrual,
+.category-maturity-intervals,
 .category-delete {
   display: inline-block;
+  vertical-align: top;
 }
 
 .category-delete a, .category-edit a {
@@ -127,6 +129,27 @@
 
 .category-delete {
   margin-left: 2%;
+}
+
+.category-maturity-intervals {
+  margin: 0 10px;
+  width: 35%;
+}
+
+.category-maturity-intervals a {
+  color: black;
+}
+
+.maturity-interval-label {
+  width: 100%;
+  font-weight: 600;
+}
+
+.maturity-interval {
+  display: inline-block;
+  width: 85px;
+  margin-bottom: 5px;
+  margin-left: 10px;
 }
 
 .category-name {

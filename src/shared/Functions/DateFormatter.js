@@ -34,6 +34,8 @@ export const formatted = ({ month, day, year, format }) => {
   switch(format) {
   case "dateObject":
     return new Date(year, month, day)
+  case "longMonth":
+    return monthString.long
   case "monthYear":
     return `${monthString.long} ${year}`
   case "numericMonthYear":
