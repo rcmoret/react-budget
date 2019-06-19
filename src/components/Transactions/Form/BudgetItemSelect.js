@@ -10,6 +10,7 @@ import SubtransactionBudgetItemSelect from "./SubtransactionBudgetItemSelect"
 
 const BudgetItemSelect = (props) => {
   const {
+    amount,
     dateObject,
     dispatch,
     emptyOption,
@@ -31,7 +32,11 @@ const BudgetItemSelect = (props) => {
   }
 
   const updateSelect = (e) => {
-    onChange({ budget_item_id: e.value })
+    if (amount === "" && e.monthly) {
+      onChange({ budget_item_id: e.value, amount: e.amount })
+    } else {
+      onChange({ budget_item_id: e.value })
+    }
   }
 
   if (subtransactions.length > 0) {

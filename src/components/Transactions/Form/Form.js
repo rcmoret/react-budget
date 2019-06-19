@@ -68,6 +68,7 @@ const Form = (props) => {
         subtransactions={subtransactions}
       />
       <BudgetItemSelect
+        amount={amount}
         budget_item_id={budget_item_id}
         onChange={onChange}
         onSubChange={onSubChange}
@@ -81,7 +82,7 @@ const Form = (props) => {
         />
         <CheckNumber
           onChange={onChange}
-          check_number={check_number}
+          check_number={check_number || ""}
         />
       </div>
       <BudgetExclusion

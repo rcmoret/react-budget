@@ -12,11 +12,11 @@ const Amounts = ({ amount, onChange, onSubChange, subtransactions }) => {
     return (
       <div className="amount">
         <input
-         type="text"
-         name="amount"
-         placeholder="amount"
-         value={parseFloat(total).toFixed(2)}
-         disabled={true}
+          type="text"
+          name="amount"
+          placeholder="amount"
+          value={parseFloat(total).toFixed(2)}
+          disabled={true}
         />
         {subtransactions.map((sub, index) =>
           <SubtransactionAmount

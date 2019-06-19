@@ -84,7 +84,12 @@ const mapStateToProps = (state) => {
   const items = state.transactions.budgetItems.collection
   const collection = items.filter(item => !item.monthly || item.deletable)
   const labelFor = (item) => `${item.name} (${MoneyFormatter(item.remaining, { absolute: true })})`
-  const optionFor = (item) => ({ value: item.id, label: labelFor(item) })
+  const optionFor = (item) => ({
+    value: item.id,
+    label: labelFor(item),
+    monthly: item.monthly,
+    amount: parseFloat(item.amount / 100.0).toFixed(2),
+  })
   const sortFn = (a, b) => a.label.toLowerCase() < b.label.toLowerCase() ? -1 : 1
   const filterFn = (item) => !item.accrual || item.matureAccrual
   const itemOptions = collection
