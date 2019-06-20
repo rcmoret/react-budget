@@ -237,22 +237,3 @@ export const updateWeeklyItem = (item, state) => {
     }
   }
 }
-
-export const removeMaturityInterval = (payload, state) => {
-  const { id, categoryId } = payload
-
-  return {
-    ...state,
-    itemsFetched: false,
-    categories: {
-      ...state.categories,
-      collection: state.categories.collection.map(category => {
-        if (category.id !== categoryId) {
-          return category
-        } else {
-          return { ...category, maturityIntervals: category.maturityIntervals.filter(interval => interval.id !== id) }
-        }
-      })
-    }
-  }
-}

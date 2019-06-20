@@ -1,14 +1,15 @@
 import React from "react"
+import { connect } from "react-redux"
 
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 import * as DateFunctions from "../../../shared/Functions/DateFormatter"
 import GroupBy from "../../../shared/Functions/GroupBy"
 import { Link } from "react-router-dom"
-import { removeMaturityInterval, updated } from "../../../actions/budget/categories"
+import { accrualMaturityIntervalsFetched, removeMaturityInterval, updated } from "../../../actions/budget/categories"
 
 import Icon from "../../Icons/Icon"
 
-export default (props) => {
+const MaturityInfo = (props) => {
   const {
     id,
     accrual,
@@ -22,7 +23,7 @@ export default (props) => {
     const url = ApiUrlBuilder(["budget/categories", id, "maturity_intervals"])
     fetch(url)
       .then(response => response.json())
-      .then(data => dispatch(updated({ id: id, maturityIntervals: data, maturityIntervalsFetched: true })))
+      .then(data => dispatch(accrualMaturityIntervalsFetched({ id: id, collection: data })))
   }
 
   const fetchMaturityIntervals = () => {
@@ -109,10 +110,7 @@ const MaturityInterval = ({ id, category_id,  dispatch, month, year }) => {
 const DeleteButton = ({ id, categoryId, dispatch, prevMonth }) => {
   const deleteMaturityInterval = () => {
     const url = ApiUrlBuilder(["budget/categories", categoryId, "maturity_intervals", id])
-    const action = removeMaturityInterval({
-      id: id,
-      categoryId: categoryId,
-    })
+    const action = removeMaturityInterval({ id: id })
     fetch(url, { method: "delete" })
       .then(() => dispatch(action))
   }
@@ -132,3 +130,31 @@ const DeleteButton = ({ id, categoryId, dispatch, prevMonth }) => {
     )
   }
 }
+
+const mapStateToProps = ((state, ownProps) => {
+  const filterFn = (interval) => interval.category_id === ownProps.id
+  const sortFn = (a, b) => {
+    if (a.year < b.year) {
+      return -1
+    } else if (a.year > b.year) {
+      return 1
+    } else if (a.month < b.month) {
+      return -1
+    } else if (a.month > b.month) {
+      return 1
+    } else {
+      return 0
+    }
+  }
+
+  const maturityIntervals = state.budget.maturityIntervals
+    .filter(filterFn)
+    .sort(sortFn)
+
+  return {
+    ...ownProps,
+    maturityIntervals: maturityIntervals,
+  }
+})
+
+export default connect(mapStateToProps)(MaturityInfo)

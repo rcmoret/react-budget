@@ -1,6 +1,5 @@
 import * as Helpers from "./helpers/budgetHelpers"
 import * as setupHelpers from "./helpers/setupHelpers"
-import objectifyCategory from "../shared/models/category"
 import { update, updated, updateProps, updateItemInCollection } from "./helpers/shared"
 
 const initialState = {
@@ -78,7 +77,8 @@ const initialState = {
         selectedOption: "",
       },
     },
-  }
+  },
+  maturityIntervals: [],
 }
 
 export default (state = initialState, action) => {
@@ -98,7 +98,7 @@ export default (state = initialState, action) => {
         ...state.categories,
         collection: [
           ...state.categories.collection,
-          objectifyCategory(action.payload)
+          action.payload
         ]
       }
     }
@@ -115,12 +115,29 @@ export default (state = initialState, action) => {
       ...state,
       categories: {
         ...state.categories,
-        collection: action.payload.map(category => objectifyCategory(category)),
+        collection: action.payload,
         fetched: true
       }
     }
+  case "budget/categories/MATURITY_INTERVALS_FETCHED":
+    return {
+      ...state,
+      categories: {
+        ...state.categories,
+        collection: state.categories.collection.map(category =>
+          category.id !== action.payload.id ? category : { ...category, maturityIntervalsFetched: true }
+        ),
+      },
+      maturityIntervals: [
+        ...state.maturityIntervals,
+        ...action.payload.collection
+      ],
+    }
   case "budget/category/REMOVE_MATURITY_INTERVAL":
-    return Helpers.removeMaturityInterval(action.payload, state)
+    return {
+      ...state,
+      maturityIntervals: state.maturityIntervals.filter(interval => interval.id !== action.payload.id)
+    }
   case "budget/categories/RESET":
     return {
       ...state,
@@ -180,7 +197,7 @@ export default (state = initialState, action) => {
         ...state,
         categories: {
           ...state.categories,
-          collection: updated(objectifyCategory(action.payload), state.categories.collection),
+          collection: updated(action.payload, state.categories.collection),
         },
         monthly: {
           ...state.monthly,

@@ -1,3 +1,7 @@
+export const accrualMaturityIntervalsFetched = (payload) => {
+  return { type: "budget/categories/MATURITY_INTERVALS_FETCHED", payload: payload }
+}
+
 export const applyFilter = (payload) => {
   return { type: "budget/categories/APPLY_FILTER", payload: payload }
 }
