@@ -119,6 +119,8 @@ export default (state = initialState, action) => {
         fetched: true
       }
     }
+  case "budget/category/REMOVE_MATURITY_INTERVAL":
+    return Helpers.removeMaturityInterval(action.payload, state)
   case "budget/categories/RESET":
     return {
       ...state,

@@ -36,6 +36,8 @@ export const formatted = ({ month, day, year, format }) => {
     return new Date(year, month, day)
   case "longMonth":
     return monthString.long
+  case "yyyy-mm-dd":
+    return [year, (month < 10 ? "0" + month : month), (day < 10 ? "0" + day : day)].join("-")
   case "monthYear":
     return `${monthString.long} ${year}`
   case "numericMonthYear":
@@ -135,6 +137,20 @@ export const before = (dateString, targetString) => {
       return object.day < target.day
     }
   }
+}
+
+const simpleObject = (dateObject) => {
+  return formatted({
+    year: dateObject.getFullYear(),
+    month: (dateObject.getMonth() + 1),
+    day: dateObject.getDate(),
+    format: "object"
+  })
+
+}
+export const today = (format = "yyyy-mm-dd") => {
+  const date = simpleObject(new Date())
+  return formatted({ ...date, format: format })
 }
 
 export default formatted

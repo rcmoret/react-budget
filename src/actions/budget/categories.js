@@ -14,6 +14,10 @@ export const deleted = (payload) => {
   return { type: "budget/categories/DELETED", payload: payload }
 }
 
+export const removeMaturityInterval = (payload) => {
+  return { type: "budget/category/REMOVE_MATURITY_INTERVAL", payload: payload }
+}
+
 export const reset = ({ id }) => {
   return { type: "budget/categories/RESET", payload: { id: id, showForm: false } }
 }
