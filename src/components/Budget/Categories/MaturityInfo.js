@@ -6,6 +6,7 @@ import * as DateFunctions from "../../../shared/Functions/DateFormatter"
 import GroupBy from "../../../shared/Functions/GroupBy"
 import { Link } from "react-router-dom"
 import { accrualMaturityIntervalsFetched, removeMaturityInterval, updated } from "../../../actions/budget/categories"
+import Select from "react-select"
 
 import Icon from "../../Icons/Icon"
 
@@ -16,6 +17,8 @@ const MaturityInfo = (props) => {
     dispatch,
     maturityIntervals,
     maturityIntervalsFetched,
+    newMaturityIntervalAttributes,
+    showMaturityIntervalForm,
     showMaturityIntervals,
   } = props
 
@@ -27,13 +30,19 @@ const MaturityInfo = (props) => {
   }
 
   const fetchMaturityIntervals = () => {
-    dispatch(updated({ id: id, showMaturityIntervals: true }))
+    const action = updated({ id: id, showMaturityIntervals: true })
+    dispatch(action)
   }
 
   const hideMaturityIntervals = () => {
-    dispatch(updated({ id: id, showMaturityIntervals: false }))
+    const action = updated({ id: id, showMaturityIntervals: false })
+    dispatch(action)
   }
 
+  const toggleForm = () => {
+    const action = updated({ id: id, showMaturityIntervalForm: !showMaturityIntervalForm })
+    dispatch(action)
+  }
 
   if (accrual && !showMaturityIntervals) {
     return (
@@ -60,6 +69,18 @@ const MaturityInfo = (props) => {
           </Link>
           {" "}
           Maturity Intervals
+          {" "}
+          <Link
+            to="#"
+            className={showMaturityIntervalForm ? "fas fa-minus" : "fas fa-plus"}
+            onClick={toggleForm}
+          />
+          <NewMaturityInterval
+            id={id}
+            dispatch={dispatch}
+            newMaturityIntervalAttributes={newMaturityIntervalAttributes}
+            showMaturityIntervalForm={showMaturityIntervalForm}
+          />
         </div>
         {groupedIntervals.map(intervalsByYear =>
           <MaturityIntervalByYear
@@ -128,6 +149,89 @@ const DeleteButton = ({ id, categoryId, dispatch, prevMonth }) => {
         />
       </span>
     )
+  }
+}
+
+const NewMaturityInterval = (props) => {
+  const {
+    id,
+    dispatch,
+    newMaturityIntervalAttributes,
+    showMaturityIntervalForm,
+  } = props
+
+  const today = DateFunctions.today("object")
+  const year = newMaturityIntervalAttributes ? newMaturityIntervalAttributes.year : today.year
+
+  const updateNewMaturityInterval = (payload) => {
+    const action = updated({
+      id: id,
+      newMaturityIntervalAttributes: { ...newMaturityIntervalAttributes, ...payload }
+    })
+    dispatch(action)
+  }
+
+  const handleSelect = (e) => {
+    updateNewMaturityInterval({ month: e.value })
+  }
+
+  const handleYear = (e) => {
+    updateNewMaturityInterval({ year: e.target.value })
+  }
+
+  const options = [
+    { label: "January", value: 1 },
+    { label: "February", value: 2 },
+    { label: "March", value: 3 },
+    { label: "April", value: 4 },
+    { label: "May", value: 5 },
+    { label: "June", value: 6 },
+    { label: "July", value: 7 },
+    { label: "August", value: 8 },
+    { label: "September", value: 9 },
+    { label: "October", value: 10 },
+    { label: "November", value: 11 },
+    { label: "December", value: 12 },
+  ]
+
+  const addMaturityInterval = () => {
+    const url = ApiUrlBuilder(["budget/categories", id, "maturity_intervals"])
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newMaturityIntervalAttributes)
+    })
+  }
+
+  if (showMaturityIntervalForm) {
+    return (
+      <div className="new-maturity-interval">
+        <div className="month-select">
+          <Select
+            options={options}
+            onChange={handleSelect}
+          />
+        </div>
+        <div className="year-input">
+          <input
+            type="number"
+            value={year}
+            onChange={handleYear}
+            placeholder="year"
+          />
+        </div>
+        <Link
+          to="#"
+          className="fas fa-check"
+          onClick={addMaturityInterval}
+        />
+      </div>
+    )
+  } else {
+    return null
   }
 }
 

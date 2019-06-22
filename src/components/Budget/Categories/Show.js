@@ -27,6 +27,7 @@ const Show = (props) => {
     monthly,
     name,
     showForm,
+    showMaturityIntervalForm,
     showMaturityIntervals,
   } = category
 
@@ -87,12 +88,8 @@ const Show = (props) => {
           />
         </div>
         <ExtraInfo
-          id={id}
-          accrual={accrual}
           dispatch={dispatch}
-          maturityIntervals={maturityIntervals}
-          maturityIntervalsFetched={maturityIntervalsFetched}
-          showMaturityIntervals={showMaturityIntervals}
+          {...category}
         />
       </div>
     )

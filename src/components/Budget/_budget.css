@@ -117,6 +117,7 @@
 .category-edit,
 .category-accrual,
 .category-maturity-intervals,
+.new-maturity-interval,
 .category-delete {
   display: inline-block;
   vertical-align: top;
@@ -150,6 +151,25 @@
   width: 110px;
   margin-bottom: 5px;
   margin-left: 10px;
+}
+
+.new-maturity-interval {
+  margin-left: 10px;
+}
+
+.new-maturity-interval .month-select {
+  width: 200px;
+  display: inline-block;
+}
+
+.new-maturity-interval .year-input {
+  display: inline-block;
+  width: 50px;
+  margin-left: 10px;
+}
+
+.new-maturity-interval .year-input input {
+  width: 100%;
 }
 
 .category-name {
