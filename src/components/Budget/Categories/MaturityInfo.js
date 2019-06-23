@@ -5,7 +5,12 @@ import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 import * as DateFunctions from "../../../shared/Functions/DateFormatter"
 import GroupBy from "../../../shared/Functions/GroupBy"
 import { Link } from "react-router-dom"
-import { accrualMaturityIntervalsFetched, removeMaturityInterval, updated } from "../../../actions/budget/categories"
+import {
+  accrualMaturityIntervalsFetched,
+  maturityIntervalCreated,
+  removeMaturityInterval,
+  updated
+} from "../../../actions/budget/categories"
 import Select from "react-select"
 
 import Icon from "../../Icons/Icon"
@@ -204,6 +209,11 @@ const NewMaturityInterval = (props) => {
       },
       body: JSON.stringify(newMaturityIntervalAttributes)
     })
+      .then(response => response.json())
+      .then(data => dispatch(maturityIntervalCreated({
+        id: id,
+        maturityInterval: data
+      })))
   }
 
   if (showMaturityIntervalForm) {

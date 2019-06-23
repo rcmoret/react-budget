@@ -2,10 +2,6 @@ export const accrualMaturityIntervalsFetched = (payload) => {
   return { type: "budget/categories/MATURITY_INTERVALS_FETCHED", payload: payload }
 }
 
-export const addMaturityInterval = (payload) => {
-  return { type: "budget/categories/ADD_MATURITY_INTERVAL", payload: payload }
-}
-
 export const applyFilter = (payload) => {
   return { type: "budget/categories/APPLY_FILTER", payload: payload }
 }
@@ -20,6 +16,10 @@ export const created = (payload) => {
 
 export const deleted = (payload) => {
   return { type: "budget/categories/DELETED", payload: payload }
+}
+
+export const maturityIntervalCreated = (payload) => {
+  return { type: "budget/categories/MATURITY_INTERVAL_CREATED", payload: payload }
 }
 
 export const removeMaturityInterval = (payload) => {

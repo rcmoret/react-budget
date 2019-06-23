@@ -119,6 +119,28 @@ export default (state = initialState, action) => {
         fetched: true
       }
     }
+  case "budget/categories/MATURITY_INTERVAL_CREATED":
+    return {
+      ...state,
+      categories: {
+        ...state.categories,
+        collection: state.categories.collection.map(category => {
+          if (category.id !== action.payload.id) {
+            return category
+          } else {
+            return {
+              ...category,
+              showMaturityIntervalForm: false,
+              newMaturityIntervalAttributes: {},
+            }
+          }
+        }),
+      },
+      maturityIntervals: [
+        ...state.maturityIntervals,
+        action.payload.maturityInterval
+      ]
+    }
   case "budget/categories/MATURITY_INTERVALS_FETCHED":
     return {
       ...state,
