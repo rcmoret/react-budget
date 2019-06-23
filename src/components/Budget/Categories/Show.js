@@ -22,13 +22,9 @@ const Show = (props) => {
     default_amount,
     expense,
     icon_class_name,
-    maturityIntervals,
-    maturityIntervalsFetched,
     monthly,
     name,
     showForm,
-    showMaturityIntervalForm,
-    showMaturityIntervals,
   } = category
 
   const revealForm = (e) => {

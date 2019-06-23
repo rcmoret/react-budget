@@ -45,7 +45,15 @@ const MaturityInfo = (props) => {
   }
 
   const toggleForm = () => {
-    const action = updated({ id: id, showMaturityIntervalForm: !showMaturityIntervalForm })
+    const year = DateFunctions.today("object").year
+    const action = updated({
+      id: id,
+      newMaturityIntervalAttributes: {
+        month: "",
+        year: year,
+      },
+      showMaturityIntervalForm: !showMaturityIntervalForm
+    })
     dispatch(action)
   }
 
@@ -165,8 +173,7 @@ const NewMaturityInterval = (props) => {
     showMaturityIntervalForm,
   } = props
 
-  const today = DateFunctions.today("object")
-  const year = newMaturityIntervalAttributes ? newMaturityIntervalAttributes.year : today.year
+  const maturityInterval = newMaturityIntervalAttributes || {}
 
   const updateNewMaturityInterval = (payload) => {
     const action = updated({
@@ -228,16 +235,18 @@ const NewMaturityInterval = (props) => {
         <div className="year-input">
           <input
             type="number"
-            value={year}
+            value={maturityInterval.year}
             onChange={handleYear}
             placeholder="year"
           />
         </div>
-        <Link
-          to="#"
-          className="fas fa-check"
-          onClick={addMaturityInterval}
-        />
+        <div className="maturity-interval-submit">
+          <Link
+            to="#"
+            className="fas fa-check"
+            onClick={addMaturityInterval}
+          />
+        </div>
       </div>
     )
   } else {

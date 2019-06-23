@@ -118,6 +118,7 @@
 .category-accrual,
 .category-maturity-intervals,
 .new-maturity-interval,
+.maturity-interval-submit,
 .category-delete {
   display: inline-block;
   vertical-align: top;
@@ -166,10 +167,15 @@
   display: inline-block;
   width: 50px;
   margin-left: 10px;
+  vertical-align: top;
 }
 
 .new-maturity-interval .year-input input {
   width: 100%;
+}
+
+.maturity-interval-submit {
+  margin-left: 10px;
 }
 
 .category-name {

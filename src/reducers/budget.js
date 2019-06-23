@@ -152,7 +152,9 @@ export default (state = initialState, action) => {
       },
       maturityIntervals: [
         ...state.maturityIntervals,
-        ...action.payload.collection
+        ...action.payload.collection.filter(maturityInterval =>
+          !state.maturityIntervals.includes(maturityInterval)
+        )
       ],
     }
   case "budget/category/REMOVE_MATURITY_INTERVAL":
