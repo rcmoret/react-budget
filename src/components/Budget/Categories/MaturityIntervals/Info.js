@@ -127,34 +127,18 @@ const MaturityIntervalByYear = ({ collection, dispatch, year }) => (
 )
 
 const MaturityInterval = ({ id, category_id,  dispatch, month, year }) => {
-  const today = DateFunctions.today("object")
-  const prevMonth = year < today.year || (year === today.year && month < today.month)
-
-  return (
-    <div className="maturity-interval">
-      {DateFunctions.formatted({ month: month, year: year, day: 1, format: "longMonth" })}
-      <DeleteButton
-        id={id}
-        categoryId={category_id}
-        dispatch={dispatch}
-        prevMonth={prevMonth}
-      />
-    </div>
-  )
-}
-
-const DeleteButton = ({ id, categoryId, dispatch, prevMonth }) => {
   const deleteMaturityInterval = () => {
-    const url = ApiUrlBuilder(["budget/categories", categoryId, "maturity_intervals", id])
+    const confirmation = window.confirm("Delete this maturity interval?")
+    if (!confirmation) { return }
+    const url = ApiUrlBuilder(["budget/categories", category_id, "maturity_intervals", id])
     const action = removeMaturityInterval({ id: id })
     fetch(url, { method: "delete" })
       .then(() => dispatch(action))
   }
 
-  if (prevMonth) {
-    return null
-  } else {
-    return (
+  return (
+    <div className="maturity-interval">
+      {DateFunctions.formatted({ month: month, year: year, day: 1, format: "longMonth" })}
       <span>
         {" "}
         <Link
@@ -163,8 +147,8 @@ const DeleteButton = ({ id, categoryId, dispatch, prevMonth }) => {
           onClick={deleteMaturityInterval}
         />
       </span>
-    )
-  }
+    </div>
+  )
 }
 
 const NewMaturityInterval = (props) => {
