@@ -47,12 +47,13 @@ const Filters = (props) => {
           to="#"
           className="fas fa-caret-down"
           onClick={toggleFilters}
-        />
-        {" "}
-        <span className={funnelClass}>
-          <Icon className="fas fa-filter" />
-        </span>
-        {" "}
+        >
+          {" "}
+          <span className={funnelClass}>
+            <Icon className="fas fa-filter" />
+          </span>
+          {" "}
+        </Link>
         <div className="title">
           <strong>Filters</strong>
         </div>
@@ -185,11 +186,12 @@ const Filters = (props) => {
           to="#"
           className="fas fa-caret-right"
           onClick={toggleFilters}
-        />
-        {" "}
-        <span className={funnelClass}>
-          <Icon className="fas fa-filter" />
-        </span>
+        >
+          {" "}
+          <span className={funnelClass}>
+            <Icon className="fas fa-filter" />
+          </span>
+        </Link>
         <hr/>
       </div>
     )
