@@ -14,6 +14,10 @@ export const baseMonthFetched = (payload) => {
   return { type: "budget/BASE_MONTH_FETCHED", payload: payload }
 }
 
+export const changeItemSortOrder = (payload) => {
+  return { type: "budget/CHANGE_ITEM_SORT_ORDER", payload: payload }
+}
+
 export const editMonthlyItem = (payload) => {
   return { type: "budget/EDIT_MONTHLY_ITEM", payload: payload }
 }

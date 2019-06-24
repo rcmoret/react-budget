@@ -56,6 +56,7 @@ const initialState = {
     showAccruals: false,
     showCleared: false,
     showOptions: false,
+    sortOrder: "byName",
   },
   setup: {
     baseMonth: {
@@ -249,6 +250,14 @@ export default (state = initialState, action) => {
           collection: action.payload.collection,
         },
       }
+    }
+  case "budget/CHANGE_ITEM_SORT_ORDER":
+    return {
+      ...state,
+      menuOptions: {
+        ...state.menuOptions,
+        ...action.payload,
+      },
     }
   case "budget/NEW_MONTH_FETCHED":
     return {

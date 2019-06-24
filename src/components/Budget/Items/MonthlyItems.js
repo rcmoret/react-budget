@@ -19,15 +19,38 @@ const mapStateToProps = (state) => {
   const { showAccruals } = state.budget.menuOptions
   const accrualFilter = (item) => !item.accrual || item.matureAccrual || showAccruals
 
+  const sortByAmount = (a, b) => Math.abs(b.amount) - Math.abs(a.amount)
+  const sortByName = (a, b) => {
+    if (a.name < b.name) {
+      return -1
+    } else if (a.name > b.name) {
+      return 1
+    } else {
+      sortByAmount(a, b)
+    }
+  }
+
+  const sortOrder = state.budget.menuOptions.sortOrder
+  const sortFn = () => {
+    switch (sortOrder) {
+    case "byAmount":
+      return sortByAmount
+    case "byName":
+      return sortByName
+    default:
+      return sortByName
+    }
+  }
+
   const revenues = collection
     .filter(item => !item.expense && item.deletable)
     .filter(accrualFilter)
-    .sort((a, b) => (Math.abs(b.amount) - Math.abs(a.amount)))
+    .sort(sortFn())
 
   const expenses = collection
     .filter(item => item.expense && item.deletable)
     .filter(accrualFilter)
-    .sort((a, b) => (Math.abs(b.amount) - Math.abs(a.amount)))
+    .sort(sortFn())
 
   return {
     revenues: revenues,

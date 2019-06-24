@@ -21,43 +21,54 @@ const mapStateToProps = (state) => {
   const { showAccruals } = state.budget.menuOptions
   const accrualFilter = (item) => !item.accrual || item.matureAccrual || showAccruals
 
+  const sortByAmount = (a, b) => {
+    const aDiff = a.amount - a.spent
+    const bDiff = b.amount - b.spent
+    if (aDiff === bDiff) {
+      return 0
+    } else if (aDiff > 0 && bDiff > 0) {
+      return (bDiff - aDiff)
+    } else if (aDiff > 0) {
+      return 1
+    } else if (bDiff > 0) {
+      return -1
+    } else {
+      return (aDiff - bDiff)
+    }
+  }
+
+  const sortByName = (a, b) => {
+    if (a.name < b.name) {
+      return -1
+    } else if (a.name > b.name) {
+      return 1
+    } else {
+      sortByAmount(a, b)
+    }
+  }
+
+  const sortOrder = state.budget.menuOptions.sortOrder
+  const sortFn = () => {
+    switch (sortOrder) {
+    case "byAmount":
+      return sortByAmount
+    case "byName":
+      return sortByName
+    default:
+      return sortByName
+    }
+  }
+
+
   const expenses = collection
     .filter(item => item.expense)
     .filter(accrualFilter)
-    .sort((a, b) => {
-      const aDiff = a.amount - a.spent
-      const bDiff = b.amount - b.spent
-      if (aDiff === bDiff) {
-        return 0
-      } else if (aDiff > 0 && bDiff > 0) {
-        return (bDiff - aDiff)
-      } else if (aDiff > 0) {
-        return 1
-      } else if (bDiff > 0) {
-        return -1
-      } else {
-        return (aDiff - bDiff)
-      }
-    })
+    .sort(sortFn())
 
   const revenues = collection
     .filter(item => !item.expense)
     .filter(accrualFilter)
-    .sort((a, b) => {
-      const aDiff = a.amount - a.spent
-      const bDiff = b.amount - b.spent
-      if (aDiff === bDiff) {
-        return 0
-      } else if (aDiff < 0 && bDiff < 0) {
-        return (aDiff - bDiff)
-      } else if (aDiff < 0) {
-        return 1
-      } else if (bDiff < 0) {
-        return -1
-      } else {
-        return (bDiff - aDiff)
-      }
-    })
+    .sort(sortFn())
 
   return {
     expenses: expenses,

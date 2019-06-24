@@ -3,7 +3,12 @@ import { connect } from "react-redux"
 
 import Icon from "../Icons/Icon"
 import { Link } from "react-router-dom"
-import { toggleAccrualItems, toggleClearedItems, toggleMenu } from "../../actions/budget"
+import {
+  changeItemSortOrder,
+  toggleAccrualItems,
+  toggleClearedItems,
+  toggleMenu,
+} from "../../actions/budget"
 import SetUpButton from "./SetUpButton"
 
 const Menu = (props) => {
@@ -16,6 +21,7 @@ const Menu = (props) => {
     showAccruals,
     showCleared,
     showOptions,
+    sortOrder,
   } = props
 
   return (
@@ -33,6 +39,7 @@ const Menu = (props) => {
         showAccruals={showAccruals}
         showOptions={showOptions}
         showCleared={showCleared}
+        sortOrder={sortOrder}
       />
     </nav>
   )
@@ -72,6 +79,7 @@ const Links = (props) => {
     showAccruals,
     showCleared,
     showOptions,
+    sortOrder,
   } = props
 
   const toggleAccruals = (e) => {
@@ -86,6 +94,13 @@ const Links = (props) => {
     dispatch(action)
   }
 
+  const newSortOrder = sortOrder === "byName" ? "byAmount" : "byName"
+  const toggleSort = (e) => {
+    e.preventDefault()
+    const action = changeItemSortOrder({ sortOrder: newSortOrder })
+    dispatch(action)
+  }
+
   if (showOptions) {
     return (
       <div>
@@ -96,6 +111,14 @@ const Links = (props) => {
           isFuture={isFuture}
           requiresSetUp={requiresSetUp}
         />
+        <Link
+          to="#"
+          onClick={toggleSort}
+        >
+          <div className="budget-action">
+            <strong>Order {newSortOrder.replace( /([A-Z])/g, " $1" )}</strong>
+          </div>
+        </Link>
         <Link to="/budget/categories">
           <div className="budget-action">
             <strong>Manage Categories</strong>
