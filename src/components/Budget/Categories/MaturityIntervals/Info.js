@@ -1,19 +1,19 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
-import * as DateFunctions from "../../../shared/Functions/DateFormatter"
-import GroupBy from "../../../shared/Functions/GroupBy"
+import ApiUrlBuilder from "../../../../shared/Functions/ApiUrlBuilder"
+import * as DateFunctions from "../../../../shared/Functions/DateFormatter"
+import GroupBy from "../../../../shared/Functions/GroupBy"
 import { Link } from "react-router-dom"
 import {
   accrualMaturityIntervalsFetched,
   maturityIntervalCreated,
   removeMaturityInterval,
   updated
-} from "../../../actions/budget/categories"
-import Select from "react-select"
+} from "../../../../actions/budget/categories"
 
-import Icon from "../../Icons/Icon"
+import Form from "./Form"
+import Icon from "../../../Icons/Icon"
 
 const MaturityInfo = (props) => {
   const {
@@ -28,6 +28,8 @@ const MaturityInfo = (props) => {
   } = props
 
   if (!maturityIntervalsFetched && showMaturityIntervals) {
+    const action = updated({ id: id, maturityIntervalsFetched: true })
+    dispatch(action)
     const url = ApiUrlBuilder(["budget/categories", id, "maturity_intervals"])
     fetch(url)
       .then(response => response.json())
@@ -183,12 +185,9 @@ const NewMaturityInterval = (props) => {
     dispatch(action)
   }
 
-  const handleSelect = (e) => {
-    updateNewMaturityInterval({ month: e.value })
-  }
-
-  const handleYear = (e) => {
-    updateNewMaturityInterval({ year: e.target.value })
+  const hideForm = (e) => {
+    const action = updated({ id: id, showMaturityIntervalForm: false })
+    dispatch(action)
   }
 
   const options = [
@@ -223,31 +222,19 @@ const NewMaturityInterval = (props) => {
       })))
   }
 
+  const onChange = (payload) => {
+    updateNewMaturityInterval(payload)
+  }
+
   if (showMaturityIntervalForm) {
     return (
-      <div className="new-maturity-interval">
-        <div className="month-select">
-          <Select
-            options={options}
-            onChange={handleSelect}
-          />
-        </div>
-        <div className="year-input">
-          <input
-            type="number"
-            value={maturityInterval.year}
-            onChange={handleYear}
-            placeholder="year"
-          />
-        </div>
-        <div className="maturity-interval-submit">
-          <Link
-            to="#"
-            className="fas fa-check"
-            onClick={addMaturityInterval}
-          />
-        </div>
-      </div>
+      <Form
+        cancel={hideForm}
+        maturityInterval={maturityInterval}
+        onChange={onChange}
+        onSubmit={addMaturityInterval}
+        options={options}
+      />
     )
   } else {
     return null
@@ -281,3 +268,4 @@ const mapStateToProps = ((state, ownProps) => {
 })
 
 export default connect(mapStateToProps)(MaturityInfo)
+

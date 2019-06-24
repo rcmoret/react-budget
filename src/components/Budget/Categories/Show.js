@@ -7,7 +7,7 @@ import { Link } from "react-router-dom"
 import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
 
 import Edit from "./Edit"
-import ExtraInfo from "./MaturityInfo"
+import ExtraInfo from "./MaturityIntervals/Info"
 import Icon from "../../Icons/Icon"
 
 const Show = (props) => {
