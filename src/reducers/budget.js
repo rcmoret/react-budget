@@ -111,6 +111,11 @@ export default (state = initialState, action) => {
         collection: state.categories.collection.filter(category => category.id !== action.payload)
       }
     }
+  case "budget/categories/EDIT_MATURITY_INTERVAL":
+    return {
+      ...state,
+      maturityIntervals: updateProps(action.payload, state.maturityIntervals),
+    }
   case "budget/categories/FETCHED":
     return {
       ...state,
@@ -182,6 +187,13 @@ export default (state = initialState, action) => {
         showFilters: action.payload.showFilters,
       }
     }
+  case "budget/categories/TOGGLE_MATURITY_INTERVAL_EDIT_FORM":
+    return {
+      ...state,
+      maturityIntervals: state.maturityIntervals.map(mi =>
+        mi.id === action.payload.id ? { ...mi, ...action.payload } : mi
+      )
+    }
   case "budget/categories/TOGGLE_NEW_FORM":
     return {
       ...state,
@@ -205,6 +217,11 @@ export default (state = initialState, action) => {
         ...state.newCategory,
         ...action.payload,
       }
+    }
+  case "budget/categories/UPDATE_MATURITY_INTERVAL":
+    return {
+      ...state,
+      maturityIntervals: updated(action.payload, state.maturityIntervals)
     }
   case "budget/categories/UPDATE_PROPS":
     return {

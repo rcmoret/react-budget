@@ -18,6 +18,10 @@ export const deleted = (payload) => {
   return { type: "budget/categories/DELETED", payload: payload }
 }
 
+export const editMaturityInterval = (payload) => {
+  return { type: "budget/categories/EDIT_MATURITY_INTERVAL", payload: payload }
+}
+
 export const maturityIntervalCreated = (payload) => {
   return { type: "budget/categories/MATURITY_INTERVAL_CREATED", payload: payload }
 }
@@ -38,6 +42,10 @@ export const toggleCategoryFilters = (payload) => {
   return { type: "budget/categories/TOGGLE_CATEGORY_FILTERS", payload: payload }
 }
 
+export const toggleMaturityIntervalEditForm = (payload) => {
+  return { type: "budget/categories/TOGGLE_MATURITY_INTERVAL_EDIT_FORM", payload: payload }
+}
+
 export const toggleNewForm = (payload) => {
   return { type: "budget/categories/TOGGLE_NEW_FORM", payload: payload }
 }
@@ -48,6 +56,10 @@ export const update = (payload) => {
 
 export const updated = (payload) => {
   return { type: "budget/categories/UPDATED", payload: payload }
+}
+
+export const updateMaturityInterval = (payload) => {
+  return { type: "budget/categories/UPDATE_MATURITY_INTERVAL", payload: payload }
 }
 
 export const updateProps = (payload) => {

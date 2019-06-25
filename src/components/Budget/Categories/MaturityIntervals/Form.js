@@ -9,7 +9,8 @@ export default (props) => {
     maturityInterval,
     options,
     onChange,
-    onSubmit
+    onSubmit,
+    value,
   } = props
 
   const handleSelect = (e) => {
@@ -26,6 +27,7 @@ export default (props) => {
         <Select
           options={options}
           onChange={handleSelect}
+          value={value}
         />
       </div>
       <div className="year-input">
