@@ -145,6 +145,12 @@ export default (state = initialState, action) => {
   case "budget/categories/MATURITY_INTERVALS_FETCHED":
     return {
       ...state,
+      categories: {
+        ...state.categories,
+        collection: state.categories.collection.map(category =>
+          category.id === action.payload.id ? { ...category, maturityIntervalsFetched: true } : category
+        )
+      },
       maturityIntervals: [
         ...state.maturityIntervals,
         ...action.payload.collection
