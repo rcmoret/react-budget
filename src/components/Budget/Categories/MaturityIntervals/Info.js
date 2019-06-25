@@ -7,12 +7,12 @@ import GroupBy from "../../../../shared/Functions/GroupBy"
 import { Link } from "react-router-dom"
 import {
   accrualMaturityIntervalsFetched,
-  removeMaturityInterval,
   updated
 } from "../../../../actions/budget/categories"
 
 import Icon from "../../../Icons/Icon"
 import NewMaturityInterval from "./New"
+import Show from "./Show"
 
 const MaturityInfo = (props) => {
   const {
@@ -116,7 +116,7 @@ const MaturityIntervalByYear = ({ collection, dispatch, year }) => (
     <strong>{year}</strong>
     <div>
       {collection.map(interval =>
-        <MaturityInterval
+        <Show
           key={interval.id}
           dispatch={dispatch}
           {...interval}
@@ -125,31 +125,6 @@ const MaturityIntervalByYear = ({ collection, dispatch, year }) => (
     </div>
   </div>
 )
-
-const MaturityInterval = ({ id, category_id,  dispatch, month, year }) => {
-  const deleteMaturityInterval = () => {
-    const confirmation = window.confirm("Delete this maturity interval?")
-    if (!confirmation) { return }
-    const url = ApiUrlBuilder(["budget/categories", category_id, "maturity_intervals", id])
-    const action = removeMaturityInterval({ id: id })
-    fetch(url, { method: "delete" })
-      .then(() => dispatch(action))
-  }
-
-  return (
-    <div className="maturity-interval">
-      {DateFunctions.formatted({ month: month, year: year, day: 1, format: "longMonth" })}
-      <span>
-        {" "}
-        <Link
-          to="#"
-          className="far fa-trash-alt"
-          onClick={deleteMaturityInterval}
-        />
-      </span>
-    </div>
-  )
-}
 
 const mapStateToProps = ((state, ownProps) => {
   const filterFn = (interval) => interval.category_id === ownProps.id
