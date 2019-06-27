@@ -2,6 +2,7 @@ import * as Helpers from "./helpers/budgetHelpers"
 import * as setupHelpers from "./helpers/setupHelpers"
 import { update, updated, updateProps, updateItemInCollection } from "./helpers/shared"
 
+const today = new Date()
 const initialState = {
   discretionary: {
     balance: 0,
@@ -47,8 +48,8 @@ const initialState = {
   },
   itemsFetched: false,
   metadata: {
-    month: 12,
-    year: 2099,
+    month: (today.getMonth() + 1),
+    year: (today.getFullYear()),
     is_closed_out: true,
     is_set_up: true,
   },
