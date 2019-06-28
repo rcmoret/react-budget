@@ -38,10 +38,6 @@ export const resetNewForm = () => {
   return { type: "budget/categories/RESET_NEW_FORM", payload: null }
 }
 
-export const toggleCategoryFilters = (payload) => {
-  return { type: "budget/categories/TOGGLE_CATEGORY_FILTERS", payload: payload }
-}
-
 export const toggleMaturityIntervalEditForm = (payload) => {
   return { type: "budget/categories/TOGGLE_MATURITY_INTERVAL_EDIT_FORM", payload: payload }
 }

@@ -30,8 +30,8 @@ const BudgetCategories = (props) => {
   return (
     <div className="categories">
       <h2>Budget Categories</h2>
-      <Header />
       <Filters />
+      <Header />
       <NewBudgetCategory />
       {collection.map(category =>
         <Show
@@ -42,7 +42,6 @@ const BudgetCategories = (props) => {
     </div>
   )
 }
-
 
 const mapStateToProps = (state) => {
   const { collection, fetched, filters } = state.budget.categories

@@ -20,7 +20,6 @@ const initialState = {
       { name: "adverb", value: "" },
       { name: "search", value: "" },
     ],
-    showFilters: false,
     showForm: false,
   },
   monthly: {
@@ -179,14 +178,6 @@ export default (state = initialState, action) => {
     return {
       ...state,
       newCategory: initialState.newCategory
-    }
-  case "budget/categories/TOGGLE_CATEGORY_FILTERS":
-    return {
-      ...state,
-      categories: {
-        ...state.categories,
-        showFilters: action.payload.showFilters,
-      }
     }
   case "budget/categories/TOGGLE_MATURITY_INTERVAL_EDIT_FORM":
     return {
