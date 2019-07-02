@@ -154,6 +154,10 @@
   margin-left: 10px;
 }
 
+.maturity-interval span.icon-links {
+  font-size: 0.5em;
+}
+
 .new-maturity-interval {
   margin-left: 10px;
 }

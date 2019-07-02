@@ -41,7 +41,7 @@ export default (props) => {
     return (
       <div className="maturity-interval">
         {DateFunctions.formatted({ month: month, year: year, day: 1, format: "longMonth" })}
-        <span>
+        <span className="icon-links">
           {" "}
           <Link
             to="#"
