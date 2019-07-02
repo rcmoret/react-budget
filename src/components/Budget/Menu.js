@@ -111,14 +111,6 @@ const Links = (props) => {
           isFuture={isFuture}
           requiresSetUp={requiresSetUp}
         />
-        <Link
-          to="#"
-          onClick={toggleSort}
-        >
-          <div className="budget-action">
-            <strong>Order {newSortOrder.replace( /([A-Z])/g, " $1" )}</strong>
-          </div>
-        </Link>
         <Link to="/budget/categories">
           <div className="budget-action">
             <strong>Manage Categories</strong>
@@ -127,6 +119,15 @@ const Links = (props) => {
         <Link to="/budget/icons">
           <div className="budget-action">
             <strong>Manage Icons</strong>
+          </div>
+        </Link>
+        <hr />
+        <Link
+          to="#"
+          onClick={toggleSort}
+        >
+          <div className="budget-action">
+            <strong>Order {newSortOrder.replace( /([A-Z])/g, " $1" )}</strong>
           </div>
         </Link>
         <Link
