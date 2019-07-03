@@ -47,6 +47,11 @@
 .transaction .budget-categories, .transaction .balance, .transaction .check-number, .transaction .notes {
   display: inline-block;
   margin-right: 1%;
+  vertical-align: top;
+}
+
+.transaction .budget-categories {
+  width: 30%;
 }
 
 .transaction .exclusion {
