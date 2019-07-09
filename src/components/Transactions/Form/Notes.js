@@ -1,6 +1,6 @@
 import React from "react"
 
-export default ({ notes, onChange }) => {
+export default ({ notes, handleKeyDown, onChange }) => {
   const update = (e) => {
     onChange({ notes: e.target.value })
   }
@@ -12,6 +12,7 @@ export default ({ notes, onChange }) => {
         name="notes"
         value={notes || ""}
         onChange={update}
+        onKeyDown={handleKeyDown}
       />
     </div>
   )

@@ -17,6 +17,10 @@ const New = (props) => {
     dispatch(action)
   }
 
+  const handleKeyDown = () => {
+    return null
+  }
+
   const resetForm = (e) => {
     e.preventDefault()
     const action = resetNew()
@@ -68,6 +72,7 @@ const New = (props) => {
       addSubtransaction={addSubtransaction}
       budgetOptions={budgetOptions}
       buttonText={props.buttonText}
+      handleKeyDown={handleKeyDown}
       onChange={onChange}
       onSubChange={onSubChange}
       onSubmit={onSubmit}

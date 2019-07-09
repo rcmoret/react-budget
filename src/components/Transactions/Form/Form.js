@@ -17,6 +17,7 @@ const Form = (props) => {
     addSubtransaction,
     budgetOptions,
     buttonText,
+    handleKeyDown,
     onChange,
     onSubChange,
     onSubmit,
@@ -48,6 +49,7 @@ const Form = (props) => {
           <ClearanceDate
             clearanceDate={clearance_date}
             onChange={onChange}
+            handleKeyDown={handleKeyDown}
           />
         </div>
         <AddSubtransactionLink
@@ -57,12 +59,14 @@ const Form = (props) => {
       </div>
       <Descriptions
         description={description}
+        handleKeyDown={handleKeyDown}
         onChange={onChange}
         onSubChange={onSubChange}
         subtransactions={subtransactions}
       />
       <Amounts
         amount={amount}
+        handleKeyDown={handleKeyDown}
         onChange={onChange}
         onSubChange={onSubChange}
         subtransactions={subtransactions}
@@ -77,6 +81,7 @@ const Form = (props) => {
       />
       <div className="additional-options">
         <Notes
+          handleKeyDown={handleKeyDown}
           onChange={onChange}
           notes={notes}
         />

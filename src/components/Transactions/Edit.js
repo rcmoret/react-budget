@@ -13,6 +13,13 @@ const Edit = (props) => {
   // const addSubtransaction = (e) => {
   // }
 
+  const handleKeyDown = (e) => {
+    if (e.which !== 13) {
+      return
+    }
+    onSubmit()
+  }
+
   const resetForm = (e) => {
     e.preventDefault()
     const action = edit({ id: id, showForm: false })
@@ -63,6 +70,7 @@ const Edit = (props) => {
     return (
       <Form
         budgetOptions={budgetOptions}
+        handleKeyDown={handleKeyDown}
         onChange={onChange}
         onSubChange={onSubChange}
         onSubmit={onSubmit}

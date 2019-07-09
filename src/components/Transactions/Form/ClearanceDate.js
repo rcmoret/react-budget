@@ -1,6 +1,6 @@
 import React from "react"
 
-export default ({ clearanceDate, onChange }) => {
+export default ({ clearanceDate, handleKeyDown, onChange }) => {
   const update = (e) => {
     onChange({ clearance_date: e.target.value })
   }
@@ -10,6 +10,7 @@ export default ({ clearanceDate, onChange }) => {
       <input
         type="text"
         name="clearance_date"
+        onKeyDown={handleKeyDown}
         placeholder="clearance date"
         onChange={update}
         value={clearanceDate || ""}

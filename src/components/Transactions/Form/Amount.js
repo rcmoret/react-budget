@@ -2,7 +2,7 @@ import React from "react"
 
 import SubtransactionAmount from "./SubtransactionAmount"
 
-const Amounts = ({ amount, onChange, onSubChange, subtransactions }) => {
+const Amounts = ({ amount, handleKeyDown, onChange, onSubChange, subtransactions }) => {
   const update = (e) => {
     onChange({ amount: e.target.value })
   }
@@ -23,6 +23,7 @@ const Amounts = ({ amount, onChange, onSubChange, subtransactions }) => {
             key={index}
             _id={sub.id || index}
             amount={sub.amount}
+            onKeyDown={handleKeyDown}
             onSubChange={onSubChange}
           />
         )}
@@ -32,12 +33,13 @@ const Amounts = ({ amount, onChange, onSubChange, subtransactions }) => {
     return (
       <div className="amount">
         <input
-         type="text"
-         name="amount"
-         placeholder="amount"
-         value={amount}
-         onChange={update}
-         disabled={false}
+          type="text"
+          name="amount"
+          placeholder="amount"
+          value={amount}
+          onChange={update}
+          onKeyDown={handleKeyDown}
+          disabled={false}
         />
       </div>
     )

@@ -2,7 +2,7 @@ import React from "react"
 
 import SubtransactionDescription from "./SubtransactionDescription"
 
-export default ({ description, onChange, onSubChange, subtransactions }) => {
+export default ({ description, handleKeyDown, onChange, onSubChange, subtransactions }) => {
   const update = (e) => {
     onChange({ [e.target.name]: e.target.value })
   }
@@ -14,6 +14,7 @@ export default ({ description, onChange, onSubChange, subtransactions }) => {
         name="description"
         placeholder="description"
         onChange={update}
+        onKeyDown={handleKeyDown}
         value={description || ""}
       />
       {subtransactions.map((sub, index) =>
@@ -22,6 +23,7 @@ export default ({ description, onChange, onSubChange, subtransactions }) => {
           _id={sub.id || index}
           description={sub.description}
           onSubChange={onSubChange}
+          onKeyDown={handleKeyDown}
         />
       )}
     </div>
