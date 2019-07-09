@@ -405,24 +405,7 @@ export default (state = initialState, action) => {
   case "budget/UPDATE_WEEKLY_ITEM":
     return Helpers.updateWeeklyItem(action.payload, state)
   case "budget/setup/ADD_ITEM":
-    return {
-      ...state,
-      setup: {
-        ...state.setup,
-        newMonth: {
-          ...state.setup.newMonth,
-          newItem: {
-            amount: "",
-            budget_category_id: null,
-            selectedOption: "",
-          },
-          collection: [
-            ...state.setup.newMonth.collection,
-            action.payload
-          ],
-        },
-      },
-    }
+    return Helpers.addNewSetupItem(action.payload, state)
   case "budget/setup/EDIT_NEW":
     return {
       ...state,

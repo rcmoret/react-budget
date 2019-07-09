@@ -237,3 +237,36 @@ export const updateWeeklyItem = (item, state) => {
     }
   }
 }
+
+export const addNewSetupItem = (item, state) => {
+  const { metadata } = state
+  const { month, year } = metadata
+  const objectifiedItem = item.monthly ? objectifyMonthly(item, metadata) : objectifyWeekly(item, metadata)
+  const currentItem = month === item.month && year === item.year
+  const { monthly, weekly } = state
+  const newMonthly = currentItem && item.monthly ? { ...monthly, collection: [...monthly.collection, objectifiedItem] } : monthly
+  const newWeekly = currentItem && item.weekly ? { ...weekly, collection: [...weekly.collection, objectifiedItem] } : weekly
+  const discretionary = objectifyDiscretionary(state.discretionary, { weekly: newWeekly, monthly: newMonthly })
+
+  return {
+    ...state,
+    discretionary: discretionary,
+    monthly: newMonthly,
+    weekly: newWeekly,
+    setup: {
+      ...state.setup,
+      newMonth: {
+        ...state.setup.newMonth,
+        newItem: {
+          amount: "",
+          budget_category_id: null,
+          selectedOption: "",
+        },
+        collection: [
+          ...state.setup.newMonth.collection,
+          item,
+        ],
+      },
+    },
+  }
+}
