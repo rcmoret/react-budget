@@ -58,7 +58,10 @@ const ReviewItem = ({ category, dayToDayItem, dispatch, item, month, newItem, pr
   }
 
   const updateAmount = (e) => {
-    const action = editNew({ amount: e.target.value })
+    const action = editNew({
+      amount: e.target.value,
+      selectedOption: "",
+    })
     dispatch(action)
   }
 
