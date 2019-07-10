@@ -1,10 +1,14 @@
 import React from "react"
+import { connect } from "react-redux"
 
+import * as dateFormatter from "../../../shared/Functions/DateFormatter"
 import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
 
 import Discretionary from "./Discretionary"
 
-export default ({ collection, discretionary, dispatch, isReady, monthString }) => {
+const Items = ({ collection, discretionary, month, year }) => {
+  const monthString = dateFormatter.formatted({ month: month, year: year, format: "monthYear" })
+
   const sortFn = (a, b) => {
     if (a.budget_category_id !== b.budget_cateogry_id) {
       return a.name < b.name ? -1 : 1
@@ -31,7 +35,6 @@ export default ({ collection, discretionary, dispatch, isReady, monthString }) =
       {revenues.map(item =>
         <Item
           key={item.id}
-          dispatch={dispatch}
           {...item}
         />
       )}
@@ -41,7 +44,6 @@ export default ({ collection, discretionary, dispatch, isReady, monthString }) =
       {expenses.map(item =>
         <Item
           key={item.id}
-          dispatch={dispatch}
           {...item}
         />
       )}
@@ -49,7 +51,7 @@ export default ({ collection, discretionary, dispatch, isReady, monthString }) =
   )
 }
 
-const Item = ({ dispatch, name, amount }) => {
+const Item = ({ amount, name }) => {
   return (
     <div className="new-month-item">
       <div className="name">
@@ -61,3 +63,18 @@ const Item = ({ dispatch, name, amount }) => {
     </div>
   )
 }
+
+const mapStateToProps = (state) => {
+  const newMonth = state.budget.setup.newMonth
+  const { collection, month, year } = newMonth
+  const discretionary = collection.reduce((acc, item) => acc += item.amount, 0)
+
+  return {
+    collection: collection,
+    discretionary: discretionary,
+    month: month,
+    year: year,
+  }
+}
+
+export default connect(mapStateToProps)(Items)

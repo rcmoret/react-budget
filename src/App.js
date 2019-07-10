@@ -11,7 +11,6 @@ import AccountWrapper from "./components/Accounts/Wrapper"
 import AccountIndex from "./components/Accounts/Index"
 import BudgetHome from "./components/Budget/Home"
 import BudgetIndex from "./components/Budget/Index"
-import BudgetSetUp from "./components/Budget/SetUp/Index"
 import BudgetSetUpAddNew from "./components/Budget/SetUp/AddNew"
 import BudgetSetUpIntro from "./components/Budget/SetUp/Introduction"
 import BudgetSetUpExpenses from "./components/Budget/SetUp/Expenses"
@@ -52,7 +51,6 @@ export default () => (
             <Route path="/budget/set-up/:month/:year/intro" component={BudgetSetUpIntro} />
             <Route path="/budget/set-up/:month/:year/expenses" component={BudgetSetUpExpenses} />
             <Route path="/budget/set-up/:month/:year/revenues" component={BudgetSetUpRevenues} />
-            <Route path="/budget/set-up/:month/:year" component={BudgetSetUp} />
             <Route exact path="/budget/:month?/:year?" component={BudgetHome} />
           </Switch>
         </div>
