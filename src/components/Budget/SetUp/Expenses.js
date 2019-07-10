@@ -16,9 +16,7 @@ const Expenses = ({ month, year }) => (
 )
 
 const mapStateToProps = (state) => {
-  const { newMonth } = state.budget.setup
-
-  return { ...newMonth }
+  return state.budget.setup.newMonth
 }
 
 export default connect(mapStateToProps)(Expenses)

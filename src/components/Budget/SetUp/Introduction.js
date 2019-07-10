@@ -4,24 +4,35 @@ import { connect } from "react-redux"
 import * as dateFormatter from "../../../shared/Functions/DateFormatter"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 import { baseMonthFetched, newMonthFetched } from "../../../actions/budget"
+import { categoriesFetched as fetched } from "../../../actions/budget/categories"
 import { Redirect } from "react-router"
 
-import Review from "./Review"
-
 const Intro = (props) => {
-  const { baseMonth, collection, newMonth, targetMonth, targetYear } = props
-  const { month, year } = newMonth
-  const monthString = dateFormatter.formatted({ month: newMonth.month, year: newMonth.year, format: "monthYear" })
-  const emptyCollection = newMonth.isFetched &&  collection.length === 0
+  const {
+    baseMonth,
+    categoriesFetched,
+    newMonth,
+    targetMonth,
+    targetYear
+  } = props
 
-  if (!newMonth.isFetched) {
+  const { month, year } = newMonth
+
+  if (!categoriesFetched) {
+    const url = ApiUrlBuilder(["budget/categories"])
+    fetch(url)
+      .then(response => response.json())
+      .then(data => props.dispatch(fetched(data)))
+  }
+
+  if (categoriesFetched && !newMonth.isFetched) {
     const url = ApiUrlBuilder(["budget", "items"], { month: targetMonth, year: targetYear })
     fetch(url)
       .then(response => response.json())
       .then(data => props.dispatch(newMonthFetched(data)))
   }
 
-  if (newMonth.isFetched && !baseMonth.isFetched) {
+  if (categoriesFetched && newMonth.isFetched && !baseMonth.isFetched) {
     const month = targetMonth === 1 ? 12 : (targetMonth - 1)
     const year = targetMonth === 1 ? (targetYear - 1) : targetYear
     const url = ApiUrlBuilder(["budget", "items"], { month: month, year: year })
@@ -30,24 +41,11 @@ const Intro = (props) => {
       .then(data => props.dispatch(baseMonthFetched(data)))
   }
 
-  if (emptyCollection || newMonth.reviewed) {
+  if (!categoriesFetched || !newMonth.isFetched || !baseMonth.isFetched) {
+    return null
+  } else {
     return (
-      <Redirect to={`/budget/set-up/${month}/${year}/add-new`} />
-    )
-  } else { // show the review items
-    return (
-      <div className="set-up-workspace">
-        <div className="set-up-intro">
-          <p>
-            Looks like there are some items already created for {monthString}. Let's review those first.
-          </p>
-          <Review
-            collection={collection}
-            month={month}
-            year={year}
-          />
-        </div>
-      </div>
+      <Redirect to={`/budget/set-up/${month}/${year}/revenues`} />
     )
   }
 }
@@ -70,6 +68,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     baseMonth: state.budget.setup.baseMonth,
+    categoriesFetched: state.budget.categories.fetched,
     collection: collection,
     newMonth: newMonth,
     targetMonth: targetMonth,
