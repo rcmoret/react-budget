@@ -2,11 +2,8 @@ import React from "react"
 import { connect } from "react-redux"
 
 import * as dateFormatter from "../../../shared/Functions/DateFormatter"
-import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
-import { updateMetadata } from "../../../actions/budget/setup"
 
-import Icon from "../../Icons/Icon"
 import { Redirect } from "react-router"
 import ReviewItem from "./ReviewItem"
 
@@ -39,44 +36,10 @@ const PreviousMonth = (props) => {
   )
 }
 
-const Review = ({ dispatch, filter, item, newMonth, redirect }) => {
-  const { month, year } = newMonth
-  const markComplete = (e) => {
-    e.preventDefault()
-    const url = ApiUrlBuilder(["intervals", month, year])
-    const now = new Date()
-    const body = JSON.stringify({ set_up_completed_at: now })
-    fetch(url, {
-      method: "PUT",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: body,
-    })
-      .then(response => response.json())
-      .then(data => dispatch(updateMetadata(data)))
-  }
-
+const Review = ({ item, newMonth, redirect }) => {
   if (item && !newMonth.set_up_completed_at) {
     return (
       <ReviewItem item={item} />
-    )
-  } else if (!newMonth.set_up_completed_at && filter === "expenses") {
-    return (
-      <div className="review-item-current">
-        <div className="review-item-form">
-          <div className="confirm-button">
-            <button
-              onClick={markComplete}
-            >
-              <strong>Mark Setup Complete</strong>
-              {" "}
-              <Icon className="far fa-check-square" />
-            </button>
-          </div>
-        </div>
-      </div>
     )
   } else {
     return (
