@@ -104,6 +104,14 @@ const Links = (props) => {
   if (showOptions) {
     return (
       <div>
+        <SetUpButton
+          dispatch={dispatch}
+          month={month}
+          year={year}
+          isFuture={isFuture}
+          requiresSetUp={requiresSetUp}
+        />
+        <hr />
         <Link to="/budget/categories">
           <div className="budget-action">
             <strong>Manage Categories</strong>
@@ -115,13 +123,6 @@ const Links = (props) => {
           </div>
         </Link>
         <hr />
-        <SetUpButton
-          dispatch={dispatch}
-          month={month}
-          year={year}
-          isFuture={isFuture}
-          requiresSetUp={requiresSetUp}
-        />
         <Link
           to="#"
           onClick={toggleSort}

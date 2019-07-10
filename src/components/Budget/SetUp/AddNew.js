@@ -95,7 +95,7 @@ const AddNew = ({ baseMonth, categories, discretionary, dispatch, newMonth }) =>
         </div>
         <div className="set-up-intro-next">
           <p>Or click below to continue</p>
-          <Link to={`/budget/set-up/${month}/${year}`} >
+          <Link to={`/budget/set-up/${month}/${year}/revenues`} >
             <div className="setup-next">
               Continue
               {" "}

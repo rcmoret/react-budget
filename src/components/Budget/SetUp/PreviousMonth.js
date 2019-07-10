@@ -10,14 +10,27 @@ import Icon from "../../Icons/Icon"
 import { Redirect } from "react-router"
 import ReviewItem from "./ReviewItem"
 
-const PreviousMonth = ({ collection, dispatch, newMonth, prevMonthString, reviewItem }) => {
+const PreviousMonth = (props) => {
+  const {
+    collection,
+    dispatch,
+    filter,
+    newMonth,
+    prevMonthString,
+    redirect,
+    reviewItem,
+    title,
+  } = props
+
   return (
     <div className="previous-month-items">
-      <h4>{prevMonthString}'s Items</h4>
+      <h4>{prevMonthString}'s {title}</h4>
       <Review
         dispatch={dispatch}
         item={reviewItem}
+        filter={filter}
         newMonth={newMonth}
+        redirect={redirect}
       />
       {collection.map(item =>
         <Item key={item.id} item={item} />
@@ -26,7 +39,7 @@ const PreviousMonth = ({ collection, dispatch, newMonth, prevMonthString, review
   )
 }
 
-const Review = ({ dispatch, item, newMonth }) => {
+const Review = ({ dispatch, filter, item, newMonth, redirect }) => {
   const { month, year } = newMonth
   const markComplete = (e) => {
     e.preventDefault()
@@ -49,7 +62,7 @@ const Review = ({ dispatch, item, newMonth }) => {
     return (
       <ReviewItem item={item} />
     )
-  } else if (!newMonth.set_up_completed_at) {
+  } else if (!newMonth.set_up_completed_at && filter === "expenses") {
     return (
       <div className="review-item-current">
         <div className="review-item-form">
@@ -67,7 +80,7 @@ const Review = ({ dispatch, item, newMonth }) => {
     )
   } else {
     return (
-      <Redirect to={`/budget/${month}/${year}`} />
+      <Redirect to={redirect} />
     )
   }
 }
@@ -85,8 +98,24 @@ const Item = ({ item }) => (
 )
 
 const mapStateToProps = (state, ownProps) => {
+  const {
+    filter,
+    redirect,
+    title,
+  } = ownProps
+
+  const filterFn = (item) => {
+    if (item.reviewed) {
+      return false
+    }
+    if (filter === "revenue") {
+      return !item.expense
+    }
+    return item.expense
+  }
+
   let collection = state.budget.setup.baseMonth.collection
-    .filter(item => !item.reviewed)
+    .filter(filterFn)
     .sort((a, b) => {
       if (a.requeuedAt && b.requeuedAt) {
         return a.requeuedAt > b.requeuedAt ? 1 : -1
@@ -106,9 +135,12 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     collection: collection,
+    filter: filter,
     newMonth: state.budget.setup.newMonth,
     prevMonthString: prevMonthString,
+    redirect: redirect,
     reviewItem: reviewItem,
+    title: title,
   }
 }
 

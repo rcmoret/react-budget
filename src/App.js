@@ -14,6 +14,8 @@ import BudgetIndex from "./components/Budget/Index"
 import BudgetSetUp from "./components/Budget/SetUp/Index"
 import BudgetSetUpAddNew from "./components/Budget/SetUp/AddNew"
 import BudgetSetUpIntro from "./components/Budget/SetUp/Introduction"
+import BudgetSetUpExpenses from "./components/Budget/SetUp/Expenses"
+import BudgetSetUpRevenues from "./components/Budget/SetUp/Revenues"
 import BudgetCategories from "./components/Budget/Categories/Index"
 import Header from "./components/Header"
 import Icons from "./components/Icons/Index"
@@ -48,6 +50,8 @@ export default () => (
             <Route exact path="/budget/:month/:year" component={BudgetIndex} />
             <Route path="/budget/set-up/:month/:year/add-new" component={BudgetSetUpAddNew} />
             <Route path="/budget/set-up/:month/:year/intro" component={BudgetSetUpIntro} />
+            <Route path="/budget/set-up/:month/:year/expenses" component={BudgetSetUpExpenses} />
+            <Route path="/budget/set-up/:month/:year/revenues" component={BudgetSetUpRevenues} />
             <Route path="/budget/set-up/:month/:year" component={BudgetSetUp} />
             <Route exact path="/budget/:month?/:year?" component={BudgetHome} />
           </Switch>
