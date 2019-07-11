@@ -21,7 +21,8 @@ const PreviousMonth = (props) => {
 
   return (
     <div className="previous-month-items">
-      <h4>{prevMonthString}'s {title}</h4>
+      <h4>{prevMonthString}</h4>
+      <h5>{title}</h5>
       <Review
         dispatch={dispatch}
         item={reviewItem}

@@ -2,6 +2,10 @@ export const addItem = (payload) => {
   return { type: "budget/setup/ADD_ITEM", payload: payload }
 }
 
+export const editAccrualAmount = (payload) => {
+  return { type: "budget/setup/EDIT_ACCRUAL_AMOUNT", payload: payload }
+}
+
 export const editNew = (payload) => {
   return { type: "budget/setup/EDIT_NEW", payload: payload }
 }
@@ -12,6 +16,14 @@ export const editReviewItem = (payload) => {
 
 export const finishReview = (payload) => {
   return { type: "budget/setup/FINISH_REVIEW", payload: payload }
+}
+
+export const markForInclusion = (payload) => {
+  return { type: "budget/setup/MARK_FOR_INCLUSION", payload: payload }
+}
+
+export const markSubmitted = (payload) => {
+  return { type: "budget/setup/MARK_SUBMITTED", payload: payload }
 }
 
 export const markReviewed = (payload) => {

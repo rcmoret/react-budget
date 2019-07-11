@@ -520,43 +520,65 @@ nav.budget-actions a .budget-action:hover {
   background: #E2DDF4;
 }
 
-.set-up-intro {
-  width: 50%;
-  display: inline-block;
+.accrual-item {
+  background: #EFEFEF;
+  display: flex;
+  padding: 1% 1% 1% 3%;
+  border-radius: 10px;
+  justify-content: space-evenly;
 }
 
-.set-up-intro, .set-up-intro a {
-  margin-bottom: 15px;
+.accrual-item:nth-of-type(2n) {
+  background: white;
 }
 
-.set-up-intro-select {
-  display: inline-block;
-  width: 33%;
-  margin-right: 10px;
+.accrual-item .label {
+  width: 50%
 }
 
-.set-up-intro-input {
-  display: inline-block;
-  margin-right: 12px;
+.accrual-item .input {
+  width: 25%
 }
 
-.set-up-intro-input input {
-  height: 33px;
+.accrual-item .input input {
   text-align: right;
 }
 
-.set-up-intro-create {
-  display: inline-block;
+.accrual-item .buttons {
+  width: 23%;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 10px
 }
 
-.set-up-intro-create button {
-  font-size: 1.0em;
-  height: 40px;
+.accrual-item .buttons .check, .accrual-item .buttons .ex {
+  margin: 0 5px;
+}
+
+.accrual-item .buttons a {
+  color: #999;
+}
+
+.accrual-item .buttons span.active a {
+  color: black;
+}
+
+.accrual-item .buttons span.created a {
+  color: #59D176; /* green */
+}
+
+.accrual-submit {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px
+}
+
+.accrual-submit button {
+  background-color: #59D176; /* green */
+  padding: 2%;
+  font-size: 0.8em;
+  border-radius: 8px;
   border: none;
-  background: #36BE7D;
-  border-radius: 9px;
-  padding: 4px 12px;
-  font-weight: 500;
 }
 
 .new-month-items, .previous-month-items {

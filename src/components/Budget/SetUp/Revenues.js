@@ -8,7 +8,7 @@ const Revenues = ({ month, year }) => (
   <div className="set-up-workspace">
     <PreviousMonth
       filter="revenue"
-      redirect={`/budget/set-up/${month}/${year}/expenses`}
+      redirect={`/budget/set-up/${month}/${year}/accruals`}
       title="Revenue Items"
     />
     <Items />

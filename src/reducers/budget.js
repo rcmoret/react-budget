@@ -421,6 +421,17 @@ export default (state = initialState, action) => {
         }
       }
     }
+  case "budget/setup/EDIT_ACCRUAL_AMOUNT":
+    return {
+      ...state,
+      setup: {
+        ...state.setup,
+        baseMonth: {
+          ...state.setup.baseMonth,
+          collection: updateProps(action.payload, state.setup.baseMonth.collection)
+        },
+      }
+    }
   case "budget/setup/EDIT_REVIEW_ITEM":
     return {
       ...state,
@@ -455,6 +466,19 @@ export default (state = initialState, action) => {
         }
       }
     }
+  case "budget/setup/MARK_FOR_INCLUSION":
+    return {
+      ...state,
+      setup: {
+        ...state.setup,
+        baseMonth: {
+          ...state.setup.baseMonth,
+          collection: state.setup.baseMonth.collection.map(item =>
+            item.id === action.payload.id ? { ...item, markedForExclusion: action.payload.exclude } : item
+          )
+        },
+      }
+    }
   case "budget/setup/MARK_REVIEWED":
     return {
       ...state,
@@ -474,6 +498,19 @@ export default (state = initialState, action) => {
             selectedOption: "",
           }
         }
+      }
+    }
+  case "budget/setup/MARK_SUBMITTED":
+    return {
+      ...state,
+      setup: {
+        ...state.setup,
+        baseMonth: {
+          ...state.setup.baseMonth,
+          collection: state.setup.baseMonth.collection.map(item =>
+            item.id === action.payload.id ? { ...item, submitted: true } : item
+          )
+        },
       }
     }
   case "budget/setup/REQUEUE":
