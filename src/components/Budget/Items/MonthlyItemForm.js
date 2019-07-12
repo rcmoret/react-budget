@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 import { addMonthlyItem, editNewMonthlyItem, toggleMonthlyItemForm } from "../../../actions/budget"
 import { categoriesFetched } from "../../../actions/budget/categories"
@@ -42,6 +42,12 @@ const MonthlyItemForm = (props) => {
     dispatch(action)
   }
 
+  const handleKeyDown = (e) => {
+    if (e.which === 13) {
+      onSave(e)
+    }
+  }
+
   const onSave = (e) => {
     e.preventDefault()
     const body = {
@@ -51,7 +57,7 @@ const MonthlyItemForm = (props) => {
     }
     const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items"])
     fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -71,8 +77,8 @@ const MonthlyItemForm = (props) => {
       <div className="new-budget-item">
         <div className="select-wrapper">
           <Select
-            value={props.value}
-            options={props.options}
+            value={value}
+            options={options}
             onChange={onCategoryChange}
             className="budget-category-select-container"
             classNamePrefix="budget-category-select"
@@ -84,6 +90,7 @@ const MonthlyItemForm = (props) => {
           placeholder="amount"
           value={amount}
           onChange={onAmountChange}
+          onKeyDown={handleKeyDown}
         />
         <button
           className="new-item-submit"

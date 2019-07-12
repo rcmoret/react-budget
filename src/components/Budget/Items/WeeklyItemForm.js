@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 import { addWeeklyItem, editNewWeeklyItem, toggleWeeklyItemForm } from "../../../actions/budget"
 import { categoriesFetched } from "../../../actions/budget/categories"
@@ -39,6 +39,12 @@ const WeeklyItemForm = (props) => {
   const onAmountChange = (e) => {
     const action = editNewWeeklyItem({ amount: e.target.value })
     dispatch(action)
+  }
+
+  const handleKeyDown = (e) => {
+    if (e.which === 13) {
+      onSave(e)
+    }
   }
 
   const onSave = (e) => {
@@ -83,6 +89,7 @@ const WeeklyItemForm = (props) => {
           placeholder="amount"
           value={amount}
           onChange={onAmountChange}
+          onKeyDown={handleKeyDown}
         />
         <button
           className="new-item-submit"
