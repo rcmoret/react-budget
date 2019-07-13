@@ -1,7 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import * as dateFormatter from "../../../shared/Functions/DateFormatter"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 import { baseMonthFetched, newMonthFetched } from "../../../actions/budget"
 import { categoriesFetched as fetched } from "../../../actions/budget/categories"
