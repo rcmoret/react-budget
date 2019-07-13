@@ -2,6 +2,16 @@
   margin-top: 1%;
 }
 
+.transaction-form .top-line {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.transaction-form .close-icon {
+  width: 2%;
+}
+
 .clearance-date input {
   width: 85%;
   margin-left: 5%;
@@ -108,7 +118,7 @@
   margin-left: 1.5%;
 }
 
-.transaction-form button {
+.transaction-submit button {
   background-color: #59D176;
   border-radius: 8px;
   padding: 5%;
@@ -118,11 +128,7 @@
 
 .left-stuff {
   width: 12%;
-  display: inline-block;
-}
-
-.left-stuff div {
-  display: inline-block
+  display: flex;
 }
 
 .left-stuff .option {

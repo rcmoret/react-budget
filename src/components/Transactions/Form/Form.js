@@ -39,65 +39,65 @@ const Form = (props) => {
 
   return (
     <div className="transaction-form transaction-wrapper">
-      <div className="left-stuff">
-        <div>
+      <div className="top-line">
+        <div className="close-icon">
           <Link
             to="#"
             onClick={resetForm}
             className="fas fa-times"
           />
-          <ClearanceDate
-            clearanceDate={clearance_date}
-            onChange={onChange}
-            handleKeyDown={handleKeyDown}
-          />
         </div>
-        <AddSubtransactionLink
-          subtransactions={subtransactions}
-          addSubtransaction={addSubtransaction}
+        <ClearanceDate
+          clearanceDate={clearance_date}
+          onChange={onChange}
+          handleKeyDown={handleKeyDown}
         />
-      </div>
-      <Descriptions
-        description={description}
-        handleKeyDown={handleKeyDown}
-        onChange={onChange}
-        onSubChange={onSubChange}
-        subtransactions={subtransactions}
-      />
-      <Amounts
-        amount={amount}
-        handleKeyDown={handleKeyDown}
-        onChange={onChange}
-        onSubChange={onSubChange}
-        subtransactions={subtransactions}
-      />
-      <BudgetItemSelect
-        amount={amount}
-        budget_item_id={budget_item_id}
-        onChange={onChange}
-        onSubChange={onSubChange}
-        options={budgetOptions}
-        subtransactions={subtransactions}
-      />
-      <div className="additional-options">
-        <Notes
+        <Descriptions
+          description={description}
           handleKeyDown={handleKeyDown}
           onChange={onChange}
-          notes={notes}
+          onSubChange={onSubChange}
+          subtransactions={subtransactions}
         />
-        <CheckNumber
+        <Amounts
+          amount={amount}
+          handleKeyDown={handleKeyDown}
           onChange={onChange}
-          check_number={check_number || ""}
+          onSubChange={onSubChange}
+          subtransactions={subtransactions}
+        />
+        <BudgetItemSelect
+          amount={amount}
+          budget_item_id={budget_item_id}
+          onChange={onChange}
+          onSubChange={onSubChange}
+          options={budgetOptions}
+          subtransactions={subtransactions}
+        />
+        <div className="additional-options">
+          <Notes
+            handleKeyDown={handleKeyDown}
+            onChange={onChange}
+            notes={notes}
+          />
+          <CheckNumber
+            onChange={onChange}
+            check_number={check_number || ""}
+          />
+        </div>
+        <BudgetExclusion
+          onChange={onChange}
+          budget_exclusion={budget_exclusion}
+          selectedAccount={selectedAccount}
+        />
+        <SubmitButton
+          buttonText={buttonText}
+          onSubmit={onSubmit}
         />
       </div>
-      <BudgetExclusion
-        onChange={onChange}
-        budget_exclusion={budget_exclusion}
-        selectedAccount={selectedAccount}
-      />
-      <SubmitButton
-        buttonText={buttonText}
-        onSubmit={onSubmit}
+      <AddSubtransactionLink
+        subtransactions={subtransactions}
+        addSubtransaction={addSubtransaction}
       />
     </div>
   )

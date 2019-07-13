@@ -33,11 +33,13 @@ export const formatted = ({ month, day, year, format }) => {
   const monthString = MonthDictionary(month)
   switch(format) {
   case "dateObject":
-    return new Date(year, month, day)
+    return new Date(year, (month - 1), day)
   case "longMonth":
     return monthString.long
   case "yyyy-mm-dd":
     return [year, (month < 10 ? "0" + month : month), (day < 10 ? "0" + day : day)].join("-")
+  case "mm/dd/yyyy":
+    return [(month < 10 ? "0" + month : month), (day < 10 ? "0" + day : day), year].join("/")
   case "monthYear":
     return `${monthString.long} ${year}`
   case "numericMonthYear":
@@ -56,6 +58,12 @@ export const fromDateString = (dateString, opts = { format: "default" }) => {
   const month = parseInt(dateElements[1] || 0)
   const day = parseInt(dateElements[2] || 0)
   const year = parseInt(dateElements[0] || 1900)
+  return formatted({ month: month, year: year, day: day, format: opts.format })
+}
+
+export const fromDateTimeObject = (object, opts = { format: "yyyy-mm-dd" }) => {
+  const parsed = object.split(",")[0].split("/").map(str => parseInt(str))
+  const { month, year, day } = { year: parsed[2], month: parsed[0], day: parsed[1] }
   return formatted({ month: month, year: year, day: day, format: opts.format })
 }
 
