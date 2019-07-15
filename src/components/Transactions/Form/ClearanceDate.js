@@ -17,15 +17,23 @@ const ClearanceDate = ({ clearanceDate, handleKeyDown, month, onChange, year }) 
       return fromDateString(clearanceDate, { format: "dateObject" })
     } else {
       return ""
-      // return formatted({ month: month, day: 15, year: year, format: "dateObject" })
     }
   }
 
   const openToDate = () => {
     if (clearanceDate) {
-      return fromDateString(clearanceDate, { format: "dateObject" })
+      return selected()
     } else {
-      return formatted({ month: month, day: 15, year: year, format: "dateObject" })
+      const today = new Date()
+      if ((today.getMonth() + 1) === month && today.getFullYear() === year) {
+        return formatted({ month: month, day: today.getDate(), year: year, format: "dateObject" })
+      } else {
+        if (year > today.getFullYear() || (year === today.getFullYear() && month > (today.getMonth() + 1))) { // future
+          return formatted({ month: month, day: 1, year: year, format: "dateObject" })
+        } else {
+          return formatted({ month: (month + 1), day: 0, year: year, format: "dateObject" })
+        }
+      }
     }
   }
 

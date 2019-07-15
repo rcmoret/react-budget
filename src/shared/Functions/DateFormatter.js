@@ -36,8 +36,6 @@ export const formatted = ({ month, day, year, format }) => {
     return new Date(year, (month - 1), day)
   case "longMonth":
     return monthString.long
-  case "yyyy-mm-dd":
-    return [year, (month < 10 ? "0" + month : month), (day < 10 ? "0" + day : day)].join("-")
   case "mm/dd/yyyy":
     return [(month < 10 ? "0" + month : month), (day < 10 ? "0" + day : day), year].join("/")
   case "monthYear":
@@ -48,6 +46,8 @@ export const formatted = ({ month, day, year, format }) => {
     return { month: month, year: year, day: day }
   case "shortMonthYear":
     return `${monthString.short} ${year}`
+  case "yyyy-mm-dd":
+    return [year, (month < 10 ? "0" + month : month), (day < 10 ? "0" + day : day)].join("-")
   default:
     return `${monthString.short} ${day}, ${year}`
   }
