@@ -1,7 +1,6 @@
 import React from "react"
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
 import { addWeeklyItem, editNewWeeklyItem, toggleWeeklyItemForm } from "../../../actions/budget"
-import { categoriesFetched } from "../../../actions/budget/categories"
 import { connect } from "react-redux"
 import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
 import Select from "react-select"
@@ -11,7 +10,6 @@ const WeeklyItemForm = (props) => {
     amount,
     budget_category_id,
     categories,
-    fetched,
     dispatch,
     month,
     options,
@@ -19,13 +17,6 @@ const WeeklyItemForm = (props) => {
     value,
     year,
   } = props
-
-  if (!fetched) {
-    const url = ApiUrlBuilder(["budget/categories"])
-    fetch(url)
-      .then(response => response.json())
-      .then(data => dispatch(categoriesFetched(data)))
-  }
 
   const onCategoryChange = (e) => {
     const category = categories.find(category => category.id === e.value)

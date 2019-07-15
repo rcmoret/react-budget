@@ -1,7 +1,9 @@
 import React from "react"
-import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 import { connect } from "react-redux"
-import { itemsFetched } from "../../actions/budget"
+
+import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
+import { categoriesFetched } from "../../actions/budget/categories"
+import { itemsFetched as fetched } from "../../actions/budget"
 
 import BudgetInfo from "./Info"
 import Menu from "./Menu"
@@ -9,12 +11,29 @@ import MonthlyItems from "./Items/MonthlyItems"
 import WeeklyItems from "./Items/WeeklyItems"
 
 const BudgetIndex = (props) => {
-  if (!props.itemsFetched || !props.isCurrent) {
-    const { month, year } = props
+  const {
+    categoresWereFetched,
+    dispatch,
+    isCurrent,
+    isFuture,
+    itemsFetched,
+    metadata,
+    month,
+    year,
+  } = props
+
+  if (!itemsFetched || !isCurrent) {
     const url = ApiUrlBuilder(["budget/items"], { month: month, year: year })
     fetch(url)
       .then(response => response.json())
-      .then(data => props.dispatch(itemsFetched(data)))
+      .then(data => dispatch(fetched(data)))
+  }
+
+  if (!categoresWereFetched) {
+    const url = ApiUrlBuilder(["budget/categories"])
+    fetch(url)
+      .then(response => response.json())
+      .then(data => dispatch(categoriesFetched(data)))
   }
 
   return (
@@ -23,10 +42,10 @@ const BudgetIndex = (props) => {
       <WeeklyItems />
       <MonthlyItems />
       <Menu
-        month={props.month}
-        year={props.year}
-        isFuture={props.isFuture}
-        requiresSetUp={!props.metadata.is_set_up}
+        month={month}
+        year={year}
+        isFuture={isFuture}
+        requiresSetUp={!metadata.is_set_up}
       />
     </div>
   )
@@ -38,13 +57,15 @@ const mapStateToProps = (state, ownProps) => {
   const isCurrent = state.budget.metadata.month === month && state.budget.metadata.year === year
   const today = new Date()
   const isFuture = (year > today.getFullYear() || (year === today.getFullYear() && month > (today.getMonth() + 1)))
+  const categoresWereFetched = state.budget.categories.fetched
 
   return {
     ...state.budget,
+    categoresWereFetched: categoresWereFetched,
     isCurrent: isCurrent,
+    isFuture: isFuture,
     month: month,
     year: year,
-    isFuture: isFuture
   }
 }
 
