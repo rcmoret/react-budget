@@ -10,9 +10,11 @@ import ReviewItem from "./ReviewItem"
 const PreviousMonth = (props) => {
   const {
     collection,
+    count,
     dispatch,
     filter,
     newMonth,
+    number,
     prevMonthString,
     redirect,
     reviewItem,
@@ -24,10 +26,12 @@ const PreviousMonth = (props) => {
       <h4>{prevMonthString}</h4>
       <h5>{title}</h5>
       <Review
+        count={count}
         dispatch={dispatch}
         item={reviewItem}
         filter={filter}
         newMonth={newMonth}
+        number={number}
         redirect={redirect}
       />
       {collection.map(item =>
@@ -37,10 +41,14 @@ const PreviousMonth = (props) => {
   )
 }
 
-const Review = ({ item, newMonth, redirect }) => {
+const Review = ({ count, item, newMonth, number, redirect }) => {
   if (item && !newMonth.set_up_completed_at) {
     return (
-      <ReviewItem item={item} />
+      <ReviewItem
+        count={count}
+        item={item}
+        number={number}
+      />
     )
   } else {
     return (
@@ -78,29 +86,41 @@ const mapStateToProps = (state, ownProps) => {
     return item.expense
   }
 
-  let collection = state.budget.setup.baseMonth.collection
+  const fullCollection = state.budget.setup.baseMonth.collection
+  const sortFn = (a, b) => {
+    if (a.requeuedAt && b.requeuedAt) {
+      return a.requeuedAt > b.requeuedAt ? 1 : -1
+    } else if (a.requeuedAt && !b.requeuedAt) {
+      return 1
+    } else if (!a.requeuedAt && b.requeuedAt) {
+      return -1
+    } else if (a.expense === b.expense) {
+      return Math.abs(a.amount) >= Math.abs(b.amount) ? -1 : 1
+    } else {
+      return a.expense ? 1 : -1
+    }
+  }
+  let collection = fullCollection
     .filter(filterFn)
-    .sort((a, b) => {
-      if (a.requeuedAt && b.requeuedAt) {
-        return a.requeuedAt > b.requeuedAt ? 1 : -1
-      } else if (a.requeuedAt && !b.requeuedAt) {
-        return 1
-      } else if (!a.requeuedAt && b.requeuedAt) {
-        return -1
-      } else if (a.expense === b.expense) {
-        return Math.abs(a.amount) >= Math.abs(b.amount) ? -1 : 1
-      } else {
-        return a.expense ? 1 : -1
-      }
-    })
+    .sort(sortFn)
   const reviewItem = collection.shift()
   const { baseMonth } = state.budget.setup
   const prevMonthString = dateFormatter.formatted({ month: baseMonth.month, year: baseMonth.year, format: "monthYear" })
+  const id = reviewItem ? reviewItem.id : 0
+  const name = reviewItem ? reviewItem.name : ""
+  const count = fullCollection.filter(item => item.name === name).length
+  const number = fullCollection
+    .filter(item => item.name === name)
+    .sort(sortFn)
+    .map(item => item.id)
+    .indexOf(id)
 
   return {
     collection: collection,
+    count: count,
     filter: filter,
     newMonth: state.budget.setup.newMonth,
+    number: (number + 1),
     prevMonthString: prevMonthString,
     redirect: redirect,
     reviewItem: reviewItem,

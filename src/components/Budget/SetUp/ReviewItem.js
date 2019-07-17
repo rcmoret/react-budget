@@ -9,7 +9,20 @@ import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
 
 import Icon from "../../Icons/Icon"
 
-const ReviewItem = ({ category, dayToDayItem, dispatch, item, month, newItem, prevMonthString, year }) => {
+const ReviewItem = (props) => {
+  const {
+    category,
+    count,
+    dayToDayItem,
+    dispatch,
+    item,
+    month,
+    newItem,
+    number,
+    prevMonthString,
+    year,
+  } = props
+
   const newMonthString = dateFormatter.formatted({ month: month, year: year, format: "monthYear" })
   const { amount, selectedOption } = newItem
 
@@ -109,7 +122,13 @@ const ReviewItem = ({ category, dayToDayItem, dispatch, item, month, newItem, pr
     <div className="review-item-current">
       <div className="header">
         <div className="top-line"><strong>{item.name}</strong></div>
-        <div className="top-line"><em>{description(item)}</em></div>
+        <div className="top-line">
+          {number} of {count}
+          {" "}
+          <em>
+            {description(item)}
+          </em>
+        </div>
       </div>
       <div className="review-item-form">
         <Header
