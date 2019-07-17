@@ -12,10 +12,6 @@
   display: inline-block;
 }
 
-.budget .weekly-items, .budget .monthly-items {
-  width: 35%;
-}
-
 .budget .budget-item {
   background-color: #efefef;
   padding: 2% 3%;
@@ -497,10 +493,6 @@ span.review-button a {
   color: black;
 }
 
-.budget nav {
-  width: 13%;
-}
-
 nav.budget-actions {
   margin: 0 10px;
   border-radius: 15px;
@@ -779,4 +771,24 @@ nav.budget-actions a .budget-action:hover {
 
 .review-item-form button.ignore {
   background-color: #FF3C52; /* red */
+}
+
+@media screen and (min-width: 768px) {
+  .budget .weekly-items, .budget .monthly-items {
+    width: 35%;
+  }
+
+  .budget nav {
+    width: 13%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .budget .weekly-items, .budget .monthly-items {
+    width: 90%;
+  }
+
+  .budget nav {
+    width: 40%;
+  }
 }
