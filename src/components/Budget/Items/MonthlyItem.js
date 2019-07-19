@@ -24,27 +24,29 @@ const MonthlyItem = (props) => {
 
   return (
     <div className="budget-item">
-      <div className="caret">
-        <Icon className="fas fa-caret-right" />
-      </div>
-      <div className="budget-item-description">
-        {props.name}
-        {" "}
-        <Icon className={props.icon_class_name} />
-      </div>
-      <div className="budget-item-amounts">
-        <MonthlyAmount
-          absolute={true}
-          {...props}
-          remaining={props.amount}
-        />
-      </div>
-      <div className="item-delete-button">
-        <DeleteButton
-          deletable={props.deletable}
-          deleteItem={deleteItem}
-          updateItem={props.updateItem}
-        />
+      <div className="wrapper">
+        <div className="caret">
+          <Icon className="fas fa-caret-right" />
+        </div>
+        <div className="budget-item-description">
+          {props.name}
+          {" "}
+          <Icon className={props.icon_class_name} />
+        </div>
+        <div className="budget-item-amounts">
+          <MonthlyAmount
+            absolute={true}
+            {...props}
+            remaining={props.amount}
+          />
+        </div>
+        <div className="item-delete-button">
+          <DeleteButton
+            deletable={props.deletable}
+            deleteItem={deleteItem}
+            updateItem={props.updateItem}
+          />
+        </div>
       </div>
     </div>
   )

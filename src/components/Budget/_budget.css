@@ -19,10 +19,6 @@
   border-radius: 15px;
 }
 
-.budget .budget-item div {
-  display: inline-block;
-}
-
 .budget .budget-group {
   width: 100%;
   padding: 0;
@@ -60,6 +56,8 @@
 
 .budget .per-details {
   padding: 0;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .per-details .title {
@@ -71,6 +69,9 @@
   width: 48%;
   padding: 0;
   margin-right: 1%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .budget .per-details .detail-group:first-of-type {
@@ -80,6 +81,8 @@
 .per-details .per-detail {
   font-size: 0.8em;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .per-detail .description {
@@ -89,6 +92,7 @@
 .per-detail .amount {
   width: 25%;
   text-align: right;
+  padding-right: 5%;
 }
 
 .budget .budget-transactions {
@@ -99,7 +103,7 @@
 }
 
 .budget .detail-wrapper {
-  width: 100%
+  width: 100%;
 }
 
 .categories {
@@ -405,20 +409,29 @@
 
 .item-delete-button, .discretionary-icon {
   vertical-align: top;
+  min-width: 5%;
 }
 
-.budget-item-transaction-row, .budget-item-transaction-row div {
+.budget-item-transaction-row {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border-bottom: 1px #999 solid;
+  margin-top: 1.5%;
+  padding-bottom: 1.5%;
 }
 
 .budget-item-transaction-row .budget-transaction-cell {
-  width: 25%;
+  width: 22.5%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .budget-item-transaction-row .budget-transaction-cell.amount {
   text-align: right;
   margin-right: 5%;
-  width: 18%;
 }
 
 .category-name, .category-default-amount {
@@ -773,22 +786,55 @@ nav.budget-actions a .budget-action:hover {
   background-color: #FF3C52; /* red */
 }
 
+.budget-item .wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+
+
 @media screen and (min-width: 768px) {
   .budget .weekly-items, .budget .monthly-items {
     width: 35%;
   }
 
-  .budget nav {
+  nav.budget-actions {
     width: 13%;
+  }
+
+  .budget-transaction-cell span.short-date {
+    display: none;
   }
 }
 
 @media screen and (max-width: 768px) {
+  .budget .weekly-items {
+    margin-bottom: 30px;
+  }
+
   .budget .weekly-items, .budget .monthly-items {
     width: 90%;
   }
 
-  .budget nav {
-    width: 40%;
+  nav.budget-actions {
+    width: 60%;
+    margin-top: 10px;
+  }
+
+  .budget-transaction-cell {
+    width: 28%;
+  }
+
+  .budget-transaction-cell.clearance-date {
+    width: 12%;
+  }
+
+  .budget-transaction-cell.amount {
+    width: 18%;
+  }
+
+  .budget-transaction-cell span.long-date {
+    display: none;
   }
 }

@@ -8,7 +8,6 @@ const Transactions = (props) => {
     return (
       <div className="budget-transactions">
         <Header />
-        <hr/>
         {collection.map((transaction) =>
           <Transaction
             key={transaction.id}

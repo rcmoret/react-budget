@@ -23,34 +23,37 @@ const Discretionary = (props) => {
   const spentOrDeposited = props.overUnderBudgetAmount > 0 ? "Deposited" : "Spent"
   return (
     <div className="budget-item">
-      <div className="caret">
-        <Caret
-          showDetail={props.showDetail}
-          expandDetail={expandDetail}
-          collapseDetail={collapseDetail}
-        />
-      </div>
-      <div className="budget-item-description">
-        <div className="item-name">
-          Discretionary
-          {" "}
-          <Icon className="fas fa-piggy-bank" />
+      <div className="wrapper">
+        <div className="caret">
+          <Caret
+            showDetail={props.showDetail}
+            expandDetail={expandDetail}
+            collapseDetail={collapseDetail} />
         </div>
-        <DetailLabels
-          descriptor={descriptor}
-          showDetail={props.showDetail}
-          spentOrDeposited={spentOrDeposited}
-        />
-      </div>
-      <div className="budget-item-amounts">
-        <Amount
-          amount={props.amount}
-          showDetail={props.showDetail}
-          total_remaining={props.total_remaining}
-        />
-        <DetailAmounts
-          {...props}
-        />
+        <div className="budget-item-description">
+          <div className="item-name">
+            Discretionary
+            {" "}
+            <Icon className="fas fa-piggy-bank" />
+          </div>
+          <DetailLabels
+            descriptor={descriptor}
+            showDetail={props.showDetail}
+            spentOrDeposited={spentOrDeposited}
+          />
+        </div>
+        <div className="budget-item-amounts">
+          <Amount
+            amount={props.amount}
+            showDetail={props.showDetail}
+            total_remaining={props.total_remaining}
+          />
+          <DetailAmounts
+            {...props}
+          />
+        </div>
+        <div className="item-delete-button">
+        </div>
       </div>
       <DiscretionaryDetail {...props} />
     </div>

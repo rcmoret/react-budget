@@ -48,44 +48,46 @@ const WeeklyItem = (props) => {
 
   return (
     <div className="budget-item">
-      <div className="caret">
-        <Caret
-          showDetail={props.showDetail}
-          expandDetail={expandDetail}
-          collapseDetail={collapseDetail}
-        />
-      </div>
-      <div className="budget-item-description">
-        <div className="item-name">
-          {props.name}
-          { " " }
-          <Icon className={props.icon_class_name} />
+      <div className="wrapper">
+        <div className="caret">
+          <Caret
+            showDetail={props.showDetail}
+            expandDetail={expandDetail}
+            collapseDetail={collapseDetail}
+          />
         </div>
-        <WeeklyDetailLabels
-          descriptor={descriptor}
-          showDetail={props.showDetail}
-        />
-      </div>
-      <div className="budget-item-amounts">
-        <WeeklyAmount
-          expandDetail={expandDetail}
-          absolute={true}
-          {...props}
-        />
-        <WeeklyAmountDetails
-          difference={props.difference}
-          diffOperator={diffOperator}
-          operator={operator}
-          showDetail={props.showDetail}
-          spent={props.spent}
-        />
-      </div>
-      <div className="item-delete-button">
-        <DeleteButton
-          deletable={deletable}
-          deleteItem={deleteItem}
-          updateItem={props.updateItem}
-        />
+        <div className="budget-item-description">
+          <div className="item-name">
+            {props.name}
+            { " " }
+            <Icon className={props.icon_class_name} />
+          </div>
+          <WeeklyDetailLabels
+            descriptor={descriptor}
+            showDetail={props.showDetail}
+          />
+        </div>
+        <div className="budget-item-amounts">
+          <WeeklyAmount
+            expandDetail={expandDetail}
+            absolute={true}
+            {...props}
+          />
+          <WeeklyAmountDetails
+            difference={props.difference}
+            diffOperator={diffOperator}
+            operator={operator}
+            showDetail={props.showDetail}
+            spent={props.spent}
+          />
+        </div>
+        <div className="item-delete-button">
+          <DeleteButton
+            deletable={deletable}
+            deleteItem={deleteItem}
+            updateItem={props.updateItem}
+          />
+        </div>
       </div>
       <WeeklyDetail {...props} />
     </div>
