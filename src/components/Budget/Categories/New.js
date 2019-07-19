@@ -28,6 +28,12 @@ const NewBudgetCategory = (props) => {
       ...newCategory,
       default_amount: decimalToInt(newCategory.default_amount),
     }
+    const dispatches = (data) => {
+      const createdAction = created(data)
+      dispatch(createdAction)
+      dispatch(resetNewForm())
+    }
+
     fetch(url, {
       method: "POST",
       headers: {
@@ -37,10 +43,7 @@ const NewBudgetCategory = (props) => {
       body: JSON.stringify(postBody)
     })
       .then(response => response.json())
-      .then(data => {
-        dispatch(created(data))
-        dispatch(resetNewForm())
-      })
+      .then(data => dispatches(data))
   }
 
   const resetForm = (e) => {
