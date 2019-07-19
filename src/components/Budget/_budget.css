@@ -339,6 +339,8 @@
 
 .budget .new-budget-item {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .budget .select-wrapper .budget-category-select__menu {
