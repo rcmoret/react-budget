@@ -1,10 +1,12 @@
 import React from "react"
-import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
-import { addMonthlyItem, editNewMonthlyItem, toggleMonthlyItemForm } from "../../../actions/budget"
 import { connect } from "react-redux"
-import { decimalToInt } from "../../../functions/MoneyFormatter"
-import Select from "react-select"
 
+import { addMonthlyItem, editNewMonthlyItem, toggleMonthlyItemForm } from "../../../actions/budget"
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import { decimalToInt } from "../../../functions/MoneyFormatter"
+import { post } from "../../../functions/ApiClient"
+
+import Select from "react-select"
 
 const MonthlyItemForm = (props) => {
   const {
@@ -41,26 +43,19 @@ const MonthlyItemForm = (props) => {
 
   const onSave = (e) => {
     e.preventDefault()
-    const body = {
-      amount: decimalToInt(amount),
-      month: month,
-      year: year,
-    }
-    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items"])
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body)
-    })
-      .then(response => response.json())
-      .then(data => dispatch(addMonthlyItem(data)))
-      .then(() => {
+    post(
+      ApiUrlBuilder(["budget/categories", budget_category_id, "items"]),
+      JSON.stringify({
+        amount: decimalToInt(amount),
+        month: month,
+        year: year
+      }),
+      (data) => {
+        dispatch(addMonthlyItem(data))
         dispatch(toggleMonthlyItemForm({ showForm: false }))
         dispatch(editNewMonthlyItem({ amount: "", budget_category_id: null }))
-      })
+      }
+    )
   }
 
   if (showForm) {

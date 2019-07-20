@@ -1,13 +1,13 @@
 import React from "react"
 
-import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
-
-import Form from "./Form"
-
 import {
   maturityIntervalCreated,
   updated
 } from "../../../../actions/budget/categories"
+import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
+import { post } from "../../../../functions/ApiClient"
+
+import Form from "./Form"
 
 export default (props) => {
   const {
@@ -48,20 +48,14 @@ export default (props) => {
   ]
 
   const addMaturityInterval = () => {
-    const url = ApiUrlBuilder(["budget/categories", id, "maturity_intervals"])
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newMaturityIntervalAttributes)
-    })
-      .then(response => response.json())
-      .then(data => dispatch(maturityIntervalCreated({
+    post(
+      ApiUrlBuilder(["budget/categories", id, "maturity_intervals"]),
+      JSON.stringify(newMaturityIntervalAttributes),
+      (data) => dispatch(maturityIntervalCreated({
         id: id,
         maturityInterval: data
-      })))
+      }))
+    )
   }
 
   const onChange = (payload) => {

@@ -1,9 +1,10 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { addSubtransactionToNew, created, resetNew, updateNew, updateNewSubtransaction } from "../../actions/transactions"
+import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import MoneyFormatter from "../../functions/MoneyFormatter"
+import { post } from "../../functions/ApiClient"
 
 import Form from "./Form/Form"
 
@@ -38,32 +39,25 @@ const New = (props) => {
   }
 
   const onSubmit = () => {
-    const url = ApiUrlBuilder(["accounts", selectedAccount.id, "transactions"])
     const subtransactions_attributes = subtransactions.map(sub => {
       let adjusted = (parseFloat(sub.amount) || 0) * 100
       return { ...sub, amount: adjusted }
     })
     const adjustedAmount = (parseFloat(amount) || 0) * 100
     const description = transaction.description === "" ? null : transaction.description
-    const postBody = {
-      ...transaction,
-      description: description,
-      amount: adjustedAmount,
-      subtransactions_attributes: subtransactions_attributes,
-    }
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(postBody)
-    })
-      .then(response => response.json())
-      .then(data => {
+    post(
+      ApiUrlBuilder(["accounts", selectedAccount.id, "transactions"]),
+      JSON.stringify({
+        ...transaction,
+        description: description,
+        amount: adjustedAmount,
+        subtransactions_attributes: subtransactions_attributes,
+      }),
+      (data) => {
         dispatch(created(data))
         dispatch(resetNew())
-      })
+      }
+    )
   }
 
   return (

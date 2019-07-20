@@ -1,9 +1,12 @@
 import React from "react"
 import { connect } from "react-redux"
-import { Link } from "react-router-dom"
+
 import { editWeeklyItem, updateWeeklyItem } from "../../../actions/budget"
-import { decimalToInt } from "../../../functions/MoneyFormatter"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import { decimalToInt } from "../../../functions/MoneyFormatter"
+import { put } from "../../../functions/ApiClient"
+
+import { Link } from "react-router-dom"
 
 const WeeklyAmountInput = (props) => {
   const {
@@ -52,28 +55,17 @@ const WeeklyAmountInput = (props) => {
 
   const saveChange = (e) => {
     e.preventDefault()
-    const body = {
-      amount: decimalToInt(floatAmount),
-      month: month,
-      year: year,
-    }
-    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items", id])
-    fetch(url,
-      {
-        method: "PUT",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
+    put(
+      ApiUrlBuilder(["budget/categories", budget_category_id, "items", id]),
+      JSON.stringify({ amount: decimalToInt(floatAmount), month: month, year: year }),
+      data => {
+        props.dispatch(updateWeeklyItem({
+          ...data,
+          floatAmount: null,
+          updateItem: false
+        }))
       }
     )
-      .then(response => response.json())
-      .then(data => props.dispatch(updateWeeklyItem({
-        ...data,
-        floatAmount: null,
-        updateItem: false
-      })))
   }
 
 

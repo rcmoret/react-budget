@@ -1,11 +1,12 @@
 import React from "react"
 import { connect } from "react-redux"
 
+import { addItem, editNew, markReviewed, requeue, updateExisting } from "../../../actions/budget/setup"
 import * as dateFormatter from "../../../functions/DateFormatter"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
-import { addItem, editNew, markReviewed, requeue, updateExisting } from "../../../actions/budget/setup"
-import MoneyFormatter from "../../../functions/MoneyFormatter"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
+import MoneyFormatter from "../../../functions/MoneyFormatter"
+import { post, put } from "../../../functions/ApiClient"
 
 import Icon from "../../Icons/Icon"
 
@@ -79,43 +80,27 @@ const ReviewItem = (props) => {
   }
 
   const createItem = () => {
-    const body = {
-      amount: decimalToInt(amount),
-      month: month,
-      year: year,
-    }
-    const url = ApiUrlBuilder(["budget/categories", category.id, "items"])
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body)
-    })
-      .then(response => response.json())
-      .then(data => dispatch(addItem(data)))
-      .then(() => dispatch(markReviewed({ id: item.id })))
+    post(
+      ApiUrlBuilder(["budget/categories", category.id, "items"]),
+      JSON.stringify({ amount: decimalToInt(amount), month: month, year: year }),
+      (data) => {
+        dispatch(addItem(data))
+        dispatch(markReviewed({ id: item.id }))
+      }
+    )
   }
 
   const updateItem = () => {
-    const body = {
-      amount: (decimalToInt(amount) + dayToDayItem.amount),
-    }
-    const url = ApiUrlBuilder(["budget/categories", dayToDayItem.budget_category_id, "items", dayToDayItem.id])
-    fetch(url,
-      {
-        method: "PUT",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
+    put(
+      ApiUrlBuilder(["budget/categories", dayToDayItem.budget_category_id, "items", dayToDayItem.id]),
+      JSON.stringify({
+        amount: (decimalToInt(amount) + dayToDayItem.amount),
+      }),
+      (data) => {
+        dispatch(updateExisting(data))
+        dispatch(markReviewed({ id: item.id }))
       }
     )
-      .then(response => response.json())
-      .then(data => dispatch(updateExisting(data)))
-      .then(() => dispatch(markReviewed({ id: item.id })))
   }
 
   return (

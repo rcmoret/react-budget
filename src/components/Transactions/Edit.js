@@ -1,9 +1,10 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { edit, editProps, editSubProps, updated } from "../../actions/transactions"
+import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import MoneyFormatter from "../../functions/MoneyFormatter"
+import { put } from "../../functions/ApiClient"
 
 import Form from "./Form/Form"
 
@@ -37,33 +38,28 @@ const Edit = (props) => {
   }
 
   const onSubmit = () => {
-    const url = ApiUrlBuilder(["accounts", account_id, "transactions", id])
     const adjustedAmount = Math.round((parseFloat(amount) || 0) * 100)
     const description = transaction.description === "" ? null : transaction.description
-    const body = {
-      ...transaction,
-      description: description,
-      amount: adjustedAmount,
-      subtransactions_attributes: transaction.subtransactions.map(sub => {
-        return {
-          ...sub,
-          ...sub.updatedProps,
-          amount: Math.round(parseFloat(sub.updatedProps.amount) * 100),
-        }
-      })
-    }
-    fetch(url, {
-      method: "PUT",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body)
-    })
-      .then(response => response.json())
-      .then(data => {
-        dispatch(updated({ ...data, showForm: false, originalAmount: transaction.originalAmount }))
-      })
+    put(
+      ApiUrlBuilder(["accounts", account_id, "transactions", id]),
+      JSON.stringify({
+        ...transaction,
+        description: description,
+        amount: adjustedAmount,
+        subtransactions_attributes: transaction.subtransactions.map(sub => {
+          return {
+            ...sub,
+            ...sub.updatedProps,
+            amount: Math.round(parseFloat(sub.updatedProps.amount) * 100),
+          }
+        })
+      }),
+      (data) => dispatch(updated({
+        ...data,
+        showForm: false,
+        originalAmount: transaction.originalAmount
+      }))
+    )
   }
 
   if (transaction.showForm) {

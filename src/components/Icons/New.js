@@ -1,7 +1,10 @@
 import React from "react"
 import { connect } from "react-redux"
-import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+
 import { created, updateNew } from "./actions"
+import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import { post } from "../../functions/ApiClient"
+
 import Form from "./Form/Form"
 
 const New = (props) => {
@@ -11,17 +14,11 @@ const New = (props) => {
   }
 
   const onSubmit = () => {
-    const url = ApiUrlBuilder(["icons"])
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(props.newIcon),
-    })
-      .then(resp => resp.json())
-      .then(data => props.dispatch(created(data)))
+    post(
+      ApiUrlBuilder(["icons"]),
+      JSON.stringify(props.newIcon),
+      (data) => props.dispatch(created(data))
+    )
   }
 
   return (

@@ -1,7 +1,10 @@
 import React from "react"
 import { connect } from "react-redux"
-import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+
 import { update, updated, updateProps } from "./actions"
+import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import { put } from "../../functions/ApiClient"
+
 import Form from "./Form/Form"
 
 const Edit = (props) => {
@@ -13,20 +16,14 @@ const Edit = (props) => {
   }
 
   const onSubmit = () => {
-    const url = ApiUrlBuilder(["icons", id])
-    fetch(url, {
-      method: "PUT",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(props.icon.updatedProps),
-    })
-      .then(response => response.json())
-      .then(data => {
+    put(
+      ApiUrlBuilder(["icons", id]),
+      JSON.stringify(props.icon.updatedProps),
+      (data) => {
         props.dispatch(updated(data))
         props.dispatch(update({ id: id, showForm: false }))
-      })
+      }
+    )
   }
 
   const formProps = { ...props.icon, ...props.icon.updatedProps }

@@ -1,8 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { created, updateNew } from "./actions"
+import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import { post } from "../../functions/ApiClient"
 
 import Select from "react-select"
 
@@ -11,23 +12,15 @@ const New = (props) => {
   const { amount, from_account_id, to_account_id  } = newTransfer
 
   const submit = (e) => {
-    e.preventDefault()
-    const body = {
-      amount: (amount * 100),
-      to_account_id: to_account_id,
-      from_account_id: from_account_id,
-    }
-    const url = ApiUrlBuilder(["transfers"])
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body)
-    })
-      .then(response => response.json())
-      .then(data => dispatch(created(data)))
+    post(
+      ApiUrlBuilder(["transfers"]),
+      JSON.stringify({
+        amount: (amount * 100),
+        to_account_id: to_account_id,
+        from_account_id: from_account_id,
+      }),
+      (data) => dispatch(created(data))
+    )
   }
 
   const updateAmount = (e) => {

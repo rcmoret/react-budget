@@ -1,9 +1,10 @@
 import React from "react"
 import { connect } from "react-redux"
 
+import { reset, updated, updateProps } from "../../../actions/budget/categories"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
-import { reset, updated, updateProps } from "../../../actions/budget/categories"
+import { put } from "../../../functions/ApiClient"
 
 import Form from "./Form/Form"
 
@@ -35,17 +36,11 @@ const Edit = (props) => {
   }
 
   const onSubmit = () => {
-    const url = ApiUrlBuilder(["budget", "categories", id])
-    fetch(url, {
-      method: "PUT",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(putBody())
-    })
-      .then(response => response.json())
-      .then(data => props.dispatch(updated({ ...data, showForm: false })))
+    put(
+      ApiUrlBuilder(["budget", "categories", id]),
+      JSON.stringify(putBody()),
+      (data) => props.dispatch(updated({ ...data, showForm: false }))
+    )
   }
 
   const formProps = {

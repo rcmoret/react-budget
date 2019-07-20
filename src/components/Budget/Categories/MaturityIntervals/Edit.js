@@ -1,11 +1,12 @@
 import React from "react"
 
-import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
 import {
   editMaturityInterval,
   toggleMaturityIntervalEditForm,
   updateMaturityInterval,
 } from "../../../../actions/budget/categories"
+import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
+import { put } from "../../../../functions/ApiClient"
 
 import Form from "./Form"
 
@@ -57,18 +58,14 @@ export default (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    const url = ApiUrlBuilder(["budget/categories", category_id, "maturity_intervals", id])
-    fetch(url, {
-      method: "PUT",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(maturityInterval)
-    })
-      .then(response => response.json())
-      .then(data => dispatch(updateMaturityInterval(data)))
-      .then(() => closeForm())
+    put(
+      ApiUrlBuilder(["budget/categories", category_id, "maturity_intervals", id]),
+      JSON.stringify(maturityInterval),
+      (data) => {
+        dispatch(updateMaturityInterval(data))
+        closeForm()
+      }
+    )
   }
 
   return (

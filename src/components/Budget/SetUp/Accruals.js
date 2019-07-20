@@ -1,8 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import * as dateFormatter from "../../../functions/DateFormatter"
-import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import {
   addItem,
   editAccrualAmount,
@@ -10,12 +8,15 @@ import {
   markReviewed,
   markSubmitted,
 } from "../../../actions/budget/setup"
+import * as dateFormatter from "../../../functions/DateFormatter"
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
-import { Redirect } from "react-router-dom"
+import { post } from "../../../functions/ApiClient"
 
 import Icon from "../../Icons/Icon"
 import Items from "./Items"
 import { Link } from "react-router-dom"
+import { Redirect } from "react-router-dom"
 
 const Accruals = (props) => {
   const {
@@ -67,23 +68,12 @@ const Accruals = (props) => {
 
 const SubmitButton = ({ collection, dispatch, month, year }) => {
   const submit = (item) => {
-    const url = ApiUrlBuilder(["budget/categories", item.budget_category_id, "items"])
     const amount = item.updatedProps ? decimalToInt(item.updatedProps.amount) : item.defaultAmount
-    const body = JSON.stringify({
-      amount: amount,
-      month: month,
-      year: year
-    })
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: body
-    })
-      .then(response => response.json())
-      .then(data => dispatch(addItem(data)))
+    post(
+      ApiUrlBuilder(["budget/categories", item.budget_category_id, "items"]),
+      JSON.stringify({ amount: amount, month: month, year: year }),
+      (data) => dispatch(addItem(data))
+    )
   }
 
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))

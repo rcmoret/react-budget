@@ -1,10 +1,13 @@
 import React from "react"
-// import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { connect } from "react-redux"
+
 import { created, resetForm, toggleShowNewForm, updateNew } from "./actions"
-import { Link } from "react-router-dom"
-import Form from "./Form/Form"
+import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import { post } from "../../functions/ApiClient"
+
 import Icon from "../Icons/Icon"
+import Form from "./Form/Form"
+import { Link } from "react-router-dom"
 
 const New = (props) => {
   const showForm = (e) => {
@@ -35,25 +38,18 @@ const New = (props) => {
   }
 
   const submitForm = (_e) => {
-    const url  =  "https://example.com" // ApiUrlBuilder(["accounts"])
-    const body = {
-      name: props.name,
-      priority: props.priority,
-      cash_flow: props.cash_flow
-    }
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    })
-      .then(resp => resp.json())
-      .then(data => {
+    post(
+      ApiUrlBuilder(["accounts"]),
+      JSON.stringify({
+        name: props.name,
+        priority: props.priority,
+        cash_flow: props.cash_flow
+      }),
+      (data) => {
         props.dispatch(created(data))
         props.dispatch(resetForm())
-      })
+      }
+    )
   }
 
   if (props.showNewForm) {

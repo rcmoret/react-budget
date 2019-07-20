@@ -1,29 +1,22 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
-import { Redirect } from "react-router-dom"
 import { updateMetadata } from "../../../actions/budget/setup"
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import { put } from "../../../functions/ApiClient"
 
 import Icon from "../../Icons/Icon"
 import Items from "./Items"
+import { Redirect } from "react-router-dom"
 
 const Finalize = ({ dispatch, month, setUpCompletedAt, year }) => {
   const markComplete = (e) => {
     e.preventDefault()
-    const url = ApiUrlBuilder(["intervals", month, year])
-    const now = new Date()
-    const body = JSON.stringify({ set_up_completed_at: now })
-    fetch(url, {
-      method: "PUT",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: body,
-    })
-      .then(response => response.json())
-      .then(data => dispatch(updateMetadata(data)))
+    put(
+      ApiUrlBuilder(["intervals", month, year]),
+      JSON.stringify({ set_up_completed_at: new Date() }),
+      (data) => dispatch(updateMetadata(data))
+    )
   }
 
   if (!setUpCompletedAt) {

@@ -2,7 +2,9 @@ import React from "react"
 import { connect } from "react-redux"
 import { resetAccount, update, updated, updateProps } from "./actions"
 import Form from "./Form/Form"
+
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import { put } from "../../functions/ApiClient"
 
 const Edit = (props) => {
   const { id } = props
@@ -36,20 +38,14 @@ const Edit = (props) => {
   }
 
   const submitForm = () => {
-    const url = ApiUrlBuilder(["accounts", id])
-    fetch(url, {
-      method: "PUT",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(props.updatedProps),
-    })
-      .then(response => response.json())
-      .then(data => {
+    put(
+      ApiUrlBuilder(["accounts", id]),
+      JSON.stringify(props.updatedProps),
+      (data) => {
         props.dispatch(updated(data))
         props.dispatch(update({ id: id, showForm: false }))
-      })
+      }
+    )
   }
 
   const formProps = { ...props, ...props.updatedProps }
