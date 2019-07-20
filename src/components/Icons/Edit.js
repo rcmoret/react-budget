@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
-import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
+import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { update, updated, updateProps } from "./actions"
 import Form from "./Form/Form"
 

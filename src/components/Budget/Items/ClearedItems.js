@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
+import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 import Icon from "../../Icons/Icon"
 

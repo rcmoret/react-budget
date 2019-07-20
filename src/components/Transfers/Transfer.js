@@ -1,7 +1,7 @@
 import React from "react"
 
-import * as DateFormatter from "../../shared/Functions/DateFormatter"
-import MoneyFormatter from "../../shared/Functions/MoneyFormatter"
+import * as DateFormatter from "../../functions/DateFormatter"
+import MoneyFormatter from "../../functions/MoneyFormatter"
 
 import DeleteButton from "./DeleteButton"
 

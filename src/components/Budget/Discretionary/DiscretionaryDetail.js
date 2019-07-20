@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { fetchedDiscretionaryTransactions } from "../../../actions/budget"
-import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import Details from "../Shared/Details"
 import Transactions from "./../Shared/Transactions"
 

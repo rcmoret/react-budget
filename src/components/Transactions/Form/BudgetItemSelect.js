@@ -1,9 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { fetchedBudgetItems } from "../../../actions/transactions"
-import { fromDateString } from "../../../shared/Functions/DateFormatter"
+import { fromDateString } from "../../../functions/DateFormatter"
 import Select from "react-select"
 
 import SubtransactionBudgetItemSelect from "./SubtransactionBudgetItemSelect"

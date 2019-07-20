@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
+import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { fetched } from "./actions"
 import { fetched as renderAccounts } from "../Accounts/actions"
 
@@ -21,7 +21,7 @@ const Index = ({ accounts, accountsFetched, collection, dispatch, fetchedTransfe
       .then(data => dispatch(renderAccounts(data)))
   }
 
-  if (!fetchedTransfers) {
+  if (accountsFetched && !fetchedTransfers) {
     const url = ApiUrlBuilder(["transfers"], { page: currentPage })
     fetch(url)
       .then(response => response.json())

@@ -5,7 +5,7 @@ This project works in conjunction with my [budget api](https://github.com/rcmore
 ## Getting started
 
 ### API Configuration
-`cp src/shared/Constants/Api.js.example src/shared/Constants/Api.js`<br>
+`cp src/constants/Api.js.example src/constants/Api.js`<br>
 By default, the api is expected to be running locally (`127.0.0.1`) on port `8088`.<br>
 Change `src/shared/Constants/Api.js` to match your api set up.
 

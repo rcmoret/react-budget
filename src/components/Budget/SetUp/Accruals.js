@@ -1,8 +1,8 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import * as dateFormatter from "../../../shared/Functions/DateFormatter"
-import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
+import * as dateFormatter from "../../../functions/DateFormatter"
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import {
   addItem,
   editAccrualAmount,
@@ -10,7 +10,7 @@ import {
   markReviewed,
   markSubmitted,
 } from "../../../actions/budget/setup"
-import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
+import { decimalToInt } from "../../../functions/MoneyFormatter"
 import { Redirect } from "react-router-dom"
 
 import Icon from "../../Icons/Icon"

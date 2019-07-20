@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 import Icon from "../Icons/Icon"
 import { Link } from "react-router-dom"
-import format, { prevMonth, nextMonth } from "../../shared/Functions/DateFormatter"
+import format, { prevMonth, nextMonth } from "../../functions/DateFormatter"
 
 const Info = (props) => {
   const { month, year, prev, next } = props

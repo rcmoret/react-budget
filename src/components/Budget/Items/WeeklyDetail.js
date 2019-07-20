@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { fetchedWeeklyTransactions } from "../../../actions/budget"
 import Details from "../Shared/Details"
 import Transactions from "../Shared/Transactions"

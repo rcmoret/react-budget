@@ -1,6 +1,6 @@
 import React from "react"
 
-import ApiUrlBuilder from "../../../../shared/Functions/ApiUrlBuilder"
+import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
 import {
   editMaturityInterval,
   toggleMaturityIntervalEditForm,

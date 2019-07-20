@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
+import MoneyFormatter from "../../../functions/MoneyFormatter"
 import { editMonthlyItem } from "../../../actions/budget"
 import MonthlyAmountInput from "./MonthlyAmountInput"
 

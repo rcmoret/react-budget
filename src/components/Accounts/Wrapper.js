@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from 'react-redux';
 import { fetched } from "./actions"
 
-import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
+import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 
 import Details from "./Details"
 import Tabs from "./Tabs"

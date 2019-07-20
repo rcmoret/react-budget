@@ -1,7 +1,7 @@
 import React from "react"
 
 import { Link } from "react-router-dom"
-import * as dateFormatter from "../../shared/Functions/DateFormatter"
+import * as dateFormatter from "../../functions/DateFormatter"
 
 export default ({ month, year, isFuture, requiresSetUp }) => {
   if (requiresSetUp && isFuture) {

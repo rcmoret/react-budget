@@ -1,8 +1,8 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
-import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import { decimalToInt } from "../../../functions/MoneyFormatter"
 import { reset, updated, updateProps } from "../../../actions/budget/categories"
 
 import Form from "./Form/Form"

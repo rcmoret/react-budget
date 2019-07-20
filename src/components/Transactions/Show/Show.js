@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { edit, deleteTransaction } from "../../../actions/transactions"
 
 import Amount from "./Amount"

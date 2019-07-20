@@ -1,7 +1,7 @@
 import React from "react"
 
-import * as DateHelpers from "../../../shared/Functions/DateFormatter"
-import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
+import * as DateHelpers from "../../../functions/DateFormatter"
+import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 const Transaction = (props) => {
   const displayDescription = props.description || props.budgetCategory

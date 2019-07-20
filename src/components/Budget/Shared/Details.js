@@ -1,5 +1,5 @@
 import React from 'react'
-import MoneyFormatter from '../../../shared/Functions/MoneyFormatter'
+import MoneyFormatter from '../../../functions/MoneyFormatter'
 
 const Details = (props) => (
   <div className="per-details">

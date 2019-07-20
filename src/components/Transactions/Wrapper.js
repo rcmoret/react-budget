@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react"
+import { connect } from "react-redux"
 import { fetchedTransactions } from "../../actions/transactions"
-import ApiUrlBuilder from '../../shared/Functions/ApiUrlBuilder'
+import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import Transactions from "./Transactions"
 
 class Wrapper extends Component {

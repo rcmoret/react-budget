@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { baseMonthFetched, newMonthFetched } from "../../../actions/budget"
 import { categoriesFetched as fetched } from "../../../actions/budget/categories"
 import { Redirect } from "react-router"

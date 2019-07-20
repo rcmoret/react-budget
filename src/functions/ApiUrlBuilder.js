@@ -1,4 +1,4 @@
-import API_URL from "../Constants/Api"
+import API_URL from "../constants/Api"
 
 const ApiUrlBuilder = (path_segments = [], params = {}) => {
   const query = Object.entries(params).map((arr) => { return arr.join("=") }).join("&")

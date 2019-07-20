@@ -2,8 +2,8 @@ import React from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import { editMonthlyItem, updateMonthlyItem } from "../../../actions/budget"
-import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
-import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
+import { decimalToInt } from "../../../functions/MoneyFormatter"
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 
 const MonthlyAmountInput = (props) => {
   const {

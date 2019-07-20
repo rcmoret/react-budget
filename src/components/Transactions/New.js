@@ -1,9 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
+import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { addSubtransactionToNew, created, resetNew, updateNew, updateNewSubtransaction } from "../../actions/transactions"
-import MoneyFormatter from "../../shared/Functions/MoneyFormatter"
+import MoneyFormatter from "../../functions/MoneyFormatter"
 
 import Form from "./Form/Form"
 

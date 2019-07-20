@@ -1,10 +1,10 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
-import ApiResponseHandler from "../../../shared/Functions/ApiResponseHandler"
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import ApiResponseHandler from "../../../functions/ApiResponseHandler"
 import { created, errorsOnNew, resetNewForm, toggleNewForm, updateNew, } from "../../../actions/budget/categories"
-import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
+import { decimalToInt } from "../../../functions/MoneyFormatter"
 import { Link } from "react-router-dom"
 
 import Form from "./Form/Form"

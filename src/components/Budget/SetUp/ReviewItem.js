@@ -1,11 +1,11 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import * as dateFormatter from "../../../shared/Functions/DateFormatter"
-import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
+import * as dateFormatter from "../../../functions/DateFormatter"
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { addItem, editNew, markReviewed, requeue, updateExisting } from "../../../actions/budget/setup"
-import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
-import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
+import MoneyFormatter from "../../../functions/MoneyFormatter"
+import { decimalToInt } from "../../../functions/MoneyFormatter"
 
 import Icon from "../../Icons/Icon"
 

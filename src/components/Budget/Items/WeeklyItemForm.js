@@ -1,8 +1,8 @@
 import React from "react"
-import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { addWeeklyItem, editNewWeeklyItem, toggleWeeklyItemForm } from "../../../actions/budget"
 import { connect } from "react-redux"
-import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
+import { decimalToInt } from "../../../functions/MoneyFormatter"
 import Select from "react-select"
 
 const WeeklyItemForm = (props) => {

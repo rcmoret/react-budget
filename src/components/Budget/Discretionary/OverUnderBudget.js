@@ -1,5 +1,5 @@
-import React from 'react'
-import MoneyFormatter from '../../../shared/Functions/MoneyFormatter'
+import React from "react"
+import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 
 const OverUnderBudget = (props) => {
@@ -10,14 +10,14 @@ const OverUnderBudget = (props) => {
     return (
       <div className="budget-item-detail">
         <div className="detail-description">Ahead of Budget:</div>
-        <div className='detail-amount'> + {MoneyFormatter(overUnderBudgetAmount)}</div>
+        <div className="detail-amount"> + {MoneyFormatter(overUnderBudgetAmount)}</div>
       </div>
     )
   } else {
     return (
       <div className="budget-item-detail">
         <div className="detail-description">Over Budget: </div>
-        <div className='detail-amount'> - {MoneyFormatter(overUnderBudgetAmount, { absolute: true })} </div>
+        <div className="detail-amount"> - {MoneyFormatter(overUnderBudgetAmount, { absolute: true })} </div>
       </div>
     )
   }

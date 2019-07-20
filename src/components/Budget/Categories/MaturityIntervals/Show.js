@@ -1,7 +1,7 @@
 import React from "react"
 
-import * as DateFunctions from "../../../../shared/Functions/DateFormatter"
-import ApiUrlBuilder from "../../../../shared/Functions/ApiUrlBuilder"
+import * as DateFunctions from "../../../../functions/DateFormatter"
+import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
 import { Link } from "react-router-dom"
 import {
   removeMaturityInterval,

@@ -1,9 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../../../shared/Functions/ApiUrlBuilder"
-import * as DateFunctions from "../../../../shared/Functions/DateFormatter"
-import GroupBy from "../../../../shared/Functions/GroupBy"
+import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
+import * as DateFunctions from "../../../../functions/DateFormatter"
+import GroupBy from "../../../../functions/GroupBy"
 import { Link } from "react-router-dom"
 import {
   accrualMaturityIntervalsFetched,

@@ -1,5 +1,5 @@
 import React from "react"
-import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
+// import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { connect } from "react-redux"
 import { created, resetForm, toggleShowNewForm, updateNew } from "./actions"
 import { Link } from "react-router-dom"
@@ -35,7 +35,7 @@ const New = (props) => {
   }
 
   const submitForm = (_e) => {
-    const url  = ApiUrlBuilder(["accounts"])
+    const url  =  "https://example.com" // ApiUrlBuilder(["accounts"])
     const body = {
       name: props.name,
       priority: props.priority,
@@ -49,11 +49,11 @@ const New = (props) => {
       },
       body: JSON.stringify(body),
     })
-    .then(resp => resp.json())
-    .then(data => {
-      props.dispatch(created(data))
-      props.dispatch(resetForm())
-    })
+      .then(resp => resp.json())
+      .then(data => {
+        props.dispatch(created(data))
+        props.dispatch(resetForm())
+      })
   }
 
   if (props.showNewForm) {

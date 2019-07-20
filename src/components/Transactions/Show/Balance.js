@@ -1,5 +1,5 @@
 import React from "react"
-import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
+import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 export default (props) => (
   <div className="balance">

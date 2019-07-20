@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 
-import { formatted, fromDateString, fromDateTimeObject } from "../../../shared/Functions/DateFormatter"
+import { formatted, fromDateString, fromDateTimeObject } from "../../../functions/DateFormatter"
 
 const ClearanceDate = ({ clearanceDate, handleKeyDown, month, onChange, year }) => {
   const update = (e) => {

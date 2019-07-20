@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
+import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { connect } from "react-redux"
 import { fetched } from "./actions"
 import New from "./New"

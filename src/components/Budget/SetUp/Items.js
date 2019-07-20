@@ -1,8 +1,8 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import * as dateFormatter from "../../../shared/Functions/DateFormatter"
-import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
+import * as dateFormatter from "../../../functions/DateFormatter"
+import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 import Discretionary from "./Discretionary"
 

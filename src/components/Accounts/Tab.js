@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import MoneyFormatter from "../../shared/Functions/MoneyFormatter"
+import MoneyFormatter from "../../functions/MoneyFormatter"
 
 export default ({ id, name, balance, selectedAccountId }) => {
   const isSelected = selectedAccountId === id

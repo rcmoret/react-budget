@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import { editWeeklyItem } from "../../../actions/budget"
-import MoneyFormatter from "../../../shared/Functions/MoneyFormatter"
+import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 const AmountContainer = (props) => {
   const updateItem = (e) => {

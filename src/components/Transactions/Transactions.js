@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 
 import AddTransaction from "./AddTransaction"
-import formatted, * as DateFormatter from "../../shared/Functions/DateFormatter"
+import formatted, * as DateFormatter from "../../functions/DateFormatter"
 import Icon from "../Icons/Icon"
 import Transaction from "./Show/Show"
 
