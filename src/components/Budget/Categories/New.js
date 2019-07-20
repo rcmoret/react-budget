@@ -2,7 +2,8 @@ import React from "react"
 import { connect } from "react-redux"
 
 import ApiUrlBuilder from "../../../shared/Functions/ApiUrlBuilder"
-import { created, resetNewForm, toggleNewForm, updateNew, } from "../../../actions/budget/categories"
+import ApiResponseHandler from "../../../shared/Functions/ApiResponseHandler"
+import { created, errorsOnNew, resetNewForm, toggleNewForm, updateNew, } from "../../../actions/budget/categories"
 import { decimalToInt } from "../../../shared/Functions/MoneyFormatter"
 import { Link } from "react-router-dom"
 
@@ -24,10 +25,10 @@ const NewBudgetCategory = (props) => {
 
   const onSubmit = () => {
     const url = ApiUrlBuilder(["budget/categories"])
-    const postBody = {
+    const postBody = JSON.stringify({
       ...newCategory,
       default_amount: decimalToInt(newCategory.default_amount),
-    }
+    })
     const dispatches = (data) => {
       const createdAction = created(data)
       dispatch(createdAction)
@@ -40,10 +41,13 @@ const NewBudgetCategory = (props) => {
         "Accept": "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(postBody)
+      body: postBody
     })
-      .then(response => response.json())
+      .then(resp => ApiResponseHandler(resp))
       .then(data => dispatches(data))
+      .catch(err => { // err.response.status 422
+        err.response.json().then(responseBody => dispatch(errorsOnNew(responseBody)))
+      })
   }
 
   const resetForm = (e) => {

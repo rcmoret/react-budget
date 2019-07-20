@@ -6,10 +6,6 @@ export const applyFilter = (payload) => {
   return { type: "budget/categories/APPLY_FILTER", payload: payload }
 }
 
-export const categoriesFetched = (collection) => {
-  return { type: "budget/categories/FETCHED", payload: collection }
-}
-
 export const created = (payload) => {
   return { type: "budget/categories/CREATED", payload: payload }
 }
@@ -20,6 +16,14 @@ export const deleted = (payload) => {
 
 export const editMaturityInterval = (payload) => {
   return { type: "budget/categories/EDIT_MATURITY_INTERVAL", payload: payload }
+}
+
+export const errorsOnNew = (payload) => {
+  return { type: "budget/categories/ERRORS_ON_NEW", payload: payload }
+}
+
+export const categoriesFetched = (collection) => {
+  return { type: "budget/categories/FETCHED", payload: collection }
 }
 
 export const maturityIntervalCreated = (payload) => {

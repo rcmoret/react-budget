@@ -43,3 +43,16 @@ header a {
   text-decoration: none;
   text-align: center;
 }
+
+input.errors {
+  border: 1px solid #FF3C52; /* red */
+}
+
+.input-errors {
+  color: #FF3C52; /* red */
+}
+
+ul.input-errors {
+  text-align: left;
+  margin-left: -18%;
+}

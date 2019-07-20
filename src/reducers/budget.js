@@ -2,6 +2,15 @@ import * as Helpers from "./helpers/budgetHelpers"
 import * as setupHelpers from "./helpers/setupHelpers"
 import { update, updated, updateProps, updateItemInCollection } from "./helpers/shared"
 
+const initialNewCategory = {
+  name: "",
+  default_amount: "",
+  accrual: "false",
+  showForm: false,
+  icon_id: null,
+  errors: {},
+}
+
 const today = new Date()
 const initialState = {
   discretionary: {
@@ -38,13 +47,7 @@ const initialState = {
       budget_category_id: null,
     },
   },
-  newCategory: {
-    name: "",
-    default_amount: "",
-    accrual: "false",
-    showForm: false,
-    icon_id: null,
-  },
+  newCategory: initialNewCategory,
   itemsFetched: false,
   metadata: {
     month: (today.getMonth() + 1),
@@ -116,6 +119,14 @@ export default (state = initialState, action) => {
       ...state,
       maturityIntervals: updateProps(action.payload, state.maturityIntervals),
     }
+  case "budget/categories/ERRORS_ON_NEW":
+    return {
+      ...state,
+      newCategory: {
+        ...state.newCategory,
+        ...action.payload, // comes in as { errors: { name: ["invalid"] } }
+      },
+    }
   case "budget/categories/FETCHED":
     return {
       ...state,
@@ -177,7 +188,7 @@ export default (state = initialState, action) => {
   case "budget/categories/RESET_NEW_FORM":
     return {
       ...state,
-      newCategory: initialState.newCategory
+      newCategory: initialNewCategory,
     }
   case "budget/categories/TOGGLE_MATURITY_INTERVAL_EDIT_FORM":
     return {

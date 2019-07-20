@@ -5,67 +5,57 @@ import IconSelect from "./IconSelect"
 
 export default (props) => (
   <div className="budget-category">
-    <div className="category-name">
-      <input
-        type="text"
-        name="name"
+    <CategoryInput
+      className="category-name"
+      errors={props.errors.name || []}
+      name="name"
+      onChange={props.onChange}
+      placeholder="name"
+      value={props.name}
+    />
+    <CategoryInput
+      className="category-default-amount"
+      errors={props.errors.default_amount || []}
+      name="default_amount"
+      onChange={props.onChange}
+      placeholder="default amount"
+      value={props.default_amount}
+    />
+    <div className="category-options">
+      <Option
+        checked={props.monthly === "true" ? "checked" : ""}
+        disabled={props.optionsDisabled}
+        name="monthly"
         onChange={props.onChange}
-        value={props.name}
-        placeholder="name"
+        title="Monthly"
+        value={true}
       />
-    </div>
-    <div className="category-default-amount">
-      <input
-        type="text"
-        name="default_amount"
+      <Option
+        checked={props.monthly === "false" ? "checked" : ""}
+        disabled={props.optionsDisabled}
+        name="monthly"
         onChange={props.onChange}
-        value={props.default_amount}
-        placeholder="default amount"
+        title="Day-to-Day"
+        value={false}
       />
     </div>
     <div className="category-options">
-      <div className="option">
-        <div className="label">Monthly</div>
-        <input type="radio"
-          name="monthly"
-          value={true}
-          onChange={props.onChange}
-          checked={props.monthly === "true" ? "checked" : ""}
-          disabled={props.optionsDisabled}
-        />
-      </div>
-      <div className="option">
-        <div className="label">Day-to-Day</div>
-        <input type="radio"
-          name="monthly"
-          value={false}
-          onChange={props.onChange}
-          checked={props.monthly === "false" ? "checked" : ""}
-          disabled={props.optionsDisabled}
-        />
-      </div>
-    </div>
-    <div className="category-options">
-      <div className="option">
-        <div className="label">Expense</div>
-        <input type="radio"
-          name="expense"
-          value={true}
-          onChange={props.onChange}
-          checked={props.expense === "true" ? "checked" : ""}
-          disabled={props.optionsDisabled}
-        />
-      </div>
-      <div className="option">
-        <div className="label">Revenue</div>
-        <input type="radio"
-          name="expense"
-          value={false}
-          onChange={props.onChange}
-          checked={props.expense === "false" ? "checked" : ""}
-          disabled={props.optionsDisabled}
-        />
-      </div>
+      <Option
+        checked={props.expense === "true" ? "checked" : ""}
+        disabled={props.optionsDisabled}
+        name="expense"
+        onChange={props.onChange}
+        title="Expense"
+        value={true}
+      />
+      <Option
+        checked={props.expense === "false" ? "checked" : ""}
+        disabled={props.optionsDisabled}
+        name="expense"
+        onChange={props.onChange}
+        title="Revenue"
+        value={false}
+      />
     </div>
     <div className="category-options">
       <div className="option">
@@ -76,6 +66,7 @@ export default (props) => (
           onChange={props.onChange}
           checked={props.accrual === "true" ? "checked" : ""}
         />
+        <Errors errors={props.errors.accrual || []} />
       </div>
     </div>
     <IconSelect
@@ -94,6 +85,58 @@ export default (props) => (
     </div>
     <CancelButton
       {...props}
+    />
+  </div>
+)
+
+const CategoryInput = ({ className, errors, name, onChange, placeholder, value }) => {
+  return (
+    <div className={className}>
+      <input
+        className={errors.length > 0 ? "errors" : ""}
+        name={name}
+        onChange={onChange}
+        placeholder={placeholder}
+        type="text"
+        value={value}
+      />
+      <Errors errors={errors} />
+    </div>
+  )
+}
+
+const Errors = ({ errors }) => {
+  if (errors.length === 0) {
+    return null
+  } else {
+    return (
+      <ul className="input-errors">
+        {errors.map((error, i) =>
+          <Error
+            key={i}
+            error={error}
+          />
+        )}
+      </ul>
+    )
+  }
+}
+
+const Error = ({ error }) => (
+  <li className="input-error">
+    {error}
+  </li>
+)
+
+const Option = ({ checked, disabled, name, onChange, title, value }) => (
+  <div className="option">
+    <div className="label">{title}</div>
+    <input type="radio"
+      checked={checked}
+      disabled={disabled}
+      name={name}
+      onChange={onChange}
+      value={value}
     />
   </div>
 )

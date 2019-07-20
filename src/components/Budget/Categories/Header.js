@@ -7,5 +7,6 @@ export default () => (
     <div className="category-detail"><h3>Details</h3></div>
     <div className="category-accrual"><h3>Accrual</h3></div>
     <div className="category-icon"><h3>Icon</h3></div>
+    <div className="category-option-buttons"><h3>Edit/Delete</h3></div>
   </div>
 )
