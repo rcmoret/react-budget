@@ -16,7 +16,7 @@ const AccountShow = (props) => {
     props.dispatch(action)
   }
 
-  const destroy = (e) => {
+  const destroy = () => {
     const confirmation = window.confirm(`Do you really want to delete ${props.name} Account?`)
     if (!confirmation) { return }
     const url = ApiUrlBuilder(["accounts", id])

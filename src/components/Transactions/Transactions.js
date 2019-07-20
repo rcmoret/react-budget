@@ -9,7 +9,15 @@ import Icon from "../Icons/Icon"
 import Transaction from "./Show/Show"
 
 const Transactions = (props) => {
-  const { accountId, endDate, nextMonth, prevMonth, startDate } = props
+  const { accountId,
+    collection,
+    endDate,
+    initialTransaction,
+    nextMonth,
+    prevMonth,
+    startDate,
+  } = props
+
   const nextMonthUrl = `/accounts/${accountId}/${nextMonth.month}/${nextMonth.year}`
   const prevMonthUrl = `/accounts/${accountId}/${prevMonth.month}/${prevMonth.year}`
 
@@ -32,8 +40,8 @@ const Transactions = (props) => {
         </div>
       </div>
       <hr/>
-      <Transaction key="0" {...props.initialTransaction} />
-      {props.collection.map(transaction =>
+      <Transaction key="0" {...initialTransaction} />
+      {collection.map(transaction =>
         <Transaction
           key={transaction.id}
           {...transaction}

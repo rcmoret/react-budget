@@ -35,8 +35,6 @@ class Wrapper extends Component {
   }
 }
 
-const mapStateToProps = (_state, ownProps) => {
-  return ownProps
-}
+const mapStateToProps = (_state, ownProps) => ownProps
 
 export default connect(mapStateToProps)(Wrapper)
