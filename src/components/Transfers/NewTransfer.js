@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
-import { created, updateNew } from "../../actions/transfers"
+import { created, updateNew } from "./actions"
 
 import Select from "react-select"
 

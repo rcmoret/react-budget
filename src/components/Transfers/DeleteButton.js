@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
-import { deleted } from "../../actions/transfers"
+import { deleted } from "./actions"
 
 import { Link } from "react-router-dom"
 

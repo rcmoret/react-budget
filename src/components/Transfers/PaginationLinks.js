@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 
 import Icon from "../Icons/Icon"
 import { Link } from "react-router-dom"
-import { updatePage } from "../../actions/transfers"
+import { updatePage } from "./actions"
 
 const PaginationLinks = ({ dispatch, metadata }) => {
   const { currentPage, limit, total } = metadata
