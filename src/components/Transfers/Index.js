@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 import { fetched } from "../../actions/transfers"
-import { fetched as renderAccounts } from "../../actions/accounts"
+import { fetched as renderAccounts } from "../Accounts/actions"
 
 import Tabs from "../Accounts/Tabs"
 import Icon from "../Icons/Icon"

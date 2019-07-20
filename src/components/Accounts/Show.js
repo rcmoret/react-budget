@@ -1,7 +1,7 @@
 import React from "react"
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 import { connect } from "react-redux"
-import { deleted, update } from "../../actions/accounts"
+import { deleted, update } from "./actions"
 import Icon from "../Icons/Icon"
 import { Link } from "react-router-dom"
 import MoneyFormatter from "../../shared/Functions/MoneyFormatter"

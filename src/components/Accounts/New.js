@@ -1,7 +1,7 @@
 import React from "react"
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 import { connect } from "react-redux"
-import { created, resetForm, toggleShowNewForm, updateNew } from "../../actions/accounts"
+import { created, resetForm, toggleShowNewForm, updateNew } from "./actions"
 import { Link } from "react-router-dom"
 import Form from "./Form/Form"
 import Icon from "../Icons/Icon"
