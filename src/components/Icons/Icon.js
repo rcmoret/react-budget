@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react"
 
 const Icon = (props) => {
   if (props.icon_class_name === null) {
@@ -12,4 +12,4 @@ const Icon = (props) => {
   }
 }
 
-export default Icon;
+export default Icon

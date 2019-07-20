@@ -1,5 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
+
 import CancelButton from "./CancelButton"
 import Icon from "../Icon"
 import ResetButton from "./ResetButton"

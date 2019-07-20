@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
 import { connect } from "react-redux"
-import { fetched } from "../../actions/icons"
+import { fetched } from "./actions"
 import New from "./New"
 import Show from "./Show"
 

@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
-import { resetIcon, resetNew } from "../../../actions/icons"
+import { resetIcon, resetNew } from "../actions"
 
 const ResetButton = (props) => {
   const { id } = props

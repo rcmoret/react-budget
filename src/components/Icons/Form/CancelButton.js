@@ -1,10 +1,10 @@
 import React from "react"
 import { connect } from "react-redux"
-import { update } from "../../../actions/icons"
+import { update } from "../actions"
 
 const CancelButton = (props) => {
   const { id } = props
-  const cancel = (e) => {
+  const cancel = () => {
     const action = update({ id: id, updatedProps: null, showForm: false })
     props.dispatch(action)
   }

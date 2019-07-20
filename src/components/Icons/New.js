@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 import ApiUrlBuilder from "../../shared/Functions/ApiUrlBuilder"
-import { created, updateNew } from "../../actions/icons"
+import { created, updateNew } from "./actions"
 import Form from "./Form/Form"
 
 const New = (props) => {
