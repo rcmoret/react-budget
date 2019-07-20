@@ -33,7 +33,6 @@ const Filters = (props) => {
 
   return (
     <div className="budget-category-filters">
-      <hr/>
       <span className={funnelClass}>
         <Icon className="fas fa-filter" />
       </span>
@@ -159,7 +158,6 @@ const Filters = (props) => {
 
         </div>
       </div>
-      <hr/>
     </div>
   )
 }

@@ -205,6 +205,8 @@
 .budget-category-labels {
   padding: 0 2%;
   margin-bottom: -1%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .budget-category-form {
@@ -219,7 +221,12 @@
 }
 
 .budget-category-filters {
-  padding: 0 2%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding: 1% 2%;
+  border-top: 1px #999 solid;
+  border-bottom: 1px #999 solid;
 }
 
 .budget-category-filters .title,
@@ -796,6 +803,7 @@ nav.budget-actions a .budget-action:hover {
 
 
 
+/* large screens */
 @media screen and (min-width: 768px) {
   .budget .weekly-items, .budget .monthly-items {
     width: 35%;
@@ -808,8 +816,33 @@ nav.budget-actions a .budget-action:hover {
   .budget-transaction-cell span.short-date {
     display: none;
   }
+
+  .budget-category-labels .category-name {
+    width: 22%;
+  }
+
+  .budget-category-labels .category-default-amount {
+    width: 12%;
+  }
+
+  .budget-category-labels .category-detail {
+    width: 22%;
+  }
+
+  .budget-category-labels .category-accrual {
+    width: 18%;
+  }
+
+  .budget-category-labels .category-icon {
+    width: 8%;
+  }
+
+  .budget-category-labels .category-option-buttons {
+    width: 8%;
+  }
 }
 
+/* small/mobile screens */
 @media screen and (max-width: 768px) {
   .budget .weekly-items {
     margin-bottom: 30px;
@@ -838,5 +871,39 @@ nav.budget-actions a .budget-action:hover {
 
   .budget-transaction-cell span.long-date {
     display: none;
+  }
+
+  .budget-category-filters .search {
+    width: 50%;
+    margin-bottom: 2%;
+  }
+
+  .budget-category-filters .adjective, .budget-category-filters .adverb {
+    width: 45%;
+  }
+
+  .budget-category-labels .category-name {
+    width: 33%;
+  }
+
+  .budget-category-labels .category-default-amount {
+    width: 20%;
+  }
+
+  .budget-category-labels .category-detail {
+    width: 33%;
+    margin-left: 5%;
+  }
+
+  .budget-category-labels .category-accrual {
+    width: 18%;
+  }
+
+  .budget-category-labels .category-icon {
+    width: 8%;
+  }
+
+  .budget-category-labels .category-option-buttons {
+    width: 8%;
   }
 }
