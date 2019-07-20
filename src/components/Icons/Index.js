@@ -1,54 +1,48 @@
-import React, { Component } from "react"
+import React from "react"
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { connect } from "react-redux"
 import { fetched } from "./actions"
 import New from "./New"
 import Show from "./Show"
 
-class Index extends Component {
-  componentWillMount() {
-    if (!this.props.fetched) {
-      const url = ApiUrlBuilder(["icons"])
-      fetch(url)
+const Index = (props) => {
+  const {
+    dispatch,
+    collectionFetched,
+    firstColumn,
+    secondColumn,
+  } = props
+
+  if (!collectionFetched) {
+    const url = ApiUrlBuilder(["icons"])
+    fetch(url)
       .then(response => response.json())
-      .then(data => this.props.dispatch(fetched(data)))
-    }
+      .then(data => dispatch(fetched(data)))
   }
 
-  componentWillReceiveProps() {
-    if (!this.props.fetched) {
-      const url = ApiUrlBuilder(["icons"])
-      fetch(url)
-      .then(response => response.json())
-      .then(data => this.props.dispatch(fetched(data)))
-    }
-  }
-
-  render() {
-    return (
-      <div className="icons">
-        <div className="new-icon-form">
-          <New />
-        </div>
-        <div className="column">
-          {this.props.firstColumn.map(icon =>
-            <Show
-              key={icon.id}
-              icon={icon}
-            />
-          )}
-        </div>
-        <div className="column">
-          {this.props.secondColumn.map(icon =>
-            <Show
-              key={icon.id}
-              icon={icon}
-            />
-          )}
-        </div>
+  return (
+    <div className="icons">
+      <div className="new-icon-form">
+        <New />
       </div>
-    )
-  }
+      <div className="column">
+        {firstColumn.map(icon =>
+          <Show
+            key={icon.id}
+            icon={icon}
+          />
+        )}
+      </div>
+      <div className="column">
+        {secondColumn.map(icon =>
+          <Show
+            key={icon.id}
+            icon={icon}
+          />
+        )}
+      </div>
+    </div>
+  )
 }
 
 const mapStateToProps = (state) => {
@@ -63,7 +57,7 @@ const mapStateToProps = (state) => {
   return {
     firstColumn: firstColumn,
     secondColumn: secondColumn,
-    fetched: fetched,
+    collectionFetched: fetched,
     newIcon: state.icons.newIcon,
   }
 }
