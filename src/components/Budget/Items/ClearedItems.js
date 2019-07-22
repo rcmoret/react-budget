@@ -48,33 +48,27 @@ const ClearedItem = ({ amount, expense, difference, icon_class_name, name, spent
   const operator = difference === 0 ? "" : (difference > 0 ? "-" : "+")
 
   return (
-    <div className="budget-item">
-      <div className="caret">
-        <Icon className="fas fa-caret-down" />
+    <div className="budget-item-cleared">
+      <div className="cleared-item-name">
+        <div>
+          <Icon className="fas fa-caret-down" />
+          {" "}
+          <strong>{name}</strong>
+          {" "}
+          <Icon className={icon_class_name} />
+        </div>
       </div>
-      <div className="budget-item-description">
-        {name}
-        {" "}
-        <Icon className={icon_class_name} />
-      </div>
-      <div className="budget-item-description">
+      <div className="cleared-item-wrapper">
         <em>Budgeted:</em>
-      </div>
-      <div className="budget-item-amounts">
         {MoneyFormatter(amount, { absolute: true })}
       </div>
-      <div className="budget-item-description">
+      <div className="cleared-item-wrapper">
         <em>{expense ? "Spent" : "Deposited"}:</em>
-      </div>
-      <div className="budget-item-amounts">
         {MoneyFormatter(spent, { absolute: true })}
       </div>
-      <div className="budget-item-description">
+      <div className="cleared-item-wrapper">
         <em>Difference:</em>
-      </div>
-      <div className="budget-item-amounts">
-        {operator}
-        {MoneyFormatter(difference, { absolute: true })}
+        {operator} {MoneyFormatter(difference, { absolute: true })}
       </div>
     </div>
   )

@@ -801,7 +801,27 @@ nav.budget-actions a .budget-action:hover {
   justify-content: space-evenly;
 }
 
+.budget-item-cleared {
+  background: #EFEFEF;
+  border-radius: 15px;
+  padding: 2%;
+}
 
+.budget-item-cleared:nth-of-type(2n) {
+  background: white;
+}
+
+.cleared-item-name,
+.cleared-item-wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1%;
+}
+
+.cleared-item-wrapper {
+  justify-content: space-between;
+}
 
 /* large screens */
 @media screen and (min-width: 768px) {
