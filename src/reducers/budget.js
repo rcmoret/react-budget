@@ -132,7 +132,9 @@ export default (state = initialState, action) => {
       ...state,
       categories: {
         ...state.categories,
-        collection: action.payload,
+        collection: action.payload.map(category =>  {
+          return { ...category, errors: {} }
+        }),
         fetched: true
       }
     }
