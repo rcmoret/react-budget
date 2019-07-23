@@ -51,7 +51,7 @@
 }
 
 .transaction .budget-categories {
-  width: 30%;
+  max-width: 30%;
 }
 
 .transaction .exclusion {
