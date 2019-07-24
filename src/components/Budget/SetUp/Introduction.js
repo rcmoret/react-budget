@@ -10,6 +10,7 @@ const Intro = (props) => {
   const {
     baseMonth,
     categoriesFetched,
+    dispatch,
     newMonth,
     targetMonth,
     targetYear
@@ -21,23 +22,23 @@ const Intro = (props) => {
     const url = ApiUrlBuilder(["budget/categories"])
     fetch(url)
       .then(response => response.json())
-      .then(data => props.dispatch(fetched(data)))
+      .then(data => dispatch(fetched(data)))
   }
 
   if (categoriesFetched && !newMonth.isFetched) {
-    const url = ApiUrlBuilder(["budget", "items"], { month: targetMonth, year: targetYear })
+    const url = ApiUrlBuilder(["budget/items"], { month: targetMonth, year: targetYear })
     fetch(url)
       .then(response => response.json())
-      .then(data => props.dispatch(newMonthFetched(data)))
+      .then(data => dispatch(newMonthFetched(data)))
   }
 
   if (categoriesFetched && newMonth.isFetched && !baseMonth.isFetched) {
     const month = targetMonth === 1 ? 12 : (targetMonth - 1)
     const year = targetMonth === 1 ? (targetYear - 1) : targetYear
-    const url = ApiUrlBuilder(["budget", "items"], { month: month, year: year })
+    const url = ApiUrlBuilder(["budget/items"], { month: month, year: year })
     fetch(url)
       .then(response => response.json())
-      .then(data => props.dispatch(baseMonthFetched(data)))
+      .then(data => dispatch(baseMonthFetched(data)))
   }
 
   if (!categoriesFetched || !newMonth.isFetched || !baseMonth.isFetched) {
