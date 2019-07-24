@@ -17,7 +17,7 @@ export default (attributes) => {
   const overUnderBudgetAmount = overUnderBudget ? (-1 * difference) : 0
   const matureAccrual = accrual && (maturity_month === month && maturity_year === year)
 
-  return ({
+  return {
     ...attributes,
     deletable: deletable,
     remaining: remaining,
@@ -25,5 +25,5 @@ export default (attributes) => {
     matureAccrual: matureAccrual,
     overUnderBudget: overUnderBudget,
     overUnderBudgetAmount: overUnderBudgetAmount,
-  })
+  }
 }
