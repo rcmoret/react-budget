@@ -1,7 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
 
+import { transfer as copy } from "../../locales/copy"
 import { created, updateNew } from "./actions"
+
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { post } from "../../functions/ApiClient"
 
@@ -11,7 +13,7 @@ const New = (props) => {
   const { currentPage, dispatch, fromOptions, fromValue, newTransfer, toOptions, toValue } = props
   const { amount, from_account_id, to_account_id  } = newTransfer
 
-  const submit = (e) => {
+  const submit = () => {
     post(
       ApiUrlBuilder(["transfers"]),
       JSON.stringify({

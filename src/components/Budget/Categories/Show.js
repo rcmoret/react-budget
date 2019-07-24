@@ -1,16 +1,23 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import { budget as copy } from "../../../locales/copy"
 import { deleted, update } from "../../../actions/budget/categories"
-import { Link } from "react-router-dom"
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 import Edit from "./Edit"
 import ExtraInfo from "./MaturityIntervals/Info"
 import Icon from "../../Icons/Icon"
+import { Link } from "react-router-dom"
 
 const Show = (props) => {
+  const {
+    deleteConfirmMessage,
+    revenue,
+    weekly,
+  } = copy.category
+
   const {
     category,
     dispatch,
@@ -35,13 +42,11 @@ const Show = (props) => {
 
   const deleteCategory = (e) => {
     e.preventDefault()
-    const confirmation = window.confirm(`Are you sure you want to delete ${name}?`)
+    const confirmation = window.confirm(deleteConfirmMessage(name))
     if (confirmation) {
       const url = ApiUrlBuilder(["budget", "categories", id])
       fetch(url, { method: "delete" })
         .then(() => dispatch(deleted(id)))
-    } else {
-      return
     }
   }
 
@@ -59,12 +64,12 @@ const Show = (props) => {
           {MoneyFormatter(default_amount, { absoulte: false })}
         </div>
         <div className="category-detail">
-          {monthly ? "monthly" : "day-to-day"}
+          {monthly ? copy.category.monthly : weekly}
           {" "}
-          {expense ? "expense" : "revenue"}
+          {expense ? copy.category.expense : revenue}
         </div>
         <div className="category-icon">
-          {accrual ? "accrual" : ""}
+          {accrual ? copy.category.accrual : ""}
         </div>
         <div className="category-icon">
           <Icon className={icon_class_name} />

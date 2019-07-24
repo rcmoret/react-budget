@@ -1,7 +1,5 @@
 import React from "react"
 
-import { Link } from "react-router-dom"
-
 import AddSubtransactionLink from "./AddSubtransactionLink"
 import Amounts from "./Amount"
 import BudgetExclusion from "./BudgetExclusion"
@@ -9,10 +7,11 @@ import BudgetItemSelect from "./BudgetItemSelect"
 import CheckNumber from "./CheckNumber"
 import ClearanceDate from "./ClearanceDate"
 import Descriptions from "./Descriptions"
+import { Link } from "react-router-dom"
 import Notes from "./Notes"
 import SubmitButton from "./Submit"
 
-const Form = (props) => {
+export default (props) => {
   const {
     addSubtransaction,
     budgetOptions,
@@ -102,5 +101,3 @@ const Form = (props) => {
     </div>
   )
 }
-
-export default Form

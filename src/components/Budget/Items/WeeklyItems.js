@@ -1,5 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
+
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
+
 import Discretionary from "../Discretionary/Discretionary"
 import WeeklyHeader from "./WeeklyHeader"
 import WeeklyGroup from "./WeeklyGroup"
@@ -11,8 +15,14 @@ const WeeklyItems = (props) => (
       <h4>Discretionary</h4>
       <Discretionary />
     </div>
-    <WeeklyGroup collection={props.revenues} title="Revenues" />
-    <WeeklyGroup collection={props.expenses} title="Expenses" />
+    <WeeklyGroup
+      collection={props.revenues}
+      title={titleize(copy.category.revenues)}
+    />
+    <WeeklyGroup
+      collection={props.expenses}
+      title={titleize(copy.category.expenses)}
+    />
   </div>
 )
 
@@ -58,7 +68,6 @@ const mapStateToProps = (state) => {
       return sortByName
     }
   }
-
 
   const expenses = collection
     .filter(item => item.expense)

@@ -4,7 +4,11 @@ import { connect } from "react-redux"
 import { reset, toggleNewForm } from "../../../../actions/budget/categories"
 
 const CancelButton = (props) => {
-  const { dispatch, id } = props
+  const {
+    id,
+    dispatch,
+    label,
+  } = props
 
   const cancel = (e) => {
     e.preventDefault()
@@ -23,7 +27,7 @@ const CancelButton = (props) => {
     return (
       <div className="category-button">
         <button type="cancel" className="cancel" onClick={cancel}>
-          Cancel
+          {label}
         </button>
       </div>
     )
@@ -31,7 +35,7 @@ const CancelButton = (props) => {
     return (
       <div className="category-button">
         <button type="cancel" className="cancel" onClick={toggleForm}>
-          Close
+          {label}
         </button>
       </div>
     )

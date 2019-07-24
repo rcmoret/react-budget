@@ -68,7 +68,6 @@ const WeeklyAmountInput = (props) => {
     )
   }
 
-
   return (
     <div className="budget-item-amount">
       <input

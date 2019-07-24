@@ -1,7 +1,9 @@
 import React from "react"
-import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { connect } from "react-redux"
+
 import { fetched } from "./actions"
+import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+
 import New from "./New"
 import Show from "./Show"
 
@@ -29,9 +31,7 @@ const Index = ({ collection, dispatch, accountsFetched }) => {
 
 const mapStateToProps = (state) => {
   const { collection, accountsFetched } = state.accounts
-  const accounts = collection.sort((a, b) => {
-    return a.priority - b.priority
-  })
+  const accounts = collection.sort((a, b) => a.priority - b.priority)
 
   return {
     collection: accounts,

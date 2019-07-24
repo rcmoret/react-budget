@@ -2,17 +2,16 @@ import React from "react"
 import Header from "./Header"
 import Transaction from "./Transaction"
 
-const Transactions = (props) => {
-  const { collection } = props
+const Transactions = ({ budgetCategory, collection }) => {
   if (collection.length > 0) {
     return (
       <div className="budget-transactions">
         <Header />
-        {collection.map((transaction) =>
+        {collection.map(transaction =>
           <Transaction
             key={transaction.id}
             {...transaction}
-            budgetCategory={props.budgetCategory}
+            budgetCategory={budgetCategory}
           />
         )}
       </div>

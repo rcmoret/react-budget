@@ -1,5 +1,7 @@
 import React from "react"
 
+import { transaction as copy } from "../../../locales/copy"
+
 export default ({ notes, handleKeyDown, onChange }) => {
   const update = (e) => {
     onChange({ notes: e.target.value })
@@ -8,7 +10,7 @@ export default ({ notes, handleKeyDown, onChange }) => {
   return (
     <div className="input-notes">
       <textarea
-        placeholder="notes"
+        placeholder={copy.notes}
         name="notes"
         value={notes || ""}
         onChange={update}

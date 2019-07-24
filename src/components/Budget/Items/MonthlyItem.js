@@ -1,8 +1,11 @@
 import React from "react"
 import { connect } from "react-redux"
+
+import { budget as copy } from "../../../locales/copy"
 import { removeMonthlyItem } from "../../../actions/budget"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import formatter from "../../../functions/DateFormatter"
+
 import DeleteButton from "../Shared/DeleteButton"
 import Icon from "../../Icons/Icon"
 import MonthlyAmount from "./MonthlyAmount"
@@ -12,13 +15,11 @@ const MonthlyItem = (props) => {
     e.preventDefault()
     const { budget_category_id, id, name, month, year } = props
     const dateString = formatter({ month: month, year: year, format: "shortMonthYear" })
-    const confirmation = window.confirm(`Are you sure you want to delete ${name} for ${dateString}?`)
+    const confirmation = window.confirm(copy.item.deleteConfirmMessage(name, dateString))
     if (confirmation) {
-      const url = ApiUrlBuilder(["budget", "categories", budget_category_id, "items", id])
+      const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items", id])
       fetch(url, { method: "delete" })
         .then(() => props.dispatch(removeMonthlyItem({ id: id })))
-    } else {
-      return
     }
   }
 

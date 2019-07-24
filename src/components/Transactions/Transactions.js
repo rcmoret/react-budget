@@ -1,11 +1,14 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import { Link } from "react-router-dom"
+import { transaction as copy } from "../../locales/copy"
+import { titleize } from "../../locales/functions"
+
+import formatted, * as DateFormatter from "../../functions/DateFormatter"
 
 import AddTransaction from "./AddTransaction"
-import formatted, * as DateFormatter from "../../functions/DateFormatter"
 import Icon from "../Icons/Icon"
+import { Link } from "react-router-dom"
 import Transaction from "./Show/Show"
 
 const Transactions = (props) => {
@@ -23,10 +26,10 @@ const Transactions = (props) => {
 
   return (
     <div className="transactions">
-      <h2>Transactions</h2>
+      <h2>{titleize(copy.title)}</h2>
       <div className="transaction-metadata">
         <div className="date-range">
-          {startDate} to {endDate}
+          {copy.dateRange(startDate, endDate)}
         </div>
         <div className="page-links">
           <Link to={prevMonthUrl}>

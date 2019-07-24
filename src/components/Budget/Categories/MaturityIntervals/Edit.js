@@ -1,10 +1,12 @@
 import React from "react"
 
+import { budget as copy } from "../../../../locales/copy"
 import {
   editMaturityInterval,
   toggleMaturityIntervalEditForm,
   updateMaturityInterval,
 } from "../../../../actions/budget/categories"
+
 import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
 import { put } from "../../../../functions/ApiClient"
 
@@ -27,20 +29,7 @@ export default (props) => {
     ...updatedProps,
   }
 
-  const options = [
-    { label: "January", value: 1 },
-    { label: "February", value: 2 },
-    { label: "March", value: 3 },
-    { label: "April", value: 4 },
-    { label: "May", value: 5 },
-    { label: "June", value: 6 },
-    { label: "July", value: 7 },
-    { label: "August", value: 8 },
-    { label: "September", value: 9 },
-    { label: "October", value: 10 },
-    { label: "November", value: 11 },
-    { label: "December", value: 12 },
-  ]
+  const { options } = copy.maturityInterval
   const value = options.find(option => option.value === maturityInterval.month)
 
   const onChange = (payload) => {

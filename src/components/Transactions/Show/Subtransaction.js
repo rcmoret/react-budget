@@ -1,8 +1,9 @@
-import React from "react";
+import React from "react"
+
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
-export default (props) => {
-  if (props.showDetail) {
+export default ({ amount, budget_category, description, showDetail }) => {
+  if (showDetail) {
     return (
       <div className="transaction subtransaction-show">
         <div className="left-icon">
@@ -10,15 +11,15 @@ export default (props) => {
         <div className="clearance-date">
         </div>
         <div className="description">
-          {props.description}
+          {description}
         </div>
         <div className="amount">
-          {MoneyFormatter(props.amount)}
+          {MoneyFormatter(amount)}
         </div>
         <div className="balance">
         </div>
         <div className="budget-categories">
-          {props.budget_category}
+          {budget_category}
         </div>
       </div>
     )

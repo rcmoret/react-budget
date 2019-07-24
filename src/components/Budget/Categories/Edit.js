@@ -1,6 +1,8 @@
 import React from "react"
 import { connect } from "react-redux"
 
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
 import { reset, updated, updateProps } from "../../../actions/budget/categories"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
@@ -9,29 +11,39 @@ import { put } from "../../../functions/ApiClient"
 import Form from "./Form/Form"
 
 const Edit = (props) => {
-  const { category } = props
-  const { id } = category
+  const {
+    category,
+    dispatch,
+  } = props
+
+  const {
+    id,
+    accrual,
+    expense,
+    monthly,
+    updatedProps,
+  } = category
 
   const onChange = (e) => {
     const action = updateProps({ id: id, [e.target.name]: e.target.value })
-    props.dispatch(action)
+    dispatch(action)
   }
 
   const onSelectChange = (e) => {
     const action = updateProps({ id: id, icon_id: e.value })
-    props.dispatch(action)
+    dispatch(action)
   }
 
   const putBody = () => {
-    if (!category.updatedProps) {
+    if (!updatedProps) {
       return { id: id }
-    } else if (category.updatedProps.default_amount) {
+    } else if (updatedProps.default_amount) {
       return {
-        ...category.updatedProps,
-        default_amount: decimalToInt(category.updatedProps.default_amount)
+        ...updatedProps,
+        default_amount: decimalToInt(updatedProps.default_amount)
       }
     } else {
-      return category.updatedProps
+      return updatedProps
     }
   }
 
@@ -39,30 +51,30 @@ const Edit = (props) => {
     put(
       ApiUrlBuilder(["budget", "categories", id]),
       JSON.stringify(putBody()),
-      (data) => props.dispatch(updated({ ...data, showForm: false }))
+      (data) => dispatch(updated({ ...data, showForm: false }))
     )
   }
 
   const formProps = {
     ...category,
-    accrual: category.accrual.toString(),
-    expense: category.expense.toString(),
+    accrual: accrual.toString(),
+    expense: expense.toString(),
     default_amount: (category.default_amount / 100.0).toFixed(2),
-    monthly: category.monthly.toString(),
-    ...category.updatedProps
+    monthly: monthly.toString(),
+    ...updatedProps
   }
 
   const resetForm = (e) => {
     e.preventDefault()
     const action = reset({ id: id })
-    props.dispatch(action)
+    dispatch(action)
   }
 
   return (
     <Form
       key={id}
       {...formProps}
-      label="Update"
+      label={titleize(copy.category.updateButtonText)}
       onChange={onChange}
       onSelectChange={onSelectChange}
       onSubmit={onSubmit}

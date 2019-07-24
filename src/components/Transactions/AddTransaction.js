@@ -1,10 +1,11 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import { Link } from "react-router-dom"
+import { transaction as copy } from "../../locales/copy"
 import { updateNew } from "../../actions/transactions"
 
 import Icon from "../Icons/Icon"
+import { Link } from "react-router-dom"
 import New from "./New"
 
 const AddTransaction = ({ dispatch, showForm }) => {
@@ -27,7 +28,7 @@ const AddTransaction = ({ dispatch, showForm }) => {
           <Link to="#" onClick={expandForm}>
             <Icon className="fas fa-plus" />
             {" "}
-            <strong>Add New Transaction</strong>
+            <strong>{copy.addNewButtonText}</strong>
           </Link>
         </div>
       </div>

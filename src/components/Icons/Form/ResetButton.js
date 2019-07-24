@@ -1,5 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
+
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
+
 import { resetIcon, resetNew } from "../actions"
 
 const ResetButton = (props) => {
@@ -19,7 +23,7 @@ const ResetButton = (props) => {
       className="reset"
       onClick={reset}
     >
-      Reset
+      {titleize(copy.icon.resetButtonText)}
     </button>
   )
 }

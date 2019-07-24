@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react"
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom"
 
 export default ({ collapseDetail, expandDetail, showDetail, subtransactions }) => {
   if (subtransactions.length === 0) {

@@ -1,15 +1,22 @@
-import React from "react";
+import React from "react"
 import Icon from "../../Icons/Icon"
 
-const BudgetCategories = (props) => {
+export default (props) => {
+  const {
+    budget_category,
+    description,
+    icon_class_name,
+    subtransactions,
+  } = props
+
   const budgetItems = () => {
-    if (props.subtransactions.length > 0) {
-      return props.subtransactions.filter((sub) => sub.budget_category !== null)
-    } else if (props.description !== null && props.budget_category) {
+    if (subtransactions.length > 0) {
+      return subtransactions.filter((sub) => sub.budget_category !== null)
+    } else if (description !== null && budget_category) {
       return [
         {
-          budget_category: props.budget_category,
-          icon_class_name: props.icon_class_name,
+          budget_category: budget_category,
+          icon_class_name: icon_class_name,
         }
       ]
     } else {
@@ -22,13 +29,13 @@ const BudgetCategories = (props) => {
     return (
       <div className="budget-categories">
         [
-          {items.map((item, index) =>
-            <span key={index}>
-              {index > 0 && ', '}
-              {item.budget_category}
-              {" "}
-              <Icon className={item.icon_class_name} />
-            </span>
+        {items.map((item, index) =>
+          <span key={index}>
+            {index > 0 && ", "}
+            {item.budget_category}
+            {" "}
+            <Icon className={item.icon_class_name} />
+          </span>
         )}
         ]
       </div>
@@ -37,5 +44,3 @@ const BudgetCategories = (props) => {
     return null
   }
 }
-
-export default BudgetCategories

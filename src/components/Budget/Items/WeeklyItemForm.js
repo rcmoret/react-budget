@@ -1,6 +1,8 @@
 import React from "react"
 import { connect } from "react-redux"
 
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
 import { addWeeklyItem, editNewWeeklyItem, toggleWeeklyItemForm } from "../../../actions/budget"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
@@ -84,7 +86,7 @@ const WeeklyItemForm = (props) => {
           name="weekly-item-submit"
           onClick={onSave}
         >
-          CREATE
+          {titleize(copy.item.createButtonText)}
         </button>
       </div>
     )

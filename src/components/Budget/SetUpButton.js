@@ -1,7 +1,10 @@
 import React from "react"
 
-import { Link } from "react-router-dom"
+import { budget as copy } from "../../locales/copy"
+
 import * as dateFormatter from "../../functions/DateFormatter"
+
+import { Link } from "react-router-dom"
 
 export default ({ month, year, isFuture, requiresSetUp }) => {
   if (requiresSetUp && isFuture) {
@@ -11,7 +14,7 @@ export default ({ month, year, isFuture, requiresSetUp }) => {
         to={`/budget/set-up/${month}/${year}/intro`}
       >
         <div className="budget-action">
-          <strong>Set up {monthString}</strong>
+          <strong>{copy.menu.setUpLinkText(monthString)}</strong>
         </div>
       </Link>
     )

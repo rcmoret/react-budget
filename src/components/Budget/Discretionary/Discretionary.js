@@ -1,6 +1,10 @@
 import React from "react"
 import { connect } from "react-redux"
+
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
 import { toggleDiscretionaryDetail } from "../../../actions/budget"
+
 import Amount from "./Amount"
 import Caret from "./../Shared/Caret"
 import DetailAmounts from "./DetailAmounts"
@@ -9,6 +13,17 @@ import DiscretionaryDetail from "./DiscretionaryDetail"
 import Icon from "../../Icons/Icon"
 
 const Discretionary = (props) => {
+  const {
+    aheadOfBudget,
+    overBudget,
+    title,
+  } = copy.discretionary
+
+  const {
+    deposited,
+    spent,
+  } = copy.shared
+
   const expandDetail = (e) => {
     e.preventDefault()
     props.dispatch(toggleDiscretionaryDetail({ showDetail: true }))
@@ -19,8 +34,8 @@ const Discretionary = (props) => {
     props.dispatch(toggleDiscretionaryDetail({ showDetail: false }))
   }
 
-  const descriptor = props.overUnderBudgetAmount > 0 ? "Ahead of Budget" : "Over Budget"
-  const spentOrDeposited = props.overUnderBudgetAmount > 0 ? "Deposited" : "Spent"
+  const descriptor = props.overUnderBudgetAmount > 0 ? aheadOfBudget : overBudget
+  const spentOrDeposited = titleize(props.overUnderBudgetAmount > 0 ? deposited : spent)
   return (
     <div className="budget-item">
       <div className="wrapper">
@@ -32,7 +47,7 @@ const Discretionary = (props) => {
         </div>
         <div className="budget-item-description">
           <div className="item-name">
-            Discretionary
+            {titleize(title)}
             {" "}
             <Icon className="fas fa-piggy-bank" />
           </div>

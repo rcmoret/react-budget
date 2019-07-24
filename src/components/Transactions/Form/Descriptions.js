@@ -1,5 +1,7 @@
 import React from "react"
 
+import { transaction as copy } from "../../../locales/copy"
+
 import SubtransactionDescription from "./SubtransactionDescription"
 
 export default ({ description, handleKeyDown, onChange, onSubChange, subtransactions }) => {
@@ -12,7 +14,7 @@ export default ({ description, handleKeyDown, onChange, onSubChange, subtransact
       <input
         type="text"
         name="description"
-        placeholder="description"
+        placeholder={copy.description}
         onChange={update}
         onKeyDown={handleKeyDown}
         value={description || ""}

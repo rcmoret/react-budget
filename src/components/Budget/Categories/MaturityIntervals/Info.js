@@ -1,17 +1,20 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
-import * as DateFunctions from "../../../../functions/DateFormatter"
-import GroupBy from "../../../../functions/GroupBy"
-import { Link } from "react-router-dom"
+import { budget as copy } from "../../../../locales/copy"
+import { titleize } from "../../../../locales/functions"
 import {
   accrualMaturityIntervalsFetched,
-  updated
+  updated,
 } from "../../../../actions/budget/categories"
+
+import * as DateFunctions from "../../../../functions/DateFormatter"
+import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
+import GroupBy from "../../../../functions/GroupBy"
 
 import Icon from "../../../Icons/Icon"
 import NewMaturityInterval from "./New"
+import { Link } from "react-router-dom"
 import Show from "./Show"
 
 const MaturityInfo = (props) => {
@@ -83,7 +86,7 @@ const MaturityInfo = (props) => {
             <Icon className="fas fa-info-circle" />
           </Link>
           {" "}
-          Maturity Intervals
+          {titleize(copy.maturityInterval.title)}
           {" "}
           <Link
             to="#"
@@ -153,4 +156,3 @@ const mapStateToProps = ((state, ownProps) => {
 })
 
 export default connect(mapStateToProps)(MaturityInfo)
-

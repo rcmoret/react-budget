@@ -1,7 +1,10 @@
 import React from "react"
 import { connect } from "react-redux"
 
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
 import { updateMetadata } from "../../../actions/budget/setup"
+
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { put } from "../../../functions/ApiClient"
 
@@ -10,6 +13,8 @@ import Items from "./Items"
 import { Redirect } from "react-router-dom"
 
 const Finalize = ({ dispatch, month, setUpCompletedAt, year }) => {
+  const { markCompleteText } = copy.setup
+
   const markComplete = (e) => {
     e.preventDefault()
     put(
@@ -29,7 +34,7 @@ const Finalize = ({ dispatch, month, setUpCompletedAt, year }) => {
                 <button
                   onClick={markComplete}
                 >
-                  <strong>Mark Setup Complete</strong>
+                  <strong>{titleize(markCompleteText)}</strong>
                   {" "}
                   <Icon className="far fa-check-square" />
                 </button>

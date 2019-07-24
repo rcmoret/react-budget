@@ -1,10 +1,18 @@
 import React from "react"
 import { connect } from "react-redux"
-import { Link } from "react-router-dom"
+
+import { budget as copy } from "../../../locales/copy"
 import { editWeeklyItem } from "../../../actions/budget"
+
+import { Link } from "react-router-dom"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 const AmountContainer = (props) => {
+  const {
+    minus,
+    plus,
+  } = copy.shared
+
   const updateItem = (e) => {
     e.preventDefault()
     props.dispatch(editWeeklyItem({
@@ -15,7 +23,7 @@ const AmountContainer = (props) => {
   }
 
   const { absolute, amount, difference, expense, overUnderBudget, showDetail } = props
-  const operator = !overUnderBudget ? "" : (expense ? "-" : "+")
+  const operator = !overUnderBudget ? "" : (expense ? minus : plus)
   if (showDetail) {
     return (
       <div className="update-amount">

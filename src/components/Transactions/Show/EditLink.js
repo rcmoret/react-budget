@@ -2,12 +2,10 @@ import React from "react"
 import { connect } from "react-redux"
 
 import { edit } from "../../../actions/transactions"
+
 import { Link } from "react-router-dom"
 
-const EditLink = (props) => {
-
-  const { dispatch, editable, transactionId } = props
-
+const EditLink = ({ dispatch, editable, transactionId }) => {
   const revealForm = (e) => {
     e.preventDefault()
     const action = edit({ id: transactionId, showForm: true })
@@ -29,8 +27,5 @@ const EditLink = (props) => {
   }
 }
 
-const mapStateToProps = (_state, ownProps) => (
-  ownProps
-)
-
+const mapStateToProps = (_state, ownProps) => ownProps
 export default connect(mapStateToProps)(EditLink)

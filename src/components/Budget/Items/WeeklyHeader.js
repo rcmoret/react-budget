@@ -1,6 +1,10 @@
 import React from "react"
 import { connect } from "react-redux"
+
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
 import { editNewWeeklyItem, toggleWeeklyItemForm } from "../../../actions/budget"
+
 import { Link } from "react-router-dom"
 import WeeklyItemForm from "./WeeklyItemForm"
 
@@ -20,7 +24,7 @@ const WeeklyHeader = (props) => {
   return (
     <div className="budget-group-header">
       <div className="title">
-        <h3>Day-to-Day Items</h3>
+        <h3>{titleize(copy.category.weekly)}</h3>
       </div>
       <Link
         to="#"

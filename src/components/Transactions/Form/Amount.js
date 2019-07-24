@@ -1,8 +1,10 @@
 import React from "react"
 
+import { transaction as copy } from "../../../locales/copy"
+
 import SubtransactionAmount from "./SubtransactionAmount"
 
-const Amounts = ({ amount, handleKeyDown, onChange, onSubChange, subtransactions }) => {
+export default ({ amount, handleKeyDown, onChange, onSubChange, subtransactions }) => {
   const update = (e) => {
     onChange({ amount: e.target.value })
   }
@@ -14,7 +16,6 @@ const Amounts = ({ amount, handleKeyDown, onChange, onSubChange, subtransactions
         <input
           type="text"
           name="amount"
-          placeholder="amount"
           value={parseFloat(total).toFixed(2)}
           disabled={true}
         />
@@ -35,7 +36,7 @@ const Amounts = ({ amount, handleKeyDown, onChange, onSubChange, subtransactions
         <input
           type="text"
           name="amount"
-          placeholder="amount"
+          placeholder={copy.amount}
           value={amount}
           onChange={update}
           onKeyDown={handleKeyDown}
@@ -45,5 +46,3 @@ const Amounts = ({ amount, handleKeyDown, onChange, onSubChange, subtransactions
     )
   }
 }
-
-export default Amounts

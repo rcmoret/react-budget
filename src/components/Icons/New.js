@@ -1,7 +1,11 @@
 import React from "react"
 import { connect } from "react-redux"
 
+import { budget as copy } from "../../locales/copy"
+import { titleize } from "../../locales/functions"
+
 import { created, updateNew } from "./actions"
+
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { post } from "../../functions/ApiClient"
 
@@ -23,7 +27,7 @@ const New = (props) => {
 
   return (
     <Form
-      buttonText="Create"
+      buttonText={titleize(copy.icon.createButtonText)}
       icon={props.newIcon}
       onChange={onChange}
       onSubmit={onSubmit}

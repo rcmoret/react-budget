@@ -1,5 +1,8 @@
 import React from "react"
 
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
+
 export default ({ descriptor, spentOrDeposited, showDetail }) => {
   if (showDetail) {
     return (
@@ -11,7 +14,7 @@ export default ({ descriptor, spentOrDeposited, showDetail }) => {
           {spentOrDeposited}
         </div>
         <div className="budget-item-difference">
-          Remaining
+          {titleize(copy.shared.remaining)}
         </div>
       </div>
     )
