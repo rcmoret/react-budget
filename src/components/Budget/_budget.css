@@ -696,6 +696,66 @@ nav.budget-actions a .budget-action:hover {
   margin: 10px 0;
 }
 
+.finalize-title {
+  padding: 0 2%;
+}
+
+.finalize-workspace {
+  padding: 0 2%;
+}
+
+.finalize-accrual {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5% 2%;
+  background: white;
+  border-radius: 15px;
+}
+
+.finalize-accrual:first-of-type {
+  border-top: 1px black solid;
+  border-bottom: 1px black solid;
+}
+
+.finalize-accrual:nth-of-type(2n) {
+  background: #EFEFEF;
+}
+
+.finalize-accrual .item-name {
+  width: 30%;
+}
+
+.finalize-accrual .item-input {
+  text-align: right;
+  width: 20%;
+}
+
+.finalize-accrual .next-month-amount {
+  text-align: right;
+  width: 20%;
+}
+
+.finalize-accrual .indicator i.green {
+  color: #59D176; /* green */
+}
+
+.next-month-accrual-submit {
+  width: 60%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5% 2%;
+}
+
+.next-month-accrual-submit button {
+  background-color: #59D176; /* green */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5% 1%;
+  font-size: 1em;
+}
+
 .review-item-current {
   background-color: #E9ECFF; /* light blue */
   padding: 10px 10px;
@@ -815,7 +875,6 @@ nav.budget-actions a .budget-action:hover {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 1%;
 }
 
 .cleared-item-wrapper {

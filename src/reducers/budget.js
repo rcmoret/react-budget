@@ -60,8 +60,22 @@ const initialState = {
   menuOptions: {
     showAccruals: false,
     showCleared: false,
-    showOptions: false,
+    showOptions: true,
     sortOrder: "byName",
+  },
+  finalize: {
+    baseMonth: {
+      month: null,
+      year: null,
+      isFetched: false,
+      collection: [],
+    },
+    next: {
+      month: null,
+      year: null,
+      isFetched: false,
+      collection: [],
+    },
   },
   setup: {
     baseMonth: {
@@ -280,6 +294,36 @@ export default (state = initialState, action) => {
         }
       }
     }
+  case "budget/finalize/BASE_MONTH_FETCH":
+    return {
+      ...state,
+      finalize: {
+        ...state.finalize,
+        baseMonth: {
+          ...state.finalize.baseMonth,
+          ...action.payload.metadata,
+          collection: Helpers.finalizeItemsCollection(action.payload),
+          isFetched: true,
+        },
+      },
+    }
+  case "budget/finalize/NEXT_MONTH_FETCH":
+    return Helpers.nextMonthFetched(action.payload, state)
+  case "budget/finalize/SET_STATUS":
+    return {
+      ...state,
+      finalize: {
+        ...state.finalize,
+        baseMonth: {
+          ...state.finalize.baseMonth,
+          collection: state.finalize.baseMonth.collection.map(item =>
+            item.id === action.payload.id ? { ...item, ...action.payload } : item
+          ),
+        },
+      },
+    }
+  case "budget/finalize/UPDATE_FINALIZE_ITEM":
+    return Helpers.updateFinalizeItem(action.payload, state)
   case "budget/BASE_MONTH_FETCHED":
     return {
       ...state,

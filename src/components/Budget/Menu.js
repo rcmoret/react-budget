@@ -2,7 +2,6 @@ import React from "react"
 import { connect } from "react-redux"
 
 import { icon as iconCopy, budget as copy } from "../../locales/copy"
-
 import { titleize } from "../../locales/functions"
 import {
   changeItemSortOrder,
@@ -10,6 +9,8 @@ import {
   toggleClearedItems,
   toggleMenu,
 } from "../../actions/budget"
+
+import DateFormatter from "../../functions/DateFormatter"
 
 import Icon from "../Icons/Icon"
 import { Link } from "react-router-dom"
@@ -115,6 +116,11 @@ const Links = (props) => {
           isFuture={isFuture}
           requiresSetUp={requiresSetUp}
         />
+        <FinalizeButton
+          dispatch={dispatch}
+          month={month}
+          year={year}
+        />
         <hr />
         <Link to="/budget/categories">
           <div className="budget-action">
@@ -170,6 +176,24 @@ const Links = (props) => {
     return null
   }
 }
+
+const FinalizeButton = ({ dispatch, month, year }) => (
+  <Link
+    to={`/budget/finalize/${month}/${year}/start`}
+  >
+    <div className="budget-action">
+      <strong>
+          {titleize(copy.menu.finalizeLinkText(
+            DateFormatter({
+              month: month,
+              year: year,
+              format: "monthYear"
+            })
+          ))}
+      </strong>
+    </div>
+  </Link>
+)
 
 const mapStateToProps = (state, ownProps) => {
   return {

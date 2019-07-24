@@ -217,3 +217,37 @@ export const addNewSetupItem = (item, state) => {
     },
   }
 }
+
+export const finalizeItemsCollection = (payload) => {
+  return payload.collection.map(item => {
+    if (item.monthly) {
+      return objectifyMonthly({ ...item, status: "pending" })
+    } else {
+      return objectifyWeekly({ ...item, status: "pending" })
+    }
+  })
+}
+
+export const nextMonthFetched = (payload, state) => {
+  return {
+    ...state,
+    ...setUpIndex(payload, state),
+    finalize: {
+      ...state.finalize,
+      next: {
+        ...state.finalize.next,
+        ...payload.metadata,
+        collection: finalizeItemsCollection(payload),
+        isFetched: true,
+      },
+    },
+  }
+}
+
+export const updateFinalizeItem = (payload, state) => {
+  if (payload.monthly) {
+    return updateMonthlyItem(payload, state)
+  } else {
+    return updateWeeklyItem(payload, state)
+  }
+}

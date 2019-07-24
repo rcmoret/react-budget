@@ -1,5 +1,6 @@
 export const category = {
   accrual: "accrual",
+  accruals: "accruals",
   accruing: "accruing",
   addNew: "add new",
   all: "all",
@@ -33,6 +34,13 @@ export const discretionary = {
   aheadOfBudget: "Ahead of Budget",
   overBudget: "Over Budget",
   title: "discretionary",
+}
+
+export const finalize = {
+  budgetedFor: (date) => `Budgeted for ${date}`,
+  remainingIn: (date) => `Remaining in ${date}`,
+  submitAccrualButtonText: "update accruals",
+  title: "finalize",
 }
 
 export const icon = {
@@ -83,6 +91,7 @@ export const maturityInterval = {
 
 export const menu = {
   hide: "hide",
+  finalizeLinkText:  (monthString) => `Finalize ${monthString}`,
   manage: "manage",
   order: "order",
   setUpLinkText: (dateString) => `Set up ${dateString}`,

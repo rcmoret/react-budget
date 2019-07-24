@@ -1,6 +1,7 @@
 import { account as accountContent } from "./en/account"
 import {
   discretionary as discretionaryContent,
+  finalize as finalizeContent,
   icon as iconContent,
   item as itemContent,
   category as budgetCategoryContent,
@@ -27,6 +28,10 @@ export const budget = {
   discretionary: {
     ...discretionaryContent,
     ...overrides.discretionary,
+  },
+  finalize: {
+    ...finalizeContent,
+    ...overrides.finalize,
   },
   icon: {
     ...iconContent,
