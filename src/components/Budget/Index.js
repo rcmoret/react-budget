@@ -29,7 +29,7 @@ const BudgetIndex = (props) => {
     get(url, data => dispatch(fetched(data)))
   }
 
-  if (!categoresWereFetched) {
+  if (itemsFetched && !categoresWereFetched) {
     const url = ApiUrlBuilder(["budget/categories"])
     get(url, data => dispatch(categoriesFetched(data)))
   }
