@@ -14,6 +14,10 @@ export const setStatus = (payload) => {
   return { type: "budget/finalize/SET_STATUS", payload: payload }
 }
 
+export const updateExtra = (payload) => {
+  return { type: "budget/finalize/UPDATE_EXTRA", payload: payload }
+}
+
 export const updateFinalizeItem = (payload) => {
   return { type: "budget/finalize/UPDATE_FINALIZE_ITEM", payload: payload }
 }

@@ -1,6 +1,6 @@
 import React from "react"
 
-import { editBaseAmount } from "../actions/finalize"
+import { editBaseAmount, updateExtra } from "../actions/finalize"
 
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
@@ -13,7 +13,20 @@ export default (wrapper) => {
 
   const handleChange = (e) => {
     e.preventDefault()
-    const action = editBaseAmount({ id: baseItem.id, floatRemaining: e.target.value })
+    const action = editBaseAmount({
+      ...baseItem,
+      floatRemaining: e.target.value
+    })
+    dispatch(action)
+    _updateExtra(parseFloat(e.target.value * 100))
+  }
+
+  const _updateExtra = (amount) => {
+    const action = updateExtra({
+      id: baseItem.id,
+      name: baseItem.name,
+      amount: (baseItem.amount - amount)
+    })
     dispatch(action)
   }
 

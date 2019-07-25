@@ -251,3 +251,13 @@ export const updateFinalizeItem = (payload, state) => {
     return updateWeeklyItem(payload, state)
   }
 }
+
+export const updateExtra = (payload, extra) => {
+  const ids = extra.map(item => item.id)
+
+  if (ids.includes(payload.id)) {
+    return extra.map(item => item.id === payload.id ? { ...item, ...payload } : item)
+  } else {
+    return [...extra, payload]
+  }
+}

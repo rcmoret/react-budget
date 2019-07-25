@@ -11,12 +11,14 @@ import Header from "./Header"
 import Icon from "../../Icons/Icon"
 import { Redirect } from "react-router"
 import Show from "./AccrualShow"
+import Summary from "./Summary"
 import UpdateButton from "./UpdateAccruals"
 
 const Accruals = (props) => {
   const {
     collection,
     dispatch,
+    extra,
     isFetched,
     month,
     nextMonth,
@@ -32,54 +34,59 @@ const Accruals = (props) => {
     )
   } else {
     return (
-      <div className="finalize-wrapper">
+      <div>
         <Header
           month={month}
           year={year}
         />
-        <div className="finalize-workspace">
-          <h4>{titleize(copy.category.accruals)}</h4>
-          <div className="finalize-accrual">
-            <div className="item-name">
-              {titleize(copy.category.name)}
+        <div className="finalize-wrapper">
+          <div className="finalize-workspace">
+            <h4>{titleize(copy.category.accruals)}</h4>
+            <div className="finalize-accrual">
+              <div className="item-name">
+                {titleize(copy.category.name)}
+              </div>
+              <div className="item-input">
+                {copy.finalize.remainingIn(
+                  DateFormatter({
+                    month: month,
+                    year: year,
+                    format: format,
+                  })
+                )}
+              </div>
+              <div className="next-month-amount">
+                {copy.finalize.budgetedFor(
+                  DateFormatter({
+                    month: nextMonth,
+                    year: nextYear,
+                    format: format,
+                  })
+                )}
+              </div>
+              <div className="next-month-amount">
+                {titleize(copy.shared.total)}
+              </div>
             </div>
-            <div className="item-input">
-              {copy.finalize.remainingIn(
-                DateFormatter({
-                  month: month,
-                  year: year,
-                  format: format,
-                })
-              )}
-            </div>
-            <div className="next-month-amount">
-              {copy.finalize.budgetedFor(
-                DateFormatter({
-                  month: nextMonth,
-                  year: nextYear,
-                  format: format,
-                })
-              )}
-            </div>
-            <div className="next-month-amount">
-              {titleize(copy.shared.total)}
+            {collection.map(wrapper =>
+              <Show
+                key={wrapper.baseItem.id}
+                {...wrapper}
+                dispatch={dispatch}
+                nextMonth={nextMonth}
+                nextYear={nextYear}
+              />
+            )}
+            <div className="next-month-accrual-submit">
+              <UpdateButton
+                collection={collection}
+                dispatch={dispatch}
+              />
             </div>
           </div>
-          {collection.map(wrapper =>
-            <Show
-              key={wrapper.baseItem.id}
-              {...wrapper}
-              dispatch={dispatch}
-              nextMonth={nextMonth}
-              nextYear={nextYear}
-            />
-          )}
-          <div className="next-month-accrual-submit">
-            <UpdateButton
-              collection={collection}
-              dispatch={dispatch}
-            />
-          </div>
+          <Summary
+            extra={extra}
+          />
         </div>
       </div>
     )
@@ -91,7 +98,7 @@ const mapStateToProps = (state, ownProps) => {
   const baseYear = parseInt(ownProps.match.params.year)
   const { finalize } = state.budget
   const { isFetched, month, year } = finalize.baseMonth
-  const { next } = finalize
+  const { extra, next } = finalize
   const nextMonthCollection = next.collection
   const collection = state.budget.finalize.baseMonth.collection
     .filter(item => item.accrual && item.remaining < 0)
@@ -106,6 +113,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     collection: collection,
     isFetched: isFetched,
+    extra: extra,
     month: (month || baseMonth),
     nextMonth: next.month,
     nextYear: next.year,

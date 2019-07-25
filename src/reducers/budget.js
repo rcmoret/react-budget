@@ -76,6 +76,7 @@ const initialState = {
       isFetched: false,
       collection: [],
     },
+    extra: [],
   },
   setup: {
     baseMonth: {
@@ -333,6 +334,14 @@ export default (state = initialState, action) => {
             item.id === action.payload.id ? { ...item, ...action.payload } : item
           ),
         },
+      },
+    }
+  case "budget/finalize/UPDATE_EXTRA":
+    return {
+      ...state,
+      finalize: {
+        ...state.finalize,
+        extra: Helpers.updateExtra(action.payload, state.finalize.extra)
       },
     }
   case "budget/finalize/UPDATE_FINALIZE_ITEM":
