@@ -13,6 +13,7 @@ import {
 import * as dateFormatter from "../../../functions/DateFormatter"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
+import delay from "../../../functions/Delay"
 import { post } from "../../../functions/ApiClient"
 
 import Icon from "../../Icons/Icon"
@@ -86,7 +87,6 @@ const SubmitButton = ({ collection, dispatch, month, year }) => {
     )
   }
 
-  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
   const submitAccruals = async () => {
     for (let item of collection) {
       dispatch(markSubmitted({ id: item.id }))
