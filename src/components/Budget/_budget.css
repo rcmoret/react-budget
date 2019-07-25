@@ -731,6 +731,10 @@ nav.budget-actions a .budget-action:hover {
   width: 20%;
 }
 
+.finalize-accrual .item-input input {
+  text-align: right;
+}
+
 .finalize-accrual .next-month-amount {
   text-align: right;
   width: 20%;

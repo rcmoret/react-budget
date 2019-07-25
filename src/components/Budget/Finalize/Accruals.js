@@ -4,6 +4,8 @@ import { connect } from "react-redux"
 import { budget as copy } from "../../../locales/copy"
 import { titleize } from "../../../locales/functions"
 
+import { editBaseAmount } from "../actions/finalize"
+
 import DateFormatter from "../../../functions/DateFormatter"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
@@ -85,27 +87,77 @@ const Accruals = (props) => {
   }
 }
 
-const AccrualItem = (wrapper) => (
-  <div className="finalize-accrual">
-    <div className="item-name">
-      {wrapper.baseItem.name}
+const AccrualItem = (wrapper) => {
+  const { baseItem, dispatch } = wrapper
+  const { floatRemaining, remaining } = baseItem
+  const amount = floatRemaining === undefined ? (remaining / 100.0).toFixed(2) : floatRemaining
+
+  const handleChange = (e) => {
+    e.preventDefault()
+    const action = editBaseAmount({ id: baseItem.id, floatRemaining: e.target.value })
+    dispatch(action)
+  }
+
+  const errors = () => {
+    if (Math.abs(parseInt(amount * 100)) > (Math.abs(remaining) + 1)) {
+      return ["Cannot be greater than original amount"]
+    } else {
+      return []
+    }
+  }
+
+  return (
+    <div className="finalize-accrual">
+      <div className="item-name">
+        {wrapper.baseItem.name}
+      </div>
+      <div className="item-input">
+        <input
+          className={errors().length > 0 ? "errors" : ""}
+          name="carryover"
+          onChange={handleChange}
+          type="text"
+          value={amount}
+        />
+        <Errors errors={errors()} />
+      </div>
+      <NextMonthItem
+        {...wrapper.nextItem}
+        budgetCategoryId={wrapper.baseItem.budget_category_id}
+        dispatch={wrapper.dispatch}
+        nextMonth={wrapper.nextMonth}
+        nextYear={wrapper.nextYear}
+      />
+      <Total
+        nextMonth={wrapper.nextItem}
+        remaining={parseInt(amount * 100)}
+      />
+      <Indicator status={wrapper.baseItem.status} />
     </div>
-    <div className="item-input">
-      {MoneyFormatter(wrapper.baseItem.remaining, { absolute: false })}
-    </div>
-    <NextMonthItem
-      {...wrapper.nextItem}
-      budgetCategoryId={wrapper.baseItem.budget_category_id}
-      dispatch={wrapper.dispatch}
-      nextMonth={wrapper.nextMonth}
-      nextYear={wrapper.nextYear}
-    />
-    <Total
-      nextMonth={wrapper.nextItem}
-      remaining={wrapper.baseItem.remaining}
-    />
-    <Indicator status={wrapper.baseItem.status} />
-  </div>
+  )
+}
+
+const Errors = ({ errors }) => {
+  if (errors.length === 0) {
+    return null
+  } else {
+    return (
+      <ul className="input-errors">
+        {errors.map((error, i) =>
+          <Error
+            key={i}
+            error={error}
+          />
+        )}
+      </ul>
+    )
+  }
+}
+
+const Error = ({ error }) => (
+  <li className="input-error">
+    {error}
+  </li>
 )
 
 const NextMonthItem = (item) => {

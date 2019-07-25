@@ -307,6 +307,19 @@ export default (state = initialState, action) => {
         },
       },
     }
+  case "budget/finalize/EDIT_BASE_AMOUNT":
+    return {
+      ...state,
+      finalize: {
+        ...state.finalize,
+        baseMonth: {
+          ...state.finalize.baseMonth,
+          collection: state.finalize.baseMonth.collection.map(item =>
+            item.id === action.payload.id ? { ...item, ...action.payload } : item
+          )
+        },
+      },
+    }
   case "budget/finalize/NEXT_MONTH_FETCH":
     return Helpers.nextMonthFetched(action.payload, state)
   case "budget/finalize/SET_STATUS":

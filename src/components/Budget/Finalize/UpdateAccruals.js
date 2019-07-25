@@ -1,5 +1,4 @@
 import React from "react"
-import { connect } from "react-redux"
 
 import { budget as copy } from "../../../locales/copy"
 import { titleize } from "../../../locales/functions"
@@ -21,6 +20,14 @@ export default ({ collection, dispatch }) => {
     )
   }
 
+  const amountFor = (item) => {
+    if (item.baseItem.floatRemaining) {
+      return item.nextItem.amount + parseInt(item.baseItem.floatRemaining * 100)
+    } else {
+      return item.nextItem.amount + item.baseItem.remaining
+    }
+  }
+
   const handleSubmit = async () => {
     for (let item of collection) {
       const { id } = item.baseItem
@@ -28,7 +35,7 @@ export default ({ collection, dispatch }) => {
       if (item.nextItem) {
         submit({
           id: item.nextItem.id,
-          amount: (item.baseItem.remaining + item.nextItem.amount),
+          amount: amountFor(item),
           budget_category_id: item.baseItem.budget_category_id,
         })
       }
