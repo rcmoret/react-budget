@@ -1,8 +1,10 @@
 import React from "react"
 import { connect } from "react-redux"
+
+import format, { prevMonth, nextMonth } from "../../functions/DateFormatter"
+
 import Icon from "../Icons/Icon"
 import { Link } from "react-router-dom"
-import format, { prevMonth, nextMonth } from "../../functions/DateFormatter"
 
 const Info = (props) => {
   const { month, year, prev, next } = props
@@ -27,11 +29,17 @@ const Info = (props) => {
   )
 }
 
-const mapStateToProps = (state, _ownProps) => {
+const mapStateToProps = (state) => {
   const { month, year } = state.budget.metadata
   const next = nextMonth({ month: month, year: year })
   const prev = prevMonth({ month: month, year: year })
-  return { month: month, year: year, prev: prev, next: next }
+
+  return {
+    month: month,
+    prev: prev,
+    next: next,
+    year: year,
+  }
 }
 
 export default connect(mapStateToProps)(Info)

@@ -1,5 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
+
 import Select from "react-select"
 
 const IconSelect = ({ options, onChange, value }) => (

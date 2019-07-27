@@ -1,12 +1,15 @@
 import React from "react"
 import { connect } from "react-redux"
+
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
+
 import { update } from "../actions"
 
-const CancelButton = (props) => {
-  const { id } = props
+const CancelButton = ({ id, dispatch }) => {
   const cancel = () => {
     const action = update({ id: id, updatedProps: null, showForm: false })
-    props.dispatch(action)
+    dispatch(action)
   }
 
   if (id) {
@@ -16,7 +19,7 @@ const CancelButton = (props) => {
         className="cancel"
         onClick={cancel}
       >
-        Cancel
+        {titleize(copy.icon.cancelButtonText)}
       </button>
     )
   } else {

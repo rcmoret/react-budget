@@ -1,6 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
 
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
+
 import * as dateFormatter from "../../../functions/DateFormatter"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
@@ -25,12 +28,12 @@ const Items = ({ collection, discretionary, month, year }) => {
 
   return (
     <div className="new-month-items">
-      <h4>{monthString} Items</h4>
+      <h4>{monthString} {titleize(copy.item.items)}</h4>
       <Discretionary
         amount={discretionary}
       />
       <div className="setup-title">
-        <strong>Revenues</strong>
+        <strong>{titleize(copy.category.revenues)}</strong>
       </div>
       {revenues.map(item =>
         <Item
@@ -39,7 +42,7 @@ const Items = ({ collection, discretionary, month, year }) => {
         />
       )}
       <div className="setup-title">
-        <strong>Expenses</strong>
+        <strong>{titleize(copy.category.expenses)}</strong>
       </div>
       {expenses.map(item =>
         <Item

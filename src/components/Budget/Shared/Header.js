@@ -1,20 +1,28 @@
 import React from 'react'
 
-const Header = () => (
+import { transaction as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
+
+const {
+  account,
+  amount,
+  date,
+  description,
+} = copy
+
+export default () => (
   <div className="budget-item-transaction-row">
     <div className="budget-transaction-cell">
-      Date
+      {titleize(date)}
     </div>
     <div className="budget-transaction-cell">
-      Account
+      {titleize(account)}
     </div>
     <div className="budget-transaction-cell">
-      Description
+      {titleize(description)}
     </div>
     <div className="budget-transaction-cell">
-      Amount
+      {titleize(amount)}
     </div>
   </div>
 )
-
-export default Header

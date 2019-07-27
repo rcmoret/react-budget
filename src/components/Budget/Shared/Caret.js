@@ -1,13 +1,14 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react"
 
-const Caret = (props) => {
-  if (props.showDetail) {
+import { Link } from "react-router-dom"
+
+const Caret = ({ collapseDetail, expandDetail, showDetail }) => {
+  if (showDetail) {
     return (
       <Link
         to="#"
         className="fas fa-caret-down"
-        onClick={props.collapseDetail}
+        onClick={collapseDetail}
       />
     )
   } else {
@@ -15,10 +16,10 @@ const Caret = (props) => {
       <Link
         to="#"
         className="fas fa-caret-right"
-        onClick={props.expandDetail}
+        onClick={expandDetail}
       />
     )
   }
 }
 
-export default Caret;
+export default Caret

@@ -1,9 +1,11 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
 import { categoriesFetched } from "../../../actions/budget/categories"
 import { fetched as iconsFetched } from "../../Icons/actions"
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 
 import Filters from "./Filters"
 import Header from "./Header"
@@ -29,7 +31,7 @@ const BudgetCategories = (props) => {
 
   return (
     <div className="categories">
-      <h2>Budget Categories</h2>
+      <h2>{titleize(copy.category.title)}</h2>
       <Filters />
       <Header />
       <NewBudgetCategory />

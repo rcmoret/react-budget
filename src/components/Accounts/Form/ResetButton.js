@@ -1,17 +1,19 @@
 import React from "react"
+
+import { account as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
+
 import Icon from "../../Icons/Icon"
 
-const ResetButton = ({ id, resetForm }) => {
+export default ({ id, resetForm }) => {
   if (id) {
     return (
       <button type="reset" className="reset" onClick={resetForm}>
         <Icon className="fas fa-redo-alt fa-flip-horizontal" />{ " " }
-        Reset
+        {titleize(copy.resetButtonText)}
       </button>
     )
   } else {
     return null
   }
 }
-
-export default ResetButton

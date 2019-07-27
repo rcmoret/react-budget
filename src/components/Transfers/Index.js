@@ -1,9 +1,13 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import { transfer as copy, transaction as txnCopy } from "../../locales/copy"
+import { titleize } from "../../locales/functions"
+
 import { fetched } from "./actions"
 import { fetched as renderAccounts } from "../Accounts/actions"
+
+import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 
 import Tabs from "../Accounts/Tabs"
 import Icon from "../Icons/Icon"
@@ -37,28 +41,28 @@ const Index = ({ accounts, accountsFetched, collection, dispatch, fetchedTransfe
         />
       </div>
       <div className="transfers">
-        <h2>Recent Transfers</h2>
+        <h2>{titleize(copy.title)}</h2>
         <hr/>
 
-        Viewing {viewing[0]} - {viewing[1]} of {total}
+        {copy.iOfN(viewing, total)}
         <div className="transfer">
           <div className="clearance-date">
-            Clearance Date
+            {titleize(txnCopy.clearanceDate)}
             {" "}
             <Icon className="fas fa-calendar-alt" />
           </div>
           <div className="from-account">
-            From
+            {titleize(copy.from)}
           </div>
           <div className="to-account">
-            To
+            {titleize(copy.to)}
           </div>
           <div className="amount">
-            Amount
+            {titleize(txnCopy.amount)}
           </div>
         </div>
         {collection.map(transfer => (
-          <Transfer key={transfer.id} { ...transfer } />
+          <Transfer key={transfer.id} {...transfer} />
         ))}
         <hr />
         <NewTransfer />

@@ -1,8 +1,10 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import { transaction as copy } from "../../../locales/copy"
 import { edit, deleteTransaction } from "../../../actions/transactions"
+
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 
 import Amount from "./Amount"
 import Balance from "./Balance"
@@ -36,7 +38,7 @@ const Show = (props) => {
 
   const transactionDelete = (e) => {
     e.preventDefault()
-    const confirmation = window.confirm("Are you sure you want to delete this transaction?")
+    const confirmation = window.confirm(copy.deleteConfirmationMessage)
     if (!confirmation) {
       return
     } else {

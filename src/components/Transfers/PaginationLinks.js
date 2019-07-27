@@ -1,9 +1,13 @@
 import React from "react"
 import { connect } from "react-redux"
 
+import { transfer as copy } from "../../locales/copy"
+import { titleize } from "../../locales/functions"
+
+import { updatePage } from "./actions"
+
 import Icon from "../Icons/Icon"
 import { Link } from "react-router-dom"
-import { updatePage } from "./actions"
 
 const PaginationLinks = ({ dispatch, metadata }) => {
   const { currentPage, limit, total } = metadata
@@ -71,9 +75,9 @@ const LinkToFirst = ({ currentPage, onClick, totalPages }) => {
         to="#"
         onClick={onClick}
       >
-      <Icon className="fas fa-angle-double-left" />
-      {" "}
-      First
+        <Icon className="fas fa-angle-double-left" />
+        {" "}
+        {titleize(copy.first)}
       </Link>
     )
   } else {
@@ -88,9 +92,9 @@ const LinkToPrevious = ({ currentPage, onClick }) => {
         to="#"
         onClick={onClick}
       >
-      <Icon className="fas fa-caret-left" />
-      {" "}
-      Previous
+        <Icon className="fas fa-caret-left" />
+        {" "}
+        {titleize(copy.previous)}
       </Link>
     )
   } else {
@@ -103,7 +107,7 @@ const Ellipsis = ({ currentPage, totalPages }) => {
     return null
   } else {
     return (
-      <span>{" "}...{" "}</span>
+      <span>{copy.ellipsis}</span>
     )
   }
 }
@@ -115,9 +119,9 @@ const LinkToNext = ({ currentPage, onClick, totalPages }) => {
         to="#"
         onClick={onClick}
       >
-      Next
-      {" "}
-      <Icon className="fas fa-caret-right" />
+        {titleize(copy.next)}
+        {" "}
+        <Icon className="fas fa-caret-right" />
       </Link>
     )
   } else {
@@ -132,9 +136,9 @@ const LinkToLast = ({ currentPage, onClick, totalPages }) => {
         to="#"
         onClick={onClick}
       >
-      Last
-      {" "}
-      <Icon className="fas fa-angle-double-right" />
+        {titleize(copy.last)}
+        {" "}
+        <Icon className="fas fa-angle-double-right" />
       </Link>
     )
   } else {

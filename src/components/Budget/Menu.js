@@ -1,14 +1,18 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import Icon from "../Icons/Icon"
-import { Link } from "react-router-dom"
+import { icon as iconCopy, budget as copy } from "../../locales/copy"
+
+import { titleize } from "../../locales/functions"
 import {
   changeItemSortOrder,
   toggleAccrualItems,
   toggleClearedItems,
   toggleMenu,
 } from "../../actions/budget"
+
+import Icon from "../Icons/Icon"
+import { Link } from "react-router-dom"
 import SetUpButton from "./SetUpButton"
 
 const Menu = (props) => {
@@ -62,7 +66,7 @@ const Title = ({ dispatch, showOptions }) => {
       >
         <Icon className={iconClassName} />
         {" "}
-        Menu
+        {titleize(copy.menu.title)}
       </Link>
     </h3>
   )
@@ -114,12 +118,12 @@ const Links = (props) => {
         <hr />
         <Link to="/budget/categories">
           <div className="budget-action">
-            <strong>Manage Categories</strong>
+            <strong>{titleize(`${copy.menu.manage} ${copy.category.categories}`)}</strong>
           </div>
         </Link>
         <Link to="/budget/icons">
           <div className="budget-action">
-            <strong>Manage Icons</strong>
+            <strong>{titleize(`${copy.menu.manage} ${iconCopy.icons}`)}</strong>
           </div>
         </Link>
         <hr />
@@ -128,7 +132,7 @@ const Links = (props) => {
           onClick={toggleSort}
         >
           <div className="budget-action">
-            <strong>Order {newSortOrder.replace( /([A-Z])/g, " $1" )}</strong>
+            <strong>{`${titleize(copy.menu.order)} ${newSortOrder.replace(/([A-Z])/g, " $1")}`}</strong>
           </div>
         </Link>
         <Link
@@ -136,7 +140,14 @@ const Links = (props) => {
           onClick={toggleCleared}
         >
           <div className="budget-action">
-            <strong>{showCleared ? "Hide" : "Show"} Cleared Monthly Items</strong>
+            <strong>
+              {titleize([
+                (showCleared ? copy.menu.hide : copy.menu.show),
+                copy.item.cleared,
+                copy.category.monthly,
+                copy.item.items,
+              ].join(" "))}
+            </strong>
           </div>
         </Link>
         <Link
@@ -144,7 +155,13 @@ const Links = (props) => {
           onClick={toggleAccruals}
         >
           <div className="budget-action">
-            <strong>{showAccruals ? "Hide" : "Show"} Accruing Items</strong>
+            <strong>
+              {titleize([
+                (showAccruals ? copy.menu.hide : copy.menu.show),
+                copy.category.accruing,
+                copy.item.items,
+              ].join(" "))}
+            </strong>
           </div>
         </Link>
       </div>

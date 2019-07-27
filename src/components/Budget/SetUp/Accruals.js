@@ -1,6 +1,8 @@
 import React from "react"
 import { connect } from "react-redux"
 
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
 import {
   addItem,
   editAccrualAmount,
@@ -19,6 +21,10 @@ import { Link } from "react-router-dom"
 import { Redirect } from "react-router-dom"
 
 const Accruals = (props) => {
+  const {
+    accruingExpenses,
+  } = copy.setup
+
   const {
     baseMonth,
     collection,
@@ -39,7 +45,7 @@ const Accruals = (props) => {
       <div className="set-up-workspace">
         <div className="previous-month-items">
           <h4>{prevMonthString}</h4>
-          <h5>Accruing Expenses</h5>
+          <h5>{titleize(accruingExpenses)}</h5>
           <div className="review-accruals">
             {collection.map(item =>
               <Item
@@ -67,6 +73,10 @@ const Accruals = (props) => {
 }
 
 const SubmitButton = ({ collection, dispatch, month, year }) => {
+  const {
+    accrualButtonText,
+  } = copy.setup
+
   const submit = (item) => {
     const amount = item.updatedProps ? decimalToInt(item.updatedProps.amount) : item.defaultAmount
     post(
@@ -94,7 +104,7 @@ const SubmitButton = ({ collection, dispatch, month, year }) => {
         type="submit"
         onClick={submitAccruals}
       >
-        Include Selected
+        {titleize(accrualButtonText)}
       </button>
     </div>
   )

@@ -1,7 +1,10 @@
 import React from "react"
 import { connect } from "react-redux"
 
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
 import { addItem, editNew, markReviewed, requeue, updateExisting } from "../../../actions/budget/setup"
+
 import * as dateFormatter from "../../../functions/DateFormatter"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
@@ -11,6 +14,13 @@ import { post, put } from "../../../functions/ApiClient"
 import Icon from "../../Icons/Icon"
 
 const ReviewItem = (props) => {
+  const {
+    additional,
+    amountToInclude,
+    lastMonthString,
+    nOfTotal,
+  } = copy.setup
+
   const {
     category,
     count,
@@ -31,8 +41,8 @@ const ReviewItem = (props) => {
     if (item === undefined) {
       return ""
     }
-    const adverb = item.monthly ? "monthly" : "day-to-day"
-    const adjective = item.expense ? "expense" : "revenue"
+    const adverb = item.monthly ? copy.category.monthly : copy.category.weekly
+    const adjective = item.expense ? copy.category.expense : copy.category.revenue
     return `${adverb} ${adjective}`
   }
 
@@ -108,7 +118,7 @@ const ReviewItem = (props) => {
       <div className="header">
         <div className="top-line"><strong>{item.name}</strong></div>
         <div className="top-line">
-          {number} of {count}
+          {nOfTotal(number, count)}
           {" "}
           <em>
             {description(item)}
@@ -122,7 +132,7 @@ const ReviewItem = (props) => {
         />
         <Option
           amount={category.default_amount}
-          label="Default Amount"
+          label={titleize(copy.category.defaultAmount)}
           onClick={setDefaultAmount}
           checked={selectedOption === "defaultAmount" ? "checked" : ""}
         />
@@ -135,13 +145,13 @@ const ReviewItem = (props) => {
         <Option
           amount={item.spent}
           hidden={item.spent === 0}
-          label={`${item.expense ? "Spent" : "Deposited"} in ${prevMonthString}`}
+          label={lastMonthString(titleize(item.expense ? "Spent" : "Deposited"), prevMonthString)}
           onClick={setPreviousSpent}
           checked={selectedOption === "previousSpent" ? "checked" : ""}
         />
         <div className="input">
           <div className="label">
-            <em>{dayToDayItem ? "Additional" : "Amount to include"}: </em>
+            <em>{dayToDayItem ? titleize(additional) : amountToInclude}: </em>
           </div>
           <input
             onChange={updateAmount}
@@ -164,7 +174,7 @@ const ReviewItem = (props) => {
             className="requeue"
             onClick={requeueItem}
           >
-            Requeue
+            {copy.setup.requeue}
             {" "}
             <Icon className="fas fa-retweet" />
           </button>
@@ -172,7 +182,7 @@ const ReviewItem = (props) => {
             className="ignore"
             onClick={ignore}
           >
-            Don't Include
+            {titleize(copy.setup.ignore)}
             {" "}
             <Icon className="far fa-times-circle" />
           </button>
@@ -183,21 +193,27 @@ const ReviewItem = (props) => {
 }
 
 const Header = ({ dayToDayItem, newMonthString }) => {
+  const {
+    alreadyIncluded,
+    howMuchAdditional,
+    howMuchToInclude,
+  } = copy.setup
+
   if (dayToDayItem) {
     return (
       <div>
         <p>
-          You already included {MoneyFormatter(dayToDayItem.amount, { absolute: false })} for {dayToDayItem.name} in {newMonthString}'s budget.
+          {alreadyIncluded(MoneyFormatter(dayToDayItem.amount, { absolute: false }), dayToDayItem, newMonthString)}
         </p>
         <p>
-          How much additional to include?
+          {howMuchAdditional}
         </p>
       </div>
     )
   } else {
     return (
       <div>
-        <p>How much to include in {newMonthString}?</p>
+        <p>{howMuchToInclude(newMonthString)}</p>
       </div>
     )
   }
@@ -227,6 +243,7 @@ const Option = ({ amount, checked, hidden, label, onClick }) => {
 }
 
 const ConfirmationButton = ({ amount, createItem, dayToDayItem, updateItem }) => {
+  const { include } = copy.setup
   const onClick = dayToDayItem ? updateItem : createItem
   if (amount === "") {
     return null
@@ -236,7 +253,7 @@ const ConfirmationButton = ({ amount, createItem, dayToDayItem, updateItem }) =>
         <button onClick={onClick}>
           <Icon className="far fa-check-circle" />
           {" "}
-          Include
+          {titleize(include)}
         </button>
       </div>
     )
@@ -244,11 +261,12 @@ const ConfirmationButton = ({ amount, createItem, dayToDayItem, updateItem }) =>
 }
 
 const Total = ({ amount, dayToDayItem }) => {
+  const { total } = copy.shared
   if (dayToDayItem) {
     return (
       <div className="option">
         <div className="label">
-          <em>Total: </em>
+          <em>{titleize(total)}: </em>
         </div>
         <div className="amount">
           {MoneyFormatter((((parseFloat(amount) || 0) * 100) + dayToDayItem.amount), { absolute: false })}

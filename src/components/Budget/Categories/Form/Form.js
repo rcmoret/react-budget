@@ -1,5 +1,8 @@
 import React from "react"
 
+import { budget as copy } from "../../../../locales/copy"
+import { titleize } from "../../../../locales/functions"
+
 import CancelButton from "./CancelButton"
 import IconSelect from "./IconSelect"
 
@@ -10,7 +13,7 @@ export default (props) => (
       errors={props.errors.name || []}
       name="name"
       onChange={props.onChange}
-      placeholder="name"
+      placeholder={copy.category.name}
       value={props.name}
     />
     <CategoryInput
@@ -18,7 +21,7 @@ export default (props) => (
       errors={props.errors.default_amount || []}
       name="default_amount"
       onChange={props.onChange}
-      placeholder="default amount"
+      placeholder={copy.category.defaultAmount}
       value={props.default_amount}
     />
     <div className="category-options">
@@ -27,7 +30,7 @@ export default (props) => (
         disabled={props.optionsDisabled}
         name="monthly"
         onChange={props.onChange}
-        title="Monthly"
+        title={copy.category.monthly}
         value={true}
       />
       <Option
@@ -35,7 +38,7 @@ export default (props) => (
         disabled={props.optionsDisabled}
         name="monthly"
         onChange={props.onChange}
-        title="Day-to-Day"
+        title={titleize(copy.category.weekly)}
         value={false}
       />
     </div>
@@ -45,7 +48,7 @@ export default (props) => (
         disabled={props.optionsDisabled}
         name="expense"
         onChange={props.onChange}
-        title="Expense"
+        title={copy.category.expense}
         value={true}
       />
       <Option
@@ -53,13 +56,13 @@ export default (props) => (
         disabled={props.optionsDisabled}
         name="expense"
         onChange={props.onChange}
-        title="Revenue"
+        title={copy.category.revenue}
         value={false}
       />
     </div>
     <div className="category-options">
       <div className="option">
-        <div className="label">Accrual</div>
+        <div className="label">{copy.category.accrual}</div>
         <input type="checkbox"
           name="accrual"
           value={props.accrual === "true" ? "false" : "true"}
@@ -80,7 +83,7 @@ export default (props) => (
     </div>
     <div className="category-button">
       <button type="reset" className="reset" onClick={props.resetForm}>
-        Reset
+        {titleize(copy.category.resetButtonText)}
       </button>
     </div>
     <CancelButton

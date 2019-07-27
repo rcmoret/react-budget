@@ -1,10 +1,27 @@
 import React from "react"
 import { connect } from "react-redux"
 
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
+
 import { applyFilter } from "../../../actions/budget/categories"
+
 import Icon from "../../Icons/Icon"
 
 const Filters = (props) => {
+  const {
+    all,
+    expenses,
+    filters,
+    frequency,
+    monthly,
+    revenues,
+    searchLabelText,
+    searchPlaceholder,
+    type,
+    weekly,
+  } = copy.category
+
   const {
     adjectiveFilter,
     adverbFilter,
@@ -38,18 +55,18 @@ const Filters = (props) => {
       </span>
       {" "}
       <div className="title">
-        <strong>Filters</strong>
+        <strong>{titleize(filters)}</strong>
       </div>
 
       <div className="search">
         <div className="label">
-          Category Name
+          {titleize(searchLabelText)}
         </div>
         <div className="search-bar">
           <input
             type="text"
             onChange={setSearchTerm}
-            placeholder="search"
+            placeholder={searchPlaceholder}
             value={searchFilter.value}
           />
         </div>
@@ -58,13 +75,13 @@ const Filters = (props) => {
       <div className="adverb">
         <div className="options">
           <div className="title">
-            <strong>Frequency</strong>
+            <strong>{titleize(frequency)}</strong>
           </div>
           <hr/>
 
           <div className="option">
             <div className="label">
-              ALL
+              {titleize(all)}
             </div>
             <div className="radio">
               <input
@@ -78,7 +95,7 @@ const Filters = (props) => {
 
           <div className="option">
             <div className="label">
-              Day-to-Day
+              {titleize(weekly)}
             </div>
             <div className="radio">
               <input
@@ -92,7 +109,7 @@ const Filters = (props) => {
 
           <div className="option">
             <div className="label">
-              Monthly
+              {titleize(monthly)}
             </div>
             <div className="radio">
               <input
@@ -110,13 +127,13 @@ const Filters = (props) => {
       <div className="adjective">
         <div className="options">
           <div className="title">
-            <strong>Type</strong>
+            <strong>{titleize(type)}</strong>
           </div>
           <hr/>
 
           <div className="option">
             <div className="label">
-              ALL
+              {titleize(all)}
             </div>
             <div className="radio">
               <input
@@ -130,7 +147,7 @@ const Filters = (props) => {
 
           <div className="option">
             <div className="label">
-              Revenues
+              {titleize(revenues)}
             </div>
             <div className="radio">
               <input
@@ -144,7 +161,7 @@ const Filters = (props) => {
 
           <div className="option">
             <div className="label">
-              Expenses
+              {titleize(expenses)}
             </div>
             <div className="radio">
               <input

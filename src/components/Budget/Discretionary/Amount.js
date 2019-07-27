@@ -1,20 +1,19 @@
 import React from "react"
+
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
-const Amount = (props) => {
-  if (props.showDetail) {
+export default ({ amount, showDetail, total_remaining }) => {
+  if (showDetail) {
     return (
       <span>
-        {MoneyFormatter(props.amount)}
+        {MoneyFormatter(amount)}
       </span>
     )
   } else {
     return (
       <span>
-        {MoneyFormatter(props.total_remaining)}
+        {MoneyFormatter(total_remaining)}
       </span>
     )
   }
 }
-
-export default Amount

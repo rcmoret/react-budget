@@ -1,11 +1,22 @@
 import React from "react"
+
+import { budget as copy } from "../../../locales/copy"
+
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 export default (props) => {
-  const { overUnderBudgetAmount, spent, total_remaining } = props
-  const overUnderOperator = overUnderBudgetAmount >= 0 ? "+" : "-"
-  const spentDepositedOperator = spent >= 0 ? "+" : "-"
-  if (props.showDetail) {
+  const { minus, plus } = copy.shared
+  const {
+    overUnderBudgetAmount,
+    showDetail,
+    spent,
+    total_remaining
+  } = props
+
+  const overUnderOperator = overUnderBudgetAmount >= 0 ? plus : minus
+  const spentDepositedOperator = spent >= 0 ? plus : minus
+
+  if (showDetail) {
     return (
       <div>
         <div>

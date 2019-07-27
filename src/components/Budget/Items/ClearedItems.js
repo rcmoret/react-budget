@@ -1,6 +1,8 @@
 import React from "react"
 import { connect } from "react-redux"
 
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 import Icon from "../../Icons/Icon"
@@ -10,14 +12,14 @@ const ClearedItems = ({ expenses, revenues, showCleared }) => {
     return (
       <div>
         <hr/>
-        <h3>Cleared</h3>
+        <h3>{titleize(copy.item.cleared)}</h3>
         <ClearedGroup
           collection={revenues}
-          title="Revenues"
+          title={titleize(copy.category.revenues)}
         />
         <ClearedGroup
           collection={expenses}
-          title="Expenses"
+          title={titleize(copy.category.expenses)}
         />
       </div>
     )
@@ -45,7 +47,17 @@ const ClearedGroup = ({ collection, title }) => {
 }
 
 const ClearedItem = ({ amount, expense, difference, icon_class_name, name, spent }) => {
-  const operator = difference === 0 ? "" : (difference > 0 ? "-" : "+")
+  const {
+    budgeted,
+  } = copy.item
+
+  const {
+    deposited,
+    minus,
+    plus,
+  } = copy.shared
+
+  const operator = difference === 0 ? "" : (difference > 0 ? minus : plus)
 
   return (
     <div className="budget-item-cleared">
@@ -59,16 +71,17 @@ const ClearedItem = ({ amount, expense, difference, icon_class_name, name, spent
         </div>
       </div>
       <div className="cleared-item-wrapper">
-        <em>Budgeted:</em>
+        <em>{titleize(budgeted)}:</em>
         {MoneyFormatter(amount, { absolute: true })}
       </div>
       <div className="cleared-item-wrapper">
-        <em>{expense ? "Spent" : "Deposited"}:</em>
+        <em>{titleize(expense ? copy.shared.spent : deposited)}:</em>
         {MoneyFormatter(spent, { absolute: true })}
       </div>
       <div className="cleared-item-wrapper">
-        <em>Difference:</em>
-        {operator} {MoneyFormatter(difference, { absolute: true })}
+        <em>{titleize(copy.shared.difference)}:</em>
+        {operator}
+        {MoneyFormatter(difference, { absolute: true })}
       </div>
     </div>
   )

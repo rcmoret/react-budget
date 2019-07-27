@@ -10,49 +10,53 @@ import Form from "./Form/Form"
 import { Link } from "react-router-dom"
 
 const New = (props) => {
+  const {
+    cash_flow,
+    dispatch,
+    name,
+    priority,
+    showNewForm,
+  } = props
+
   const showForm = (e) => {
     e.preventDefault()
-    props.dispatch(resetForm())
+    dispatch(resetForm())
     const action = toggleShowNewForm({ showForm: true })
-    props.dispatch(action)
+    dispatch(action)
   }
 
   const closeForm = (e) => {
     e.preventDefault()
     const action = toggleShowNewForm({ showForm: false })
-    props.dispatch(action)
+    dispatch(action)
   }
 
   const updateName = (e) => {
-    props.dispatch(updateNew({ name: e.target.value }))
+    dispatch(updateNew({ name: e.target.value }))
   }
 
   const updatePriority = (e) => {
     const action = updateNew({ priority: e.target.value })
-    props.dispatch(action)
+    dispatch(action)
   }
 
-  const updateCashFlow = (e) => {
-    const action = updateNew({ cash_flow: !props.cash_flow })
-    props.dispatch(action)
+  const updateCashFlow = () => {
+    const action = updateNew({ cash_flow: !cash_flow })
+    dispatch(action)
   }
 
-  const submitForm = (_e) => {
+  const submitForm = () => {
     post(
       ApiUrlBuilder(["accounts"]),
-      JSON.stringify({
-        name: props.name,
-        priority: props.priority,
-        cash_flow: props.cash_flow
-      }),
+      JSON.stringify({ name: name, priority: priority, cash_flow: cash_flow }),
       (data) => {
-        props.dispatch(created(data))
-        props.dispatch(resetForm())
+        dispatch(created(data))
+        dispatch(resetForm())
       }
     )
   }
 
-  if (props.showNewForm) {
+  if (showNewForm) {
     return (
       <Form
         {...props}

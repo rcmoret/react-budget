@@ -1,7 +1,12 @@
 import React from "react"
 import { connect } from "react-redux"
+
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
 import { fetchedDiscretionaryTransactions } from "../../../actions/budget"
+
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+
 import Details from "../Shared/Details"
 import Transactions from "./../Shared/Transactions"
 
@@ -29,7 +34,7 @@ const DiscretionaryDetail = (props) => {
         <Details {...props} />
         <hr />
         <Transactions
-          budgetCategory="Discretionary"
+          budgetCategory={titleize(copy.discretionary.title)}
           collection={collection}
         />
       </div>

@@ -1,7 +1,13 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import { addMonthlyItem, editNewMonthlyItem, toggleMonthlyItemForm } from "../../../actions/budget"
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
+import {
+  addMonthlyItem,
+  editNewMonthlyItem,
+  toggleMonthlyItemForm,
+} from "../../../actions/budget"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
 import { post } from "../../../functions/ApiClient"
@@ -73,7 +79,7 @@ const MonthlyItemForm = (props) => {
         <input
           name="amount"
           className="new-item-amount"
-          placeholder="amount"
+          placeholder={copy.item.amount}
           value={amount}
           onChange={onAmountChange}
           onKeyDown={handleKeyDown}
@@ -84,7 +90,7 @@ const MonthlyItemForm = (props) => {
           name="monthly-item-submit"
           onClick={onSave}
         >
-          CREATE
+          {titleize(copy.item.createButtonText)}
         </button>
       </div>
     )

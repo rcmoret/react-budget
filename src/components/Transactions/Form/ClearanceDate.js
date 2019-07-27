@@ -1,12 +1,16 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
+
+import { transaction as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
+
+import DatePicker from "react-datepicker"
 
 import { formatted, fromDateString, fromDateTimeObject } from "../../../functions/DateFormatter"
 
-const ClearanceDate = ({ clearanceDate, handleKeyDown, month, onChange, year }) => {
+const ClearanceDate = ({ clearanceDate, month, onChange, year }) => {
   const update = (e) => {
     const val = e === null ? "" : fromDateTimeObject(e.toLocaleString())
     onChange({ clearance_date: val })
@@ -47,8 +51,8 @@ const ClearanceDate = ({ clearanceDate, handleKeyDown, month, onChange, year }) 
       <DatePicker
         onChange={update}
         {...options}
-        placeholderText="clearance date"
-        todayButton={"Today"}
+        placeholderText={copy.clearanceDate}
+        todayButton={titleize(copy.todayButtonText)}
       />
     </div>
   )

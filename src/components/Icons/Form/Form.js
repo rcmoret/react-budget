@@ -1,6 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
 
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
+
 import CancelButton from "./CancelButton"
 import Icon from "../Icon"
 import ResetButton from "./ResetButton"
@@ -10,7 +13,7 @@ const Form = ({ buttonText, class_name, id, name, onChange, onSubmit }) => (
     <div className="icon-form-row">
       <div>
         <label>
-          Name
+          {titleize(copy.icon.name)}
         </label>
       </div>
       <div>
@@ -24,7 +27,7 @@ const Form = ({ buttonText, class_name, id, name, onChange, onSubmit }) => (
     <div className="icon-form-row">
       <div>
         <label>
-          Class Name
+          {titleize(copy.icon.className)}
         </label>
       </div>
       <div>
@@ -58,7 +61,7 @@ const Form = ({ buttonText, class_name, id, name, onChange, onSubmit }) => (
     </div>
     <div className="icon-form-row">
       <span className="preview">
-        Preview:
+        {titleize(copy.icon.preview)}:
         {"  "}
         <Icon className={class_name} />
       </span>

@@ -1,6 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
 
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
+
 import ClearedItems from "./ClearedItems"
 import MonthlyGroup from "./MonthlyGroup"
 import MonthlyHeader from "./MonthlyHeader"
@@ -8,8 +11,14 @@ import MonthlyHeader from "./MonthlyHeader"
 const MonthlyItems = (props) => (
   <div className="monthly-items">
     <MonthlyHeader />
-    <MonthlyGroup collection={props.revenues} title="Revenues" />
-    <MonthlyGroup collection={props.expenses} title="Expenses" />
+    <MonthlyGroup
+      collection={props.revenues}
+      title={titleize(copy.category.revenues)}
+    />
+    <MonthlyGroup
+      collection={props.expenses}
+      title={titleize(copy.category.expenses)}
+    />
     <ClearedItems />
   </div>
 )

@@ -1,8 +1,8 @@
 import React from "react"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
-export default (props) => (
+export default ({ amount }) => (
   <div className="amount">
-    {MoneyFormatter(props.amount)}
+    {MoneyFormatter(amount)}
   </div>
 )

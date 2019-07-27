@@ -1,7 +1,11 @@
 import React from "react"
 import { connect } from "react-redux"
 
+import { transaction as copy } from "../../locales/copy"
+import { titleize } from "../../locales/functions"
+
 import { edit, editProps, editSubProps, updated } from "../../actions/transactions"
+
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import MoneyFormatter from "../../functions/MoneyFormatter"
 import { put } from "../../functions/ApiClient"
@@ -11,8 +15,6 @@ import Form from "./Form/Form"
 const Edit = (props) => {
   const { budgetOptions, dispatch, transaction } = props
   const { account_id, amount, id } = transaction
-  // const addSubtransaction = (e) => {
-  // }
 
   const handleKeyDown = (e) => {
     if (e.which !== 13) {
@@ -66,12 +68,13 @@ const Edit = (props) => {
     return (
       <Form
         budgetOptions={budgetOptions}
+        buttonText={titleize(copy.updateButtonText)}
         handleKeyDown={handleKeyDown}
         onChange={onChange}
         onSubChange={onSubChange}
         onSubmit={onSubmit}
         resetForm={resetForm}
-        { ...props }
+        {...props}
       />
     )
   } else {
@@ -120,7 +123,6 @@ const mapStateToProps = (state, ownProps) => {
       subtransactions: subtransactions,
       originalAmount: ownProps.amount,
     },
-    buttonText: "Update Transaction",
     budgetOptions: budgetOptions,
     selectedAccount: state.accounts.collection.find(acct => acct.id === ownProps.account_id),
   }

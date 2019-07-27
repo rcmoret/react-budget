@@ -1,17 +1,35 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import { post } from "../../../functions/ApiClient"
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
+import {
+  created,
+  errorsOnNew,
+  resetNewForm,
+  toggleNewForm,
+  updateNew,
+} from "../../../actions/budget/categories"
+
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
-import { created, errorsOnNew, resetNewForm, toggleNewForm, updateNew, } from "../../../actions/budget/categories"
+import { post } from "../../../functions/ApiClient"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
-import { Link } from "react-router-dom"
 
 import Form from "./Form/Form"
 import Icon from "../../Icons/Icon"
+import { Link } from "react-router-dom"
 
 const NewBudgetCategory = (props) => {
-  const { dispatch, newCategory, showForm } = props
+  const {
+    addNew,
+    createButtonText,
+  } = copy.category
+
+  const {
+    dispatch,
+    newCategory,
+    showForm,
+  } = props
 
   const onChange = (e) => {
     const action = updateNew({ [e.target.name]: e.target.value })
@@ -57,7 +75,7 @@ const NewBudgetCategory = (props) => {
     return (
       <Form
         {...newCategory}
-        label="Create"
+        label={titleize(createButtonText)}
         onChange={onChange}
         onSelectChange={onSelectChange}
         onSubmit={onSubmit}
@@ -75,7 +93,7 @@ const NewBudgetCategory = (props) => {
           <div className="add-new-category-button">
             <Icon className="fas fa-plus" />
             {" "}
-            Add New
+            {titleize(addNew)}
           </div>
         </Link>
       </div>

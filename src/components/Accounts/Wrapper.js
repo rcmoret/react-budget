@@ -8,14 +8,22 @@ import Details from "./Details"
 import Tabs from "./Tabs"
 
 const Wrapper = (props) => {
-  if(!props.accountsFetched) {
+  const {
+    accountsFetched,
+    collection,
+    dispatch,
+    month,
+    selectedAccountId,
+    year,
+  } = props
+
+  if(!accountsFetched) {
     const url = ApiUrlBuilder(["accounts"])
     fetch(url)
       .then(response => response.json())
-      .then(data => props.dispatch(fetched(data)))
+      .then(data => dispatch(fetched(data)))
   }
 
-  const { collection, month, year, selectedAccountId } = props
 
   return (
     <div className="accounts">
@@ -24,8 +32,8 @@ const Wrapper = (props) => {
         selectedAccountId={selectedAccountId}
       />
       <Details
-        selectedAccountId={selectedAccountId}
         month={month}
+        selectedAccountId={selectedAccountId}
         year={year}
       />
       <hr/>

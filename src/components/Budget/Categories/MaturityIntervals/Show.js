@@ -1,14 +1,15 @@
 import React from "react"
 
-import * as DateFunctions from "../../../../functions/DateFormatter"
-import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
-import { Link } from "react-router-dom"
+import { budget as copy } from "../../../../locales/copy"
 import {
   removeMaturityInterval,
   toggleMaturityIntervalEditForm,
 } from "../../../../actions/budget/categories"
+import * as DateFunctions from "../../../../functions/DateFormatter"
+import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
 
 import Edit from "./Edit"
+import { Link } from "react-router-dom"
 
 export default (props) => {
   const {
@@ -29,7 +30,8 @@ export default (props) => {
   }
 
   const deleteMaturityInterval = () => {
-    const confirmation = window.confirm("Delete this maturity interval?")
+    const { deleteConfirmMessage } = copy.maturityInterval
+    const confirmation = window.confirm(deleteConfirmMessage)
     if (!confirmation) { return }
     const url = ApiUrlBuilder(["budget/categories", category_id, "maturity_intervals", id])
     const action = removeMaturityInterval({ id: id })
@@ -65,4 +67,3 @@ export default (props) => {
     )
   }
 }
-

@@ -1,37 +1,55 @@
 import React from "react"
-import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { connect } from "react-redux"
+
+import { account as copy } from "../../locales/copy"
+import { titleize } from "../../locales/functions"
 import { deleted, update } from "./actions"
+
+import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import MoneyFormatter from "../../functions/MoneyFormatter"
+
+import Edit from "./Edit"
 import Icon from "../Icons/Icon"
 import { Link } from "react-router-dom"
-import MoneyFormatter from "../../functions/MoneyFormatter"
-import Edit from "./Edit"
 
 const AccountShow = (props) => {
-  const { id } = props
+  const {
+    id,
+    balance,
+    cash_flow,
+    dispatch,
+    name,
+    priority,
+    showForm,
+  } = props
 
-  const showForm = (e) => {
-    e.preventDefault()
+  const {
+    cashFlow,
+    deleteButtonText,
+    deleteConfirmationMessage,
+    nonCashFlow,
+  } = copy
+
+  const revealForm = () => {
     const action = update({ id: id, showForm: true })
-    props.dispatch(action)
+    dispatch(action)
   }
 
   const destroy = () => {
-    const confirmation = window.confirm(`Do you really want to delete ${props.name} Account?`)
+    const confirmation = window.confirm(deleteConfirmationMessage(name))
     if (!confirmation) { return }
     const url = ApiUrlBuilder(["accounts", id])
     fetch(url, { method: "delete" })
-    .then(() => props.dispatch(deleted({ id: id })))
+      .then(() => dispatch(deleted({ id: id })))
   }
 
-  if (props.showForm) {
+  if (showForm) {
     return (
       <Edit
         {...props}
       />
     )
   } else {
-    const { balance, cash_flow, name, priority } = props
     return (
       <div className="account-edit">
         <div>
@@ -41,21 +59,21 @@ const AccountShow = (props) => {
             <Link
               to="#"
               className="far fa-edit"
-              onClick={showForm}
+              onClick={revealForm}
             />
           </h3>
           <div className="cash-flow">
-            {cash_flow ? "Cash Flow" : "Non-Cash Flow"}
+            {titleize(cash_flow ? cashFlow : nonCashFlow)}
           </div>
           <div className="balance">
-            Balance: {MoneyFormatter(balance)}
+            {copy.balance}: {MoneyFormatter(balance)}
           </div>
           <div className="priority">
-            Priority: {priority}
+            {copy.priority}: {priority}
           </div>
           <div>
             <button type="delete" onClick={destroy} className="delete-account">
-              Delete
+              {titleize(deleteButtonText)}
               {" "}
               <Icon className="fas fa-trash" />
             </button>

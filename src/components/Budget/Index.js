@@ -1,9 +1,10 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { categoriesFetched } from "../../actions/budget/categories"
 import { itemsFetched as fetched } from "../../actions/budget"
+
+import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 
 import BudgetInfo from "./Info"
 import Menu from "./Menu"

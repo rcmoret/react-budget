@@ -1,6 +1,19 @@
 import React from "react"
-import ResetButton from "./ResetButton"
+
+import { account as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
+
 import Icon from "../../Icons/Icon"
+import ResetButton from "./ResetButton"
+
+const {
+  cancelButtonText,
+  cashFlow,
+  createButtonText,
+  name,
+  priority,
+  updateButtonText,
+} = copy
 
 export default (props) => (
   <div className="account-edit">
@@ -12,7 +25,7 @@ export default (props) => (
       <div className="form-row">
         <div className="label">
           <label>
-            Name
+            {name}
           </label>
         </div>
         <div className="input">
@@ -22,7 +35,7 @@ export default (props) => (
       <div className="form-row">
         <div className="label">
           <label>
-            Priority
+            {priority}
           </label>
         </div>
         <div className="input">
@@ -32,7 +45,7 @@ export default (props) => (
       <div className="form-row">
         <div className="label">
           <label>
-            Cash Flow
+            {cashFlow}
           </label>
         </div>
         <div className="input">
@@ -47,10 +60,10 @@ export default (props) => (
       <div className="form-row">
         <ResetButton {...props} />
         <button type="submit" className="submit" onClick={props.submitForm}>
-          {props.id ? "Update" : "Create"} Account <Icon className="far fa-save" />
+          {titleize(props.id ? updateButtonText : createButtonText)} <Icon className="far fa-save" />
         </button>
         <button type="cancel" className="cancel" onClick={props.closeForm}>
-          Cancel <Icon className="fas fa-times" />
+          {titleize(cancelButtonText)} <Icon className="fas fa-times" />
         </button>
       </div>
     </div>
