@@ -138,14 +138,14 @@ const ReviewItem = (props) => {
         />
         <Option
           amount={item.amount}
-          label={`Budgeted in ${prevMonthString}`}
+          label={`${titleize(copy.item.budgeted)} ${copy.shared.in} ${prevMonthString}`}
           onClick={setPreviousAmount}
           checked={selectedOption === "previousAmount" ? "checked" : ""}
         />
         <Option
           amount={item.spent}
           hidden={item.spent === 0}
-          label={lastMonthString(titleize(item.expense ? "Spent" : "Deposited"), prevMonthString)}
+          label={`${titleize(item.expense ? copy.shared.spent : copy.shared.deposited)} ${copy.shared.in} ${prevMonthString}`}
           onClick={setPreviousSpent}
           checked={selectedOption === "previousSpent" ? "checked" : ""}
         />

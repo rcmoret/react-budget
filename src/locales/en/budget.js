@@ -108,7 +108,7 @@ export const setup = {
 export const shared = {
   deposited: "deposited",
   difference: "difference",
-  lastMonthString: (description, prevMonthString) => `${description} in ${prevMonthString}`,
+  in: "in",
   minus: "-",
   plus: "+",
   remaining: "remaining",
