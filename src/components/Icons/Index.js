@@ -1,7 +1,11 @@
 import React from "react"
-import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { connect } from "react-redux"
+
 import { fetched } from "./actions"
+
+import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import { get } from "../../functions/ApiClient"
+
 import New from "./New"
 import Show from "./Show"
 
@@ -15,9 +19,7 @@ const Index = (props) => {
 
   if (!collectionFetched) {
     const url = ApiUrlBuilder(["icons"])
-    fetch(url)
-      .then(response => response.json())
-      .then(data => dispatch(fetched(data)))
+    get(url, data => dispatch(fetched(data)))
   }
 
   return (

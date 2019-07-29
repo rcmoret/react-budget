@@ -6,6 +6,7 @@ import { titleize } from "../../../locales/functions"
 import { fetchedDiscretionaryTransactions } from "../../../actions/budget"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import { get } from "../../../functions/ApiClient"
 
 import Details from "../Shared/Details"
 import Transactions from "./../Shared/Transactions"
@@ -22,9 +23,7 @@ const DiscretionaryDetail = (props) => {
 
   if (showDetail && !fetchedTransactions ) {
     const url = ApiUrlBuilder(["budget", "discretionary", "transactions"], { month: month, year: year })
-    fetch(url)
-      .then(response => response.json())
-      .then(data => dispatch(fetchedDiscretionaryTransactions(data)))
+    get(url, data => dispatch(fetchedDiscretionaryTransactions(data)))
   }
 
   if (showDetail) {

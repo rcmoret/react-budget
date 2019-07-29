@@ -5,7 +5,9 @@ import { budget as copy } from "../../../locales/copy"
 import { titleize } from "../../../locales/functions"
 import { categoriesFetched } from "../../../actions/budget/categories"
 import { fetched as iconsFetched } from "../../Icons/actions"
+
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import { get } from "../../../functions/ApiClient"
 
 import Filters from "./Filters"
 import Header from "./Header"
@@ -17,16 +19,12 @@ const BudgetCategories = (props) => {
 
   if (!fetched) {
     const url = ApiUrlBuilder(["budget", "categories"])
-    fetch(url)
-      .then(response => response.json())
-      .then(data => dispatch(categoriesFetched(data)))
+    get(url, data => dispatch(categoriesFetched(data)))
   }
 
   if (fetched && !props.iconsFetched) {
     const url = ApiUrlBuilder(["icons"])
-    fetch(url)
-      .then(response => response.json())
-      .then(data => dispatch(iconsFetched(data)))
+    get(url, data => dispatch(iconsFetched(data)))
   }
 
   return (

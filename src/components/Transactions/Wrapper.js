@@ -1,7 +1,11 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
+
 import { fetchedTransactions } from "../../actions/transactions"
+
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import { get } from "../../functions/ApiClient"
+
 import Transactions from "./Transactions"
 
 class Wrapper extends Component {
@@ -12,9 +16,7 @@ class Wrapper extends Component {
       const url = ApiUrlBuilder(
         ["accounts", accountId, "transactions"], { ...monthYear }
       )
-      fetch(url)
-        .then(response => response.json())
-        .then(data => this.props.dispatch(fetchedTransactions(data)))
+      get(url, data => this.props.dispatch(fetchedTransactions(data)))
     }
   }
 

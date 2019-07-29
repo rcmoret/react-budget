@@ -5,6 +5,7 @@ import { categoriesFetched } from "../../actions/budget/categories"
 import { itemsFetched as fetched } from "../../actions/budget"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import { get } from "../../functions/ApiClient"
 
 import BudgetInfo from "./Info"
 import Menu from "./Menu"
@@ -25,16 +26,12 @@ const BudgetIndex = (props) => {
 
   if (!itemsFetched || !isCurrent) {
     const url = ApiUrlBuilder(["budget/items"], { month: month, year: year })
-    fetch(url)
-      .then(response => response.json())
-      .then(data => dispatch(fetched(data)))
+    get(url, data => dispatch(fetched(data)))
   }
 
   if (!categoresWereFetched) {
     const url = ApiUrlBuilder(["budget/categories"])
-    fetch(url)
-      .then(response => response.json())
-      .then(data => dispatch(categoriesFetched(data)))
+    get(url, data => dispatch(categoriesFetched(data)))
   }
 
   return (

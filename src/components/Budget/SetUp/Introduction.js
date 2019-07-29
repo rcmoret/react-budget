@@ -1,9 +1,11 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { baseMonthFetched, newMonthFetched } from "../../../actions/budget"
 import { categoriesFetched as fetched } from "../../../actions/budget/categories"
+
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import { get } from "../../../functions/ApiClient"
 
 import { Redirect } from "react-router"
 
@@ -21,34 +23,27 @@ const Intro = (props) => {
 
   if (!categoriesFetched) {
     const url = ApiUrlBuilder(["budget/categories"])
-    fetch(url)
-      .then(response => response.json())
-      .then(data => dispatch(fetched(data)))
+    get(url, data => dispatch(fetched(data)))
+    return null
   }
 
   if (categoriesFetched && !newMonth.isFetched) {
     const url = ApiUrlBuilder(["budget/items"], { month: targetMonth, year: targetYear })
-    fetch(url)
-      .then(response => response.json())
-      .then(data => dispatch(newMonthFetched(data)))
+    get(url, data => dispatch(newMonthFetched(data)))
+    return null
   }
 
   if (categoriesFetched && newMonth.isFetched && !baseMonth.isFetched) {
     const month = targetMonth === 1 ? 12 : (targetMonth - 1)
     const year = targetMonth === 1 ? (targetYear - 1) : targetYear
     const url = ApiUrlBuilder(["budget/items"], { month: month, year: year })
-    fetch(url)
-      .then(response => response.json())
-      .then(data => dispatch(baseMonthFetched(data)))
+    get(url, data => dispatch(baseMonthFetched(data)))
+    return null
   }
 
-  if (!categoriesFetched || !newMonth.isFetched || !baseMonth.isFetched) {
-    return null
-  } else {
-    return (
-      <Redirect to={`/budget/set-up/${month}/${year}/revenues`} />
-    )
-  }
+  return (
+    <Redirect to={`/budget/set-up/${month}/${year}/revenues`} />
+  )
 }
 
 const mapStateToProps = (state, ownProps) => {
