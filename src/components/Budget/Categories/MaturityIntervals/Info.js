@@ -10,6 +10,7 @@ import {
 
 import * as DateFunctions from "../../../../functions/DateFormatter"
 import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
+import { get } from "../../../../functions/ApiClient"
 import GroupBy from "../../../../functions/GroupBy"
 
 import Icon from "../../../Icons/Icon"
@@ -31,12 +32,12 @@ const MaturityInfo = (props) => {
 
   if (!maturityIntervalsFetched && showMaturityIntervals) {
     const url = ApiUrlBuilder(["budget/categories", id, "maturity_intervals"])
-    fetch(url)
-      .then(response => response.json())
-      .then(data => dispatch(accrualMaturityIntervalsFetched({
+    get(url, data => dispatch(
+      accrualMaturityIntervalsFetched({
         id: id,
         collection: data,
-      })))
+      })
+    ))
   }
 
   const fetchMaturityIntervals = () => {

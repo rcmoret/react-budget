@@ -1,11 +1,13 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { fetchedBudgetItems } from "../../../actions/transactions"
-import { fromDateString } from "../../../functions/DateFormatter"
-import Select from "react-select"
 
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import { fromDateString } from "../../../functions/DateFormatter"
+import { get } from "../../../functions/ApiClient"
+
+import Select from "react-select"
 import SubtransactionBudgetItemSelect from "./SubtransactionBudgetItemSelect"
 
 const BudgetItemSelect = (props) => {
@@ -26,9 +28,7 @@ const BudgetItemSelect = (props) => {
 
   if (!(fetched && month === dateObject.month && year === dateObject.year)) {
     const url = ApiUrlBuilder(["budget", "items"], { ...dateObject })
-    fetch(url)
-      .then(response => response.json())
-      .then(data => dispatch(fetchedBudgetItems(data)))
+    get(url, data => dispatch(fetchedBudgetItems(data)))
   }
 
   const updateSelect = (e) => {

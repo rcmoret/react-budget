@@ -1,8 +1,10 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { fetchedWeeklyTransactions } from "../../../actions/budget"
+
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import { get } from "../../../functions/ApiClient"
 
 import Details from "../Shared/Details"
 import Transactions from "../Shared/Transactions"
@@ -26,11 +28,13 @@ const WeeklyDetail = (props) => {
     const url = ApiUrlBuilder(
       ["budget", "categories", budget_category_id, "items", id, "transactions"]
     )
-    fetch(url)
-      .then(response => response.json())
-      .then(data => dispatch(
-        fetchedWeeklyTransactions({ id: id, collection: data }))
-      )
+
+    get(url, data => dispatch(
+      fetchedWeeklyTransactions({
+        id: id,
+        collection: data
+      })
+    ))
   }
 
   if (showDetail) {

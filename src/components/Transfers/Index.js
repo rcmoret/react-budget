@@ -8,6 +8,7 @@ import { fetched } from "./actions"
 import { fetched as renderAccounts } from "../Accounts/actions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import { get } from "../../functions/ApiClient"
 
 import Tabs from "../Accounts/Tabs"
 import Icon from "../Icons/Icon"
@@ -20,16 +21,12 @@ const Index = ({ accounts, accountsFetched, collection, dispatch, fetchedTransfe
 
   if(!accountsFetched) {
     const url = ApiUrlBuilder(["accounts"])
-    fetch(url)
-      .then(response => response.json())
-      .then(data => dispatch(renderAccounts(data)))
+    get(url, data => dispatch(renderAccounts(data)))
   }
 
   if (accountsFetched && !fetchedTransfers) {
     const url = ApiUrlBuilder(["transfers"], { page: currentPage })
-    fetch(url)
-      .then(response => response.json())
-      .then(data => dispatch(fetched(data)))
+    get(url, data => dispatch(fetched(data)))
   }
 
   return (

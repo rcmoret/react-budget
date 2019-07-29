@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetched } from "./actions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import { get } from "../../functions/ApiClient"
 
 import Details from "./Details"
 import Tabs from "./Tabs"
@@ -19,9 +20,7 @@ const Wrapper = (props) => {
 
   if(!accountsFetched) {
     const url = ApiUrlBuilder(["accounts"])
-    fetch(url)
-      .then(response => response.json())
-      .then(data => dispatch(fetched(data)))
+    get(url, data => dispatch(fetched(data)))
   }
 
 
