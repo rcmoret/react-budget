@@ -82,6 +82,7 @@ export const maturityInterval = {
 }
 
 export const menu = {
+  hide: "hide",
   manage: "manage",
   order: "order",
   setUpLinkText: (dateString) => `Set up ${dateString}`,
