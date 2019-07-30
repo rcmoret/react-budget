@@ -5,10 +5,8 @@ import { budget as copy } from "../../../locales/copy"
 import { titleize } from "../../../locales/functions"
 
 import DateFormatter from "../../../functions/DateFormatter"
-import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 import Header from "./Header"
-import Icon from "../../Icons/Icon"
 import { Redirect } from "react-router"
 import Show from "./AccrualShow"
 import Summary from "./Summary"

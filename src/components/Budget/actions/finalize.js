@@ -1,3 +1,7 @@
+export const addFinalizeItem = (payload) => {
+  return { type: "budget/finalize/ADD_FINALIZE_ITEM", payload: payload }
+}
+
 export const baseMonthFetch = (payload) => {
   return { type: "budget/finalize/BASE_MONTH_FETCH", payload: payload }
 }

@@ -1,8 +1,11 @@
 import React from "react"
 
-import { editBaseAmount, updateExtra } from "../actions/finalize"
+import { addFinalizeItem, editBaseAmount, updateExtra } from "../actions/finalize"
+import { addMonthlyItem, addWeeklyItem } from "../../../actions/budget"
 
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
+import { post } from "../../../functions/ApiClient"
 
 import Icon from "../../Icons/Icon"
 
@@ -104,6 +107,7 @@ const NextMonthItem = (item) => {
       <MissingItem
         budgetCategoryId={item.budgetCategoryId}
         dispatch={item.dispatch}
+        monthly={item.monthly}
         nextMonth={item.nextMonth}
         nextYear={item.nextYear}
       />
@@ -120,9 +124,32 @@ const Total = ({ nextMonth, remaining }) => {
   )
 }
 
-const MissingItem = ({ budgetCategoryId, dispatch, nextMonth, nextYear }) => {
+const MissingItem = ({ budgetCategoryId, dispatch, monthly, nextMonth, nextYear }) => {
+  const createItem = () => {
+    const url = ApiUrlBuilder(["budget/categories", budgetCategoryId, "items"])
+    const body = JSON.stringify({
+      amount: 0,
+      month: nextMonth,
+      year: nextYear,
+    })
+    const onSuccess = (data) => {
+      if (monthly) {
+        dispatch(addMonthlyItem(data))
+      } else {
+        dispatch(addWeeklyItem(data))
+      }
+      dispatch(addFinalizeItem(data))
+    }
+    post(url, body, onSuccess)
+  }
+
   return (
     <div className="next-month-amount">
+      <button
+        onClick={createItem}
+      >
+        Create Item
+      </button>
     </div>
   )
 }

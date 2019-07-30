@@ -295,6 +295,17 @@ export default (state = initialState, action) => {
         }
       }
     }
+  case "budget/finalize/ADD_FINALIZE_ITEM":
+    return {
+      ...state,
+      finalize: {
+        ...state.finalize,
+        next: {
+          ...state.finalize.next,
+          collection: [...state.finalize.next.collection, action.payload]
+        },
+      },
+    }
   case "budget/finalize/BASE_MONTH_FETCH":
     return {
       ...state,
