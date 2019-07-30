@@ -15,7 +15,7 @@ const MonthlyItem = (props) => {
     e.preventDefault()
     const { budget_category_id, id, name, month, year } = props
     const dateString = formatter({ month: month, year: year, format: "shortMonthYear" })
-    const confirmation = window.confirm(copy.item.deleteConfirmMessage(name, dateString))
+    const confirmation = window.confirm(copy.item.deleteConfirmationMessage(name, dateString))
     if (confirmation) {
       const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items", id])
       fetch(url, { method: "delete" })
