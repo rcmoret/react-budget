@@ -746,6 +746,27 @@ nav.budget-actions a .budget-action:hover {
   width: 20%;
 }
 
+.finalize-accrual button {
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-left: 2%;
+  font-size: 0.8em;
+  padding: 1.5% 2%;
+}
+
+.finalize-accrual button.create-item {
+  background-color: #8AB6FF; /* blue */
+}
+
+.finalize-accrual button.ignore {
+  background-color: #FF3C52; /* red */
+}
+
+.finalize-accrual .indicator {
+  min-width: 1.5%;
+}
+
 .finalize-accrual .indicator i.green {
   color: #59D176; /* green */
 }

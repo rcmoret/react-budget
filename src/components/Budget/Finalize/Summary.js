@@ -13,10 +13,11 @@ export default ({ extra }) => {
       <h2>{titleize(copy.finalize.summary)}</h2>
       <div className="extra">
         <span>{titleize(copy.finalize.extra)}: </span>
-        <span>{MoneyFormatter(total, { absolute: true })} </span>
+        <span>{MoneyFormatter((total * -1), { absolute: false })} </span>
       </div>
-      {collection.map(item =>
+      {collection.map((item, i) =>
         <ExtraItem
+          key={i}
           {...item}
         />
       )}
@@ -27,6 +28,6 @@ export default ({ extra }) => {
 const ExtraItem = ({ name, amount }) => (
   <div className="extra">
     <span>{name}</span>
-    <span>{MoneyFormatter(amount, { absolute: true })}</span>
+    <span>{MoneyFormatter((amount * -1), { absolute: false })}</span>
   </div>
 )

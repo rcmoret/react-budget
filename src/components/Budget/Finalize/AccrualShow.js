@@ -1,6 +1,9 @@
 import React from "react"
 
-import { addFinalizeItem, editBaseAmount, updateExtra } from "../actions/finalize"
+import { budget as copy } from "../../../locales/copy"
+import { titleize } from "../../../locales/functions"
+
+import { addFinalizeItem, editBaseAmount, setStatus, updateExtra } from "../actions/finalize"
 import { addMonthlyItem, addWeeklyItem } from "../../../actions/budget"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
@@ -49,6 +52,7 @@ export default (wrapper) => {
       <div className="item-input">
         <input
           className={errors().length > 0 ? "errors" : ""}
+          disabled={wrapper.baseItem.status !== "pending"}
           name="carryover"
           onChange={handleChange}
           type="text"
@@ -58,7 +62,7 @@ export default (wrapper) => {
       </div>
       <NextMonthItem
         {...wrapper.nextItem}
-        budgetCategoryId={wrapper.baseItem.budget_category_id}
+        baseItem={wrapper.baseItem}
         dispatch={wrapper.dispatch}
         nextMonth={wrapper.nextMonth}
         nextYear={wrapper.nextYear}
@@ -102,15 +106,17 @@ const NextMonthItem = (item) => {
         {MoneyFormatter(item.amount, { absolute: false })}
       </div>
     )
-  } else {
+  } else if (item.baseItem.status !== "reviewed") {
     return (
       <MissingItem
-        budgetCategoryId={item.budgetCategoryId}
+        {...item.baseItem}
         dispatch={item.dispatch}
-        monthly={item.monthly}
-        nextMonth={item.nextMonth}
-        nextYear={item.nextYear}
       />
+    )
+  } else {
+    return (
+      <div className="next-month-amount">
+      </div>
     )
   }
 }
@@ -124,7 +130,28 @@ const Total = ({ nextMonth, remaining }) => {
   )
 }
 
-const MissingItem = ({ budgetCategoryId, dispatch, monthly, nextMonth, nextYear }) => {
+const MissingItem = (props) => {
+  const {
+    id,
+    budgetCategoryId,
+    dispatch,
+    monthly,
+    name,
+    nextMonth,
+    nextYear,
+    remaining,
+  } = props
+
+  const ignoreItem = () => {
+    const action = updateExtra({
+      id: id,
+      name: name,
+      amount: remaining,
+    })
+    dispatch(action)
+    dispatch(setStatus({ id: id, status: "reviewed" }))
+  }
+
   const createItem = () => {
     const url = ApiUrlBuilder(["budget/categories", budgetCategoryId, "items"])
     const body = JSON.stringify({
@@ -146,9 +173,20 @@ const MissingItem = ({ budgetCategoryId, dispatch, monthly, nextMonth, nextYear 
   return (
     <div className="next-month-amount">
       <button
+        className="ignore"
+        onClick={ignoreItem}
+      >
+        {titleize(copy.finalize.disregard)}
+        {" "}
+        <span className="fas fa-times"></span>
+      </button>
+      <button
+        className="create-item"
         onClick={createItem}
       >
-        Create Item
+        {titleize(copy.finalize.createItem)}
+        {" "}
+        <span className="fas fa-check"></span>
       </button>
     </div>
   )
@@ -174,4 +212,3 @@ const Indicator = ({ status }) => {
     </div>
   )
 }
-

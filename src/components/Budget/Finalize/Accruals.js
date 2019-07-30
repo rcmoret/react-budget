@@ -65,6 +65,7 @@ const Accruals = (props) => {
               <div className="next-month-amount">
                 {titleize(copy.shared.total)}
               </div>
+              <div className="indicator"></div>
             </div>
             {collection.map(wrapper =>
               <Show

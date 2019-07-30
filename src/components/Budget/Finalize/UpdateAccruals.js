@@ -31,8 +31,8 @@ export default ({ collection, dispatch }) => {
   const handleSubmit = async () => {
     for (let item of collection) {
       const { id } = item.baseItem
-      dispatch(setStatus({ id: id, status: "submitted" }))
       if (item.nextItem) {
+        dispatch(setStatus({ id: id, status: "submitted" }))
         submit({
           id: item.nextItem.id,
           amount: amountFor(item),

@@ -38,6 +38,8 @@ export const discretionary = {
 
 export const finalize = {
   budgetedFor: (date) => `Budgeted for ${date}`,
+  createItem: "create item",
+  disregard: "disregard",
   extra: "extra",
   remainingIn: (date) => `Remaining in ${date}`,
   submitAccrualButtonText: "update accruals",
