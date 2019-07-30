@@ -25,12 +25,13 @@ const Accruals = (props) => {
   } = props
 
   const format = "numericMonthYear"
+  const reviewCount = collection.filter(item => item.baseItem.status !== "reviewed")
 
   if (!isFetched) {
     return (
       <Redirect to={`/budget/finalize/${month}/${year}/start`} />
     )
-  } else {
+  } else if (reviewCount.length > 0) {
     return (
       <div>
         <Header
@@ -88,6 +89,10 @@ const Accruals = (props) => {
           />
         </div>
       </div>
+    )
+  } else {
+    return (
+      <Redirect to={`/budget/finalize/${month}/${year}/items`} />
     )
   }
 }
