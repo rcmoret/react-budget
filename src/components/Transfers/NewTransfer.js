@@ -1,7 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import { transfer as copy } from "../../locales/copy"
+import { account as accountCopy, transfer as copy } from "../../locales/copy"
+import { titleize } from "../../locales/functions"
+
 import { created, updateNew } from "./actions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
@@ -44,7 +46,7 @@ const New = (props) => {
     return (
       <div className="new-transfer-form">
         <div className="transfer-account-select">
-          From Account:
+          {titleize(`${copy.from} ${accountCopy.account}`)}:
           <Select
             options={fromOptions}
             onChange={updateFromAccount}
@@ -52,7 +54,7 @@ const New = (props) => {
           />
         </div>
         <div className="transfer-account-select">
-          To Account:
+          {titleize(`${copy.to} ${accountCopy.account}`)}:
           <Select
             options={toOptions}
             onChange={updateToAccount}

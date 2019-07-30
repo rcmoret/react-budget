@@ -17,7 +17,6 @@ const ReviewItem = (props) => {
   const {
     additional,
     amountToInclude,
-    lastMonthString,
     nOfTotal,
   } = copy.setup
 

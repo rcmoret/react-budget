@@ -1,4 +1,5 @@
 export const account = {
+  account: "account",
   balance: "Balance",
   cancelButtonText: "cancel",
   cashFlow: "cash flow",
