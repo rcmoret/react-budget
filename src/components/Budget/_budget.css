@@ -768,9 +768,18 @@ nav.budget-actions a .budget-action:hover {
 
 .finalize-carry-over button.carry-over-submit {
   background-color: #59D176; /* green */
-  font-size: 1.3em;
+  font-size: 1.1em;
   padding: 1% 2%;
-  width: 20%;
+  color: black;
+  width: 35%;
+}
+
+.finalize-carry-over button.apply-to-extra {
+  font-size: 1.1em;
+  background: #FFF6A2; /* yellow */
+  color: black;
+  padding: 1% 2%;
+  width: 35%;
 }
 
 .finalize-accrual .indicator {

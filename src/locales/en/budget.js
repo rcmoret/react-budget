@@ -37,6 +37,7 @@ export const discretionary = {
 }
 
 export const finalize = {
+  applyToExtra: "Apply All to Extra",
   budgetedFor: (date) => `Budgeted for ${date}`,
   carryOver: "carry over",
   carryOverFrom: (dateString) => `Amount to carry over from ${dateString}`,

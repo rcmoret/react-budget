@@ -131,12 +131,19 @@ const Items = (props) => {
                 floatRemaining={floatRemaining}
                 nextItem={item.nextItem}
               />
-              <Submit
-                baseItemId={item.baseItem.id}
-                dispatch={dispatch}
-                floatRemaining={floatRemaining}
-                nextItem={item.nextItem}
-              />
+              <div className="submit-row">
+                <ApplyToExtra
+                  baseItem={item.baseItem}
+                  dispatch={dispatch}
+                  floatRemaining={floatRemaining}
+                />
+                <Submit
+                  baseItemId={item.baseItem.id}
+                  dispatch={dispatch}
+                  floatRemaining={floatRemaining}
+                  nextItem={item.nextItem}
+                />
+              </div>
             </div>
           </div>
           <Summary
@@ -252,6 +259,33 @@ const Total = ({ floatRemaining, nextItem }) => {
   }
 }
 
+const ApplyToExtra = ({ baseItem, dispatch, floatRemaining }) => {
+  if ((floatRemaining * 100) === baseItem.remaining) {
+    const handleSubmit = () => {
+      const action = updateExtra({
+        id: baseItem.id,
+        name: baseItem.name,
+        amount: baseItem.amount,
+      })
+      dispatch(action)
+      dispatch(setStatus({ id: baseItem.id, status: "reviewed" }))
+    }
+
+    return (
+      <button
+        className="apply-to-extra"
+        onClick={handleSubmit}
+      >
+        {copy.finalize.applyToExtra}
+        {" "}
+        <Icon className="fas fa-donate" />
+      </button>
+    )
+  } else {
+    return null
+  }
+}
+
 const Submit = ({ baseItemId, dispatch, floatRemaining, nextItem }) => {
   if (nextItem) {
     const { id, budget_category_id } = nextItem
@@ -267,17 +301,15 @@ const Submit = ({ baseItemId, dispatch, floatRemaining, nextItem }) => {
     }
 
     return (
-      <div className="submit-row">
-        <button
-          className="carry-over-submit"
-          onClick={handleSubmit}
-          type="submit"
-        >
-          {titleize(copy.finalize.rollOver)}
-          {" "}
-          <Icon className="fas fa-check" />
-        </button>
-      </div>
+      <button
+        className="carry-over-submit"
+        onClick={handleSubmit}
+        type="submit"
+      >
+        {titleize(copy.finalize.rollOver)}
+        {" "}
+        <Icon className="fas fa-check" />
+      </button>
     )
   } else {
     return null
