@@ -746,7 +746,8 @@ nav.budget-actions a .budget-action:hover {
   width: 20%;
 }
 
-.finalize-accrual button {
+.finalize-accrual button,
+.finalize-carry-over button {
   color: white;
   border: none;
   border-radius: 5px;
@@ -755,12 +756,21 @@ nav.budget-actions a .budget-action:hover {
   padding: 1.5% 2%;
 }
 
-.finalize-accrual button.create-item {
+.finalize-accrual button.create-item,
+.finalize-carry-over button.create-item {
   background-color: #8AB6FF; /* blue */
 }
 
-.finalize-accrual button.ignore {
+.finalize-accrual button.ignore,
+.finalize-carry-over button.ignore {
   background-color: #FF3C52; /* red */
+}
+
+.finalize-carry-over button.carry-over-submit {
+  background-color: #59D176; /* green */
+  font-size: 1.3em;
+  padding: 1% 2%;
+  width: 20%;
 }
 
 .finalize-accrual .indicator {
@@ -785,6 +795,52 @@ nav.budget-actions a .budget-action:hover {
   border-radius: 8px;
   padding: 0.5% 1%;
   font-size: 1em;
+}
+
+.finalize-carry-over {
+  background-color: #E9ECFF; /* light blue */
+  padding: 3%;
+  border-radius: 15px;
+}
+
+.finalize-carry-over .item-name {
+  font-size: 1.2em;
+  font-weight: 600;
+  border-bottom: 1px solid #999;
+  margin-bottom: 2%;
+}
+
+.finalize-carry-over .budgeted,
+.finalize-carry-over .remaining,
+.finalize-carry-over .total {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin-top: 1%;
+}
+
+.finalize-carry-over .submit-row {
+  display: flex;
+  justify-content: flex-end;
+  width: 80%;
+  margin-top: 1%;
+}
+
+.finalize-carry-over .remaining input {
+  text-align: right;
+}
+
+.finalize-carry-over .budgeted .amount {
+  border-bottom: 1px solid black;
+}
+
+.finalize-carry-over .buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.finalize-carry-over .buttons .option {
+  width: 49%;
 }
 
 .finalize-summary {

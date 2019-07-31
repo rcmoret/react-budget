@@ -38,10 +38,14 @@ export const discretionary = {
 
 export const finalize = {
   budgetedFor: (date) => `Budgeted for ${date}`,
+  carryOver: "carry over",
+  carryOverFrom: (dateString) => `Amount to carry over from ${dateString}`,
   createItem: "create item",
   disregard: "disregard",
   extra: "extra",
+  missingItemMessage: (name, dateString) => `No item found for ${name} in ${dateString}`,
   remainingIn: (date) => `Remaining in ${date}`,
+  rollOver: "roll over",
   submitAccrualButtonText: "update accruals",
   summary: "summary",
   title: "finalize",
