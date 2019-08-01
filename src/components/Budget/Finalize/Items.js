@@ -136,6 +136,7 @@ const Items = (props) => {
                   baseItem={item.baseItem}
                   dispatch={dispatch}
                   floatRemaining={floatRemaining}
+                  nextItem={item.nextItem}
                 />
                 <Submit
                   baseItemId={item.baseItem.id}
@@ -259,8 +260,8 @@ const Total = ({ floatRemaining, nextItem }) => {
   }
 }
 
-const ApplyToExtra = ({ baseItem, dispatch, floatRemaining }) => {
-  if ((floatRemaining * 100) === baseItem.remaining) {
+const ApplyToExtra = ({ baseItem, dispatch, floatRemaining, nextItem }) => {
+  if ((floatRemaining * 100) === baseItem.remaining && nextItem) {
     const handleSubmit = () => {
       const action = updateExtra({
         id: baseItem.id,
