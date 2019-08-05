@@ -28,7 +28,7 @@ export default (props) => (
       <Option
         checked={props.monthly === "true" ? "checked" : ""}
         disabled={props.optionsDisabled}
-        name="monthly"
+        name={props.monthlyName}
         onChange={props.onChange}
         title={copy.category.monthly}
         value={true}
@@ -36,7 +36,7 @@ export default (props) => (
       <Option
         checked={props.monthly === "false" ? "checked" : ""}
         disabled={props.optionsDisabled}
-        name="monthly"
+        name={props.monthlyName}
         onChange={props.onChange}
         title={titleize(copy.category.weekly)}
         value={false}
@@ -46,7 +46,7 @@ export default (props) => (
       <Option
         checked={props.expense === "true" ? "checked" : ""}
         disabled={props.optionsDisabled}
-        name="expense"
+        name={props.expenseName}
         onChange={props.onChange}
         title={copy.category.expense}
         value={true}
@@ -54,7 +54,7 @@ export default (props) => (
       <Option
         checked={props.expense === "false" ? "checked" : ""}
         disabled={props.optionsDisabled}
-        name="expense"
+        name={props.expenseName}
         onChange={props.onChange}
         title={copy.category.revenue}
         value={false}

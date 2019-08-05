@@ -74,7 +74,9 @@ const Edit = (props) => {
     <Form
       key={id}
       {...formProps}
+      expenseName={`expense[${id}]`}
       label={titleize(copy.category.updateButtonText)}
+      monthlyName={`monthly[${id}]`}
       onChange={onChange}
       onSelectChange={onSelectChange}
       onSubmit={onSubmit}

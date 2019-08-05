@@ -75,7 +75,9 @@ const NewBudgetCategory = (props) => {
     return (
       <Form
         {...newCategory}
+        expenseName="expense"
         label={titleize(createButtonText)}
+        monthlyName="monthly"
         onChange={onChange}
         onSelectChange={onSelectChange}
         onSubmit={onSubmit}
