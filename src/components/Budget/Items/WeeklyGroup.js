@@ -2,7 +2,7 @@ import React from "react"
 import WeeklyItem from "./WeeklyItem"
 
 const WeeklyGroup = (props) => {
-  const { collection, title } = props
+  const { collection, daysRemaining, title, totalDays } = props
   if (collection.length > 0) {
     return (
       <div className="budget-group">
@@ -11,6 +11,8 @@ const WeeklyGroup = (props) => {
           <WeeklyItem
             key={item.id}
             {...item}
+            daysRemaining={daysRemaining}
+            totalDays={totalDays}
           />
         )}
       </div>

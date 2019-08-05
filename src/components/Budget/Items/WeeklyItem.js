@@ -24,7 +24,9 @@ const WeeklyItem = (props) => {
 
   const {
     id,
+    amount,
     budget_category_id,
+    daysRemaining,
     difference,
     dispatch,
     icon_class_name,
@@ -34,6 +36,7 @@ const WeeklyItem = (props) => {
     month,
     showDetail,
     spent,
+    totalDays,
     transaction_count,
     updateItem,
     year,
@@ -72,6 +75,10 @@ const WeeklyItem = (props) => {
   const operator = spent > 0  && props.expense ? plus : minus
   const diffOperator = !overUnderBudget ? "" : (expense ? minus : plus)
   const deletable = transaction_count === 0
+  const budgetedPerDay = Math.floor(amount / totalDays)
+  const budgetedPerWeek = (budgetedPerDay * 7)
+  const remainingPerDay = Math.floor(props.remaining / daysRemaining)
+  const remainingPerWeek = (remainingPerDay * 7)
 
   return (
     <div className="budget-item">

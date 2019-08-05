@@ -40,7 +40,7 @@ export default (props) => (
       <div className="title">{titleize(remaining)}</div>
       <div className="per-detail">
         <div className="description">
-          {perDay}:
+          {titleize(perDay)}:
         </div>
         <div className="amount">
           {MoneyFormatter(props.remainingPerDay, { absolute: true })}
@@ -48,7 +48,7 @@ export default (props) => (
       </div>
       <div className="per-detail">
         <div className="description">
-          {perWeek}:
+          {titleize(perWeek)}:
         </div>
         <div className="amount">
           {MoneyFormatter(props.remainingPerWeek, { absolute: true })}
