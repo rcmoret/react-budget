@@ -54,6 +54,10 @@
   max-width: 30%;
 }
 
+.transaction .notes {
+  max-width: 30%;
+}
+
 .transaction .exclusion {
   display: inline-block;
   font-style: italic;

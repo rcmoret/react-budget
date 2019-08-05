@@ -173,7 +173,7 @@ const ReviewItem = (props) => {
             className="requeue"
             onClick={requeueItem}
           >
-            {copy.setup.requeue}
+            {titleize(copy.setup.requeue)}
             {" "}
             <Icon className="fas fa-retweet" />
           </button>
