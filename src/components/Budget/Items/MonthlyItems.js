@@ -35,7 +35,7 @@ const mapStateToProps = (state) => {
     } else if (a.name > b.name) {
       return 1
     } else {
-      sortByAmount(a, b)
+      return sortByAmount(a, b)
     }
   }
 
