@@ -21,8 +21,8 @@ export default ({ collection, dispatch }) => {
   }
 
   const amountFor = (item) => {
-    if (item.baseItem.floatRemaining) {
-      return item.nextItem.amount + parseInt(item.baseItem.floatRemaining * 100)
+    if (item.baseItem.floatRemaining || item.baseItem.floatRemaining === "") {
+      return item.nextItem.amount + ((parseFloat(item.baseItem.floatRemaining) * 100) || 0)
     } else {
       return item.nextItem.amount + item.baseItem.remaining
     }

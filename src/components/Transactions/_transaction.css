@@ -69,6 +69,10 @@
   display: inline-block;
 }
 
+.transaction .notes {
+  max-width: 33%;
+}
+
 .subtransaction-show {
   font-size: 0.8em;
 }

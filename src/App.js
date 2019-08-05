@@ -11,6 +11,7 @@ import AccountWrapper from "./components/Accounts/Wrapper"
 import AccountIndex from "./components/Accounts/Index"
 import BudgetFinalizeIndex from "./components/Budget/Finalize/Index"
 import BudgetFinalizeAccruals from "./components/Budget/Finalize/Accruals"
+import BudgetFinalizeFinish from "./components/Budget/Finalize/Finish"
 import BudgetFinalizeItems from "./components/Budget/Finalize/Items"
 import BudgetHome from "./components/Budget/Home"
 import BudgetIndex from "./components/Budget/Index"
@@ -53,6 +54,7 @@ export default () => (
             <Route exact path="/budget/:month/:year" component={BudgetIndex} />
             <Route path="/budget/finalize/:month/:year/start" component={BudgetFinalizeIndex} />
             <Route path="/budget/finalize/:month/:year/accruals" component={BudgetFinalizeAccruals} />
+            <Route path="/budget/finalize/:month/:year/finish" component={BudgetFinalizeFinish} />
             <Route path="/budget/finalize/:month/:year/items" component={BudgetFinalizeItems} />
             <Route path="/budget/set-up/:month/:year/accruals" component={BudgetSetUpAccruals} />
             <Route path="/budget/set-up/:month/:year/expenses" component={BudgetSetUpExpenses} />

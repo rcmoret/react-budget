@@ -99,18 +99,29 @@ const Error = ({ error }) => (
   </li>
 )
 
-const NextMonthItem = (item) => {
-  if (item.id) {
+const NextMonthItem = (props) => {
+  const {
+    id,
+    amount,
+    baseItem,
+    dispatch,
+    nextMonth,
+    nextYear,
+  } = props
+
+  if (id) {
     return (
       <div className="next-month-amount">
-        {MoneyFormatter(item.amount, { absolute: false })}
+        {MoneyFormatter(amount, { absolute: false })}
       </div>
     )
-  } else if (item.baseItem.status !== "reviewed") {
+  } else if (baseItem.status !== "reviewed") {
     return (
       <MissingItem
-        {...item.baseItem}
-        dispatch={item.dispatch}
+        {...baseItem}
+        dispatch={dispatch}
+        nextMonth={nextMonth}
+        nextYear={nextYear}
       />
     )
   } else {
@@ -133,7 +144,7 @@ const Total = ({ nextMonth, remaining }) => {
 const MissingItem = (props) => {
   const {
     id,
-    budgetCategoryId,
+    budget_category_id,
     dispatch,
     monthly,
     name,
@@ -153,7 +164,7 @@ const MissingItem = (props) => {
   }
 
   const createItem = () => {
-    const url = ApiUrlBuilder(["budget/categories", budgetCategoryId, "items"])
+    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items"])
     const body = JSON.stringify({
       amount: 0,
       month: nextMonth,

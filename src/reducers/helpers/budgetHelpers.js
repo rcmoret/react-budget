@@ -261,3 +261,19 @@ export const updateExtra = (payload, extra) => {
     return [...extra, payload]
   }
 }
+
+export const calculateDiscretionary = (payload) => {
+  const { collection, metadata } = payload
+
+  const remainingFor = (item) => {
+    const { amount, expense, monthly, spent, transaction_count } = item
+    if (monthly) {
+      return transaction_count === 0 ? amount : 0
+    } else {
+      const difference = amount - spent
+      return expense ? Math.min(difference, 0) : Math.max(difference, 0)
+    }
+  }
+
+  return metadata.balance + collection.reduce((acc, item) => acc += remainingFor(item), 0)
+}

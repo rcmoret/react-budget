@@ -158,9 +158,14 @@ const simpleObject = (dateObject) => {
   })
 
 }
+
 export const today = (format = "yyyy-mm-dd") => {
   const date = simpleObject(new Date())
   return formatted({ ...date, format: format })
+}
+
+export const isToday = (date) => {
+  return today("object") === simpleObject(date)
 }
 
 export default formatted

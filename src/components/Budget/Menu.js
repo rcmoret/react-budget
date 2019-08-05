@@ -10,7 +10,7 @@ import {
   toggleMenu,
 } from "../../actions/budget"
 
-import DateFormatter from "../../functions/DateFormatter"
+import DateFormatter, { isToday } from "../../functions/DateFormatter"
 
 import Icon from "../Icons/Icon"
 import { Link } from "react-router-dom"
@@ -19,14 +19,7 @@ import SetUpButton from "./SetUpButton"
 const Menu = (props) => {
   const {
     dispatch,
-    month,
-    year,
-    isFuture,
-    requiresSetUp,
-    showAccruals,
-    showCleared,
     showOptions,
-    sortOrder,
   } = props
 
   return (
@@ -36,15 +29,7 @@ const Menu = (props) => {
         showOptions={showOptions}
       />
       <Links
-        dispatch={dispatch}
-        month={month}
-        year={year}
-        isFuture={isFuture}
-        requiresSetUp={requiresSetUp}
-        showAccruals={showAccruals}
-        showOptions={showOptions}
-        showCleared={showCleared}
-        sortOrder={sortOrder}
+        {...props}
       />
     </nav>
   )
@@ -77,14 +62,15 @@ const Title = ({ dispatch, showOptions }) => {
 const Links = (props) => {
   const {
     dispatch,
-    month,
-    year,
+    isEndOfMonth,
     isFuture,
+    month,
     requiresSetUp,
     showAccruals,
     showCleared,
     showOptions,
     sortOrder,
+    year,
   } = props
 
   const toggleAccruals = (e) => {
@@ -118,6 +104,7 @@ const Links = (props) => {
         />
         <FinalizeButton
           dispatch={dispatch}
+          isEndOfMonth={isEndOfMonth}
           month={month}
           year={year}
         />
@@ -177,12 +164,15 @@ const Links = (props) => {
   }
 }
 
-const FinalizeButton = ({ dispatch, month, year }) => (
-  <Link
-    to={`/budget/finalize/${month}/${year}/start`}
-  >
-    <div className="budget-action">
-      <strong>
+const FinalizeButton = ({ isEndOfMonth, month, year }) => {
+  if (!isEndOfMonth) { return null }
+
+  return (
+    <Link
+      to={`/budget/finalize/${month}/${year}/start`}
+    >
+      <div className="budget-action">
+        <strong>
           {titleize(copy.menu.finalizeLinkText(
             DateFormatter({
               month: month,
@@ -190,13 +180,17 @@ const FinalizeButton = ({ dispatch, month, year }) => (
               format: "monthYear"
             })
           ))}
-      </strong>
-    </div>
-  </Link>
-)
+        </strong>
+      </div>
+    </Link>
+  )
+}
 
 const mapStateToProps = (state, ownProps) => {
+  const isEndOfMonth = isToday(new Date(ownProps.year, (ownProps.month + 1), 0))
+
   return {
+    isEndOfMonth: isEndOfMonth,
     ...state.budget.menuOptions,
     ...ownProps,
   }

@@ -6,7 +6,10 @@ import { titleize } from "../../../locales/functions"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 export default ({ extra }) => {
-  const collection = extra.filter(item => item.amount !== 0)
+  const collection = extra
+    .filter(item => item.amount !== 0)
+    .sort((a, b) => a.name < b.name ? -1 : 1)
+
   const total = collection.reduce((acc, item) => { return acc + item.amount }, 0)
   return (
     <div className="finalize-summary">

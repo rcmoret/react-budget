@@ -69,6 +69,7 @@ const initialState = {
       year: null,
       isFetched: false,
       collection: [],
+      is_closed_out: false,
     },
     next: {
       month: null,
@@ -77,6 +78,8 @@ const initialState = {
       collection: [],
     },
     extra: [],
+    selectedFromAccountId: null,
+    selectedToAccountId: null,
   },
   setup: {
     baseMonth: {
@@ -317,6 +320,14 @@ export default (state = initialState, action) => {
           collection: Helpers.finalizeItemsCollection(action.payload),
           isFetched: true,
         },
+        extra: [
+          ...state.finalize.extra,
+          {
+            id: 0,
+            name: "Discretionary",
+            amount: (-1 * Helpers.calculateDiscretionary(action.payload)),
+          }
+        ]
       },
     }
   case "budget/finalize/EDIT_BASE_AMOUNT":
@@ -331,6 +342,30 @@ export default (state = initialState, action) => {
           )
         },
       },
+    }
+  case "budget/finalize/MARK_INTERVAL_CLOSED":
+    return {
+      ...state,
+      finalize: {
+        ...state.finalize,
+        baseMonth: {
+          ...state.finalize.baseMonth,
+          is_closed_out: true,
+        },
+      }
+    }
+  case "budget/finalize/MARK_SELECTED":
+    return {
+      ...state,
+      finalize: {
+        ...state.finalize,
+        next: {
+          ...state.finalize.next,
+          collection: state.finalize.next.collection.map(item =>
+            item.id === action.payload.id ? { ...item, selected: true } : { ...item, selected: false }
+          )
+        },
+      }
     }
   case "budget/finalize/NEXT_MONTH_FETCH":
     return Helpers.nextMonthFetched(action.payload, state)
@@ -357,6 +392,22 @@ export default (state = initialState, action) => {
     }
   case "budget/finalize/UPDATE_FINALIZE_ITEM":
     return Helpers.updateFinalizeItem(action.payload, state)
+  case "budget/finalize/UPDATE_SELECTED_FROM_ACCOUNT_ID":
+    return {
+      ...state,
+      finalize: {
+        ...state.finalize,
+        selectedFromAccountId: action.payload.id
+      },
+    }
+  case "budget/finalize/UPDATE_SELECTED_TO_ACCOUNT_ID":
+    return {
+      ...state,
+      finalize: {
+        ...state.finalize,
+        selectedToAccountId: action.payload.id
+      },
+    }
   case "budget/BASE_MONTH_FETCHED":
     return {
       ...state,

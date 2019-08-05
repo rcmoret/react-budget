@@ -37,19 +37,28 @@ export const discretionary = {
 }
 
 export const finalize = {
+  appliedToExtra: "To Be Applied to Extra",
   applyToExtra: "Apply All to Extra",
   budgetedFor: (date) => `Budgeted for ${date}`,
   carryOver: "carry over",
   carryOverFrom: (dateString) => `Amount to carry over from ${dateString}`,
   createItem: "create item",
+  depositExtra: "deposit extra",
+  depositMessage: (dateString) => `Extra from ${dateString}`,
   disregard: "disregard",
+  exceedsOriginalAmount: "Cannot be greater than original amount",
   extra: "extra",
-  missingItemMessage: (name, dateString) => `No item found for ${name} in ${dateString}`,
+  negativeRevenueErrorMessage: "Cannot be less than zero for an expense",
+  positiveExpenseErrorMessage: "Cannot be greater than zero for an expense",
   remainingIn: (date) => `Remaining in ${date}`,
+  revealNextItems: (itemCount) => `Apply to item${itemCount === 1 ? "" : "s"}`,
   rollOver: "roll over",
+  selectFromAccount: "Select Account to Withdraw From",
+  selectToAccount: "Select Account to Receive Payment",
   submitAccrualButtonText: "update accruals",
   summary: "summary",
   title: "finalize",
+  updatedAmountFor: (dateString) => `Updated Amount For ${dateString}`,
 }
 
 export const icon = {
