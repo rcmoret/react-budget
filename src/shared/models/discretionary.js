@@ -1,29 +1,20 @@
-export default (payload, state) => {
-  const monthlyItems = state.monthly.collection
-  const weeklyItems = state.weekly.collection
-  const items = [...monthlyItems, ...weeklyItems]
-  const remainingBudgeted = items.reduce((acc, item) => {
+export default (payload, collection) => {
+  const { balance, spent } = payload
+
+  const remainingBudgeted = collection.reduce((acc, item) => {
     return acc += item.remaining
   }, 0)
-  const overUnderBudgetAmount = items.reduce((acc, item) => {
+  const overUnderBudgetAmount = collection.reduce((acc, item) => {
     return acc += item.overUnderBudgetAmount
   }, 0)
-  const total_remaining = payload.balance + remainingBudgeted
-  const amount = total_remaining - overUnderBudgetAmount - payload.spent
-  const budgetedPerDay = Math.floor(amount / payload.total_days)
-  const budgetedPerWeek = budgetedPerDay * 7
-  const remainingPerDay = Math.floor(total_remaining / payload.days_remaining)
-  const remainingPerWeek = remainingPerDay * 7
+  const total_remaining = balance + remainingBudgeted
+  const amount = total_remaining - overUnderBudgetAmount - spent
 
   return {
     collection: [],
     ...payload,
     total_remaining: total_remaining,
     amount: amount,
-    budgetedPerDay: budgetedPerDay,
-    budgetedPerWeek: budgetedPerWeek,
-    remainingPerDay: remainingPerDay,
-    remainingPerWeek: remainingPerWeek,
     overUnderBudgetAmount: overUnderBudgetAmount,
   }
 }

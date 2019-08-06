@@ -3,32 +3,26 @@ import objectifyDiscretionary from "../../shared/models/discretionary"
 import objectifyMonthly from "../../shared/models/monthlyBudgetItem"
 import objectifyWeekly from "../../shared/models/weeklyBudgetItem"
 
-export const createMonthly = (payload, state) => {
+export const setUpIndex = (payload, state) => {
   const { collection, metadata } = payload
-  const monthlyCollection = collection.filter(item => item.monthly)
-    .map(item => objectifyMonthly(item))
-  const weeklyCollection = collection.filter(item => !item.monthly)
-    .map(item => objectifyWeekly(item, metadata))
-
-  const collections = {
-    monthly: {
-      collection: monthlyCollection,
-    },
-    weekly: {
-      collection: weeklyCollection,
-    },
-  }
+  const items = collection.map(item => {
+    if (item.monthly) {
+      return objectifyMonthly(item)
+    } else {
+      return objectifyWeekly(item)
+    }
+  })
 
   return {
     ...state,
-    discretionary: objectifyDiscretionary(metadata, collections),
+    discretionary: objectifyDiscretionary(metadata, items),
     monthly: {
       ...state.monthly,
-      collection: monthlyCollection,
+      collection: items.filter(item => item.monthly),
     },
     weekly: {
       ...state.weekly,
-      collection: weeklyCollection,
+      collection: items.filter(item => !item.monthly),
     },
     itemsFetched: true,
     metadata: {
@@ -39,82 +33,60 @@ export const createMonthly = (payload, state) => {
 }
 
 export const addMonthlyItem = (item, state) => {
-  const { month, year } = state.metadata
+  const { metadata, monthly, weekly } = state
+  const { month, year } = metadata
   // if the item is not in the current month
   if (!(item.month === month && item.year === year)) {
     return state
   }
 
-  const newCollection = [...state.monthly.collection, objectifyMonthly(item)]
-  const collections = {
-    weekly: {
-      collection: state.weekly.collection,
-    },
-    monthly: {
-      collection: newCollection,
-    }
-  }
+  const newCollection = [...monthly.collection, objectifyMonthly(item)]
 
   return {
     ...state,
-    discretionary: objectifyDiscretionary(state.discretionary, collections),
+    discretionary: objectifyDiscretionary(metadata, [...newCollection, ...weekly.collection]),
     monthly: {
-      ...state.monthly,
+      ...monthly,
       collection: newCollection,
     },
   }
 }
 
 export const addWeeklyItem = (item, state) => {
-  const { month, year } = state.metadata
+  const { metadata, monthly, weekly } = state
+  const { month, year } = metadata
   // if the item is not in the current month
   if (!(item.month === month && item.year === year)) {
     return state
   }
 
-  const newCollection = [...state.weekly.collection, objectifyWeekly(item, state.metadata)]
-  const collections = {
-    weekly: {
-      collection: newCollection,
-    },
-    monthly: {
-      collection: state.monthly.collection
-    }
-  }
+  const newCollection = [...weekly.collection, objectifyWeekly(item)]
 
   return {
     ...state,
-    discretionary: objectifyDiscretionary(state.discretionary, collections),
+    discretionary: objectifyDiscretionary(metadata, [...newCollection, ...monthly.collection]),
     weekly: {
-      ...state.weekly,
+      ...weekly,
       collection: newCollection,
     },
   }
 }
 
 export const removeMonthly = (id, state) => {
+  const { metadata, monthly, setup, weekly } = state
   const newCollection = state.monthly.collection.filter(item => item.id !== id)
-
-  const collections = {
-    weekly: {
-      collection: state.weekly.collection,
-    },
-    monthly: {
-      collection: newCollection,
-    }
-  }
 
   return {
     ...state,
-    discretionary: objectifyDiscretionary(state.discretionary, collections),
+    discretionary: objectifyDiscretionary(metadata, [...weekly.collection, ...newCollection]),
     monthly: {
-      ...state.monthly,
+      ...monthly,
       collection: newCollection,
     },
     setup: {
-      ...state.setup,
+      ...setup,
       baseMonth: {
-        ...state.setup.baseMonth,
+        ...setup.baseMonth,
         isFetched: false
       },
     },
@@ -122,26 +94,18 @@ export const removeMonthly = (id, state) => {
 }
 
 export const removeWeekly = (id, state) => {
-  const newCollection = state.weekly.collection.filter(item => item.id !== id)
-
-  const collections = {
-    weekly: {
-      collection: newCollection,
-    },
-    monthly: {
-      collection: state.monthly.collection,
-    }
-  }
+  const { metadata, monthly, setup, weekly } = state
+  const newCollection = weekly.collection.filter(item => item.id !== id)
 
   return {
     ...state,
-    discretionary: objectifyDiscretionary(state.discretionary, collections),
+    discretionary: objectifyDiscretionary(metadata, [...monthly.collection, ...newCollection]),
     weekly: {
-      ...state.weekly,
+      ...weekly,
       collection: newCollection,
     },
     setup: {
-      ...state.setup,
+      ...setup,
       baseMonth: {
         ...state.setup.baseMonth,
         isFetched: false
@@ -155,39 +119,31 @@ export const updateMonthlyItem = (item, state) => {
   // if there is a mismatch. This should not happen given the current set up but still worth
   // considering
 
+  const { metadata, monthly, setup } = state
   const originalItem = state.monthly.collection.find(_item => _item.id === item.id)
   const updatedItem = objectifyMonthly({ ...originalItem, ...item })
 
   const newCollection = updateItemInCollection({
     updatedItem: updatedItem,
-    collection: state.monthly.collection,
+    collection: monthly.collection,
     save: true
   })
 
-  const collections = {
-    weekly: {
-      collection: state.weekly.collection,
-    },
-    monthly: {
-      collection: newCollection,
-    }
-  }
-
   return {
     ...state,
-    discretionary: objectifyDiscretionary(state.discretionary, collections),
+    discretionary: objectifyDiscretionary(metadata, [...monthly.collection, ...newCollection]),
     monthly: {
-      ...state.monthly,
+      ...monthly,
       collection: newCollection,
     },
     setup: {
-      ...state.setup,
+      ...setup,
       newMonth: {
-        ...state.newMonth,
+        ...setup.newMonth,
         isFetched: false,
       },
       baseMonth: {
-        ...state.baseMonth,
+        ...setup.baseMonth,
         isFetched: false,
       },
     }
@@ -199,39 +155,31 @@ export const updateWeeklyItem = (item, state) => {
   // if there is a mismatch. This should not happen given the current set up but still worth
   // considering
 
+  const { metadata, monthly, setup, weekly } = state
   const originalItem = state.weekly.collection.find(_item => _item.id === item.id)
   const updatedItem = objectifyWeekly({ ...originalItem, ...item }, state.metadata)
 
   const newCollection = updateItemInCollection({
     updatedItem: updatedItem,
-    collection: state.weekly.collection,
+    collection: weekly.collection,
     save: true
   })
 
-  const collections = {
-    weekly: {
-      collection: newCollection,
-    },
-    monthly: {
-      collection: state.monthly.collection
-    }
-  }
-
   return {
     ...state,
-    discretionary: objectifyDiscretionary(state.discretionary, collections),
+    discretionary: objectifyDiscretionary(metadata, [...monthly.collection, ...newCollection]),
     weekly: {
-      ...state.weekly,
+      ...weekly,
       collection: newCollection,
     },
     setup: {
-      ...state.setup,
+      ...setup,
       newMonth: {
-        ...state.newMonth,
+        ...setup.newMonth,
         isFetched: false,
       },
       baseMonth: {
-        ...state.baseMonth,
+        ...setup.baseMonth,
         isFetched: false,
       },
     }
@@ -239,14 +187,13 @@ export const updateWeeklyItem = (item, state) => {
 }
 
 export const addNewSetupItem = (item, state) => {
-  const { metadata } = state
+  const { metadata, monthly, setup, weekly } = state
   const { month, year } = metadata
-  const objectifiedItem = item.monthly ? objectifyMonthly(item, metadata) : objectifyWeekly(item, metadata)
+  const objectifiedItem = item.monthly ? objectifyMonthly(item) : objectifyWeekly(item)
   const currentItem = month === item.month && year === item.year
-  const { monthly, weekly } = state
   const newMonthly = currentItem && item.monthly ? { ...monthly, collection: [...monthly.collection, objectifiedItem] } : monthly
   const newWeekly = currentItem && item.weekly ? { ...weekly, collection: [...weekly.collection, objectifiedItem] } : weekly
-  const discretionary = objectifyDiscretionary(state.discretionary, { weekly: newWeekly, monthly: newMonthly })
+  const discretionary = objectifyDiscretionary(metadata, [...newWeekly, ...newMonthly])
 
   return {
     ...state,
@@ -254,16 +201,16 @@ export const addNewSetupItem = (item, state) => {
     monthly: newMonthly,
     weekly: newWeekly,
     setup: {
-      ...state.setup,
+      ...setup,
       newMonth: {
-        ...state.setup.newMonth,
+        ...setup.newMonth,
         newItem: {
           amount: "",
           budget_category_id: null,
           selectedOption: "",
         },
         collection: [
-          ...state.setup.newMonth.collection,
+          ...setup.newMonth.collection,
           item,
         ],
       },

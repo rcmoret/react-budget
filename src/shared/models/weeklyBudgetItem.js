@@ -1,4 +1,4 @@
-export default (attributes, metadata) => {
+export default (attributes) => {
   const {
     accrual,
     amount,
@@ -13,44 +13,20 @@ export default (attributes, metadata) => {
   const floatAmount = attributes.floatAmount || parseFloat(attributes.amount / 100.0).toFixed(2)
   const difference = amount - spent
   const remaining = expense ? Math.min(difference, 0) : Math.max(difference, 0)
+  const overUnderBudget = (expense && difference > 0) || (!expense && difference < 0)
+  const overUnderBudgetAmount = overUnderBudget ? (-1 * difference) : 0
+  const matureAccrual = accrual && (maturity_month === month && maturity_year === year)
 
-  if (metadata) {
-    const {
-      days_remaining,
-      total_days,
-    } = metadata
-    const budgetedPerDay = Math.floor(amount / total_days)
-    const budgetedPerWeek = (budgetedPerDay * 7)
-    const remainingPerDay = Math.floor(remaining / days_remaining)
-    const remainingPerWeek = (remainingPerDay * 7)
-    const overUnderBudget = (expense && difference > 0) || (!expense && difference < 0)
-    const overUnderBudgetAmount = overUnderBudget ? (-1 * difference) : 0
-    const matureAccrual = accrual && (maturity_month === month && maturity_year === year)
-
-    return {
-      collection: [],
-      ...attributes,
-      spent: spent,
-      transactions_count: transactions_count,
-      floatAmount: floatAmount,
-      remaining: remaining,
-      difference: difference,
-      overUnderBudget: overUnderBudget,
-      overUnderBudgetAmount: overUnderBudgetAmount,
-      budgetedPerDay: budgetedPerDay,
-      budgetedPerWeek: budgetedPerWeek,
-      matureAccrual: matureAccrual,
-      remainingPerDay: remainingPerDay,
-      remainingPerWeek: remainingPerWeek,
-    }
-  } else {
-    return {
-      ...attributes,
-      spent: spent,
-      transactions_count: transactions_count,
-      floatAmount: floatAmount,
-      remaining: remaining,
-      difference: difference,
-    }
+  return {
+    collection: [],
+    ...attributes,
+    spent: spent,
+    transactions_count: transactions_count,
+    floatAmount: floatAmount,
+    remaining: remaining,
+    difference: difference,
+    overUnderBudget: overUnderBudget,
+    overUnderBudgetAmount: overUnderBudgetAmount,
+    matureAccrual: matureAccrual,
   }
 }

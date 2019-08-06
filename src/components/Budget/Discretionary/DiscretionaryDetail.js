@@ -13,34 +13,46 @@ import Transactions from "./../Shared/Transactions"
 
 const DiscretionaryDetail = (props) => {
   const {
+    amount,
     collection,
+    days_remaining,
     dispatch,
     fetchedTransactions,
     month,
     showDetail,
+    total_remaining,
+    total_days,
     year,
   } = props
+
+  if (!showDetail) {
+    return null
+  }
 
   if (showDetail && !fetchedTransactions ) {
     const url = ApiUrlBuilder(["budget", "discretionary", "transactions"], { month: month, year: year })
     get(url, data => dispatch(fetchedDiscretionaryTransactions(data)))
   }
 
-  if (showDetail) {
-    return (
-      <div className="detail-wrapper">
-        <hr />
-        <Details {...props} />
-        <hr />
-        <Transactions
-          budgetCategory={titleize(copy.discretionary.title)}
-          collection={collection}
-        />
-      </div>
-    )
-  } else {
-    return null
-  }
+  const budgetedPerDay = Math.floor(amount / total_days)
+  const remainingPerDay = Math.floor(total_remaining / days_remaining)
+
+  return (
+    <div className="detail-wrapper">
+      <hr />
+      <Details
+        budgetedPerDay={budgetedPerDay}
+        budgetedPerWeek={budgetedPerDay * 7}
+        remainingPerDay={remainingPerDay}
+        remainingPerWeek={remainingPerDay * 7}
+      />
+      <hr />
+      <Transactions
+        budgetCategory={titleize(copy.discretionary.title)}
+        collection={collection}
+      />
+    </div>
+  )
 }
 
 const mapStateToProps = (state) => {

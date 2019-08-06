@@ -378,7 +378,7 @@ export default (state = initialState, action) => {
       }
     }
   case "budget/ITEMS_FETCHED":
-    return Helpers.createMonthly(action.payload, state)
+    return Helpers.setUpIndex(action.payload, state)
   case "budget/REMOVE_WEEKLY_ITEM":
     return Helpers.removeWeekly(action.payload, state)
   case "budget/REMOVE_MONTHLY_ITEM":

@@ -123,7 +123,13 @@ const WeeklyItem = (props) => {
           />
         </div>
       </div>
-      <WeeklyDetail {...props} />
+      <WeeklyDetail
+        {...props}
+        budgetedPerDay={budgetedPerDay}
+        budgetedPerWeek={budgetedPerWeek}
+        remainingPerDay={remainingPerDay}
+        remainingPerWeek={remainingPerWeek}
+      />
     </div>
   )
 }

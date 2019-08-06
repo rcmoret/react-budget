@@ -24,39 +24,38 @@ const WeeklyDetail = (props) => {
     transaction_count,
   } = props
 
-  if (collection.length < transaction_count && showDetail) {
+  if (!showDetail) {
+    return null
+  }
+
+  if (collection.length < transaction_count) {
     const url = ApiUrlBuilder(
       ["budget", "categories", budget_category_id, "items", id, "transactions"]
     )
+    const onSuccess = data => dispatch(fetchedWeeklyTransactions({
+      id: id,
+      collection: data
+    }))
 
-    get(url, data => dispatch(
-      fetchedWeeklyTransactions({
-        id: id,
-        collection: data
-      })
-    ))
+    get(url, onSuccess)
   }
 
-  if (showDetail) {
-    return (
-      <div className="detail-wrapper">
-        <hr />
-        <Details
-          budgetedPerDay={budgetedPerDay}
-          budgetedPerWeek={budgetedPerWeek}
-          remainingPerDay={remainingPerDay}
-          remainingPerWeek={remainingPerWeek}
-        />
-        <hr />
-        <Transactions
-          budgetCategory={name}
-          collection={collection}
-        />
-      </div>
-    )
-  } else {
-    return null
-  }
+  return (
+    <div className="detail-wrapper">
+      <hr />
+      <Details
+        budgetedPerDay={budgetedPerDay}
+        budgetedPerWeek={budgetedPerWeek}
+        remainingPerDay={remainingPerDay}
+        remainingPerWeek={remainingPerWeek}
+      />
+      <hr />
+      <Transactions
+        budgetCategory={name}
+        collection={collection}
+      />
+    </div>
+  )
 }
 
 export default connect((_state, ownProps) => ownProps)(WeeklyDetail)
