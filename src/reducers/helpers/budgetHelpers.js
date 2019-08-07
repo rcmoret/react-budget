@@ -119,7 +119,7 @@ export const updateMonthlyItem = (item, state) => {
   // if there is a mismatch. This should not happen given the current set up but still worth
   // considering
 
-  const { metadata, monthly, setup } = state
+  const { metadata, monthly, setup, weekly } = state
   const originalItem = state.monthly.collection.find(_item => _item.id === item.id)
   const updatedItem = objectifyMonthly({ ...originalItem, ...item })
 
@@ -131,7 +131,7 @@ export const updateMonthlyItem = (item, state) => {
 
   return {
     ...state,
-    discretionary: objectifyDiscretionary(metadata, [...monthly.collection, ...newCollection]),
+    discretionary: objectifyDiscretionary(metadata, [...weekly.collection, ...newCollection]),
     monthly: {
       ...monthly,
       collection: newCollection,

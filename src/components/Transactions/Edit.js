@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import { transaction as copy } from "../../locales/copy"
+import { budget as budgetCopy, transaction as copy } from "../../locales/copy"
 import { titleize } from "../../locales/functions"
 
 import { edit, editProps, editSubProps, updated } from "../../actions/transactions"
@@ -102,10 +102,7 @@ const mapStateToProps = (state, ownProps) => {
 
   const items = state.transactions.budgetItems.collection
   const collection = items.filter(item => !item.monthly || item.deletable || item.id === ownProps.budget_item_id)
-  const labelFor = (item) => {
-    const remaining = item.monthly ? item.amount : item.remaining
-    return `${item.name} (${MoneyFormatter(remaining, { absolute: true })})`
-  }
+  const labelFor = (item) => `${item.name} (${MoneyFormatter(item.remaining, { absolute: true })})`
   const optionFor = (item) => ({ value: item.id, label: labelFor(item) })
   const sortFn = (a, b) => a.label.toLowerCase() < b.label.toLowerCase() ? -1 : 1
   const filterFn = (item) => !item.accrual || item.matureAccrual
@@ -113,7 +110,7 @@ const mapStateToProps = (state, ownProps) => {
     .filter(filterFn)
     .map(optionFor)
     .sort(sortFn)
-  const discretionary = { label: "Discretionary", value: null }
+  const discretionary = { label: titleize(budgetCopy.discretionary.title), value: null }
   const budgetOptions = [discretionary, ...itemOptions]
 
   return {

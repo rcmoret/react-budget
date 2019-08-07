@@ -52,7 +52,6 @@ const BudgetItemSelect = (props) => {
           <SubtransactionBudgetItemSelect
             key={sub.id || index}
             _id={sub.id || index}
-            budget_item_id={sub.budget_item_id}
             onSubChange={onSubChange}
             options={options}
             {...sub}

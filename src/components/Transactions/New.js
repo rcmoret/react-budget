@@ -1,7 +1,11 @@
 import React from "react"
 import { connect } from "react-redux"
 
+import { budget as copy } from "../../locales/copy"
+import { titleize } from "../../locales/functions"
+
 import { addSubtransactionToNew, created, resetNew, updateNew, updateNewSubtransaction } from "../../actions/transactions"
+
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import MoneyFormatter from "../../functions/MoneyFormatter"
 import { post } from "../../functions/ApiClient"
@@ -18,9 +22,7 @@ const New = (props) => {
     dispatch(action)
   }
 
-  const handleKeyDown = () => {
-    return null
-  }
+  const handleKeyDown = () => null
 
   const resetForm = (e) => {
     e.preventDefault()
@@ -95,7 +97,7 @@ const mapStateToProps = (state) => {
     .filter(filterFn)
     .map(optionFor)
     .sort(sortFn)
-  const discretionary = { label: "Discretionary", value: null }
+  const discretionary = { label: titleize(copy.discretionary.title), value: null }
   const budgetOptions = [discretionary, ...itemOptions]
 
   return {
