@@ -88,7 +88,7 @@ button.delete-account {
 
 
 /* large screens */
-@media screen and (min-width: 1012) {
+@media screen and (min-width: 1012px) {
   .account {
     width: 11%;
   }
