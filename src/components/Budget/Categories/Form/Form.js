@@ -62,7 +62,7 @@ export default (props) => (
     </div>
     <div className="category-options">
       <div className="option">
-        <div className="label">{copy.category.accrual}</div>
+        <div className="label">{titleize(copy.category.accrual)}</div>
         <input type="checkbox"
           name="accrual"
           value={props.accrual === "true" ? "false" : "true"}
@@ -133,7 +133,7 @@ const Error = ({ error }) => (
 
 const Option = ({ checked, disabled, name, onChange, title, value }) => (
   <div className="option">
-    <div className="label">{title}</div>
+    <div className="label">{titleize(title)}</div>
     <input type="radio"
       checked={checked}
       disabled={disabled}

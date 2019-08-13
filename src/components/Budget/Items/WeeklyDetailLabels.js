@@ -8,7 +8,7 @@ export default ({ descriptor, showDetail }) => {
     return (
       <div>
         <div className="spent-or-deposited">
-          {descriptor}
+          {titleize(descriptor)}
         </div>
         <div className="budget-item-difference">
           {titleize(copy.shared.remaining)}
