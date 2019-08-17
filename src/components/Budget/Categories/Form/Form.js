@@ -4,6 +4,7 @@ import { budget as copy } from "../../../../locales/copy"
 import { titleize } from "../../../../locales/functions"
 
 import CancelButton from "./CancelButton"
+import Errors from "../../../Errors/Errors"
 import IconSelect from "./IconSelect"
 
 export default (props) => (
@@ -107,29 +108,6 @@ const CategoryInput = ({ className, errors, name, onChange, placeholder, value }
     </div>
   )
 }
-
-const Errors = ({ errors }) => {
-  if (errors.length === 0) {
-    return null
-  } else {
-    return (
-      <ul className="input-errors">
-        {errors.map((error, i) =>
-          <Error
-            key={i}
-            error={error}
-          />
-        )}
-      </ul>
-    )
-  }
-}
-
-const Error = ({ error }) => (
-  <li className="input-error">
-    {error}
-  </li>
-)
 
 const Option = ({ checked, disabled, name, onChange, title, value }) => (
   <div className="option">
