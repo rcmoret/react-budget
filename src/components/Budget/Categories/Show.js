@@ -27,6 +27,7 @@ const Show = (props) => {
     id,
     accrual,
     default_amount,
+    errors,
     expense,
     icon_class_name,
     monthly,
@@ -36,7 +37,11 @@ const Show = (props) => {
 
   const revealForm = (e) => {
     e.preventDefault()
-    const action = update({ id: id, showForm: true })
+    const action = update({
+      id: id,
+      errors: (errors || {}),
+      showForm: true,
+    })
     dispatch(action)
   }
 

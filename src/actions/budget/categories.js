@@ -2,8 +2,16 @@ export const accrualMaturityIntervalsFetched = (payload) => {
   return { type: "budget/categories/MATURITY_INTERVALS_FETCHED", payload: payload }
 }
 
+export const applyErrorsOnEdit = (payload) => (
+  { type: "budget/categories/APPLY_ERRORS_ON_EDIT", payload: payload }
+)
+
 export const applyFilter = (payload) => {
   return { type: "budget/categories/APPLY_FILTER", payload: payload }
+}
+
+export const categoriesFetched = (collection) => {
+  return { type: "budget/categories/FETCHED", payload: collection }
 }
 
 export const created = (payload) => {
@@ -20,10 +28,6 @@ export const editMaturityInterval = (payload) => {
 
 export const errorsOnNew = (payload) => {
   return { type: "budget/categories/ERRORS_ON_NEW", payload: payload }
-}
-
-export const categoriesFetched = (collection) => {
-  return { type: "budget/categories/FETCHED", payload: collection }
 }
 
 export const maturityIntervalCreated = (payload) => {

@@ -26,7 +26,12 @@ export const updated = (payload, collection) => {
     if (obj.id !== payload.id) {
       return obj
     } else {
-      return { ...obj, ...payload, updatedProps: null }
+      return {
+        ...obj,
+        ...payload,
+        updatedProps: null,
+        errors: {},
+      }
     }
   })
 }

@@ -87,6 +87,20 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+  case "budget/categories/APPLY_ERRORS_ON_EDIT":
+    return {
+      ...state,
+      categories: {
+        ...state.categories,
+        collection: state.categories.collection.map(category => {
+          if (category.id === action.payload.id) {
+            return { ...category, errors: { ...category.errors, ...action.payload.errors } }
+          } else {
+            return category
+          }
+        })
+      },
+    }
   case "budget/categories/APPLY_FILTER":
     return {
       ...state,
@@ -132,9 +146,7 @@ export default (state = initialState, action) => {
       ...state,
       categories: {
         ...state.categories,
-        collection: action.payload.map(category =>  {
-          return { ...category, errors: {} }
-        }),
+        collection: action.payload,
         fetched: true
       }
     }

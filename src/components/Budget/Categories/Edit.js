@@ -3,7 +3,12 @@ import { connect } from "react-redux"
 
 import { budget as copy } from "../../../locales/copy"
 import { titleize } from "../../../locales/functions"
-import { reset, updated, updateProps } from "../../../actions/budget/categories"
+import {
+  applyErrorsOnEdit,
+  reset,
+  updated,
+  updateProps,
+} from "../../../actions/budget/categories"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
 import { put } from "../../../functions/ApiClient"
@@ -19,6 +24,7 @@ const Edit = (props) => {
   const {
     id,
     accrual,
+    default_amount,
     expense,
     monthly,
     updatedProps,
@@ -48,18 +54,18 @@ const Edit = (props) => {
   }
 
   const onSubmit = () => {
-    put(
-      ApiUrlBuilder(["budget", "categories", id]),
-      JSON.stringify(putBody()),
-      (data) => dispatch(updated({ ...data, showForm: false }))
-    )
+    const url = ApiUrlBuilder(["budget", "categories", id])
+    const body = JSON.stringify(putBody())
+    const onSuccess = (data) => dispatch(updated({ ...data, showForm: false }))
+    const onFailure = (data) => dispatch(applyErrorsOnEdit({ id: id, ...data }))
+    put(url, body, onSuccess, onFailure)
   }
 
   const formProps = {
     ...category,
     accrual: accrual.toString(),
+    default_amount: (default_amount / 100.0).toFixed(2),
     expense: expense.toString(),
-    default_amount: (category.default_amount / 100.0).toFixed(2),
     monthly: monthly.toString(),
     ...updatedProps
   }
