@@ -12,6 +12,7 @@ import DateFormatter from "../../../functions/DateFormatter"
 
 import AmountForExtra from "./Items/AmountForExtra"
 import ApplyToExtra from "./Items/ApplyToExtra"
+import Errors from "../../Errors/Errors"
 import NextMonthItem from "./Items/NextMonthItem"
 import Submit from "./Items/Submit"
 import Total from "./Items/Total"
@@ -133,26 +134,3 @@ export default (props) => {
     </div>
   )
 }
-
-const Errors = ({ errors }) => {
-  if (errors.length === 0) {
-    return null
-  } else {
-    return (
-      <ul className="input-errors">
-        {errors.map((error, i) =>
-          <Error
-            key={i}
-            error={error}
-          />
-        )}
-      </ul>
-    )
-  }
-}
-
-const Error = ({ error }) => (
-  <li className="input-error">
-    {error}
-  </li>
-)

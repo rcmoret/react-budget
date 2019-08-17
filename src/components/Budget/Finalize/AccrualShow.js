@@ -10,6 +10,7 @@ import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 import { post } from "../../../functions/ApiClient"
 
+import Errors from "../../Errors/Errors"
 import Icon from "../../Icons/Icon"
 
 export default (wrapper) => {
@@ -75,29 +76,6 @@ export default (wrapper) => {
     </div>
   )
 }
-
-const Errors = ({ errors }) => {
-  if (errors.length === 0) {
-    return null
-  } else {
-    return (
-      <ul className="input-errors">
-        {errors.map((error, i) =>
-          <Error
-            key={i}
-            error={error}
-          />
-        )}
-      </ul>
-    )
-  }
-}
-
-const Error = ({ error }) => (
-  <li className="input-error">
-    {error}
-  </li>
-)
 
 const NextMonthItem = (props) => {
   const {

@@ -15,6 +15,7 @@ import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 import AmountForExtra from "./Items/AmountForExtra"
 import ApplyToExtra from "./Items/ApplyToExtra"
+import Errors from "../../Errors/Errors"
 import NextMonthItem from "./Items/NextMonthItem"
 import Submit from "./Items/Submit"
 import Total from "./Items/Total"
@@ -255,26 +256,3 @@ const NextItemRadio = ({ id, dispatch, label, selectedItem }) => {
     </div>
   )
 }
-
-const Errors = ({ errors }) => {
-  if (errors.length === 0) {
-    return null
-  } else {
-    return (
-      <ul className="input-errors">
-        {errors.map((error, i) =>
-          <Error
-            key={i}
-            error={error}
-          />
-        )}
-      </ul>
-    )
-  }
-}
-
-const Error = ({ error }) => (
-  <li className="input-error">
-    {error}
-  </li>
-)
