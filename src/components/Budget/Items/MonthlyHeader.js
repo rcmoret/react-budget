@@ -25,7 +25,11 @@ const MonthlyHeader = (props) => {
   const closeForm = (e) => {
     e.preventDefault()
     props.dispatch(toggleMonthlyItemForm({ showForm: false }))
-    props.dispatch(editNewMonthlyItem({ amount: "", budget_category_id: null }))
+    props.dispatch(editNewMonthlyItem({
+      amount: "",
+      budget_category_id: null,
+      errors: {},
+    }))
   }
 
   const className = props.showForm ? "fa fa-times-circle" : "fa fa-plus-circle"

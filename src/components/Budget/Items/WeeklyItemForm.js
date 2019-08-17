@@ -4,10 +4,12 @@ import { connect } from "react-redux"
 import { budget as copy } from "../../../locales/copy"
 import { titleize } from "../../../locales/functions"
 import { addWeeklyItem, editNewWeeklyItem, toggleWeeklyItemForm } from "../../../actions/budget"
+
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
 import { post } from "../../../functions/ApiClient"
 
+import Errors from "../../Errors/Errors"
 import Select from "react-select"
 
 const WeeklyItemForm = (props) => {
@@ -16,6 +18,7 @@ const WeeklyItemForm = (props) => {
     budget_category_id,
     categories,
     dispatch,
+    errors,
     month,
     options,
     showForm,
@@ -45,54 +48,60 @@ const WeeklyItemForm = (props) => {
 
   const onSave = (e) => {
     e.preventDefault()
-    post(
-      ApiUrlBuilder(["budget/categories", budget_category_id, "items"]),
-      JSON.stringify({
-        amount: decimalToInt(amount),
-        month: month,
-        year: year,
-      }),
-      (data) => {
-        dispatch(addWeeklyItem(data))
-        dispatch(toggleWeeklyItemForm({ showForm: false }))
-        dispatch(editNewWeeklyItem({ amount: "", budget_category_id: null }))
-      }
-    )
+    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items"])
+    const body = JSON.stringify({
+      amount: decimalToInt(amount),
+      month: month,
+      year: year,
+    })
+    const onSuccess = data => {
+      dispatch(addWeeklyItem(data))
+      dispatch(toggleWeeklyItemForm({ showForm: false }))
+      dispatch(editNewWeeklyItem({ amount: "", budget_category_id: null }))
+    }
+    const onFailure = data => {
+      const action = editNewWeeklyItem({ errors: data.errors })
+      dispatch(action)
+    }
+    post(url, body, onSuccess, onFailure)
   }
 
-  if (showForm) {
-    return (
-      <div className="new-budget-item">
-        <div className="select-wrapper">
-          <Select
-            value={value}
-            options={options}
-            onChange={onCategoryChange}
-            className="budget-category-select-container"
-            classNamePrefix="budget-category-select"
-          />
-        </div>
+  if (!showForm) {
+    return null
+  }
+
+  return (
+    <div className="new-budget-item">
+      <div className="select-wrapper">
+        <Select
+          value={value}
+          options={options}
+          onChange={onCategoryChange}
+          className="budget-category-select-container"
+          classNamePrefix="budget-category-select"
+        />
+      </div>
+      <div>
         <input
           name="amount"
-          className="new-item-amount"
+          className={errors.length > 0 ? "errors new-item-amount" : "new-item-amount"}
           placeholder="amount"
           value={amount}
           onChange={onAmountChange}
           onKeyDown={handleKeyDown}
         />
-        <button
-          className="new-item-submit"
-          type="submit"
-          name="weekly-item-submit"
-          onClick={onSave}
-        >
-          {titleize(copy.item.createButtonText)}
-        </button>
+        <Errors errors={errors} />
       </div>
-    )
-  } else {
-    return null
-  }
+      <button
+        className="new-item-submit"
+        type="submit"
+        name="weekly-item-submit"
+        onClick={onSave}
+      >
+        {titleize(copy.item.createButtonText)}
+      </button>
+    </div>
+  )
 }
 
 const mapStateToProps = (state) => {
@@ -116,6 +125,7 @@ const mapStateToProps = (state) => {
     amount: newItem.amount,
     categories: categories,
     budget_category_id: newItem.budget_category_id,
+    errors: (newItem.errors.amount || []),
     fetched: state.budget.categories.fetched,
     month: month,
     options: options,

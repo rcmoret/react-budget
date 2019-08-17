@@ -37,6 +37,7 @@ const initialState = {
     newItem: {
       amount: "",
       budget_category_id: null,
+      errors: {},
     },
   },
   weekly: {
@@ -45,6 +46,7 @@ const initialState = {
     newItem: {
       amount: "",
       budget_category_id: null,
+      errors: {},
     },
   },
   newCategory: initialNewCategory,

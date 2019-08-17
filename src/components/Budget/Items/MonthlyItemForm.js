@@ -8,10 +8,12 @@ import {
   editNewMonthlyItem,
   toggleMonthlyItemForm,
 } from "../../../actions/budget"
+
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
 import { post } from "../../../functions/ApiClient"
 
+import Errors from "../../Errors/Errors"
 import Select from "react-select"
 
 const MonthlyItemForm = (props) => {
@@ -20,6 +22,7 @@ const MonthlyItemForm = (props) => {
     budget_category_id,
     categories,
     dispatch,
+    errors,
     month,
     options,
     showForm,
@@ -49,19 +52,22 @@ const MonthlyItemForm = (props) => {
 
   const onSave = (e) => {
     e.preventDefault()
-    post(
-      ApiUrlBuilder(["budget/categories", budget_category_id, "items"]),
-      JSON.stringify({
-        amount: decimalToInt(amount),
-        month: month,
-        year: year
-      }),
-      (data) => {
-        dispatch(addMonthlyItem(data))
-        dispatch(toggleMonthlyItemForm({ showForm: false }))
-        dispatch(editNewMonthlyItem({ amount: "", budget_category_id: null }))
-      }
-    )
+    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items"])
+    const body = JSON.stringify({
+      amount: decimalToInt(amount),
+      month: month,
+      year: year
+    })
+    const onSuccess = data => {
+      dispatch(addMonthlyItem(data))
+      dispatch(toggleMonthlyItemForm({ showForm: false }))
+      dispatch(editNewMonthlyItem({ amount: "", budget_category_id: null }))
+    }
+    const onFailure = data => {
+      const action = editNewMonthlyItem({ errors: data.errors })
+      dispatch(action)
+    }
+    post(url, body, onSuccess, onFailure)
   }
 
   if (showForm) {
@@ -76,14 +82,17 @@ const MonthlyItemForm = (props) => {
             classNamePrefix="budget-category-select"
           />
         </div>
-        <input
-          name="amount"
-          className="new-item-amount"
-          placeholder={copy.item.amount}
-          value={amount}
-          onChange={onAmountChange}
-          onKeyDown={handleKeyDown}
-        />
+        <div>
+          <input
+            name="amount"
+            className={errors.length > 0 ? "errors new-item-amount" : "new-item-amount"}
+            placeholder={copy.item.amount}
+            value={amount}
+            onChange={onAmountChange}
+            onKeyDown={handleKeyDown}
+          />
+          <Errors errors={errors} />
+        </div>
         <button
           className="new-item-submit"
           type="submit"
@@ -102,23 +111,23 @@ const MonthlyItemForm = (props) => {
 const mapStateToProps = (state) => {
   const { collection } = state.budget.categories
   const categories = collection.filter(c => c.monthly)
-  const options = categories.map(category => {
-    return { value: category.id, label: category.name, }
-  }).sort((a, b) => {
-    return a.label.toLowerCase() < b.label.toLowerCase() ? -1 : 1
-  })
+  const optionFn = category => ({ value: category.id, label: category.name })
+  const sortFn = (a, b) => a.label.toLowerCase() < b.label.toLowerCase() ? -1 : 1
+  const options = categories.map(optionFn).sort(sortFn)
   const { newItem } = state.budget.monthly
   const value = options.find(option => option.value === newItem.budget_category_id)
   const { month, year } = state.budget.metadata
+
   return {
-    options: options,
-    categories: categories,
-    showForm: state.budget.monthly.showForm,
-    fetched: state.budget.categories.fetched,
-    value: value,
     amount: newItem.amount,
     budget_category_id: newItem.budget_category_id,
+    categories: categories,
+    errors: (newItem.errors.amount || []),
+    fetched: state.budget.categories.fetched,
     month: month,
+    options: options,
+    showForm: state.budget.monthly.showForm,
+    value: value,
     year: year,
   }
 }

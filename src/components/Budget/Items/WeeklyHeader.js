@@ -17,7 +17,11 @@ const WeeklyHeader = (props) => {
   const closeForm = (e) => {
     e.preventDefault()
     props.dispatch(toggleWeeklyItemForm({ showForm: false }))
-    props.dispatch(editNewWeeklyItem({ amount: "", budget_category_id: null }))
+    props.dispatch(editNewWeeklyItem({
+      amount: "",
+      budget_category_id: null,
+      errors: {},
+    }))
   }
 
   const className = props.showForm ? "fa fa-times-circle" : "fa fa-plus-circle"
