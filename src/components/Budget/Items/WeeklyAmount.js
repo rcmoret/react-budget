@@ -10,6 +10,7 @@ const WeeklyAmount = (props) => {
     amount,
     budget_category_id,
     difference,
+    errors,
     expense,
     floatAmount,
     overUnderBudget,
@@ -24,6 +25,7 @@ const WeeklyAmount = (props) => {
         id={id}
         amount={amount}
         budget_category_id={budget_category_id}
+        errors={errors}
         floatAmount={floatAmount}
         spent={spent}
       />

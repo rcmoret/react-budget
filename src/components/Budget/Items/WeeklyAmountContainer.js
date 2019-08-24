@@ -9,6 +9,17 @@ import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 const AmountContainer = (props) => {
   const {
+    id,
+    absolute,
+    amount,
+    difference,
+    errors,
+    expense,
+    overUnderBudget,
+    showDetail,
+  } = props
+
+  const {
     minus,
     plus,
   } = copy.shared
@@ -16,13 +27,13 @@ const AmountContainer = (props) => {
   const updateItem = (e) => {
     e.preventDefault()
     props.dispatch(editWeeklyItem({
-      id: props.id,
+      id: id,
       updateItem: true,
       showDetail: true,
+      errors: (errors || {})
     }))
   }
 
-  const { absolute, amount, difference, expense, overUnderBudget, showDetail } = props
   const operator = !overUnderBudget ? "" : (expense ? minus : plus)
   if (showDetail) {
     return (
