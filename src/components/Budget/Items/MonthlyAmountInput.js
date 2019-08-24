@@ -6,6 +6,7 @@ import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
 import { put } from "../../../functions/ApiClient"
 
+import Errors from "../../Errors/Errors"
 import { Link } from "react-router-dom"
 
 const MonthlyAmountInput = (props) => {
@@ -14,6 +15,7 @@ const MonthlyAmountInput = (props) => {
     amount,
     budget_category_id,
     dispatch,
+    errors,
     floatAmount,
   } = props
 
@@ -44,27 +46,45 @@ const MonthlyAmountInput = (props) => {
   }
   const saveChange = (e) => {
     e.preventDefault()
-    put(
-      ApiUrlBuilder(["budget/categories", budget_category_id, "items", id]),
-      JSON.stringify({ amount: decimalToInt(floatAmount) }),
-      (data) => dispatch(updateMonthlyItem({...data, floatAmount: null, updateItem: false })),
-    )
+    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items", id])
+    const body = JSON.stringify({ amount: decimalToInt(floatAmount) })
+    const onSuccess = data => {
+      const action = updateMonthlyItem({
+        ...data,
+        floatAmount: null,
+        updateItem: false,
+        errors: {}
+      })
+      dispatch(action)
+    }
+    const onFailure = data => {
+      const action = editMonthlyItem({
+        id: id,
+        ...data
+      })
+      dispatch(action)
+    }
+    put(url, body, onSuccess, onFailure)
   }
 
   return (
-    <div className="budget-item-amount">
-      <input
-        name="amount"
-        value={floatAmount}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        autcomplete="false"
-        autoFocus
-      />
-      {" "}
-      <Link to="#" onClick={saveChange} className="fas fa-check" />
-      {" "}
-      <Link to="#" onClick={reset} className="fas fa-times" />
+    <div>
+      <div className="budget-item-amount">
+        <input
+          autcomplete="false"
+          autoFocus
+          className={errors.amount ? "errors" : ""}
+          name="amount"
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          value={floatAmount}
+        />
+        {" "}
+        <Link to="#" onClick={saveChange} className="fas fa-check" />
+        {" "}
+        <Link to="#" onClick={reset} className="fas fa-times" />
+      </div>
+      <Errors errors={errors.amount || []} />
     </div>
   )
 }

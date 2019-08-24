@@ -14,6 +14,7 @@ const Amount = (props) => {
     amount,
     budget_category_id,
     dispatch,
+    errors,
     updateItem,
   } = props
 
@@ -21,7 +22,11 @@ const Amount = (props) => {
 
   const updateMonthlyItem = (e) => {
     e.preventDefault()
-    const action = editMonthlyItem({ id: id, updateItem: true })
+    const action = editMonthlyItem({
+      id: id,
+      updateItem: true,
+      errors: {}
+    })
     dispatch(action)
   }
 
@@ -31,6 +36,7 @@ const Amount = (props) => {
         id={id}
         amount={amount}
         budget_category_id={budget_category_id}
+        errors={errors}
         floatAmount={floatAmount}
       />
     )

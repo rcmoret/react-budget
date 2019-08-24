@@ -83,12 +83,13 @@ const WeeklyAmountInput = (props) => {
     <div>
       <div className="budget-item-amount">
         <input
-          name="amount"
-          value={floatAmount}
-          onKeyDown={handleKeyDown}
-          onChange={handleChange}
           autcomplete="false"
           autoFocus
+          className={errors.amount ? "errors" : ""}
+          name="amount"
+          onKeyDown={handleKeyDown}
+          onChange={handleChange}
+          value={floatAmount}
         />
         {" "}
         <Link to="#" onClick={saveChange} className="fas fa-check" />
