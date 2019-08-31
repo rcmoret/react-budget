@@ -187,7 +187,7 @@ const FinalizeButton = ({ isEndOfMonth, month, year }) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const isEndOfMonth = isToday(new Date(ownProps.year, (ownProps.month + 1), 0))
+  const isEndOfMonth = isToday(new Date(ownProps.year, ownProps.month, 0))
 
   return {
     isEndOfMonth: isEndOfMonth,

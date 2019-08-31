@@ -165,7 +165,7 @@ export const today = (format = "yyyy-mm-dd") => {
 }
 
 export const isToday = (date) => {
-  return today("object") === simpleObject(date)
+  return JSON.stringify(today("object")) === JSON.stringify(simpleObject(date))
 }
 
 export default formatted

@@ -71,7 +71,7 @@ const mapStateToProps = (state, ownProps) => {
   const { month, year } = finalize.baseMonth
   const nextMonth = (finalize.next.month || (baseMonth === 12 ? 1 : (baseMonth + 1)))
   const nextYear = (finalize.next.year || (baseMonth === 12 ? (baseYear + 1) : baseYear))
-  const isEndOfMonth = isToday(new Date((year || baseYear), ((month || baseMonth) + 1), 0))
+  const isEndOfMonth = isToday(new Date((year || baseYear), (month || baseMonth), 0))
 
   return {
     baseMonthFetched: baseMonthFetched,
