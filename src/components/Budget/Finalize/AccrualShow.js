@@ -29,16 +29,17 @@ export default (wrapper) => {
   }
 
   const _updateExtra = (amount) => {
+    const applied = remaining - amount > -100 ? 0 : remaining - amount
     const action = updateExtra({
       id: baseItem.id,
       name: baseItem.name,
-      amount: (baseItem.amount - amount)
+      amount: applied
     })
     dispatch(action)
   }
 
   const errors = () => {
-    if (Math.abs(parseInt(amount * 100)) > (Math.abs(remaining) + 1)) {
+    if (Math.abs(parseInt(amount * 100)) > (Math.abs(remaining) + 100)) {
       return ["Cannot be greater than original amount"]
     } else {
       return []

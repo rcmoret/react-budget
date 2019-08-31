@@ -54,7 +54,7 @@ export default (props) => {
     const action = updateExtra({
       id: id,
       name: name,
-      amount: (baseItem.amount - amount)
+      amount: (baseItem.remaining - amount)
     })
     dispatch(action)
   }
@@ -125,7 +125,7 @@ export default (props) => {
             dispatch={dispatch}
             errors={errors()}
             monthly={monthly}
-            nextItem={item.nextItem}
+            nextItem={item.nextItems[0]}
             nextMonth={nextMonth}
             nextYear={nextYear}
           />
