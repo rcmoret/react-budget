@@ -193,7 +193,7 @@ export const addNewSetupItem = (item, state) => {
   const currentItem = month === item.month && year === item.year
   const newMonthly = currentItem && item.monthly ? { ...monthly, collection: [...monthly.collection, objectifiedItem] } : monthly
   const newWeekly = currentItem && item.weekly ? { ...weekly, collection: [...weekly.collection, objectifiedItem] } : weekly
-  const discretionary = objectifyDiscretionary(metadata, [...newWeekly, ...newMonthly])
+  const discretionary = objectifyDiscretionary(metadata, [...newWeekly.collection, ...newMonthly.collection])
 
   return {
     ...state,
