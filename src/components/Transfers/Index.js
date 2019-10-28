@@ -7,8 +7,8 @@ import { titleize } from "../../locales/functions"
 import { fetched } from "./actions"
 import { fetched as renderAccounts } from "../Accounts/actions"
 
-import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
-import { get } from "../../functions/RestApiClient"
+import { getAccounts } from "../Accounts/graphqlQueries"
+import { getTransfers } from "./graphqlQueries"
 
 import Tabs from "../Accounts/Tabs"
 import Icon from "../Icons/Icon"
@@ -20,13 +20,18 @@ const Index = ({ accounts, accountsFetched, collection, dispatch, fetchedTransfe
   const { currentPage, total, viewing } = metadata
 
   if(!accountsFetched) {
-    const url = ApiUrlBuilder(["accounts"])
-    get(url, data => dispatch(renderAccounts(data)))
+    const action = result => dispatch(renderAccounts(result.data.accounts))
+    getAccounts(action)
   }
 
   if (accountsFetched && !fetchedTransfers) {
-    const url = ApiUrlBuilder(["transfers"], { page: currentPage })
-    get(url, data => dispatch(fetched(data)))
+    const action = result => dispatch(fetched(result.data.transfers))
+    getTransfers({
+      page: currentPage,
+      limit: 10,
+      onSuccess: action
+    })
+
   }
 
   return (
@@ -75,15 +80,15 @@ const mapStateToProps = (state) => {
   const { accountsFetched } = state.accounts
 
   const collection = state.transfers.collection.sort((a, b) => {
-    if (a.from_transaction.clearance_date === b.from_transaction.clearance_date) {
+    if (a.fromTransaction.clearanceDate === b.fromTransaction.clearanceDate) {
       return 0
-    } else if (a.from_transaction.clearance_date === null) {
-      return b.from_transaction.clearance_date > today ? -1 : 1
-    } else if (b.from_transaction.clearance_date === null) {
-      return a.from_transaction.clearance_date > today ? 1 : -1
+    } else if (a.fromTransaction.clearanceDate === null) {
+      return b.from_transaction.clearanceDate > today ? -1 : 1
+    } else if (b.fromTransaction.clearanceDate === null) {
+      return a.fromTransaction.clearanceDate > today ? 1 : -1
     } else {
       // equailty is handled above
-      return (a.from_transaction.clearance_date > b.from_transaction.clearance_date) ? 1 : -1
+      return (a.fromTransaction.clearanceDate > b.fromTransaction.clearanceDate) ? 1 : -1
     }
   })
 

@@ -5,13 +5,14 @@ import MoneyFormatter from "../../functions/MoneyFormatter"
 
 import DeleteButton from "./DeleteButton"
 
-export default ({ from_transaction, id, to_transaction }) => {
-  const { amount } = to_transaction
+export default ({ fromTransaction, id, toTransaction }) => {
+  const { details } = toTransaction
+  const amount = details.reduce((sum, txn) => sum + txn.amount, 0)
   const clearanceDate = () => {
-    if (from_transaction.clearance_date) {
-      return DateFormatter.fromDateString(from_transaction.clearance_date)
-    } else if (to_transaction.clearance_date) {
-      return DateFormatter.fromDateString(to_transaction.clearance_date)
+    if (fromTransaction.clearanceDate) {
+      return DateFormatter.fromDateString(fromTransaction.clearanceDate)
+    } else if (toTransaction.clearanceDate) {
+      return DateFormatter.fromDateString(toTransaction.clearanceDate)
     } else {
       return "pending"
     }
@@ -23,19 +24,19 @@ export default ({ from_transaction, id, to_transaction }) => {
         {clearanceDate()}
       </div>
       <div className="from-account">
-        {from_transaction.account_name}
+        {fromTransaction.accountName}
       </div>
       <div className="to-account">
-        {to_transaction.account_name}
+        {toTransaction.accountName}
       </div>
       <div className="amount">
-        {MoneyFormatter(to_transaction.amount)}
+        {MoneyFormatter(amount)}
       </div>
       <DeleteButton
         id={id}
         amount={amount}
-        from_account_id={from_transaction.account_id}
-        to_account_id={to_transaction.account_id}
+        from_account_id={fromTransaction.accountId}
+        to_account_id={toTransaction.accountId}
       />
     </div>
   )
