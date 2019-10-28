@@ -16,7 +16,7 @@ const AccountShow = (props) => {
   const {
     id,
     balance,
-    cash_flow,
+    cashFlow,
     dispatch,
     name,
     priority,
@@ -24,7 +24,6 @@ const AccountShow = (props) => {
   } = props
 
   const {
-    cashFlow,
     deleteButtonText,
     deleteConfirmationMessage,
     nonCashFlow,
@@ -63,7 +62,7 @@ const AccountShow = (props) => {
             />
           </h3>
           <div className="cash-flow">
-            {titleize(cash_flow ? cashFlow : nonCashFlow)}
+            {titleize(cashFlow ? copy.cashFlow : nonCashFlow)}
           </div>
           <div className="balance">
             {copy.balance}: {MoneyFormatter(balance)}

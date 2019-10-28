@@ -1,10 +1,8 @@
 import React from "react"
-import { connect } from 'react-redux';
+import { connect } from "react-redux"
 import { fetched } from "./actions"
 
-import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
-import { get } from "../../functions/RestApiClient"
-import { getAccounts } from "../../functions/ApolloClient"
+import { getAccounts } from "./graphqlQueries"
 
 import Details from "./Details"
 import Tabs from "./Tabs"
@@ -20,8 +18,8 @@ const Wrapper = (props) => {
   } = props
 
   if(!accountsFetched) {
-    const url = ApiUrlBuilder(["accounts"])
-    get(url, data => dispatch(fetched(data)))
+    const action = (accounts) => dispatch(fetched(accounts))
+    getAccounts(result => action(result.data.accounts))
   }
 
 

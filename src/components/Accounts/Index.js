@@ -2,16 +2,15 @@ import React from "react"
 import { connect } from "react-redux"
 
 import { fetched } from "./actions"
-import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import { getAccounts } from "./graphqlQueries"
 
 import New from "./New"
 import Show from "./Show"
 
 const Index = ({ collection, dispatch, accountsFetched }) => {
   if (!accountsFetched) {
-    fetch(ApiUrlBuilder(["accounts"]))
-      .then(response => response.json())
-      .then(data => dispatch(fetched(data)))
+    const action = (accounts) => dispatch(fetched(accounts))
+    getAccounts(result => action(result.data.accounts))
   }
 
   return (
