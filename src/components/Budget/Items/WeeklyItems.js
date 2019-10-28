@@ -34,7 +34,7 @@ const mapStateToProps = (state) => {
   const { collection } = state.budget.weekly
   const { showAccruals } = state.budget.menuOptions
   const { metadata } = state.budget
-  const { days_remaining, total_days } = metadata
+  const { daysRemaining, totalDays } = metadata
   const accrualFilter = (item) => !item.accrual || item.matureAccrual || showAccruals
 
   const sortByAmount = (a, b) => {
@@ -86,10 +86,10 @@ const mapStateToProps = (state) => {
     .sort(sortFn())
 
   return {
-    daysRemaining: days_remaining,
+    daysRemaining: daysRemaining,
     expenses: expenses,
     revenues: revenues,
-    totalDays: total_days,
+    totalDays: totalDays,
   }
 }
 

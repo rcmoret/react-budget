@@ -15,13 +15,13 @@ const DiscretionaryDetail = (props) => {
   const {
     amount,
     collection,
-    days_remaining,
+    daysRemaining,
     dispatch,
     fetchedTransactions,
     month,
     showDetail,
-    total_remaining,
-    total_days,
+    totalRemaining,
+    totalDays,
     year,
   } = props
 
@@ -34,8 +34,8 @@ const DiscretionaryDetail = (props) => {
     get(url, data => dispatch(fetchedDiscretionaryTransactions(data)))
   }
 
-  const budgetedPerDay = Math.floor(amount / total_days)
-  const remainingPerDay = Math.floor(total_remaining / days_remaining)
+  const budgetedPerDay = Math.floor(amount / totalDays)
+  const remainingPerDay = Math.floor(totalRemaining / daysRemaining)
 
   return (
     <div className="detail-wrapper">

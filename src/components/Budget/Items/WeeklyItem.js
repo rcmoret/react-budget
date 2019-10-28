@@ -25,11 +25,11 @@ const WeeklyItem = (props) => {
   const {
     id,
     amount,
-    budget_category_id,
+    budgetCategoryId,
     daysRemaining,
     difference,
     dispatch,
-    icon_class_name,
+    iconClassName,
     expense,
     name,
     overUnderBudget,
@@ -37,7 +37,7 @@ const WeeklyItem = (props) => {
     showDetail,
     spent,
     totalDays,
-    transaction_count,
+    transactionCount,
     updateItem,
     year,
   } = props
@@ -61,7 +61,7 @@ const WeeklyItem = (props) => {
     const dateString = formatter({ month: month, year: year, format: "shortMonthYear" })
     const confirmation = window.confirm(deleteConfirmationMessage(name, dateString))
     if (confirmation) {
-      const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items", id])
+      const url = ApiUrlBuilder(["budget/categories", budgetCategoryId, "items", id])
       fetch(url, { method: "delete" })
         .then(() => dispatch(removeWeeklyItem({ id: id })))
     }
@@ -74,7 +74,7 @@ const WeeklyItem = (props) => {
   const descriptor = spent > 0 ? deposited : copy.shared.spent
   const operator = spent > 0  && props.expense ? plus : minus
   const diffOperator = !overUnderBudget ? "" : (expense ? minus : plus)
-  const deletable = transaction_count === 0
+  const deletable = transactionCount === 0
   const budgetedPerDay = Math.floor(amount / totalDays)
   const budgetedPerWeek = (budgetedPerDay * 7)
   const remainingPerDay = Math.floor(props.remaining / daysRemaining)
@@ -94,7 +94,7 @@ const WeeklyItem = (props) => {
           <div className="item-name">
             {name}
             { " " }
-            <Icon className={icon_class_name} />
+            <Icon className={iconClassName} />
           </div>
           <WeeklyDetailLabels
             descriptor={descriptor}

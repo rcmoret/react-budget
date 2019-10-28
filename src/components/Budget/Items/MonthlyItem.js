@@ -13,11 +13,11 @@ import MonthlyAmount from "./MonthlyAmount"
 const MonthlyItem = (props) => {
   const deleteItem = (e) => {
     e.preventDefault()
-    const { budget_category_id, id, name, month, year } = props
+    const { budgetCategoryId, id, name, month, year } = props
     const dateString = formatter({ month: month, year: year, format: "shortMonthYear" })
     const confirmation = window.confirm(copy.item.deleteConfirmationMessage(name, dateString))
     if (confirmation) {
-      const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items", id])
+      const url = ApiUrlBuilder(["budget/categories", budgetCategoryId, "items", id])
       fetch(url, { method: "delete" })
         .then(() => props.dispatch(removeMonthlyItem({ id: id })))
     }
@@ -32,7 +32,7 @@ const MonthlyItem = (props) => {
         <div className="budget-item-description">
           {props.name}
           {" "}
-          <Icon className={props.icon_class_name} />
+          <Icon className={props.iconClassName} />
         </div>
         <div className="budget-item-amounts">
           <MonthlyAmount

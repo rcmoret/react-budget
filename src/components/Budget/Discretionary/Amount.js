@@ -2,7 +2,7 @@ import React from "react"
 
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
-export default ({ amount, showDetail, total_remaining }) => {
+export default ({ amount, showDetail, totalRemaining }) => {
   if (showDetail) {
     return (
       <span>
@@ -12,7 +12,7 @@ export default ({ amount, showDetail, total_remaining }) => {
   } else {
     return (
       <span>
-        {MoneyFormatter(total_remaining)}
+        {MoneyFormatter(totalRemaining)}
       </span>
     )
   }

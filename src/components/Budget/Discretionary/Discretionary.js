@@ -61,7 +61,7 @@ const Discretionary = (props) => {
           <Amount
             amount={props.amount}
             showDetail={props.showDetail}
-            total_remaining={props.total_remaining}
+            totalRemaining={props.totalRemaining}
           />
           <DetailAmounts
             {...props}

@@ -16,9 +16,9 @@ const initialState = {
   discretionary: {
     balance: 0,
     spent: 0,
-    total_remaining: 0,
-    days_remaining: 1,
-    total_days: 1,
+    totalRemaining: 0,
+    daysRemaining: 1,
+    totalDays: 1,
     collection: [],
   },
   categories: {

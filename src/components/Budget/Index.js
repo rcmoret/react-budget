@@ -4,8 +4,8 @@ import { connect } from "react-redux"
 import { categoriesFetched } from "../../actions/budget/categories"
 import { itemsFetched as fetched } from "../../actions/budget"
 
-import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
-import { get } from "../../functions/RestApiClient"
+import { getCategories } from "./Categories/graphqlQueries"
+import { getItems } from "./Items/graphqlQueries"
 
 import BudgetInfo from "./Info"
 import Menu from "./Menu"
@@ -25,13 +25,16 @@ const BudgetIndex = (props) => {
   } = props
 
   if (!itemsFetched || !isCurrent) {
-    const url = ApiUrlBuilder(["budget/items"], { month: month, year: year })
-    get(url, data => dispatch(fetched(data)))
+    const action = (data) => dispatch(fetched(data))
+    getItems({
+      month: month,
+      year: year,
+      onSuccess: (result) => action(result.data.budgetItems)
+    })
   }
 
   if (itemsFetched && !categoresWereFetched) {
-    const url = ApiUrlBuilder(["budget/categories"])
-    get(url, data => dispatch(categoriesFetched(data)))
+    getCategories(result => dispatch(categoriesFetched(result.data.budgetCategories)))
   }
 
   return (

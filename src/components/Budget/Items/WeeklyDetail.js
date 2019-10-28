@@ -11,7 +11,7 @@ import Transactions from "../Shared/Transactions"
 
 const WeeklyDetail = (props) => {
   const {
-    budget_category_id,
+    budgetCategoryId,
     budgetedPerDay,
     budgetedPerWeek,
     collection,
@@ -21,16 +21,16 @@ const WeeklyDetail = (props) => {
     remainingPerDay,
     remainingPerWeek,
     showDetail,
-    transaction_count,
+    transactionCount,
   } = props
 
   if (!showDetail) {
     return null
   }
 
-  if (collection.length < transaction_count) {
+  if (collection.length < transactionCount) {
     const url = ApiUrlBuilder(
-      ["budget", "categories", budget_category_id, "items", id, "transactions"]
+      ["budget", "categories", budgetCategoryId, "items", id, "transactions"]
     )
     const onSuccess = data => dispatch(fetchedWeeklyTransactions({
       id: id,

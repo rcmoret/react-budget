@@ -7,13 +7,13 @@ export default (payload, collection) => {
   const overUnderBudgetAmount = collection.reduce((acc, item) => {
     return acc += item.overUnderBudgetAmount
   }, 0)
-  const total_remaining = balance + remainingBudgeted
-  const amount = total_remaining - overUnderBudgetAmount - spent
+  const totalRemaining = balance + remainingBudgeted
+  const amount = totalRemaining - overUnderBudgetAmount - spent
 
   return {
     collection: [],
     ...payload,
-    total_remaining: total_remaining,
+    totalRemaining: totalRemaining,
     amount: amount,
     overUnderBudgetAmount: overUnderBudgetAmount,
   }

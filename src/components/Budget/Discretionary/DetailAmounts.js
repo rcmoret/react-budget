@@ -10,7 +10,7 @@ export default (props) => {
     overUnderBudgetAmount,
     showDetail,
     spent,
-    total_remaining
+    totalRemaining
   } = props
 
   const overUnderOperator = overUnderBudgetAmount >= 0 ? plus : minus
@@ -26,7 +26,7 @@ export default (props) => {
           {spentDepositedOperator} {MoneyFormatter(spent, { absolute: true })}
         </div>
         <div>
-          {MoneyFormatter(total_remaining, { absolute: false })}
+          {MoneyFormatter(totalRemaining, { absolute: false })}
         </div>
       </div>
     )
