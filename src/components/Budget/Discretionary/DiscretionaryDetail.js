@@ -6,7 +6,7 @@ import { titleize } from "../../../locales/functions"
 import { fetchedDiscretionaryTransactions } from "../../../actions/budget"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
-import { get } from "../../../functions/ApiClient"
+import { get } from "../../../functions/RestApiClient"
 
 import Details from "../Shared/Details"
 import Transactions from "./../Shared/Transactions"

@@ -8,7 +8,7 @@ import { markIntervalClosed } from "../actions/finalize"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import DateFormatter from "../../../functions/DateFormatter"
-import { post, put } from "../../../functions/ApiClient"
+import { post, put } from "../../../functions/RestApiClient"
 
 import Icon from "../../Icons/Icon"
 

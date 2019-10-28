@@ -5,7 +5,7 @@ import { baseMonthFetched, newMonthFetched } from "../../../actions/budget"
 import { categoriesFetched as fetched } from "../../../actions/budget/categories"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
-import { get } from "../../../functions/ApiClient"
+import { get } from "../../../functions/RestApiClient"
 
 import { Redirect } from "react-router"
 

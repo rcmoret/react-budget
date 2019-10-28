@@ -8,7 +8,7 @@ import { fetched } from "./actions"
 import { fetched as renderAccounts } from "../Accounts/actions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
-import { get } from "../../functions/ApiClient"
+import { get } from "../../functions/RestApiClient"
 
 import Tabs from "../Accounts/Tabs"
 import Icon from "../Icons/Icon"

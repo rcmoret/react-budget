@@ -12,7 +12,7 @@ import {
 } from "../../../actions/budget/categories"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
-import { post } from "../../../functions/ApiClient"
+import { post } from "../../../functions/RestApiClient"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
 
 import Form from "./Form/Form"

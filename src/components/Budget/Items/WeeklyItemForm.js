@@ -7,7 +7,7 @@ import { addWeeklyItem, editNewWeeklyItem, toggleWeeklyItemForm } from "../../..
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
-import { post } from "../../../functions/ApiClient"
+import { post } from "../../../functions/RestApiClient"
 
 import Errors from "../../Errors/Errors"
 import Select from "react-select"

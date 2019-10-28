@@ -6,7 +6,7 @@ import {
   updated
 } from "../../../../actions/budget/categories"
 import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
-import { post } from "../../../../functions/ApiClient"
+import { post } from "../../../../functions/RestApiClient"
 
 import Form from "./Form"
 

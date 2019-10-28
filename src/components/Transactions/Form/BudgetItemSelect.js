@@ -5,7 +5,7 @@ import { fetchedBudgetItems } from "../../../actions/transactions"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { fromDateString } from "../../../functions/DateFormatter"
-import { get } from "../../../functions/ApiClient"
+import { get } from "../../../functions/RestApiClient"
 
 import Select from "react-select"
 import DetailBudgetItemSelect from "./DetailBudgetItemSelect"

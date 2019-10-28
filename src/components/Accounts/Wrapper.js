@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { fetched } from "./actions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
-import { get } from "../../functions/ApiClient"
+import { get } from "../../functions/RestApiClient"
+import { getAccounts } from "../../functions/ApolloClient"
 
 import Details from "./Details"
 import Tabs from "./Tabs"

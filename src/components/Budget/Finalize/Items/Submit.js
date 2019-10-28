@@ -11,7 +11,7 @@ import {
 import { addMonthlyItem, addWeeklyItem } from "../../../../actions/budget"
 
 import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
-import { post, put } from "../../../../functions/ApiClient"
+import { post, put } from "../../../../functions/RestApiClient"
 
 import Icon from "../../../Icons/Icon"
 

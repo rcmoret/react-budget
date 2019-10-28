@@ -5,7 +5,7 @@ import { categoriesFetched } from "../../actions/budget/categories"
 import { itemsFetched as fetched } from "../../actions/budget"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
-import { get } from "../../functions/ApiClient"
+import { get } from "../../functions/RestApiClient"
 
 import BudgetInfo from "./Info"
 import Menu from "./Menu"

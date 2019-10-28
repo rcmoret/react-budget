@@ -9,7 +9,7 @@ import * as dateFormatter from "../../../functions/DateFormatter"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
-import { post, put } from "../../../functions/ApiClient"
+import { post, put } from "../../../functions/RestApiClient"
 
 import Icon from "../../Icons/Icon"
 

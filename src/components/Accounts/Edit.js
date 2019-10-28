@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 
 import { resetAccount, update, updated, updateProps } from "./actions"
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
-import { put } from "../../functions/ApiClient"
+import { put } from "../../functions/RestApiClient"
 
 import Form from "./Form/Form"
 

@@ -8,7 +8,7 @@ import { addDetailToNew, created, resetNew, updateNew, updateNewDetail } from ".
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import MoneyFormatter from "../../functions/MoneyFormatter"
-import { post } from "../../functions/ApiClient"
+import { post } from "../../functions/RestApiClient"
 
 import Form from "./Form/Form"
 

@@ -7,7 +7,7 @@ import { titleize } from "../../locales/functions"
 import { created, updateNew } from "./actions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
-import { post } from "../../functions/ApiClient"
+import { post } from "../../functions/RestApiClient"
 
 import Form from "./Form/Form"
 

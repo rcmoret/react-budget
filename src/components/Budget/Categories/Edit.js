@@ -11,7 +11,7 @@ import {
 } from "../../../actions/budget/categories"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
-import { put } from "../../../functions/ApiClient"
+import { put } from "../../../functions/RestApiClient"
 
 import Form from "./Form/Form"
 

@@ -14,7 +14,7 @@ import * as dateFormatter from "../../../functions/DateFormatter"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
 import delay from "../../../functions/Delay"
-import { post } from "../../../functions/ApiClient"
+import { post } from "../../../functions/RestApiClient"
 
 import Icon from "../../Icons/Icon"
 import Items from "./Items"

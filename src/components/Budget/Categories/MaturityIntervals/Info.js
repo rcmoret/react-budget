@@ -10,7 +10,7 @@ import {
 
 import * as DateFunctions from "../../../../functions/DateFormatter"
 import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
-import { get } from "../../../../functions/ApiClient"
+import { get } from "../../../../functions/RestApiClient"
 import GroupBy from "../../../../functions/GroupBy"
 
 import Icon from "../../../Icons/Icon"

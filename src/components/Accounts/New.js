@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 
 import { created, resetForm, toggleShowNewForm, updateNew } from "./actions"
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
-import { post } from "../../functions/ApiClient"
+import { post } from "../../functions/RestApiClient"
 
 import Icon from "../Icons/Icon"
 import Form from "./Form/Form"

@@ -8,7 +8,7 @@ import { addDetailToEntry, edit, editDetailProps, editProps, updated } from "../
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import MoneyFormatter from "../../functions/MoneyFormatter"
-import { put } from "../../functions/ApiClient"
+import { put } from "../../functions/RestApiClient"
 
 import Form from "./Form/Form"
 

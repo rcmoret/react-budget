@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { fetchedTransactions } from "../../actions/transactions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
-import { get } from "../../functions/ApiClient"
+import { get } from "../../functions/RestApiClient"
 
 import Transactions from "./Transactions"
 

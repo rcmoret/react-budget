@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { isToday } from "../../../functions/DateFormatter"
-import { get } from "../../../functions/ApiClient"
+import { get } from "../../../functions/RestApiClient"
 import { baseMonthFetch, nextMonthFetch } from "../actions/finalize"
 
 import Header from "./Header"

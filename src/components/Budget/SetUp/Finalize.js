@@ -6,7 +6,7 @@ import { titleize } from "../../../locales/functions"
 import { updateMetadata } from "../../../actions/budget/setup"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
-import { put } from "../../../functions/ApiClient"
+import { put } from "../../../functions/RestApiClient"
 
 import Icon from "../../Icons/Icon"
 import Items from "./Items"

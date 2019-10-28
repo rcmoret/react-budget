@@ -7,7 +7,7 @@ import { categoriesFetched } from "../../../actions/budget/categories"
 import { fetched as iconsFetched } from "../../Icons/actions"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
-import { get } from "../../../functions/ApiClient"
+import { get } from "../../../functions/RestApiClient"
 
 import Filters from "./Filters"
 import Header from "./Header"

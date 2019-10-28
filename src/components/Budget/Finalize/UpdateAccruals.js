@@ -9,7 +9,7 @@ import {
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import delay from "../../../functions/Delay"
-import { put } from "../../../functions/ApiClient"
+import { put } from "../../../functions/RestApiClient"
 
 export default ({ collection, dispatch }) => {
   const submit = ({ id, amount, budget_category_id }) => {

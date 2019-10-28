@@ -8,7 +8,7 @@ import { fetched as acctFetched } from "../../Accounts/actions"
 import { markIntervalClosed, updateSelectedFromAccountId, updateSelectedToAccountId } from "../actions/finalize"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
-import { get, put } from "../../../functions/ApiClient"
+import { get, put } from "../../../functions/RestApiClient"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 import Submit from "./Submit"

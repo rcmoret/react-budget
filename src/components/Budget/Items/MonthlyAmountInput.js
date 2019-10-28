@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { editMonthlyItem, updateMonthlyItem } from "../../../actions/budget"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
-import { put } from "../../../functions/ApiClient"
+import { put } from "../../../functions/RestApiClient"
 
 import Errors from "../../Errors/Errors"
 import { Link } from "react-router-dom"

@@ -8,7 +8,7 @@ import { addMonthlyItem, addWeeklyItem } from "../../../actions/budget"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
-import { post } from "../../../functions/ApiClient"
+import { post } from "../../../functions/RestApiClient"
 
 import Errors from "../../Errors/Errors"
 import Icon from "../../Icons/Icon"
