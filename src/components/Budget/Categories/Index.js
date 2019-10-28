@@ -6,8 +6,8 @@ import { titleize } from "../../../locales/functions"
 import { categoriesFetched } from "../../../actions/budget/categories"
 import { fetched as iconsFetched } from "../../Icons/actions"
 
-import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
-import { get } from "../../../functions/RestApiClient"
+import { getCategories } from "./graphqlQueries"
+import { getIcons } from "../../Icons/graphqlQueries"
 
 import Filters from "./Filters"
 import Header from "./Header"
@@ -18,13 +18,13 @@ const BudgetCategories = (props) => {
   const { collection, dispatch, fetched } = props
 
   if (!fetched) {
-    const url = ApiUrlBuilder(["budget", "categories"])
-    get(url, data => dispatch(categoriesFetched(data)))
+    const action = (categories) => dispatch(categoriesFetched(categories))
+    getCategories(result => action(result.data.budgetCategories))
   }
 
   if (fetched && !props.iconsFetched) {
-    const url = ApiUrlBuilder(["icons"])
-    get(url, data => dispatch(iconsFetched(data)))
+    const action = (result) => dispatch(iconsFetched(result))
+    getIcons(result => action(result.data.icons))
   }
 
   return (

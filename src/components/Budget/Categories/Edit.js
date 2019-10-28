@@ -24,7 +24,7 @@ const Edit = (props) => {
   const {
     id,
     accrual,
-    default_amount,
+    defaultAmount,
     expense,
     monthly,
     updatedProps,
@@ -36,17 +36,17 @@ const Edit = (props) => {
   }
 
   const onSelectChange = (e) => {
-    const action = updateProps({ id: id, icon_id: e.value })
+    const action = updateProps({ id: id, iconId: e.value })
     dispatch(action)
   }
 
   const putBody = () => {
     if (!updatedProps) {
       return { id: id }
-    } else if (updatedProps.default_amount) {
+    } else if (updatedProps.defaultAmount) {
       return {
         ...updatedProps,
-        default_amount: decimalToInt(updatedProps.default_amount)
+        default_amount: decimalToInt(updatedProps.defaultAmount)
       }
     } else {
       return updatedProps
@@ -64,7 +64,7 @@ const Edit = (props) => {
   const formProps = {
     ...category,
     accrual: accrual.toString(),
-    default_amount: (default_amount / 100.0).toFixed(2),
+    default_amount: (defaultAmount / 100.0).toFixed(2),
     expense: expense.toString(),
     monthly: monthly.toString(),
     ...updatedProps

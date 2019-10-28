@@ -19,11 +19,11 @@ export default (props) => (
     />
     <CategoryInput
       className="category-default-amount"
-      errors={props.errors.default_amount || []}
+      errors={props.errors.defaultAmount || []}
       name="default_amount"
       onChange={props.onChange}
       placeholder={copy.category.defaultAmount}
-      value={props.default_amount}
+      value={props.defaultAmount}
     />
     <div className="category-options">
       <Option
@@ -75,7 +75,7 @@ export default (props) => (
     </div>
     <IconSelect
       onChange={props.onSelectChange}
-      iconId={props.icon_id}
+      iconId={props.iconId}
     />
     <div className="category-button">
       <button type="submit" className="submit" onClick={props.onSubmit}>

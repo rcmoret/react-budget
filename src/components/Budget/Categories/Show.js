@@ -26,10 +26,10 @@ const Show = (props) => {
   const {
     id,
     accrual,
-    default_amount,
+    defaultAmount,
     errors,
     expense,
-    icon_class_name,
+    iconClassName,
     monthly,
     name,
     showForm,
@@ -66,7 +66,7 @@ const Show = (props) => {
       <div className="budget-category">
         <div className="category-name">{name}</div>
         <div className="category-default-amount">
-          {MoneyFormatter(default_amount, { absoulte: false })}
+          {MoneyFormatter(defaultAmount, { absoulte: false })}
         </div>
         <div className="category-detail">
           {monthly ? copy.category.monthly : weekly}
@@ -77,7 +77,7 @@ const Show = (props) => {
           {accrual ? copy.category.accrual : ""}
         </div>
         <div className="category-icon">
-          <Icon className={icon_class_name} />
+          <Icon className={iconClassName} />
         </div>
         <div className="category-edit">
           <Link

@@ -2,9 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 
 import { fetched } from "./actions"
-
-import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
-import { get } from "../../functions/RestApiClient"
+import { getIcons } from "./graphqlQueries"
 
 import New from "./New"
 import Show from "./Show"
@@ -18,8 +16,8 @@ const Index = (props) => {
   } = props
 
   if (!collectionFetched) {
-    const url = ApiUrlBuilder(["icons"])
-    get(url, data => dispatch(fetched(data)))
+    const action = (icons) => dispatch(fetched(icons))
+    getIcons(result => action(result.data.icons))
   }
 
   return (

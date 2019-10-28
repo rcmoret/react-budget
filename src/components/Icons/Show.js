@@ -12,7 +12,7 @@ import Edit from "./Edit"
 import Icon from "./Icon"
 
 const Show = ({ dispatch, icon }) => {
-  const { id, class_name, name, showForm } = icon
+  const { id, className, name, showForm } = icon
 
   const renderForm = (e) => {
     e.preventDefault()
@@ -42,7 +42,7 @@ const Show = ({ dispatch, icon }) => {
     return (
       <div className="icon">
         <div className="icon-name">
-          <Icon className={class_name} />
+          <Icon className={className} />
           {" "}
           {name}
         </div>
