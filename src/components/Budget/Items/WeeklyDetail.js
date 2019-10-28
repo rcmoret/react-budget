@@ -3,20 +3,19 @@ import { connect } from "react-redux"
 
 import { fetchedWeeklyTransactions } from "../../../actions/budget"
 
-import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
-import { get } from "../../../functions/RestApiClient"
+import { getTransactions } from "./graphqlQueries"
 
 import Details from "../Shared/Details"
 import Transactions from "../Shared/Transactions"
 
 const WeeklyDetail = (props) => {
   const {
+    id,
     budgetCategoryId,
     budgetedPerDay,
     budgetedPerWeek,
     collection,
     dispatch,
-    id,
     name,
     remainingPerDay,
     remainingPerWeek,
@@ -29,15 +28,16 @@ const WeeklyDetail = (props) => {
   }
 
   if (collection.length < transactionCount) {
-    const url = ApiUrlBuilder(
-      ["budget", "categories", budgetCategoryId, "items", id, "transactions"]
-    )
-    const onSuccess = data => dispatch(fetchedWeeklyTransactions({
+    const onSuccess = result => dispatch(fetchedWeeklyTransactions({
       id: id,
-      collection: data
+      collection: result.data.budgetItem.transactions
     }))
 
-    get(url, onSuccess)
+    getTransactions({
+      itemId: id,
+      categoryId: budgetCategoryId,
+      onSuccess: onSuccess
+    })
   }
 
   return (

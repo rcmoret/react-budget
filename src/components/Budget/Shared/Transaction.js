@@ -11,24 +11,25 @@ const Transaction = (props) => {
   } = copy
 
   const {
-    account_name,
-    amount,
-    clearance_date,
+    accountName,
+    details,
+    clearanceDate,
   } = props
   const displayDescription = props.description || props.budgetCategory
+  const amount = details.reduce((sum, txn) => sum + txn.amount, 0)
 
   return (
     <div className="budget-item-transaction-row">
       <div className="budget-transaction-cell clearance-date">
         <span className="long-date">
-          {clearance_date ? DateHelpers.fromDateString(clearance_date) : pending}
+          {clearanceDate ? DateHelpers.fromDateString(clearanceDate) : pending}
         </span>
         <span className="short-date">
-          {clearance_date ? DateHelpers.fromDateString(clearance_date, { format: "m/d" }) : pending}
+          {clearanceDate ? DateHelpers.fromDateString(clearanceDate, { format: "m/d" }) : pending}
         </span>
       </div>
       <div className="budget-transaction-cell">
-        {account_name}
+        {accountName}
       </div>
       <div className="budget-transaction-cell">
         {displayDescription}

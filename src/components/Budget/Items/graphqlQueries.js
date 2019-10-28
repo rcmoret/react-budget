@@ -45,3 +45,29 @@ export const getItems = (args) => {
     .then(result => onSuccess(result))
 }
 
+export const getTransactions = (args) => {
+  const {
+    categoryId,
+    itemId,
+    onSuccess,
+  } = args
+
+  client.query({
+    query: gql(`
+      {
+        budgetItem(categoryId: ${categoryId}, itemId: ${itemId}) {
+          transactions {
+            id
+            clearanceDate
+            accountName
+            description
+            details {
+              amount
+            }
+          }
+        }
+      }
+    `)
+  })
+    .then(result => onSuccess(result))
+}
