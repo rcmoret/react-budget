@@ -3,8 +3,7 @@ import { connect } from "react-redux"
 
 import { fetchedTransactions } from "../../actions/transactions"
 
-import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
-import { get } from "../../functions/RestApiClient"
+import { getTransactions } from "./graphqlQueries"
 
 import Transactions from "./Transactions"
 
@@ -24,10 +23,13 @@ const Wrapper = (props) => {
   }
 
   if (urlMonth !== month || urlYear !== year || urlAccountId !== accountId) {
-    const url = ApiUrlBuilder(
-      ["accounts", urlAccountId, "transactions"], { month: urlMonth, year: urlYear }
-    )
-    get(url, data => dispatch(fetchedTransactions(data)))
+    const onSuccess = (result) => dispatch(fetchedTransactions(result.data.transactions))
+    getTransactions({
+      accountId: urlAccountId,
+      month: urlMonth,
+      year: urlYear,
+      onSuccess: onSuccess
+    })
   }
 
   return (
@@ -36,15 +38,21 @@ const Wrapper = (props) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { query_options } = state.transactions.metadata
+  const {
+    accountId,
+    dateRange,
+    month,
+    year,
+  } = state.transactions.metadata
 
   return {
-    accountId: parseInt(query_options.account_id),
-    month: parseInt(query_options.month),
+    accountId: accountId,
+    dateRange: dateRange,
+    month: month,
     urlAccountId: ownProps.accountId,
     urlMonth: ownProps.month,
     urlYear: ownProps.year,
-    year: parseInt(query_options.year),
+    year: year,
   }
 }
 

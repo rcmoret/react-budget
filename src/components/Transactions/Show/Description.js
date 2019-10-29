@@ -1,19 +1,25 @@
 import React from "react"
 import Icon from "../../Icons/Icon"
 
-export default ({ description, details }) => {
-  const budgetDetails = details.filter(detail => detail.budget_item_id !== null)
+export default (props) => {
+  const {
+    description,
+    details,
+  } = props
 
   if (description === null) {
     return (
       <div className="description">
-        {budgetDetails.map((detail, index) => (
-          <span key={detail.id}>
-            {index > 0 && "; "}
-            {detail.budget_category} <Icon className={detail.icon_class_name} />
+        {details.map((detail, index) =>
+          <span key={index}>
+            {index > 0 && ", "}
+            <Item
+              key={index}
+              detail={detail}
+            />
             {" "}
           </span>
-        ))}
+        )}
       </div>
     )
   } else {
@@ -21,6 +27,30 @@ export default ({ description, details }) => {
       <div className="description">
         {description}
       </div>
+    )
+  }
+}
+
+const Item = ({ detail }) => {
+  const { budgetCategory, iconClassName } = detail
+
+  if (budgetCategory === null) {
+    return (
+      <span>
+        Discretionary
+      </span>
+    )
+  } else if (iconClassName === null) {
+    return (
+      <span>
+        {budgetCategory}
+      </span>
+    )
+  } else {
+    return (
+      <span>
+        {budgetCategory} <Icon className={iconClassName} />
+      </span>
     )
   }
 }

@@ -23,12 +23,12 @@ import LeftIcon from "./LeftIcon"
 const Show = (props) => {
   const {
     id,
-    account_id,
+    accountId,
     amount,
     balance,
-    budget_exclusion,
-    check_number,
-    clearance_date,
+    budgetExclusion,
+    checkNumber,
+    clearanceDate,
     description,
     details,
     notes,
@@ -54,8 +54,8 @@ const Show = (props) => {
     if (!confirmation) {
       return
     } else {
-      const url = ApiUrlBuilder(["accounts", account_id, "transactions", id])
-      const action = deleteTransaction({ id: id, amount: (-1 * amount), account_id: account_id })
+      const url = ApiUrlBuilder(["accounts", accountId, "transactions", id])
+      const action = deleteTransaction({ id: id, amount: (-1 * amount), account_id: accountId })
       fetch(url, { method: "delete" })
         .then(() => props.dispatch(action))
     }
@@ -77,7 +77,7 @@ const Show = (props) => {
               collapseDetail={collapseDetail}
             />
           </div>
-          <ClearanceDate clearanceDate={clearance_date} />
+          <ClearanceDate clearanceDate={clearanceDate} />
           <Description
             description={description}
             details={details}
@@ -85,8 +85,8 @@ const Show = (props) => {
           <Amount amount={amount} />
           <Balance balance={balance} />
           <BudgetCategories showDetail={showDetail} {...props} />
-          <CheckNumber checkNumber={check_number} />
-          <BudgetExclusion budgetExclusion={budget_exclusion} />
+          <CheckNumber checkNumber={checkNumber} />
+          <BudgetExclusion budgetExclusion={budgetExclusion} />
           <Notes notes={notes} />
         </div>
         <EditLink transactionId={id} editable={props.deletable} />

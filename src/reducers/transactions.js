@@ -11,9 +11,10 @@ const emptyDetail = {
 
 const initialState = {
   metadata: {
-    date_range: ["", ""],
-    prior_balance: 0,
-    query_options: {},
+    accountId: null,
+    dateRange: ["", ""],
+    priorBalance: 0,
+    queryOptions: {},
   },
   collection: [],
   budgetItems: {

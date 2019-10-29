@@ -5,25 +5,23 @@ export default (props) => {
   const {
     description,
     details,
-    showDetail,
   } = props
 
-  const budgetItems = details.filter(detail => detail.budget_item_id !== null)
-
-  if (budgetItems.length > 0 && description !== null && !showDetail) {
+  const items = details.filter(detail => detail.budgetCategory !== null)
+  if (items.length === 0 || description === null) {
+    return null
+  } else {
     return (
       <div className="budget-categories">
-        {budgetItems.map((item, index) =>
+        {items.map((item, index) =>
           <span key={index}>
             {index > 0 && "; "}
-            <Icon className={item.icon_class_name} />
+            <Icon className={item.iconClassName} />
             {" "}
-            {item.budget_category}
+            {item.budgetCategory}
           </span>
         )}
       </div>
     )
-  } else {
-    return null
   }
 }

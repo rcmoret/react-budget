@@ -2,8 +2,8 @@ import React from "react"
 
 import { Link } from "react-router-dom"
 
-export default ({ collapseDetail, details, expandDetail, showDetail }) => {
-  if (details.length < 2) {
+export default ({ collapseDetail, expandDetail, showDetail, details }) => {
+  if (details.length <= 1) {
     return null
   } else if (showDetail) {
     return (
