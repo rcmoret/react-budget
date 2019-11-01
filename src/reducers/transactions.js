@@ -26,6 +26,7 @@ const initialState = {
     check_number: "",
     clearance_date: "",
     description: "",
+    checkNumber: "",
     showForm: false,
     details: [emptyDetail],
   },
@@ -120,7 +121,7 @@ export default (state = initialState, action) => {
       ...state,
       budgetItems: {
         collection: action.payload.collection.map(item => {
-          return item.monthly ? objectifyMonthly(item) : objectifyWeekly(item, { days_remaning: 1, total_days: 30 })
+          return item.monthly ? objectifyMonthly(item) : objectifyWeekly(item, { daysRemaning: 1, totalDays: 30 })
         }),
         fetched: true,
         month: action.payload.metadata.month,

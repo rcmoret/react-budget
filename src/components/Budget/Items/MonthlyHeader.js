@@ -27,7 +27,7 @@ const MonthlyHeader = (props) => {
     props.dispatch(toggleMonthlyItemForm({ showForm: false }))
     props.dispatch(editNewMonthlyItem({
       amount: "",
-      budget_category_id: null,
+      budgetCategoryId: null,
       errors: {},
     }))
   }

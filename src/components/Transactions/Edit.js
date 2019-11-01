@@ -14,7 +14,7 @@ import Form from "./Form/Form"
 
 const Edit = (props) => {
   const { budgetOptions, dispatch, transaction } = props
-  const { id, account_id, details } = transaction
+  const { id, accountId, amount, details } = transaction
 
   const handleKeyDown = (e) => {
     if (e.which !== 13) {
@@ -46,11 +46,11 @@ const Edit = (props) => {
 
   const onSubmit = () => {
     const description = transaction.description === "" ? null : transaction.description
-    const url = ApiUrlBuilder(["accounts", account_id, "transactions", id])
+    const url = ApiUrlBuilder(["accounts", accountId, "transactions", id])
     const body = JSON.stringify({
       ...transaction,
       description: description,
-      details_attributes: transaction.details.map(detail => (
+      detailsAttributes: details.map(detail => (
         {
           ...detail,
           ...detail.updatedProps,
@@ -104,7 +104,7 @@ const mapStateToProps = (state, ownProps) => {
   })
 
   const items = state.transactions.budgetItems.collection
-  const collection = items.filter(item => !item.monthly || item.deletable || item.id === ownProps.budget_item_id)
+  const collection = items.filter(item => !item.monthly || item.deletable || item.id === ownProps.budgetItemId)
   const labelFor = (item) => `${item.name} (${MoneyFormatter(item.remaining, { absolute: true })})`
   const optionFor = (item) => ({ value: item.id, label: labelFor(item) })
   const sortFn = (a, b) => a.label.toLowerCase() < b.label.toLowerCase() ? -1 : 1
@@ -124,7 +124,7 @@ const mapStateToProps = (state, ownProps) => {
       originalAmount: ownProps.amount,
     },
     budgetOptions: budgetOptions,
-    selectedAccount: state.accounts.collection.find(acct => acct.id === ownProps.account_id),
+    selectedAccount: state.accounts.collection.find(acct => acct.id === ownProps.accountId),
   }
 }
 

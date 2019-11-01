@@ -8,7 +8,7 @@ import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 
 import { Link } from "react-router-dom"
 
-const DeleteButton = ({ amount, from_account_id, dispatch, id, to_account_id }) => {
+const DeleteButton = ({ amount, fromAccountId, dispatch, id, toAccountId }) => {
   const onClick = (e) => {
     e.preventDefault()
     const confirmation = window.confirm(copy.deleteConfirmationMessage)
@@ -18,8 +18,8 @@ const DeleteButton = ({ amount, from_account_id, dispatch, id, to_account_id }) 
         .then(() => dispatch(deleted({
           id: id,
           amount: amount,
-          from_account_id: from_account_id,
-          to_account_id: to_account_id,
+          fromAccountId: fromAccountId,
+          toAccountId: toAccountId,
         })))
     }
   }

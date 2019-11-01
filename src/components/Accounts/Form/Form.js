@@ -51,8 +51,8 @@ export default (props) => (
         <div className="input">
           <input
             type="checkbox"
-            name="cash_flow"
-            checked={props.cash_flow}
+            name="cashFlow"
+            checked={props.cashFlow}
             onChange={props.updateCashFlow}
           />
         </div>

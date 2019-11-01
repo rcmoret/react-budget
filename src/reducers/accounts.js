@@ -6,7 +6,7 @@ const initialState = {
   accountsFetched: false,
   showNewForm: false,
   newAccount: {
-    cash_flow: true,
+    cashFlow: true,
     name: "",
     priority: "",
   },
@@ -97,9 +97,9 @@ export default (state = initialState, action) => {
 }
 
 const updateBalance = (payload, collection) => {
-  const { account_id, amount } = payload
+  const { accountId, amount } = payload
   return collection.map(acct => {
-    if (acct.id !== account_id) {
+    if (acct.id !== accountId) {
       return acct
     } else {
       return { ...acct, balance: (acct.balance + amount) }
@@ -108,12 +108,12 @@ const updateBalance = (payload, collection) => {
 }
 
 const updateAfterTransferCreate = (payload, collection) => {
-  const { from_transaction, to_transaction } = payload
-  const { amount } = objectifyTransaction(to_transaction)
+  const { fromTransaction, toTransaction } = payload
+  const { amount } = toTransaction
   return collection.map(acct => {
-    if (from_transaction.account_id === acct.id) {
+    if (fromTransaction.accountId === acct.id) {
       return { ...acct, balance: (acct.balance - amount) }
-    } else if (to_transaction.account_id === acct.id) {
+    } else if (toTransaction.accountId === acct.id) {
       return { ...acct, balance: (acct.balance + amount) }
     } else {
       return acct
@@ -122,11 +122,11 @@ const updateAfterTransferCreate = (payload, collection) => {
 }
 
 const updateAfterTransferDelete = (payload, collection) => {
-  const { amount, from_account_id, to_account_id } = payload
+  const { amount, fromAccountId, toAccountId } = payload
   return collection.map(acct => {
-    if (from_account_id === acct.id) {
+    if (fromAccountId === acct.id) {
       return { ...acct, balance: (acct.balance + amount) }
-    } else if (to_account_id === acct.id) {
+    } else if (toAccountId === acct.id) {
       return { ...acct, balance: (acct.balance - amount) }
     } else {
       return acct

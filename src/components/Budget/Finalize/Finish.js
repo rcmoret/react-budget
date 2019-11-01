@@ -136,12 +136,12 @@ const mapStateToProps = (state, ownProps) => {
   const totalExtra = extra.reduce((sum, item) => sum + item.amount, 0)
   const fromOptions = accounts
     .collection
-    .filter(a => a.cash_flow)
+    .filter(a => a.cashFlow)
     .map(account => ({ label: account.name, value: account.id }))
   const fromValue = fromOptions.find(option => option.value === selectedFromAccountId)
   const toOptions = accounts
     .collection
-    .filter(a => !a.cash_flow)
+    .filter(a => !a.cashFlow)
     .map(account => ({ label: account.name, value: account.id }))
   const toValue = toOptions.find(option => option.value === selectedToAccountId)
   const note = extra
@@ -152,7 +152,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     accountsFetched: accounts.accountsFetched,
     baseMonthFetched: baseMonthFetched,
-    baseMonthFinalized: finalize.baseMonth.is_closed_out,
+    baseMonthFinalized: finalize.baseMonth.isClosedOut,
     extra: extra,
     fromOptions: fromOptions,
     fromValue: fromValue,

@@ -77,7 +77,7 @@ const New = (props) => {
 
 const mapStateToProps = (state) => {
   const transaction = state.transactions.new
-  const selectedAccountId = parseInt(state.transactions.metadata.query_options.account_id)
+  const selectedAccountId = state.transactions.metadata.accountId
   const selectedAccount = state.accounts.collection.find(account => account.id === selectedAccountId)
   const items = state.transactions.budgetItems.collection
   const collection = items.filter(item => !item.monthly || item.deletable)

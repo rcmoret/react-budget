@@ -13,7 +13,7 @@ const WeeklyAmountInput = (props) => {
   const {
     id,
     amount,
-    budget_category_id,
+    budgetCategoryId,
     dispatch,
     floatAmount,
     errors,
@@ -57,7 +57,7 @@ const WeeklyAmountInput = (props) => {
 
   const saveChange = (e) => {
     e.preventDefault()
-    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items", id])
+    const url = ApiUrlBuilder(["budget/categories", budgetCategoryId, "items", id])
     const body = JSON.stringify({
       amount: decimalToInt(floatAmount),
       month: month,

@@ -12,7 +12,7 @@ const Amount = (props) => {
     id,
     absolute,
     amount,
-    budget_category_id,
+    budgetCategoryId,
     dispatch,
     errors,
     updateItem,
@@ -35,7 +35,7 @@ const Amount = (props) => {
       <MonthlyAmountInput
         id={id}
         amount={amount}
-        budget_category_id={budget_category_id}
+        budgetCategoryId={budgetCategoryId}
         errors={errors}
         floatAmount={floatAmount}
       />

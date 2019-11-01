@@ -67,7 +67,7 @@ const mapStateToProps = (state, ownProps) => {
   const { finalize } = state.budget
   const baseMonthFetched = finalize.baseMonth.isFetched
   const nextMonthFetched = finalize.next.isFetched
-  const baseMonthFinalized = finalize.baseMonth.is_closed_out
+  const baseMonthFinalized = finalize.baseMonth.isClosedOut
   const { month, year } = finalize.baseMonth
   const nextMonth = (finalize.next.month || (baseMonth === 12 ? 1 : (baseMonth + 1)))
   const nextYear = (finalize.next.year || (baseMonth === 12 ? (baseYear + 1) : baseYear))

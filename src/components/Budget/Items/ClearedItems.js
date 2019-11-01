@@ -46,7 +46,7 @@ const ClearedGroup = ({ collection, title }) => {
   }
 }
 
-const ClearedItem = ({ amount, expense, difference, icon_class_name, name, spent }) => {
+const ClearedItem = ({ amount, expense, difference, iconClassName, name, spent }) => {
   const {
     budgeted,
   } = copy.item
@@ -67,7 +67,7 @@ const ClearedItem = ({ amount, expense, difference, icon_class_name, name, spent
           {" "}
           <strong>{name}</strong>
           {" "}
-          <Icon className={icon_class_name} />
+          <Icon className={iconClassName} />
         </div>
       </div>
       <div className="cleared-item-wrapper">

@@ -123,7 +123,7 @@ const Total = ({ nextMonth, remaining }) => {
 const MissingItem = (props) => {
   const {
     id,
-    budget_category_id,
+    budgetCategoryId,
     dispatch,
     monthly,
     name,
@@ -143,7 +143,7 @@ const MissingItem = (props) => {
   }
 
   const createItem = () => {
-    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items"])
+    const url = ApiUrlBuilder(["budget/categories", budgetCategoryId, "items"])
     const body = JSON.stringify({
       amount: 0,
       month: nextMonth,

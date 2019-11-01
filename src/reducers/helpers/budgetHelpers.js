@@ -206,7 +206,7 @@ export const addNewSetupItem = (item, state) => {
         ...setup.newMonth,
         newItem: {
           amount: "",
-          budget_category_id: null,
+          budgetCategoryId: null,
           selectedOption: "",
         },
         collection: [
@@ -266,9 +266,9 @@ export const calculateDiscretionary = (payload) => {
   const { collection, metadata } = payload
 
   const remainingFor = (item) => {
-    const { amount, expense, monthly, spent, transaction_count } = item
+    const { amount, expense, monthly, spent, transactionCount } = item
     if (monthly) {
-      return transaction_count === 0 ? amount : 0
+      return transactionCount === 0 ? amount : 0
     } else {
       const difference = amount - spent
       return expense ? Math.min(difference, 0) : Math.max(difference, 0)

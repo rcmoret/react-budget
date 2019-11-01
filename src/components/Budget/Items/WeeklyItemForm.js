@@ -15,7 +15,7 @@ import Select from "react-select"
 const WeeklyItemForm = (props) => {
   const {
     amount,
-    budget_category_id,
+    budgetCategoryId,
     categories,
     dispatch,
     errors,
@@ -29,8 +29,8 @@ const WeeklyItemForm = (props) => {
   const onCategoryChange = (e) => {
     const category = categories.find(category => category.id === e.value)
     const action = editNewWeeklyItem({
-      budget_category_id: e.value,
-      amount: parseFloat(category.default_amount / 100.0).toFixed(2)
+      budgetCategoryId: e.value,
+      amount: parseFloat(category.defaultAmount / 100.0).toFixed(2)
     })
     dispatch(action)
   }
@@ -48,7 +48,7 @@ const WeeklyItemForm = (props) => {
 
   const onSave = (e) => {
     e.preventDefault()
-    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items"])
+    const url = ApiUrlBuilder(["budget/categories", budgetCategoryId, "items"])
     const body = JSON.stringify({
       amount: decimalToInt(amount),
       month: month,
@@ -57,7 +57,7 @@ const WeeklyItemForm = (props) => {
     const onSuccess = data => {
       dispatch(addWeeklyItem(data))
       dispatch(toggleWeeklyItemForm({ showForm: false }))
-      dispatch(editNewWeeklyItem({ amount: "", budget_category_id: null }))
+      dispatch(editNewWeeklyItem({ amount: "", budgetCategoryId: null }))
     }
     const onFailure = data => {
       const action = editNewWeeklyItem({ errors: data.errors })
@@ -105,7 +105,7 @@ const WeeklyItemForm = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  const currentCategoryIds = state.budget.weekly.collection.map(item => item.budget_category_id)
+  const currentCategoryIds = state.budget.weekly.collection.map(item => item.budgetCategoryId)
   const categories = state.budget.categories.collection.filter(category => {
     return !category.monthly && !currentCategoryIds.includes(category.id)
   })
@@ -119,12 +119,12 @@ const mapStateToProps = (state) => {
     return a.label.toLowerCase() < b.label.toLowerCase() ? -1 : 1
   })
   const { newItem } = state.budget.weekly
-  const value = options.find(option => option.value === newItem.budget_category_id)
+  const value = options.find(option => option.value === newItem.budgetCategoryId)
   const { month, year } = state.budget.metadata
   return {
     amount: newItem.amount,
     categories: categories,
-    budget_category_id: newItem.budget_category_id,
+    budgetCategoryId: newItem.budgetCategoryId,
     errors: (newItem.errors.amount || []),
     fetched: state.budget.categories.fetched,
     month: month,

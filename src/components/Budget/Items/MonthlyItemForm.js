@@ -19,7 +19,7 @@ import Select from "react-select"
 const MonthlyItemForm = (props) => {
   const {
     amount,
-    budget_category_id,
+    budgetCategoryId,
     categories,
     dispatch,
     errors,
@@ -33,8 +33,8 @@ const MonthlyItemForm = (props) => {
   const onCategoryChange = (e) => {
     const category = categories.find(category => category.id === e.value)
     const action = editNewMonthlyItem({
-      budget_category_id: e.value,
-      amount: parseFloat(category.default_amount / 100.0).toFixed(2)
+      budgetCategoryId: e.value,
+      amount: parseFloat(category.defaultAmount / 100.0).toFixed(2)
     })
     dispatch(action)
   }
@@ -52,7 +52,7 @@ const MonthlyItemForm = (props) => {
 
   const onSave = (e) => {
     e.preventDefault()
-    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items"])
+    const url = ApiUrlBuilder(["budget/categories", budgetCategoryId, "items"])
     const body = JSON.stringify({
       amount: decimalToInt(amount),
       month: month,
@@ -61,7 +61,7 @@ const MonthlyItemForm = (props) => {
     const onSuccess = data => {
       dispatch(addMonthlyItem(data))
       dispatch(toggleMonthlyItemForm({ showForm: false }))
-      dispatch(editNewMonthlyItem({ amount: "", budget_category_id: null }))
+      dispatch(editNewMonthlyItem({ amount: "", budgetCategoryId: null }))
     }
     const onFailure = data => {
       const action = editNewMonthlyItem({ errors: data.errors })
@@ -115,12 +115,12 @@ const mapStateToProps = (state) => {
   const sortFn = (a, b) => a.label.toLowerCase() < b.label.toLowerCase() ? -1 : 1
   const options = categories.map(optionFn).sort(sortFn)
   const { newItem } = state.budget.monthly
-  const value = options.find(option => option.value === newItem.budget_category_id)
+  const value = options.find(option => option.value === newItem.budgetCategoryId)
   const { month, year } = state.budget.metadata
 
   return {
     amount: newItem.amount,
-    budget_category_id: newItem.budget_category_id,
+    budgetCategoryId: newItem.budgetCategoryId,
     categories: categories,
     errors: (newItem.errors.amount || []),
     fetched: state.budget.categories.fetched,

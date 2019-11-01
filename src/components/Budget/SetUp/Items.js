@@ -13,7 +13,7 @@ const Items = ({ collection, discretionary, month, year }) => {
   const monthString = dateFormatter.formatted({ month: month, year: year, format: "monthYear" })
 
   const sortFn = (a, b) => {
-    if (a.budget_category_id !== b.budget_cateogry_id) {
+    if (a.budgetCategoryId !== b.budgetCateogryId) {
       return a.name < b.name ? -1 : 1
     } else {
       if (a.amount === b.amount) {

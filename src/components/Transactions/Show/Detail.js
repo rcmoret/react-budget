@@ -3,7 +3,7 @@ import Icon from "../../Icons/Icon"
 
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
-export default ({ amount, budget_category, icon_class_name, showDetail }) => {
+export default ({ amount, budgetCategory, iconClassName, showDetail }) => {
   if (showDetail) {
     return (
       <div className="transaction detail-show">
@@ -19,7 +19,7 @@ export default ({ amount, budget_category, icon_class_name, showDetail }) => {
         <div className="balance">
         </div>
         <div className="budget-categories">
-          <Icon className={icon_class_name} /> {budget_category}
+          <Icon className={iconClassName} /> {budgetCategory}
         </div>
       </div>
     )

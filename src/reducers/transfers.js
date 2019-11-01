@@ -1,8 +1,8 @@
 import objectifyTransaction from "../shared/models/transaction"
 
 const initialNew = {
-  to_account_id: null,
-  from_account_id: null,
+  toAccountId: null,
+  fromAccountId: null,
   amount: "",
 }
 

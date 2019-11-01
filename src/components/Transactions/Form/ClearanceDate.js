@@ -13,7 +13,7 @@ import { formatted, fromDateString, fromDateTimeObject } from "../../../function
 const ClearanceDate = ({ clearanceDate, month, onChange, year }) => {
   const update = (e) => {
     const val = e === null ? "" : fromDateTimeObject(e.toLocaleString())
-    onChange({ clearance_date: val })
+    onChange({ clearanceDate: val })
   }
 
   const selected = () => {
@@ -59,7 +59,7 @@ const ClearanceDate = ({ clearanceDate, month, onChange, year }) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { month, year } = state.transactions.metadata.query_options
+  const { month, year } = state.transactions.metadata
 
   return {
     ...ownProps,

@@ -55,7 +55,7 @@ const Show = (props) => {
       return
     } else {
       const url = ApiUrlBuilder(["accounts", accountId, "transactions", id])
-      const action = deleteTransaction({ id: id, amount: (-1 * amount), account_id: accountId })
+      const action = deleteTransaction({ id: id, amount: (-1 * amount), accountId: accountId })
       fetch(url, { method: "delete" })
         .then(() => props.dispatch(action))
     }

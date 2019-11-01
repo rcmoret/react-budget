@@ -58,7 +58,7 @@ const ReviewItem = (props) => {
 
   const setDefaultAmount = () => {
     const action = editNew({
-      amount: MoneyFormatter(category.default_amount, { toFloat: true }),
+      amount: MoneyFormatter(category.defaultAmount, { toFloat: true }),
       selectedOption: "defaultAmount",
     })
     dispatch(action)
@@ -101,7 +101,7 @@ const ReviewItem = (props) => {
 
   const updateItem = () => {
     put(
-      ApiUrlBuilder(["budget/categories", dayToDayItem.budget_category_id, "items", dayToDayItem.id]),
+      ApiUrlBuilder(["budget/categories", dayToDayItem.budgetCategoryId, "items", dayToDayItem.id]),
       JSON.stringify({
         amount: (decimalToInt(amount) + dayToDayItem.amount),
       }),
@@ -130,7 +130,7 @@ const ReviewItem = (props) => {
           newMonthString={newMonthString}
         />
         <Option
-          amount={category.default_amount}
+          amount={category.defaultAmount}
           label={titleize(copy.category.defaultAmount)}
           onClick={setDefaultAmount}
           checked={selectedOption === "defaultAmount" ? "checked" : ""}
@@ -281,8 +281,8 @@ const mapStateToProps = (state, ownProps) => {
   const { baseMonth, newMonth } = state.budget.setup
   const prevMonthString = dateFormatter.formatted({ month: baseMonth.month, year: baseMonth.year, format: "monthYear" })
   const { newItem } = state.budget.setup.newMonth
-  const category = state.budget.categories.collection.find(category => category.id === item.budget_category_id)
-  const dayToDayItem = item.monthly ? null : newMonth.collection.find(i => i.budget_category_id === item.budget_category_id)
+  const category = state.budget.categories.collection.find(category => category.id === item.budgetCategoryId)
+  const dayToDayItem = item.monthly ? null : newMonth.collection.find(i => i.budgetCategoryId === item.budgetCategoryId)
 
   return {
     category: category,

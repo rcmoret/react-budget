@@ -40,7 +40,7 @@ const Edit = (props) => {
   }
 
   const updateCashFlow = () => {
-    const action = updateProps({ id: id, cash_flow: !formProps.cash_flow })
+    const action = updateProps({ id: id, cashFlow: !formProps.cashFlow })
     dispatch(action)
   }
 

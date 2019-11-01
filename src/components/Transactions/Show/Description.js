@@ -31,6 +31,8 @@ export default (props) => {
   }
 }
 
+// {budgetCategory} <Icon className={iconClassName} />
+
 const Item = ({ detail }) => {
   const { budgetCategory, iconClassName } = detail
 

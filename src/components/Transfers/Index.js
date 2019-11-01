@@ -83,7 +83,7 @@ const mapStateToProps = (state) => {
     if (a.fromTransaction.clearanceDate === b.fromTransaction.clearanceDate) {
       return 0
     } else if (a.fromTransaction.clearanceDate === null) {
-      return b.from_transaction.clearanceDate > today ? -1 : 1
+      return b.fromTransaction.clearanceDate > today ? -1 : 1
     } else if (b.fromTransaction.clearanceDate === null) {
       return a.fromTransaction.clearanceDate > today ? 1 : -1
     } else {

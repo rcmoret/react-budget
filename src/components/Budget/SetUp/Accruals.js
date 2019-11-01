@@ -81,7 +81,7 @@ const SubmitButton = ({ collection, dispatch, month, year }) => {
   const submit = (item) => {
     const amount = item.updatedProps ? decimalToInt(item.updatedProps.amount) : item.defaultAmount
     post(
-      ApiUrlBuilder(["budget/categories", item.budget_category_id, "items"]),
+      ApiUrlBuilder(["budget/categories", item.budgetCategoryId, "items"]),
       JSON.stringify({ amount: amount, month: month, year: year }),
       (data) => dispatch(addItem(data))
     )
@@ -221,9 +221,9 @@ const Button = ({ handleClick, iconClass, spanClass }) => (
 const mapStateToProps = (state) => {
   const { month, year } = state.budget.setup.newMonth
   const categories = state.budget.categories.collection
-  const findCategory = (item) => categories.find(c => c.id === item.budget_category_id)
+  const findCategory = (item) => categories.find(c => c.id === item.budgetCategoryId)
   const mergeDefaultAmount = (item) => (
-    { ...item, defaultAmount: findCategory(item).default_amount }
+    { ...item, defaultAmount: findCategory(item).defaultAmount }
   )
 
   const collection = state.budget.setup.baseMonth.collection

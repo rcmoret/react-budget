@@ -38,7 +38,7 @@ const NewBudgetCategory = (props) => {
   }
 
   const onSelectChange = (e) => {
-    const action = updateNew({ icon_id: e.value })
+    const action = updateNew({ iconId: e.value })
     dispatch(action)
   }
 
@@ -46,7 +46,7 @@ const NewBudgetCategory = (props) => {
     const url = ApiUrlBuilder(["budget/categories"])
     const body = JSON.stringify({
       ...newCategory,
-      default_amount: decimalToInt(newCategory.default_amount),
+      defaultAmount: decimalToInt(newCategory.defaultAmount),
     })
     const dispatches = (data) => {
       const createdAction = created(data)

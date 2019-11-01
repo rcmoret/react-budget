@@ -8,7 +8,7 @@ export default ({ budget_exclusion, onChange, selectedAccount }) => {
     onChange({ budget_exclusion: !budget_exclusion })
   }
 
-  if (selectedAccount.cash_flow === true) {
+  if (selectedAccount.cashFlow === true) {
     return null
   } else {
     return (

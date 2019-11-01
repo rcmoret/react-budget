@@ -46,7 +46,7 @@ const BudgetIndex = (props) => {
         month={month}
         year={year}
         isFuture={isFuture}
-        requiresSetUp={!metadata.is_set_up}
+        requiresSetUp={!metadata.isSetUp}
       />
     </div>
   )

@@ -83,7 +83,7 @@ const mapStateToProps = (state, ownProps) => {
     .map(item => {
       return {
         baseItem: item,
-        nextItems: nextMonthCollection.filter(i => i.budget_category_id === item.budget_category_id),
+        nextItems: nextMonthCollection.filter(i => i.budgetCategoryId === item.budgetCategoryId),
       }
     })
   const item = collection[0]

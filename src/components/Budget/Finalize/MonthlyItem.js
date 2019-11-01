@@ -135,7 +135,7 @@ export default (props) => {
           />
           <Submit
             amount={amount}
-            budgetCategoryId={baseItem.budget_category_id}
+            budgetCategoryId={baseItem.budgetCategoryId}
             baseItemId={id}
             dispatch={dispatch}
             errors={errors()}

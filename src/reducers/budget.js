@@ -4,10 +4,10 @@ import { update, updated, updateProps, updateItemInCollection } from "./helpers/
 
 const initialNewCategory = {
   name: "",
-  default_amount: "",
+  defaultAmount: "",
   accrual: "false",
   showForm: false,
-  icon_id: null,
+  iconId: null,
   errors: {},
 }
 
@@ -36,7 +36,7 @@ const initialState = {
     showForm: false,
     newItem: {
       amount: "",
-      budget_category_id: null,
+      budgetCategoryId: null,
       errors: {},
     },
   },
@@ -45,7 +45,7 @@ const initialState = {
     showForm: false,
     newItem: {
       amount: "",
-      budget_category_id: null,
+      budgetCategoryId: null,
       errors: {},
     },
   },
@@ -54,8 +54,8 @@ const initialState = {
   metadata: {
     month: (today.getMonth() + 1),
     year: (today.getFullYear()),
-    is_closed_out: true,
-    is_set_up: true,
+    isClosedOut: true,
+    isSetUp: true,
   },
   menuOptions: {
     showAccruals: false,
@@ -69,7 +69,7 @@ const initialState = {
       year: null,
       isFetched: false,
       collection: [],
-      is_closed_out: false,
+      isClosedOut: false,
     },
     next: {
       month: null,
@@ -93,11 +93,11 @@ const initialState = {
       year: 2099,
       isFetched: false,
       reviewed: false,
-      set_up_completed_at: null,
+      setUpCompletedAt: null,
       collection: [],
       newItem: {
         amount: "",
-        budget_category_id: null,
+        budgetCategoryId: null,
         selectedOption: "",
       },
     },
@@ -280,7 +280,7 @@ export default (state = initialState, action) => {
         monthly: {
           ...state.monthly,
           collection: state.monthly.collection.map(item => {
-            return item.budget_category_id === action.payload.id ? { ...item, name: action.payload.name, accrual: action.payload.accrual } : item
+            return item.budgetCategoryId === action.payload.id ? { ...item, name: action.payload.name, accrual: action.payload.accrual } : item
           })
         }
       }
@@ -294,7 +294,7 @@ export default (state = initialState, action) => {
         weekly: {
           ...state.weekly,
           collection: state.weekly.collection.map(item => {
-            return item.budget_category_id === action.payload.id ? { ...item, name: action.payload.name, accrual: action.payload.accrual } : item
+            return item.budgetCategoryId === action.payload.id ? { ...item, name: action.payload.name, accrual: action.payload.accrual } : item
           })
         }
       }
@@ -351,7 +351,7 @@ export default (state = initialState, action) => {
         ...state.finalize,
         baseMonth: {
           ...state.finalize.baseMonth,
-          is_closed_out: true,
+          isClosedOut: true,
         },
       }
     }
@@ -650,7 +650,7 @@ export default (state = initialState, action) => {
           ...state.setup.newMonth,
           newItem: {
             amount: "",
-            budget_category_id: null,
+            budgetCategoryId: null,
             selectedOption: "",
           }
         }
@@ -684,7 +684,7 @@ export default (state = initialState, action) => {
           ...state.setup.newMonth,
           newItem: {
             amount: "",
-            budget_category_id: null,
+            budgetCategoryId: null,
             selectedOption: "",
           }
         }
@@ -699,7 +699,7 @@ export default (state = initialState, action) => {
           ...state.setup.newMonth,
           newItem: {
             amount: "",
-            budget_category_id: null,
+            budgetCategoryId: null,
             selectedOption: "",
           },
           collection: state.setup.newMonth.collection.map(item => {

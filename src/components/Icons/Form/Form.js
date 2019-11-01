@@ -8,7 +8,7 @@ import CancelButton from "./CancelButton"
 import Icon from "../Icon"
 import ResetButton from "./ResetButton"
 
-const Form = ({ buttonText, class_name, id, name, onChange, onSubmit }) => (
+const Form = ({ buttonText, className, id, name, onChange, onSubmit }) => (
   <div className="icon-form">
     <div className="icon-form-row">
       <div>
@@ -32,9 +32,9 @@ const Form = ({ buttonText, class_name, id, name, onChange, onSubmit }) => (
       </div>
       <div>
         <input
-          name="class_name"
+          name="className"
           onChange={onChange}
-          value={class_name}
+          value={className}
         />
       </div>
     </div>
@@ -63,7 +63,7 @@ const Form = ({ buttonText, class_name, id, name, onChange, onSubmit }) => (
       <span className="preview">
         {titleize(copy.icon.preview)}:
         {"  "}
-        <Icon className={class_name} />
+        <Icon className={className} />
       </span>
     </div>
   </div>

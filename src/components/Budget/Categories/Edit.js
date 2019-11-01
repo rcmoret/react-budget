@@ -46,7 +46,7 @@ const Edit = (props) => {
     } else if (updatedProps.defaultAmount) {
       return {
         ...updatedProps,
-        default_amount: decimalToInt(updatedProps.defaultAmount)
+        defaultAmount: decimalToInt(updatedProps.defaultAmount)
       }
     } else {
       return updatedProps
@@ -64,7 +64,7 @@ const Edit = (props) => {
   const formProps = {
     ...category,
     accrual: accrual.toString(),
-    default_amount: (defaultAmount / 100.0).toFixed(2),
+    defaultAmount: (defaultAmount / 100.0).toFixed(2),
     expense: expense.toString(),
     monthly: monthly.toString(),
     ...updatedProps

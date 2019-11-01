@@ -4,9 +4,9 @@ import { transaction as copy } from "../../../locales/copy"
 
 import Icon from "../../Icons/Icon"
 
-export default ({ check_number, onChange }) => {
+export default ({ checkNumber, onChange }) => {
   const update = (e) => {
-    onChange({ check_number: e.target.value })
+    onChange({ checkNumber: e.target.value })
   }
 
   return(
@@ -14,8 +14,8 @@ export default ({ check_number, onChange }) => {
       <Icon className="fas fa-money-check" />&nbsp;
       <input
         type="text"
-        name="check_number"
-        value={check_number}
+        name="checkNumber"
+        value={checkNumber}
         onChange={update}
         placeholder={copy.checkNumberPlaceholder}
       />

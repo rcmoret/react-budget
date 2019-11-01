@@ -6,8 +6,8 @@ export default (props) => {
   const {
     _id,
     amount,
-    budget_category,
-    budget_item_id,
+    budgetCategory,
+    budgetItemId,
     onDetailChange,
     options,
   } = props
@@ -19,8 +19,8 @@ export default (props) => {
       onDetailChange(_id, { budget_item_id: e.value })
     }
   }
-  const value = options.find(option => option.value === budget_item_id)
-  const fallbackValue = { label: budget_category, value: budget_item_id }
+  const value = options.find(option => option.value === budgetItemId)
+  const fallbackValue = { label: budgetCategory, value: budgetItemId }
   const selectedValue = value || fallbackValue
 
   return (

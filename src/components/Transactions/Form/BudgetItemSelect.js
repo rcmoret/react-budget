@@ -3,9 +3,8 @@ import { connect } from "react-redux"
 
 import { fetchedBudgetItems } from "../../../actions/transactions"
 
-import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { fromDateString } from "../../../functions/DateFormatter"
-import { get } from "../../../functions/RestApiClient"
+import { getItems } from "../../Budget/Items/graphqlQueries"
 
 import Select from "react-select"
 import DetailBudgetItemSelect from "./DetailBudgetItemSelect"
@@ -25,8 +24,12 @@ const BudgetItemSelect = (props) => {
   } = props
 
   if (!(fetched && month === dateObject.month && year === dateObject.year)) {
-    const url = ApiUrlBuilder(["budget", "items"], { ...dateObject })
-    get(url, data => dispatch(fetchedBudgetItems(data)))
+    const onSuccess = (result) => dispatch(fetchedBudgetItems(result.data.budgetItems))
+    getItems({
+      month: dateObject.month,
+      year: dateObject.year,
+      onSuccess: onSuccess
+    })
   }
 
   if (details.length > 1) {

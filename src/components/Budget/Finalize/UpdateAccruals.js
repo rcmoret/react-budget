@@ -12,9 +12,9 @@ import delay from "../../../functions/Delay"
 import { put } from "../../../functions/RestApiClient"
 
 export default ({ collection, dispatch }) => {
-  const submit = ({ id, amount, budget_category_id }) => {
+  const submit = ({ id, amount, budgetCategoryId }) => {
     put(
-      ApiUrlBuilder(["budget/categories", budget_category_id, "items", id]),
+      ApiUrlBuilder(["budget/categories", budgetCategoryId, "items", id]),
       JSON.stringify({ amount: amount }),
       (data) => dispatch(updateFinalizeItem(data))
     )
@@ -36,7 +36,7 @@ export default ({ collection, dispatch }) => {
         submit({
           id: item.nextItem.id,
           amount: amountFor(item),
-          budget_category_id: item.baseItem.budget_category_id,
+          budgetCategoryId: item.baseItem.budgetCategoryId,
         })
       }
       await delay(500)

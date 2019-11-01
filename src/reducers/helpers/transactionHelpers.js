@@ -21,13 +21,13 @@ export const editDetailProps = (txn, newProps) => {
 }
 
 export const createTransaction = (payload, state) => {
-  const { clearance_date } = payload
-  const { include_pending } = state.metadata.query_options
-  const { prior_balance, date_range } = state.metadata
-  const inRange = isInRange(clearance_date, date_range)
+  const { clearanceDate } = payload
+  const { includePending } = state.metadata.query_options
+  const { priorBalance, dateRange } = state.metadata
+  const inRange = isInRange(clearanceDate, dateRange)
   const newTxn = objectifyTransaction(payload)
-  const collection = ((include_pending && clearance_date === null) || inRange) ? [...state.collection, newTxn] : state.collection
-  const newPrior = before(clearance_date, date_range[0]) ? (prior_balance + newTxn.amount) : prior_balance
+  const collection = ((includePending && clearanceDate === null) || inRange) ? [...state.collection, newTxn] : state.collection
+  const newPrior = before(clearanceDate, dateRange[0]) ? (priorBalance + payload.amount) : priorBalance
   return {
     ...state,
     metadata: {
@@ -43,11 +43,11 @@ export const createTransaction = (payload, state) => {
 }
 
 export const updatedTransaction = (payload, state) => {
-  const { clearance_date } = payload
-  const { prior_balance, date_range } = state.metadata
+  const { clearanceDate } = payload
+  const { priorBalance, dateRange } = state.metadata
   const newTxn = objectifyTransaction(payload)
   const collection = updatedCollection(newTxn, state)
-  const newPrior = before(clearance_date, date_range[0]) ? (prior_balance + newTxn.amount) : prior_balance
+  const newPrior = before(clearanceDate, dateRange[0]) ? (priorBalance + payload.amount) : priorBalance
   return {
     ...state,
     metadata: {
@@ -63,12 +63,12 @@ export const updatedTransaction = (payload, state) => {
 }
 
 const updatedCollection = (payload, state) => {
-  const { clearance_date } = payload
-  const { include_pending } = state.metadata.query_options
-  const { date_range } = state.metadata
-  const inRange = isInRange(clearance_date, date_range)
+  const { clearanceDate } = payload
+  const { includePending } = state.metadata.query_options
+  const { dateRange } = state.metadata
+  const inRange = isInRange(clearanceDate, dateRange)
 
-  if ((include_pending && clearance_date === null) || inRange) {
+  if ((includePending && clearanceDate === null) || inRange) {
     return state.collection.map(txn => {
       if (txn.id !== payload.id) {
         return txn

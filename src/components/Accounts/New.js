@@ -11,7 +11,7 @@ import { Link } from "react-router-dom"
 
 const New = (props) => {
   const {
-    cash_flow,
+    cashFlow,
     dispatch,
     name,
     priority,
@@ -41,14 +41,14 @@ const New = (props) => {
   }
 
   const updateCashFlow = () => {
-    const action = updateNew({ cash_flow: !cash_flow })
+    const action = updateNew({ cashFlow: !cashFlow })
     dispatch(action)
   }
 
   const submitForm = () => {
     post(
       ApiUrlBuilder(["accounts"]),
-      JSON.stringify({ name: name, priority: priority, cash_flow: cash_flow }),
+      JSON.stringify({ name: name, priority: priority, cashFlow: cashFlow }),
       (data) => {
         dispatch(created(data))
         dispatch(resetForm())

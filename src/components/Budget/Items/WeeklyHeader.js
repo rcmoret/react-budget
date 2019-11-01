@@ -19,7 +19,7 @@ const WeeklyHeader = (props) => {
     props.dispatch(toggleWeeklyItemForm({ showForm: false }))
     props.dispatch(editNewWeeklyItem({
       amount: "",
-      budget_category_id: null,
+      budgetCategoryId: null,
       errors: {},
     }))
   }

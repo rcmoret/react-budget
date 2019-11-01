@@ -8,7 +8,7 @@ const WeeklyAmount = (props) => {
     id,
     absolute,
     amount,
-    budget_category_id,
+    budgetCategoryId,
     difference,
     errors,
     expense,
@@ -24,7 +24,7 @@ const WeeklyAmount = (props) => {
       <WeeklyAmountInput
         id={id}
         amount={amount}
-        budget_category_id={budget_category_id}
+        budgetCategoryId={budgetCategoryId}
         errors={errors}
         floatAmount={floatAmount}
         spent={spent}

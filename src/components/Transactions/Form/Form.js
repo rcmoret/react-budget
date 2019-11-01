@@ -27,9 +27,10 @@ export default (props) => {
 
   const {
     amount,
-    budget_exclusion,
-    check_number,
-    clearance_date,
+    budgetExclusion,
+    budgetItemId,
+    checkNumber,
+    clearanceDate,
     description,
     details,
     notes,
@@ -46,7 +47,7 @@ export default (props) => {
           />
         </div>
         <ClearanceDate
-          clearanceDate={clearance_date}
+          clearanceDate={clearanceDate}
           onChange={onChange}
           handleKeyDown={handleKeyDown}
         />
@@ -64,6 +65,8 @@ export default (props) => {
           details={details}
         />
         <BudgetItemSelect
+          amount={amount}
+          budgetItemId={budgetItemId}
           details={details}
           onChange={onChange}
           onDetailChange={onDetailChange}
@@ -77,12 +80,12 @@ export default (props) => {
           />
           <CheckNumber
             onChange={onChange}
-            check_number={check_number || ""}
+            checkNumber={checkNumber || ""}
           />
         </div>
         <BudgetExclusion
           onChange={onChange}
-          budget_exclusion={budget_exclusion}
+          budgetExclusion={budgetExclusion}
           selectedAccount={selectedAccount}
         />
         <SubmitButton
