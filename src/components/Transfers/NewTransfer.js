@@ -19,7 +19,7 @@ const New = (props) => {
     post(
       ApiUrlBuilder(["transfers"]),
       JSON.stringify({
-        amount: (amount * 100),
+        amount: Math.round(amount * 100),
         to_account_id: to_account_id,
         from_account_id: from_account_id,
       }),
