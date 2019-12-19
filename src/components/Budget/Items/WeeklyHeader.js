@@ -28,7 +28,7 @@ const WeeklyHeader = (props) => {
   return (
     <div className="budget-group-header">
       <div className="title">
-        <h3>{titleize(copy.category.weekly)}</h3>
+        <h3>{titleize(`${copy.category.weekly} ${copy.item.items}`)}</h3>
       </div>
       <Link
         to="#"
