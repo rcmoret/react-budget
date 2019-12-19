@@ -7,7 +7,7 @@ const CancelButton = (props) => {
   const {
     id,
     dispatch,
-    label,
+    cancelLabel,
   } = props
 
   const cancel = (e) => {
@@ -27,7 +27,7 @@ const CancelButton = (props) => {
     return (
       <div className="category-button">
         <button type="cancel" className="cancel" onClick={cancel}>
-          {label}
+          {cancelLabel}
         </button>
       </div>
     )
@@ -35,7 +35,7 @@ const CancelButton = (props) => {
     return (
       <div className="category-button">
         <button type="cancel" className="cancel" onClick={toggleForm}>
-          {label}
+          {cancelLabel}
         </button>
       </div>
     )

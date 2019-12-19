@@ -22,6 +22,7 @@ import { Link } from "react-router-dom"
 const NewBudgetCategory = (props) => {
   const {
     addNew,
+    cancelButtonText,
     createButtonText,
   } = copy.category
 
@@ -76,6 +77,7 @@ const NewBudgetCategory = (props) => {
       <Form
         {...newCategory}
         expenseName="expense"
+        cancelLabel={titleize(cancelButtonText)}
         label={titleize(createButtonText)}
         monthlyName="monthly"
         onChange={onChange}
