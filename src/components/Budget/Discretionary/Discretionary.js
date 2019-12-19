@@ -35,7 +35,7 @@ const Discretionary = (props) => {
   }
 
   const descriptor = props.overUnderBudgetAmount > 0 ? aheadOfBudget : overBudget
-  const spentOrDeposited = titleize(props.overUnderBudgetAmount > 0 ? deposited : spent)
+  const spentOrDeposited = titleize(props.spent >= 0 ? deposited : spent)
   return (
     <div className="budget-item">
       <div className="wrapper">

@@ -14,8 +14,8 @@ export default (attributes) => {
   const deletable = transaction_count === 0
   const remaining = deletable ? amount : 0
   const overUnderBudget = (expense && difference > 0) || (!expense && difference < 0)
-  const overUnderBudgetAmount = overUnderBudget ? (-1 * difference) : 0
-  const matureAccrual = accrual && (maturity_month === month && maturity_year === year)
+  const overUnderBudgetAmount = !deletable ? (-1 * difference) : 0
+  const matureAccrual = accrual && maturity_month === month && maturity_year === year
 
   return {
     ...attributes,
