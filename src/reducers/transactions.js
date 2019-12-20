@@ -84,6 +84,14 @@ export default (state = initialState, action) => {
         ]
       }
     }
+  case "budget/categories/MATURITY_INTERVAL_CREATED":
+    return {
+      ...state,
+      budgetItems: {
+        ...state.budgetItems,
+        fetched: false
+      }
+    }
   case "transactions/CREATED":
     return helpers.createTransaction(action.payload, state)
   case "transactions/DELETED":
