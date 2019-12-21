@@ -174,6 +174,7 @@ export default (state = initialState, action) => {
   case "budget/categories/MATURITY_INTERVAL_CREATED":
     return {
       ...state,
+      itemsFetched: false,
       categories: {
         ...state.categories,
         collection: state.categories.collection.map(category => {
@@ -210,6 +211,7 @@ export default (state = initialState, action) => {
   case "budget/category/REMOVE_MATURITY_INTERVAL":
     return {
       ...state,
+      itemsFetched: false,
       maturityIntervals: state.maturityIntervals.filter(interval => interval.id !== action.payload.id)
     }
   case "budget/categories/RESET":
