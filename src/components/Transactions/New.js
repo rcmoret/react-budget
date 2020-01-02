@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { budget as copy } from "../../locales/copy"
 import { titleize } from "../../locales/functions"
 
-import { addSubtransactionToNew, created, resetNew, updateNew, updateNewSubtransaction } from "../../actions/transactions"
+import { addDetailToNew, created, resetNew, updateNew, updateNewDetail } from "../../actions/transactions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import MoneyFormatter from "../../functions/MoneyFormatter"
@@ -14,11 +14,11 @@ import Form from "./Form/Form"
 
 const New = (props) => {
   const { budgetOptions, dispatch, selectedAccount, transaction } = props
-  const { amount, subtransactions } = transaction
+  const { details } = transaction
 
-  const addSubtransaction = (e) => {
+  const addDetail = (e) => {
     e.preventDefault()
-    const action = addSubtransactionToNew()
+    const action = addDetailToNew()
     dispatch(action)
   }
 
@@ -35,42 +35,39 @@ const New = (props) => {
     dispatch(action)
   }
 
-  const onSubChange = (index, attributes) => {
-    const action = updateNewSubtransaction({ index: index, attributes: attributes })
+  const onDetailChange = (index, attributes) => {
+    const action = updateNewDetail({ index: index, attributes: attributes })
     dispatch(action)
   }
 
   const onSubmit = () => {
-    const subtransactions_attributes = subtransactions.map(sub => {
-      let adjusted = (parseFloat(sub.amount) || 0) * 100
-      return { ...sub, amount: adjusted }
+    const details_attributes = details.map(detail => {
+      let adjusted = (parseFloat(detail.amount) || 0) * 100
+      return { ...detail, amount: adjusted }
     })
-    const adjustedAmount = (parseFloat(amount) || 0) * 100
     const description = transaction.description === "" ? null : transaction.description
-    post(
-      ApiUrlBuilder(["accounts", selectedAccount.id, "transactions"]),
-      JSON.stringify({
-        ...transaction,
-        description: description,
-        amount: adjustedAmount,
-        subtransactions_attributes: subtransactions_attributes,
-      }),
-      (data) => {
-        dispatch(created(data))
-        dispatch(resetNew())
-      }
-    )
+    const url = ApiUrlBuilder(["accounts", selectedAccount.id, "transactions"])
+    const body = JSON.stringify({
+      ...transaction,
+      description: description,
+      details_attributes: details_attributes,
+    })
+    const onSuccess = (data) => {
+      dispatch(created(data))
+      dispatch(resetNew())
+    }
+    post(url, body, onSuccess)
   }
 
   return (
     <Form
       transaction={transaction}
-      addSubtransaction={addSubtransaction}
+      addDetail={addDetail}
       budgetOptions={budgetOptions}
       buttonText={props.buttonText}
       handleKeyDown={handleKeyDown}
       onChange={onChange}
-      onSubChange={onSubChange}
+      onDetailChange={onDetailChange}
       onSubmit={onSubmit}
       resetForm={resetForm}
       selectedAccount={selectedAccount}

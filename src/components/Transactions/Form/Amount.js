@@ -2,15 +2,11 @@ import React from "react"
 
 import { transaction as copy } from "../../../locales/copy"
 
-import SubtransactionAmount from "./SubtransactionAmount"
+import DetailAmount from "./DetailAmount"
 
-export default ({ amount, handleKeyDown, onChange, onSubChange, subtransactions }) => {
-  const update = (e) => {
-    onChange({ amount: e.target.value })
-  }
-
-  if (subtransactions.length > 0) {
-    const total = subtransactions.reduce((acc, sub) => acc + (parseFloat(sub.amount) || 0), 0)
+export default ({ details, handleKeyDown, onDetailChange }) => {
+  if (details.length > 1) {
+    const total = details.reduce((acc, detail) => acc + (parseFloat(detail.amount) || 0), 0)
     return (
       <div className="amount">
         <input
@@ -19,28 +15,31 @@ export default ({ amount, handleKeyDown, onChange, onSubChange, subtransactions 
           value={parseFloat(total).toFixed(2)}
           disabled={true}
         />
-        {subtransactions.map((sub, index) =>
-          <SubtransactionAmount
+        {details.map((detail, index) =>
+          <DetailAmount
             key={index}
-            _id={sub.id || index}
-            amount={sub.amount}
+            _id={detail.id || index}
+            amount={detail.amount}
             onKeyDown={handleKeyDown}
-            onSubChange={onSubChange}
+            onDetailChange={onDetailChange}
           />
         )}
       </div>
     )
   } else {
+    const detail = details[0]
+    const _id = detail._id || 0
+    const update = (e) => {
+      onDetailChange(_id, { amount: e.target.value })
+    }
+
     return (
       <div className="amount">
-        <input
-          type="text"
-          name="amount"
-          placeholder={copy.amount}
-          value={amount}
+        <input type="text"
+          name={`detail[${_id}][amount]`}
           onChange={update}
-          onKeyDown={handleKeyDown}
-          disabled={false}
+          placeholder={copy.amount}
+          value={detail.amount}
         />
       </div>
     )

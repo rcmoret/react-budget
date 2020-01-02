@@ -2,16 +2,16 @@ import React from "react"
 
 import { transaction as copy } from "../../../locales/copy"
 
-export default ({ _id, amount, onSubChange }) => {
+export default ({ _id, amount, onDetailChange }) => {
   const onChange = (e) => {
-    onSubChange(_id, { amount: e.target.value })
+    onDetailChange(_id, { amount: e.target.value })
   }
 
   return (
-    <div className="subtransaction">
+    <div className="detail">
       <input
         type="text"
-        name={`subtransaction[${_id}][amount]`}
+        name={`detail[${_id}][amount]`}
         onChange={onChange}
         placeholder={copy.amount}
         value={amount}

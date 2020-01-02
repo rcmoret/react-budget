@@ -103,14 +103,6 @@
   vertical-align: top;
 }
 
-.transaction-form .add-subtransactions {
-  margin-right: 2%;
-}
-
-.add-subtransactions {
-  width: 20%;
-}
-
 .transaction-form .transaction-submit {
   display: inline-block;
   vertical-align: top;
@@ -135,7 +127,7 @@
   margin-top: 10%;
 }
 
-.subtransaction {
+.detail {
   margin-top: 20.2px;
 }
 

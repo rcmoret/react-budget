@@ -1,6 +1,6 @@
 import React from "react"
 
-import AddSubtransactionLink from "./AddSubtransactionLink"
+import AddDetailLink from "./AddDetailLink"
 import Amounts from "./Amount"
 import BudgetExclusion from "./BudgetExclusion"
 import BudgetItemSelect from "./BudgetItemSelect"
@@ -13,12 +13,12 @@ import SubmitButton from "./Submit"
 
 export default (props) => {
   const {
-    addSubtransaction,
+    addDetail,
     budgetOptions,
     buttonText,
     handleKeyDown,
     onChange,
-    onSubChange,
+    onDetailChange,
     onSubmit,
     resetForm,
     selectedAccount,
@@ -28,12 +28,11 @@ export default (props) => {
   const {
     amount,
     budget_exclusion,
-    budget_item_id,
     check_number,
     clearance_date,
     description,
+    details,
     notes,
-    subtransactions
   } = transaction
 
   return (
@@ -55,23 +54,21 @@ export default (props) => {
           description={description}
           handleKeyDown={handleKeyDown}
           onChange={onChange}
-          onSubChange={onSubChange}
-          subtransactions={subtransactions}
+          details={details}
         />
         <Amounts
           amount={amount}
           handleKeyDown={handleKeyDown}
           onChange={onChange}
-          onSubChange={onSubChange}
-          subtransactions={subtransactions}
+          onDetailChange={onDetailChange}
+          details={details}
         />
         <BudgetItemSelect
           amount={amount}
-          budget_item_id={budget_item_id}
+          details={details}
           onChange={onChange}
-          onSubChange={onSubChange}
+          onDetailChange={onDetailChange}
           options={budgetOptions}
-          subtransactions={subtransactions}
         />
         <div className="additional-options">
           <Notes
@@ -94,9 +91,8 @@ export default (props) => {
           onSubmit={onSubmit}
         />
       </div>
-      <AddSubtransactionLink
-        subtransactions={subtransactions}
-        addSubtransaction={addSubtransaction}
+      <AddDetailLink
+        addDetail={addDetail}
       />
     </div>
   )

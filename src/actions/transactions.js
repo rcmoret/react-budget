@@ -1,7 +1,13 @@
-export const addSubtransactionToNew = () => {
-  return { type: "transactions/ADD_SUBTRANSACTION_TO_NEW", payload: null }
-}
+export const addDetailToEntry = (payload) => (
+  {
+    type: "transactions/ADD_DETAIL_TO_ENTRY",
+    payload: payload,
+  }
+)
 
+export const addDetailToNew = () => {
+  return { type: "transactions/ADD_DETAIL_TO_NEW", payload: null }
+}
 export const created = (payload) => {
   return { type: "transactions/CREATED", payload: payload }
 }
@@ -14,12 +20,12 @@ export const edit = (payload) => {
   return { type: "transactions/EDIT", payload: payload }
 }
 
-export const editProps = (payload) => {
-  return { type: "transactions/EDIT_PROPS", payload: payload }
+export const editDetailProps = (payload) => {
+  return { type: "transactions/EDIT_DETAIL_PROPS", payload: payload }
 }
 
-export const editSubProps = (payload) => {
-  return { type: "transactions/EDIT_SUB_PROPS", payload: payload }
+export const editProps = (payload) => {
+  return { type: "transactions/EDIT_PROPS", payload: payload }
 }
 
 export const fetchedTransactions = (response) => {
@@ -38,8 +44,8 @@ export const updateNew = (payload) => {
   return { type: "transactions/UPDATE_NEW", payload: payload }
 }
 
-export const updateNewSubtransaction = (payload) => {
-  return { type: "transactions/UPDATE_NEW_SUBTRANSACTION", payload: payload }
+export const updateNewDetail = (payload) => {
+  return { type: "transactions/UPDATE_NEW_DETAIL", payload: payload }
 }
 
 export const updated = (payload) => {

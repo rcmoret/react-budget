@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom"
 
 import { terms } from "../locales/terms"
 
-
 export default () => (
   <header>
     <h1>{terms.appName}</h1>

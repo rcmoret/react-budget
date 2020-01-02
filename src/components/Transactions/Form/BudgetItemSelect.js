@@ -8,20 +8,20 @@ import { fromDateString } from "../../../functions/DateFormatter"
 import { get } from "../../../functions/ApiClient"
 
 import Select from "react-select"
-import SubtransactionBudgetItemSelect from "./SubtransactionBudgetItemSelect"
+import DetailBudgetItemSelect from "./DetailBudgetItemSelect"
 
 const BudgetItemSelect = (props) => {
   const {
     amount,
     dateObject,
+    details,
     dispatch,
     emptyOption,
     fetched,
     month,
     onChange,
-    onSubChange,
+    onDetailChange,
     options,
-    subtransactions,
     value,
     year,
   } = props
@@ -39,7 +39,7 @@ const BudgetItemSelect = (props) => {
     }
   }
 
-  if (subtransactions.length > 0) {
+  if (details.length > 1) {
     return (
       <div className="budget-item-select">
         <Select
@@ -48,13 +48,13 @@ const BudgetItemSelect = (props) => {
           disabled={true}
           value={emptyOption}
         />
-        {subtransactions.map((sub, index) =>
-          <SubtransactionBudgetItemSelect
-            key={sub.id || index}
-            _id={sub.id || index}
-            onSubChange={onSubChange}
+        {details.map((detail, index) =>
+          <DetailBudgetItemSelect
+            key={detail._id || index}
+            _id={detail._id || index}
+            onDetailChange={onDetailChange}
             options={options}
-            {...sub}
+            {...detail}
           />
         )}
       </div>
@@ -77,10 +77,10 @@ const BudgetItemSelect = (props) => {
 const mapStateToProps = (state, ownProps) => {
   const { fetched, month, year } = state.transactions.budgetItems
   const dateObject = fromDateString(state.transactions.metadata.date_range[0], { format: "object" })
-  const { options } = ownProps
+  const { details, options } = ownProps
   const emptyOption = { label: "", value: null }
-  const budget_item_id = ownProps.budget_item_id || null
-  const value = options.find(opt => opt.value === budget_item_id) || emptyOption
+  const budgetItemId = details.length === 1 ? details[0].budget_item_id : null
+  const value = options.find(opt => opt.value === budgetItemId) || emptyOption
 
   return {
     dateObject: dateObject,

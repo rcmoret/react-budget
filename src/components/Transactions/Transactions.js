@@ -12,7 +12,8 @@ import { Link } from "react-router-dom"
 import Transaction from "./Show/Show"
 
 const Transactions = (props) => {
-  const { accountId,
+  const {
+    accountId,
     collection,
     endDate,
     initialTransaction,
@@ -89,7 +90,7 @@ const mapStateToProps = (state, ownProps) => {
     clearance_date: metadata.date_range[0],
     amount: null,
     description: "Balance",
-    subtransactions: [],
+    details: [],
   }
 
   const { month, year } = ownProps

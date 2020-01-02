@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { budget as budgetCopy, transaction as copy } from "../../locales/copy"
 import { titleize } from "../../locales/functions"
 
-import { edit, editProps, editSubProps, updated } from "../../actions/transactions"
+import { addDetailToEntry, edit, editDetailProps, editProps, updated } from "../../actions/transactions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import MoneyFormatter from "../../functions/MoneyFormatter"
@@ -14,7 +14,7 @@ import Form from "./Form/Form"
 
 const Edit = (props) => {
   const { budgetOptions, dispatch, transaction } = props
-  const { account_id, amount, id } = transaction
+  const { id, account_id, details } = transaction
 
   const handleKeyDown = (e) => {
     if (e.which !== 13) {
@@ -34,44 +34,47 @@ const Edit = (props) => {
     dispatch(action)
   }
 
-  const onSubChange = (subId, payload) => {
-    const action = editSubProps({ txnId: id, subId: subId, ...payload })
+  const onDetailChange = (detailId, payload) => {
+    const action = editDetailProps({ txnId: id, detailId: detailId, ...payload })
+    dispatch(action)
+  }
+
+  const addDetail = () => {
+    const action = addDetailToEntry({ id: id, detailId: details.length })
     dispatch(action)
   }
 
   const onSubmit = () => {
-    const adjustedAmount = Math.round((parseFloat(amount) || 0) * 100)
     const description = transaction.description === "" ? null : transaction.description
-    put(
-      ApiUrlBuilder(["accounts", account_id, "transactions", id]),
-      JSON.stringify({
-        ...transaction,
-        description: description,
-        amount: adjustedAmount,
-        subtransactions_attributes: transaction.subtransactions.map(sub => {
-          return {
-            ...sub,
-            ...sub.updatedProps,
-            amount: Math.round(parseFloat(sub.updatedProps.amount) * 100),
-          }
-        })
-      }),
-      (data) => dispatch(updated({
-        ...data,
-        showForm: false,
-        originalAmount: transaction.originalAmount
-      }))
-    )
+    const url = ApiUrlBuilder(["accounts", account_id, "transactions", id])
+    const body = JSON.stringify({
+      ...transaction,
+      description: description,
+      details_attributes: transaction.details.map(detail => (
+        {
+          ...detail,
+          ...detail.updatedProps,
+          amount: Math.round(parseFloat(detail.updatedProps.amount) * 100),
+        }
+      ))
+    })
+    const onSuccess = (data) => dispatch(updated({
+      ...data,
+      showForm: false,
+      originalAmount: transaction.originalAmount
+    }))
+    put(url, body, onSuccess)
   }
 
   if (transaction.showForm) {
     return (
       <Form
+        addDetail={addDetail}
         budgetOptions={budgetOptions}
         buttonText={titleize(copy.updateButtonText)}
         handleKeyDown={handleKeyDown}
         onChange={onChange}
-        onSubChange={onSubChange}
+        onDetailChange={onDetailChange}
         onSubmit={onSubmit}
         resetForm={resetForm}
         {...props}
@@ -88,14 +91,14 @@ const mapStateToProps = (state, ownProps) => {
     ...ownProps.updatedProps,
   }
 
-  const subtransactions = ownProps.subtransactions.map(sub => {
+  const details = ownProps.details.map(detail => {
     return {
-      ...sub,
-      amount: parseFloat(sub.amount / 100.0).toFixed(2),
-      ...sub.updatedProps,
+      ...detail,
+      amount: parseFloat(detail.amount / 100.0).toFixed(2),
+      ...detail.updatedProps,
       updatedProps: {
-        amount: parseFloat(sub.amount / 100.0).toFixed(2),
-        ...sub.updatedProps,
+        amount: parseFloat(detail.amount / 100.0).toFixed(2),
+        ...detail.updatedProps,
       }
     }
   })
@@ -117,7 +120,7 @@ const mapStateToProps = (state, ownProps) => {
     transaction: {
       ...ownProps,
       ...updatedProps,
-      subtransactions: subtransactions,
+      details: details,
       originalAmount: ownProps.amount,
     },
     budgetOptions: budgetOptions,

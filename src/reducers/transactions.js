@@ -1,7 +1,13 @@
 import objectifyMonthly from "../shared/models/monthlyBudgetItem"
+import objectifyTransaction from "../shared/models/transaction"
 import objectifyWeekly from "../shared/models/weeklyBudgetItem"
 import * as helpers from "./helpers/transactionHelpers"
 import { updateProps } from "./helpers/shared"
+
+const emptyDetail = {
+  amount: "",
+  budget_item_id: null,
+}
 
 const initialState = {
   metadata: {
@@ -15,19 +21,12 @@ const initialState = {
     fetched: false,
   },
   new: {
+    check_number: "",
     clearance_date: "",
     description: "",
-    amount: "",
-    check_number: "",
     showForm: false,
-    subtransactions: [],
+    details: [emptyDetail],
   },
-}
-
-const emptySubtransaction = {
-  description: "",
-  amount: "",
-  budget_item_id: null
 }
 
 export default (state = initialState, action) => {
@@ -64,28 +63,22 @@ export default (state = initialState, action) => {
     } else {
       return state
     }
-  case "transactions/ADD_SUBTRANSACTION_TO_NEW":
-    if (state.new.subtransactions.length > 0) {
-      return {
-        ...state,
-        new: {
-          ...state.new,
-          subtransactions: [
-            ...state.new.subtransactions,
-            emptySubtransaction
-          ]
-        }
-      }
-    } else {
-      return {
-        ...state,
-        new: {
-          ...state.new,
-          subtransactions: [
-            emptySubtransaction,
-            emptySubtransaction
-          ]
-        }
+  case "transactions/ADD_DETAIL_TO_ENTRY":
+    return {
+      ...state,
+      collection: state.collection.map(txn => {
+        return txn.id !== action.payload.id ? txn : { ...txn, details: [...txn.details, { ...emptyDetail, _id: action.payload.detailId }] }
+      })
+    }
+  case "transactions/ADD_DETAIL_TO_NEW":
+    return {
+      ...state,
+      new: {
+        ...state.new,
+        details: [
+          ...state.new.details,
+          emptyDetail,
+        ]
       }
     }
   case "transactions/CREATED":
@@ -107,18 +100,18 @@ export default (state = initialState, action) => {
       ...state,
       collection: updateProps(action.payload, state.collection)
     }
-  case "transactions/EDIT_SUB_PROPS":
+  case "transactions/EDIT_DETAIL_PROPS":
     return {
       ...state,
       collection: state.collection.map(txn => {
-        return txn.id === action.payload.txnId ? helpers.editSubProps(txn, action.payload) : txn
+        return txn.id === action.payload.txnId ? helpers.editDetailProps(txn, action.payload) : txn
       })
     }
   case "transactions/FETCHED":
     return {
       ...state,
       metadata: action.payload.metadata,
-      collection: action.payload.transactions,
+      collection: action.payload.transactions.map(txn => objectifyTransaction(txn)),
     }
   case "transactions/FETCHED_BUDGET_ITEMS":
     return {
@@ -145,8 +138,8 @@ export default (state = initialState, action) => {
         ...action.payload
       }
     }
-  case "transactions/UPDATE_NEW_SUBTRANSACTION":
-    return helpers.updateNewSubtransaction(action.payload, state)
+  case "transactions/UPDATE_NEW_DETAIL":
+    return helpers.updateNewDetail(action.payload, state)
   case "transactions/UPDATED":
     return helpers.updatedTransaction(action.payload, state)
   default:

@@ -1,16 +1,17 @@
 import { before, isInRange } from "../../functions/DateFormatter"
+import objectifyTransaction from "../../shared/models/transaction"
 
-export const editSubProps = (txn, newProps) => {
+export const editDetailProps = (txn, newProps) => {
   return {
     ...txn,
-    subtransactions: txn.subtransactions.map(sub => {
-      if (sub.id !== newProps.subId) {
-        return sub
+    details: txn.details.map(detail => {
+      if (detail._id !== newProps.detailId) {
+        return detail
       } else {
         return {
-          ...sub,
+          ...detail,
           updatedProps: {
-            ...sub.updatedProps,
+            ...detail.updatedProps,
             ...newProps,
           }
         }
@@ -70,7 +71,7 @@ const updatedCollection = (payload, state) => {
       if (txn.id !== payload.id) {
         return txn
       } else {
-        return {...txn, ...payload}
+        return objectifyTransaction({ ...txn, ...payload })
       }
     })
   } else {
@@ -78,18 +79,18 @@ const updatedCollection = (payload, state) => {
   }
 }
 
-export const updateNewSubtransaction = (payload, state) => {
-  const { subtransactions } = state.new
+export const updateNewDetail = (payload, state) => {
+  const { details } = state.new
   const { index, attributes } = payload
-  const updatedSubtransactions = subtransactions.map((sub, n) => {
-    return n === index ? { ...sub, ...attributes } : sub
+  const updatedDetails = details.map((detail, n) => {
+    return n === index ? { ...detail, ...attributes } : detail
   })
 
   return {
     ...state,
     new: {
       ...state.new,
-      subtransactions: updatedSubtransactions,
+      details: updatedDetails,
     }
   }
 }

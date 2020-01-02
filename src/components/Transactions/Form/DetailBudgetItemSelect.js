@@ -8,15 +8,15 @@ export default (props) => {
     amount,
     budget_category,
     budget_item_id,
+    onDetailChange,
     options,
-    onSubChange,
   } = props
 
   const onChange = (e) => {
     if (amount === "" && e.monthly) {
-      onSubChange(_id, { amount: e.amount, budget_item_id: e.value })
+      onDetailChange(_id, { amount: e.amount, budget_item_id: e.value })
     } else {
-      onSubChange(_id, { budget_item_id: e.value })
+      onDetailChange(_id, { budget_item_id: e.value })
     }
   }
   const value = options.find(option => option.value === budget_item_id)
@@ -24,7 +24,7 @@ export default (props) => {
   const selectedValue = value || fallbackValue
 
   return (
-    <div className="subtransaction-budget-item-select">
+    <div className="detail-budget-item-select">
       <Select
         options={options}
         value={selectedValue}
