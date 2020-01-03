@@ -109,7 +109,7 @@ const updateBalance = (payload, collection) => {
 
 const updateAfterTransferCreate = (payload, collection) => {
   const { from_transaction, to_transaction } = payload
-  const { amount } = to_transaction
+  const { amount } = objectifyTransaction(to_transaction)
   return collection.map(acct => {
     if (from_transaction.account_id === acct.id) {
       return { ...acct, balance: (acct.balance - amount) }

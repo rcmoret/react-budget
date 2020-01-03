@@ -1,3 +1,5 @@
+import objectifyTransaction from "../shared/models/transaction"
+
 const initialNew = {
   to_account_id: null,
   from_account_id: null,
@@ -17,12 +19,20 @@ const initialState = {
   newTransfer: initialNew,
 }
 
+const objectifyTransfer = (transfer) => (
+  {
+    ...transfer,
+    to_transaction: objectifyTransaction(transfer.to_transaction),
+    from_transaction: objectifyTransaction(transfer.from_transaction),
+  }
+)
+
 export default (state = initialState, action) => {
   switch(action.type) {
   case "transfers/CREATED":
     return {
       ...state,
-      collection: [...state.collection, action.payload],
+      collection: [...state.collection, objectifyTransfer(action.payload)],
       metadata: {
         ...state.metadata,
         total: (state.metadata.total + 1),
@@ -43,7 +53,9 @@ export default (state = initialState, action) => {
   case "transfers/FETCHED":
     return {
       ...state,
-      collection: action.payload.transfers,
+      collection: action.payload.transfers.map(transfer => (
+        objectifyTransfer(transfer)
+      )),
       fetchedTransfers: true,
       metadata: {
         ...state.metadata,
