@@ -1,4 +1,5 @@
 import { update, updated, updateProps } from "./helpers/shared"
+import objectifyTransaction from "../shared/models/transaction"
 
 const initialState = {
   collection: [],
@@ -59,7 +60,7 @@ export default (state = initialState, action) => {
   case "transactions/CREATED":
     return {
       ...state,
-      collection: updateBalance(action.payload, state.collection),
+      collection: updateBalance(objectifyTransaction(action.payload), state.collection),
     }
   case "transactions/DELETED":
     return {
@@ -75,7 +76,7 @@ export default (state = initialState, action) => {
         } else {
           return {
             ...acct,
-            balance: (acct.balance + action.payload.amount - action.payload.originalAmount),
+            balance: (acct.balance + objectifyTransaction(action.payload).amount - action.payload.originalAmount),
           }
         }
       })

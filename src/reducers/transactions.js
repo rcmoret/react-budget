@@ -21,6 +21,7 @@ const initialState = {
     fetched: false,
   },
   new: {
+    id: null,
     check_number: "",
     clearance_date: "",
     description: "",

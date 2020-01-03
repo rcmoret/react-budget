@@ -12,31 +12,21 @@ import DetailBudgetItemSelect from "./DetailBudgetItemSelect"
 
 const BudgetItemSelect = (props) => {
   const {
-    amount,
     dateObject,
+    primaryDetail,
     details,
     dispatch,
     emptyOption,
     fetched,
     month,
-    onChange,
     onDetailChange,
     options,
-    value,
     year,
   } = props
 
   if (!(fetched && month === dateObject.month && year === dateObject.year)) {
     const url = ApiUrlBuilder(["budget", "items"], { ...dateObject })
     get(url, data => dispatch(fetchedBudgetItems(data)))
-  }
-
-  const updateSelect = (e) => {
-    if (amount === "" && e.monthly) {
-      onChange({ budget_item_id: e.value, amount: e.amount })
-    } else {
-      onChange({ budget_item_id: e.value })
-    }
   }
 
   if (details.length > 1) {
@@ -61,13 +51,12 @@ const BudgetItemSelect = (props) => {
     )
   } else {
     return (
-      <div className='budget-item-select'>
-        <Select
+      <div className="budget-item-select">
+        <DetailBudgetItemSelect
+          _id={primaryDetail._id || 0}
+          onDetailChange={onDetailChange}
           options={options}
-          className="budget-item-select-container"
-          classNamePrefix="budget-item-select"
-          onChange={updateSelect}
-          value={value}
+          {...primaryDetail}
         />
       </div>
     )
@@ -78,12 +67,14 @@ const mapStateToProps = (state, ownProps) => {
   const { fetched, month, year } = state.transactions.budgetItems
   const dateObject = fromDateString(state.transactions.metadata.date_range[0], { format: "object" })
   const { details, options } = ownProps
+  const primaryDetail = details.length === 1 ? details[0] : null
   const emptyOption = { label: "", value: null }
   const budgetItemId = details.length === 1 ? details[0].budget_item_id : null
   const value = options.find(opt => opt.value === budgetItemId) || emptyOption
 
   return {
     dateObject: dateObject,
+    primaryDetail: primaryDetail,
     emptyOption: emptyOption,
     fetched: fetched,
     month: month,

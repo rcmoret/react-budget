@@ -4,7 +4,7 @@ import { transaction as copy } from "../../../locales/copy"
 import { titleize } from "../../../locales/functions"
 
 export default ({ budget_exclusion, onChange, selectedAccount }) => {
-  const update = (e) => {
+  const update = () => {
     onChange({ budget_exclusion: !budget_exclusion })
   }
 
@@ -19,7 +19,7 @@ export default ({ budget_exclusion, onChange, selectedAccount }) => {
         <div className="input">
           <input
             type="checkbox"
-            value={budget_exclusion}
+            value={budget_exclusion || false}
             onChange={update}
             checked={budget_exclusion ? "checked" : ""}
           />

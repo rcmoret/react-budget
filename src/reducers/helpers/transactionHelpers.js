@@ -25,8 +25,9 @@ export const createTransaction = (payload, state) => {
   const { include_pending } = state.metadata.query_options
   const { prior_balance, date_range } = state.metadata
   const inRange = isInRange(clearance_date, date_range)
-  const collection = ((include_pending && clearance_date === null) || inRange) ? [...state.collection, payload] : state.collection
-  const newPrior = before(clearance_date, date_range[0]) ? (prior_balance + payload.amount) : prior_balance
+  const newTxn = objectifyTransaction(payload)
+  const collection = ((include_pending && clearance_date === null) || inRange) ? [...state.collection, newTxn] : state.collection
+  const newPrior = before(clearance_date, date_range[0]) ? (prior_balance + newTxn.amount) : prior_balance
   return {
     ...state,
     metadata: {
@@ -44,8 +45,9 @@ export const createTransaction = (payload, state) => {
 export const updatedTransaction = (payload, state) => {
   const { clearance_date } = payload
   const { prior_balance, date_range } = state.metadata
-  const collection = updatedCollection(payload, state)
-  const newPrior = before(clearance_date, date_range[0]) ? (prior_balance + payload.amount) : prior_balance
+  const newTxn = objectifyTransaction(payload)
+  const collection = updatedCollection(newTxn, state)
+  const newPrior = before(clearance_date, date_range[0]) ? (prior_balance + newTxn.amount) : prior_balance
   return {
     ...state,
     metadata: {
@@ -71,7 +73,7 @@ const updatedCollection = (payload, state) => {
       if (txn.id !== payload.id) {
         return txn
       } else {
-        return objectifyTransaction({ ...txn, ...payload })
+        return { ...txn, ...payload }
       }
     })
   } else {

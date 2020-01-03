@@ -64,7 +64,6 @@ export default (props) => {
           details={details}
         />
         <BudgetItemSelect
-          amount={amount}
           details={details}
           onChange={onChange}
           onDetailChange={onDetailChange}
