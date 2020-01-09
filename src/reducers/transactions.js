@@ -143,6 +143,10 @@ export default (state = initialState, action) => {
     return helpers.updateNewDetail(action.payload, state)
   case "transactions/UPDATED":
     return helpers.updatedTransaction(action.payload, state)
+  case "transfers/CREATED":
+    return helpers.transferCreated(action.payload, state)
+  case "transfers/DELETED":
+    return helpers.transferDeleted(action.payload, state)
   default:
     return state
   }

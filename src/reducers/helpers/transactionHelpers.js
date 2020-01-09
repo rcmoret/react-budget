@@ -96,3 +96,30 @@ export const updateNewDetail = (payload, state) => {
     }
   }
 }
+
+export const transferCreated = (payload, state) => {
+  const selectedAccountId = state.metadata.query_options.account_id
+  const toTransaction = payload.to_transaction
+  const fromTransaction = payload.from_transaction
+  const toAccountId = toTransaction.account_id
+  const fromAccountId = fromTransaction.account_id
+
+  if (selectedAccountId === undefined) {
+    return state
+  } else if (toAccountId === parseInt(selectedAccountId)) {
+    return createTransaction(toTransaction, state)
+  } else if (fromAccountId === parseInt(selectedAccountId)) {
+    return createTransaction(fromTransaction, state)
+  } else {
+    return state
+  }
+}
+
+export const transferDeleted = (payload, state) => {
+  const transferId = payload.id
+
+  return {
+    ...state,
+    collection: state.collection.filter(txn => txn.transfer_id !== transferId)
+  }
+}
