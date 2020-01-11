@@ -134,6 +134,7 @@ export default (state = initialState, action) => {
       ...state,
       categories: {
         ...state.categories,
+        showForm: false,
         collection: [
           ...state.categories.collection,
           { ...action.payload, isNew: true }
