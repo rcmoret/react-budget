@@ -136,7 +136,7 @@ export default (state = initialState, action) => {
         ...state.categories,
         collection: [
           ...state.categories.collection,
-          action.payload
+          { ...action.payload, isNew: true }
         ]
       }
     }

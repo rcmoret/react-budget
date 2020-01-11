@@ -77,7 +77,15 @@ const mapStateToProps = (state) => {
     }
   }
   const sortBy = (a, b) => {
-    if (searchTerm === "") { return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1 }
+    if (searchTerm === "") {
+      if (a.isNew && !b.isNew) {
+        return -1
+      } else if (!a.isNew && b.isNew) {
+        return 1
+      } else {
+        return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
+      }
+    }
     const strictExp = new RegExp(`^${searchTerm}.*`, "i")
     const looseExp = new RegExp(`(^|\\s)${searchTerm}.*`, "i")
     if (a.name.match(strictExp) && b.name.match(strictExp)) {
