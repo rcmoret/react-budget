@@ -24,3 +24,4 @@ yarn-error.log*
 
 /src/constants/Api.js
 /src/locales/overrides/*.js
+/src/functions/ApolloClient.js
