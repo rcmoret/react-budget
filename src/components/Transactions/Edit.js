@@ -14,7 +14,7 @@ import Form from "./Form/Form"
 
 const Edit = (props) => {
   const { budgetOptions, dispatch, transaction } = props
-  const { id, accountId, amount, details } = transaction
+  const { id, accountId, details } = transaction
 
   const handleKeyDown = (e) => {
     if (e.which !== 13) {
