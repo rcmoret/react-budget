@@ -4,8 +4,8 @@ import { connect } from "react-redux"
 import { baseMonthFetched, newMonthFetched } from "../../../actions/budget"
 import { categoriesFetched as fetched } from "../../../actions/budget/categories"
 
-import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
-import { get } from "../../../functions/RestApiClient"
+import { getCategories } from "../Categories/graphqlQueries"
+import { getItems } from "../Items/graphqlQueries"
 
 import { Redirect } from "react-router"
 
@@ -22,22 +22,30 @@ const Intro = (props) => {
   const { month, year } = newMonth
 
   if (!categoriesFetched) {
-    const url = ApiUrlBuilder(["budget/categories"])
-    get(url, data => dispatch(fetched(data)))
+    const action = (categories) => dispatch(fetched(categories))
+    getCategories(result => action(result.data.budgetCategories))
     return null
   }
 
   if (categoriesFetched && !newMonth.isFetched) {
-    const url = ApiUrlBuilder(["budget/items"], { month: targetMonth, year: targetYear })
-    get(url, data => dispatch(newMonthFetched(data)))
+    const action = (data) => dispatch(newMonthFetched(data))
+    getItems({
+      month: targetMonth,
+      year: targetYear,
+      onSuccess: (result) => action(result.data.budgetItems)
+    })
     return null
   }
 
   if (categoriesFetched && newMonth.isFetched && !baseMonth.isFetched) {
     const month = targetMonth === 1 ? 12 : (targetMonth - 1)
     const year = targetMonth === 1 ? (targetYear - 1) : targetYear
-    const url = ApiUrlBuilder(["budget/items"], { month: month, year: year })
-    get(url, data => dispatch(baseMonthFetched(data)))
+    const action = (data) => dispatch(baseMonthFetched(data))
+    getItems({
+      month: month,
+      year: year,
+      onSuccess: (result) => action(result.data.budgetItems)
+    })
     return null
   }
 
