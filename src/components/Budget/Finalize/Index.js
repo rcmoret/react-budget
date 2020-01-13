@@ -1,9 +1,8 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { isToday } from "../../../functions/DateFormatter"
-import { get } from "../../../functions/RestApiClient"
+import { getItems } from "../Items/graphqlQueries"
 import { baseMonthFetch, nextMonthFetch } from "../actions/finalize"
 
 import Header from "./Header"
@@ -29,17 +28,21 @@ const Index = (props) => {
   }
 
   if (!baseMonthFetched) {
-    get(
-      ApiUrlBuilder(["budget/items"], { month: month, year: year }),
-      data => dispatch(baseMonthFetch(data))
-    )
+    const action = data => dispatch(baseMonthFetch(data))
+    getItems({
+      month: month,
+      year: year,
+      onSuccess: (result) => action(result.data.budgetItems)
+    })
   }
 
   if (baseMonthFetched && !nextMonthFetched) {
-    get(
-      ApiUrlBuilder(["budget/items"], { month: nextMonth, year: nextYear }),
-      data => dispatch(nextMonthFetch(data))
-    )
+    const action = data => dispatch(nextMonthFetch(data))
+    getItems({
+      month: nextMonth,
+      year: nextYear,
+      onSuccess: (result) => action(result.data.budgetItems)
+    })
   }
 
   if (!baseMonthFetched || !nextMonthFetched) {
