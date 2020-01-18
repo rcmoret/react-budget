@@ -12,27 +12,27 @@ export const getTransactions = (args) => {
   client.query({
     query: gql(`
       {
-        transactions(accountId: ${accountId}, year: ${year}, month: ${month}) {
+        transactions(account_id: ${accountId}, year: ${year}, month: ${month}) {
           metadata {
-            accountId
-            dateRange
-            includePending
+            accountId: account_id
+            dateRange: date_range
+            includePending: include_pending
             month
-            priorBalance
+            priorBalance: prior_balance
             year
           }
           collection {
             id
-            accountId
-            budgetExclusion
-            checkNumber
-            clearanceDate
+            accountId: account_id
+            budgetExclusion: budget_exclusion
+            checkNumber: check_number
+            clearanceDate: clearance_date
             description
             details {
               amount
-              budgetCategory
-              budgetItemId
-              iconClassName
+              budgetCategory: budget_category
+              budgetItemId: budget_item_id
+              iconClassName: icon_class_name
             }
             notes
           }

@@ -122,7 +122,7 @@ export default (state = initialState, action) => {
     return {
       ...state,
       metadata: action.payload.metadata,
-      collection: action.payload.transactions.map(txn => objectifyTransaction(txn)),
+      collection: action.payload.collection.map(txn => objectifyTransaction(txn)),
     }
   case "transactions/FETCHED_BUDGET_ITEMS":
     return {
