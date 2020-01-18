@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 
 import { resetAccount, update, updated, updateProps } from "./actions"
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import JsonBody from "../../functions/JsonBody"
 import { put } from "../../functions/RestApiClient"
 
 import Form from "./Form/Form"
@@ -45,14 +46,13 @@ const Edit = (props) => {
   }
 
   const submitForm = () => {
-    put(
-      ApiUrlBuilder(["accounts", id]),
-      JSON.stringify(updatedProps),
-      (data) => {
-        dispatch(updated(data))
-        dispatch(update({ id: id, showForm: false }))
-      }
-    )
+    const url = ApiUrlBuilder(["accounts", id])
+    const body = JsonBody("account", { payload: updatedProps })
+    const onSuccess = (data) => {
+      dispatch(updated(data))
+      dispatch(update({ id: id, showForm: false }))
+    }
+    put(url, body, onSuccess)
   }
 
   return (

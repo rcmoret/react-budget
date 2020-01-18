@@ -10,7 +10,7 @@ export const getAccounts = (onSuccess) => {
           name
           priority
           balance
-          cashFlow
+          cashFlow: cash_flow
         }
       }
     `)

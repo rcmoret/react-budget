@@ -12,6 +12,7 @@ import {
 } from "../../../actions/budget/categories"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import JsonBody from "../../../functions/JsonBody"
 import { post } from "../../../functions/RestApiClient"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
 
@@ -44,10 +45,10 @@ const NewBudgetCategory = (props) => {
 
   const onSubmit = () => {
     const url = ApiUrlBuilder(["budget/categories"])
-    const body = JSON.stringify({
+    const body = JsonBody("budgetCategory", { payload: {
       ...newCategory,
       defaultAmount: decimalToInt(newCategory.defaultAmount),
-    })
+    }})
     const dispatches = (data) => {
       const createdAction = created(data)
       dispatch(createdAction)

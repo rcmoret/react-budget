@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 
 import { created, resetForm, toggleShowNewForm, updateNew } from "./actions"
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import JsonBody from "../../functions/JsonBody"
 import { post } from "../../functions/RestApiClient"
 
 import Icon from "../Icons/Icon"
@@ -46,14 +47,13 @@ const New = (props) => {
   }
 
   const submitForm = () => {
-    post(
-      ApiUrlBuilder(["accounts"]),
-      JSON.stringify({ name: name, priority: priority, cashFlow: cashFlow }),
-      (data) => {
-        dispatch(created(data))
-        dispatch(resetForm())
-      }
-    )
+    const url = ApiUrlBuilder(["accounts"])
+    const body = JsonBody("account", { payload: { name: name, priority: priority, cashFlow: cashFlow } })
+    const onSuccess = (data) => {
+      dispatch(created(data))
+      dispatch(resetForm())
+    }
+    post(url, body, onSuccess)
   }
 
   if (showNewForm) {

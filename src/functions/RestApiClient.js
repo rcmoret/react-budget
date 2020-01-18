@@ -1,7 +1,7 @@
-export const get = (url, onSuccess, onFailure) => {
-  fetch(url)
-    .then(response => responseHandler(response, onSuccess, onFailure))
-}
+// export const get = (url, onSuccess, onFailure) => {
+//   fetch(url)
+//     .then(response => responseHandler(response, onSuccess, onFailure))
+// }
 
 export const post = (url, body, onSuccess, onFailure) => {
   call(url, "POST", body, onSuccess, onFailure)

@@ -10,6 +10,7 @@ import {
   updateProps,
 } from "../../../actions/budget/categories"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import JsonBody from "../../../functions/JsonBody"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
 import { put } from "../../../functions/RestApiClient"
 
@@ -55,7 +56,8 @@ const Edit = (props) => {
 
   const onSubmit = () => {
     const url = ApiUrlBuilder(["budget", "categories", id])
-    const body = JSON.stringify(putBody())
+    const attrs = putBody()
+    const body = JsonBody("budgetCategory", { payload: attrs })
     const onSuccess = (data) => dispatch(updated({ ...data, showForm: false }))
     const onFailure = (data) => dispatch(applyErrorsOnEdit({ id: id, ...data }))
     put(url, body, onSuccess, onFailure)
