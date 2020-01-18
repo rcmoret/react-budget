@@ -5,15 +5,15 @@ export const getCategories = (onSuccess) => {
   client.query({
     query: gql(`
       {
-        budgetCategories {
+        budgetCategories: budget_categories {
           id
           name
-          defaultAmount
+          defaultAmount: default_amount
           expense
           monthly
           accrual
-          iconClassName
-          iconId
+          iconClassName: icon_class_name
+          iconId: icon_id
         }
       }
     `)

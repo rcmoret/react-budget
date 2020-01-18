@@ -8,7 +8,7 @@ export const getIcons = (onSuccess) => {
         icons {
           id
           name
-          className
+          className: class_name
         }
       }
     `)

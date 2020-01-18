@@ -9,8 +9,7 @@ import {
 } from "../../../../actions/budget/categories"
 
 import * as DateFunctions from "../../../../functions/DateFormatter"
-import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
-import { get } from "../../../../functions/RestApiClient"
+import { getMaturityIntervals } from "./graphqlQueries"
 import GroupBy from "../../../../functions/GroupBy"
 
 import Icon from "../../../Icons/Icon"
@@ -31,13 +30,13 @@ const MaturityInfo = (props) => {
   } = props
 
   if (!maturityIntervalsFetched && showMaturityIntervals) {
-    const url = ApiUrlBuilder(["budget/categories", id, "maturity_intervals"])
-    get(url, data => dispatch(
+    const onSuccess = data => dispatch(
       accrualMaturityIntervalsFetched({
         id: id,
         collection: data,
       })
-    ))
+    )
+    getMaturityIntervals(id, (result) => onSuccess(result.data.budgetCategory.maturityIntervals))
   }
 
   const fetchMaturityIntervals = () => {
@@ -131,7 +130,7 @@ const MaturityIntervalByYear = ({ collection, dispatch, year }) => (
 )
 
 const mapStateToProps = ((state, ownProps) => {
-  const filterFn = (interval) => interval.category_id === ownProps.id
+  const filterFn = (interval) => interval.categoryId === ownProps.id
   const sortFn = (a, b) => {
     if (a.year < b.year) {
       return -1
