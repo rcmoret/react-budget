@@ -8,7 +8,8 @@ import { fetched as acctFetched } from "../../Accounts/actions"
 import { markIntervalClosed, updateSelectedFromAccountId, updateSelectedToAccountId } from "../actions/finalize"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
-import { get, put } from "../../../functions/RestApiClient"
+import { getAccounts } from "../../Accounts/graphqlQueries"
+import { put } from "../../../functions/RestApiClient"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 import Submit from "./Submit"
@@ -52,9 +53,8 @@ const Finish = (props) => {
     put(url, body, () => dispatch(markIntervalClosed))
     return null
   } else if (!accountsFetched) {
-    const url = ApiUrlBuilder(["accounts"])
     const onSuccess = data => dispatch(acctFetched(data))
-    get(url, onSuccess)
+    getAccounts(result => onSuccess(result.data.accounts))
     return null
   } else {
     return (
