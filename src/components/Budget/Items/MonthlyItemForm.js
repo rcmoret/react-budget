@@ -76,6 +76,7 @@ const MonthlyItemForm = (props) => {
         <div className="select-wrapper">
           <Select
             value={value}
+            placeholder="Category"
             options={options}
             onChange={onCategoryChange}
             className="budget-category-select-container"

@@ -42,7 +42,7 @@ const New = (props) => {
 
   const onSubmit = () => {
     const details_attributes = details.map(detail => {
-      let adjusted = (parseFloat(detail.amount) || 0) * 100
+      let adjusted = Math.round((parseFloat(detail.amount) || 0) * 100)
       return { ...detail, amount: adjusted }
     })
     const description = transaction.description === "" ? null : transaction.description
