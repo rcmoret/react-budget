@@ -58,4 +58,27 @@ const WeeklyDetail = (props) => {
   )
 }
 
-export default connect((_state, ownProps) => ownProps)(WeeklyDetail)
+const mapStateToProps = (_state, ownProps) => {
+  const date = new Date()
+  const today = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0,10)
+
+  const collection = ownProps.collection.sort((a, b) => {
+    if (a.clearance_date === b.clearance_date) {
+      return 0
+    } else if (a.clearance_date === null) {
+      return b.clearance_date > today ? -1 : 1
+    } else if (b.clearance_date === null) {
+      return a.clearance_date > today ? 1 : -1
+    } else {
+      // equailty is handled above
+      return (a.clearance_date > b.clearance_date) ? 1 : -1
+    }
+  })
+
+  return {
+    ...ownProps,
+    collection: collection
+  }
+}
+
+export default connect(mapStateToProps)(WeeklyDetail)
