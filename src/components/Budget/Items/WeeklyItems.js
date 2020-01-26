@@ -12,7 +12,7 @@ const WeeklyItems = (props) => (
   <div className="weekly-items">
     <WeeklyHeader />
     <div className="budget-group">
-      <h4>Discretionary</h4>
+      <h4>{titleize(copy.discretionary.title)}</h4>
       <Discretionary />
     </div>
     <WeeklyGroup
