@@ -64,6 +64,22 @@ export default (state = initialState, action) => {
     } else {
       return state
     }
+  case "budget/UPDATE_MONTHLY_ITEM":
+    return {
+      ...state,
+      budgetItems: {
+        ...state.budgetItems,
+        fetched: false
+      }
+    }
+  case "budget/UPDATE_WEEKLY_ITEM":
+    return {
+      ...state,
+      budgetItems: {
+        ...state.budgetItems,
+        fetched: false
+      }
+    }
   case "transactions/ADD_DETAIL_TO_ENTRY":
     return {
       ...state,
