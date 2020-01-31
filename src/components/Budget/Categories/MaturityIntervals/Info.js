@@ -32,12 +32,14 @@ const MaturityInfo = (props) => {
 
   if (!maturityIntervalsFetched && showMaturityIntervals) {
     const url = ApiUrlBuilder(["budget/categories", id, "maturity_intervals"])
-    get(url, data => dispatch(
+    const onSuccess = data => dispatch(
       accrualMaturityIntervalsFetched({
         id: id,
         collection: data,
       })
-    ))
+    )
+    const onFailure = data => console.log(data)
+    get(url, onSuccess, onFailure)
   }
 
   const fetchMaturityIntervals = () => {

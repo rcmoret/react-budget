@@ -19,7 +19,9 @@ const Index = (props) => {
 
   if (!collectionFetched) {
     const url = ApiUrlBuilder(["icons"])
-    get(url, data => dispatch(fetched(data)))
+    const onSuccess = data => dispatch(fetched(data))
+    const onFailure = data => console.log(data)
+    get(url, onSuccess, onFailure)
   }
 
   return (

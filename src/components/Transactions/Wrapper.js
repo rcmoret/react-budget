@@ -27,7 +27,9 @@ const Wrapper = (props) => {
     const url = ApiUrlBuilder(
       ["accounts", urlAccountId, "transactions"], { month: urlMonth, year: urlYear }
     )
-    get(url, data => dispatch(fetchedTransactions(data)))
+    const onSuccess = data => dispatch(fetchedTransactions(data))
+    const onFailure = data => console.log(data)
+    get(url, onSuccess, onFailure)
   }
 
   return (

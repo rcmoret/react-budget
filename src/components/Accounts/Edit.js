@@ -45,14 +45,14 @@ const Edit = (props) => {
   }
 
   const submitForm = () => {
-    put(
-      ApiUrlBuilder(["accounts", id]),
-      JSON.stringify(updatedProps),
-      (data) => {
-        dispatch(updated(data))
-        dispatch(update({ id: id, showForm: false }))
-      }
-    )
+    const url = ApiUrlBuilder(["accounts", id])
+    const body = JSON.stringify(updatedProps)
+    const onSuccess = data => {
+      dispatch(updated(data))
+      dispatch(update({ id: id, showForm: false }))
+    }
+    const onFailure = data => console.log({ body: body, data: data })
+    put(url, body, onSuccess, onFailure)
   }
 
   return (

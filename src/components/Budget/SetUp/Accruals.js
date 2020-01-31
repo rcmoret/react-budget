@@ -80,11 +80,11 @@ const SubmitButton = ({ collection, dispatch, month, year }) => {
 
   const submit = (item) => {
     const amount = item.updatedProps ? decimalToInt(item.updatedProps.amount) : item.defaultAmount
-    post(
-      ApiUrlBuilder(["budget/categories", item.budget_category_id, "items"]),
-      JSON.stringify({ amount: amount, month: month, year: year }),
-      (data) => dispatch(addItem(data))
-    )
+    const url = ApiUrlBuilder(["budget/categories", item.budget_category_id, "items"])
+    const body = JSON.stringify({ amount: amount, month: month, year: year })
+    const onSuccess = data => dispatch(addItem(data))
+    const onFailure = data => console.log({ body: body, data: data })
+    post(url, body, onSuccess, onFailure)
   }
 
   const submitAccruals = async () => {

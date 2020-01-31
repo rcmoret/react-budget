@@ -13,11 +13,11 @@ import { put } from "../../../functions/ApiClient"
 
 export default ({ collection, dispatch }) => {
   const submit = ({ id, amount, budget_category_id }) => {
-    put(
-      ApiUrlBuilder(["budget/categories", budget_category_id, "items", id]),
-      JSON.stringify({ amount: amount }),
-      (data) => dispatch(updateFinalizeItem(data))
-    )
+    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items", id])
+    const body =  JSON.stringify({ amount: amount })
+    const onSuccess = data => dispatch(updateFinalizeItem(data))
+    const onFailure = data => console.log({ body: body, data: data })
+    put(url, body, onSuccess, onFailure)
   }
 
   const amountFor = (item) => {

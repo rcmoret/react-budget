@@ -23,13 +23,17 @@ const Intro = (props) => {
 
   if (!categoriesFetched) {
     const url = ApiUrlBuilder(["budget/categories"])
-    get(url, data => dispatch(fetched(data)))
+    const onSuccess = data => dispatch(fetched(data))
+    const onFailure = data => console.log(data)
+    get(url, onSuccess, onFailure)
     return null
   }
 
   if (categoriesFetched && !newMonth.isFetched) {
     const url = ApiUrlBuilder(["budget/items"], { month: targetMonth, year: targetYear })
-    get(url, data => dispatch(newMonthFetched(data)))
+    const onSuccess = data => dispatch(newMonthFetched(data))
+    const onFailure = data => console.log(data)
+    get(url, onSuccess, onFailure)
     return null
   }
 
@@ -37,7 +41,9 @@ const Intro = (props) => {
     const month = targetMonth === 1 ? 12 : (targetMonth - 1)
     const year = targetMonth === 1 ? (targetYear - 1) : targetYear
     const url = ApiUrlBuilder(["budget/items"], { month: month, year: year })
-    get(url, data => dispatch(baseMonthFetched(data)))
+    const onSuccess = data => dispatch(baseMonthFetched(data))
+    const onFailure = data => console.log(data)
+    get(url, onSuccess, onFailure)
     return null
   }
 

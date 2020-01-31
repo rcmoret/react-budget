@@ -17,11 +17,11 @@ const Finalize = ({ dispatch, month, setUpCompletedAt, year }) => {
 
   const markComplete = (e) => {
     e.preventDefault()
-    put(
-      ApiUrlBuilder(["intervals", month, year]),
-      JSON.stringify({ set_up_completed_at: new Date() }),
-      (data) => dispatch(updateMetadata(data))
-    )
+    const url = ApiUrlBuilder(["intervals", month, year])
+    const body = JSON.stringify({ set_up_completed_at: new Date() })
+    const onSuccess = data => dispatch(updateMetadata(data))
+    const onFailure = data => console.log({ body: body, data: data })
+    put(url, body, onSuccess, onFailure)
   }
 
   if (!setUpCompletedAt) {

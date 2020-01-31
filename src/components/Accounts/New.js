@@ -46,14 +46,14 @@ const New = (props) => {
   }
 
   const submitForm = () => {
-    post(
-      ApiUrlBuilder(["accounts"]),
-      JSON.stringify({ name: name, priority: priority, cash_flow: cash_flow }),
-      (data) => {
-        dispatch(created(data))
-        dispatch(resetForm())
-      }
-    )
+    const url = ApiUrlBuilder(["accounts"])
+    const body = JSON.stringify({ name: name, priority: priority, cash_flow: cash_flow })
+    const onSuccess = (data) => {
+      dispatch(created(data))
+      dispatch(resetForm())
+    }
+    const onFailure = data => console.log({ body: body, data: data })
+    post(url, body, onSuccess, onFailure)
   }
 
   if (showNewForm) {

@@ -56,7 +56,8 @@ const New = (props) => {
       dispatch(created(data))
       dispatch(resetNew())
     }
-    post(url, body, onSuccess)
+    const onFailure = data => console.log({ body: body, data: data })
+    post(url, body, onSuccess, onFailure)
   }
 
   return (

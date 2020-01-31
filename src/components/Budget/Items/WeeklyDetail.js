@@ -36,8 +36,9 @@ const WeeklyDetail = (props) => {
       id: id,
       collection: data
     }))
+    const onFailure = data => console.log(data)
 
-    get(url, onSuccess)
+    get(url, onSuccess, onFailure)
   }
 
   return (

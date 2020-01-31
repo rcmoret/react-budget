@@ -26,7 +26,9 @@ const BudgetItemSelect = (props) => {
 
   if (!(fetched && month === dateObject.month && year === dateObject.year)) {
     const url = ApiUrlBuilder(["budget", "items"], { ...dateObject })
-    get(url, data => dispatch(fetchedBudgetItems(data)))
+    const onSuccess = data => dispatch(fetchedBudgetItems(data))
+    const onFailure = data => console.log(data)
+    get(url, onSuccess, onFailure)
   }
 
   if (details.length > 1) {

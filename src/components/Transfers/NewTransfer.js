@@ -16,15 +16,15 @@ const New = (props) => {
   const { amount, from_account_id, to_account_id  } = newTransfer
 
   const submit = () => {
-    post(
-      ApiUrlBuilder(["transfers"]),
-      JSON.stringify({
-        amount: Math.round(amount * 100),
-        to_account_id: to_account_id,
-        from_account_id: from_account_id,
-      }),
-      (data) => dispatch(created(data))
-    )
+    const url = ApiUrlBuilder(["transfers"])
+    const body = JSON.stringify({
+      amount: Math.round(amount * 100),
+      to_account_id: to_account_id,
+      from_account_id: from_account_id,
+    })
+    const onSuccess = data => dispatch(created(data))
+    const onFailure = data => console.log({ body: body, data: data })
+    post(url, body, onSuccess, onFailure)
   }
 
   const updateAmount = (e) => {

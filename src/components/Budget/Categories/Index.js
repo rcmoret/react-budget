@@ -19,12 +19,16 @@ const BudgetCategories = (props) => {
 
   if (!fetched) {
     const url = ApiUrlBuilder(["budget", "categories"])
-    get(url, data => dispatch(categoriesFetched(data)))
+    const onSuccess = data => dispatch(categoriesFetched(data))
+    const onFailure = data => console.log(data)
+    get(url, onSuccess, onFailure)
   }
 
   if (fetched && !props.iconsFetched) {
     const url = ApiUrlBuilder(["icons"])
-    get(url, data => dispatch(iconsFetched(data)))
+    const onSuccess = data => dispatch(iconsFetched(data))
+    const onFailure = data => console.log(data)
+    get(url, onSuccess, onFailure)
   }
 
   return (

@@ -89,27 +89,26 @@ const ReviewItem = (props) => {
   }
 
   const createItem = () => {
-    post(
-      ApiUrlBuilder(["budget/categories", category.id, "items"]),
-      JSON.stringify({ amount: decimalToInt(amount), month: month, year: year }),
-      (data) => {
-        dispatch(addItem(data))
-        dispatch(markReviewed({ id: item.id }))
-      }
-    )
+    const url = ApiUrlBuilder(["budget/categories", category.id, "items"])
+    const body = JSON.stringify({ amount: decimalToInt(amount), month: month, year: year })
+    const onSuccess = data => {
+      dispatch(addItem(data))
+      dispatch(markReviewed({ id: item.id }))
+    }
+    const onFailure = data => console.log({ body: body, data: data })
+
+    post(url, body, onSuccess, onFailure)
   }
 
   const updateItem = () => {
-    put(
-      ApiUrlBuilder(["budget/categories", dayToDayItem.budget_category_id, "items", dayToDayItem.id]),
-      JSON.stringify({
-        amount: (decimalToInt(amount) + dayToDayItem.amount),
-      }),
-      (data) => {
-        dispatch(updateExisting(data))
-        dispatch(markReviewed({ id: item.id }))
-      }
-    )
+    const url = ApiUrlBuilder(["budget/categories", dayToDayItem.budget_category_id, "items", dayToDayItem.id])
+    const body = JSON.stringify({ amount: (decimalToInt(amount) + dayToDayItem.amount) })
+    const onSuccess = data => {
+      dispatch(updateExisting(data))
+      dispatch(markReviewed({ id: item.id }))
+    }
+    const onFailure = data => console.log({ body: body, data: data })
+    put(url, body, onSuccess, onFailure)
   }
 
   return (

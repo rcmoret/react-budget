@@ -54,7 +54,8 @@ const Finish = (props) => {
   } else if (!accountsFetched) {
     const url = ApiUrlBuilder(["accounts"])
     const onSuccess = data => dispatch(acctFetched(data))
-    get(url, onSuccess)
+    const onFailure = data => console.log(data)
+    get(url, onSuccess, onFailure)
     return null
   } else {
     return (

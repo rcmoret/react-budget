@@ -36,10 +36,10 @@ const Index = (props) => {
   }
 
   if (baseMonthFetched && !nextMonthFetched) {
-    get(
-      ApiUrlBuilder(["budget/items"], { month: nextMonth, year: nextYear }),
-      data => dispatch(nextMonthFetch(data))
-    )
+    const url = ApiUrlBuilder(["budget/items"], { month: nextMonth, year: nextYear })
+    const onSuccess = data => dispatch(nextMonthFetch(data))
+    const onFailure = data => console.log(data)
+    get(url, onSuccess, onFailure)
   }
 
   if (!baseMonthFetched || !nextMonthFetched) {

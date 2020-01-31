@@ -26,7 +26,9 @@ const BudgetIndex = (props) => {
 
   if (!itemsFetched || !isCurrent) {
     const url = ApiUrlBuilder(["budget/items"], { month: month, year: year })
-    get(url, data => dispatch(fetched(data)))
+    const onSuccess = data => dispatch(fetched(data))
+    const onFailure = data => console.log(data)
+    get(url, onSuccess, onFailure)
   }
 
   if (itemsFetched && !categoresWereFetched) {

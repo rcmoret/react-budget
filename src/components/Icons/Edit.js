@@ -20,14 +20,14 @@ const Edit = ({ dispatch, icon }) => {
   }
 
   const onSubmit = () => {
-    put(
-      ApiUrlBuilder(["icons", id]),
-      JSON.stringify(icon.updatedProps),
-      (data) => {
-        dispatch(updated(data))
-        dispatch(update({ id: id, showForm: false }))
-      }
-    )
+    const url = ApiUrlBuilder(["icons", id])
+    const body = JSON.stringify(icon.updatedProps)
+    const onSuccess = data => {
+      dispatch(updated(data))
+      dispatch(update({ id: id, showForm: false }))
+    }
+    const onFailure = data => console.log({ body: body, data: data })
+    put(url, body, onSuccess, onFailure)
   }
 
   const formProps = { ...icon, ...icon.updatedProps }

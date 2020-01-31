@@ -31,7 +31,9 @@ const DiscretionaryDetail = (props) => {
 
   if (showDetail && !fetchedTransactions ) {
     const url = ApiUrlBuilder(["budget", "discretionary", "transactions"], { month: month, year: year })
-    get(url, data => dispatch(fetchedDiscretionaryTransactions(data)))
+    const onSuccess = data => dispatch(fetchedDiscretionaryTransactions(data))
+    const onFailure = data => console.log(data)
+    get(url, onSuccess, onFailure)
   }
 
   const budgetedPerDay = Math.floor(amount / total_days)

@@ -35,14 +35,14 @@ export default (props) => {
   }
 
   const addMaturityInterval = () => {
-    post(
-      ApiUrlBuilder(["budget/categories", id, "maturity_intervals"]),
-      JSON.stringify(newMaturityIntervalAttributes),
-      (data) => dispatch(maturityIntervalCreated({
-        id: id,
-        maturityInterval: data
-      }))
-    )
+    const url = ApiUrlBuilder(["budget/categories", id, "maturity_intervals"])
+    const body = JSON.stringify(newMaturityIntervalAttributes)
+    const onSuccess = data => dispatch(maturityIntervalCreated({
+      id: id,
+      maturityInterval: data
+    }))
+    const onFailure = data => console.log({ body: body, data: data })
+    post(url, body, onSuccess, onFailure)
   }
 
   const onChange = (payload) => {

@@ -21,12 +21,16 @@ const Index = ({ accounts, accountsFetched, collection, dispatch, fetchedTransfe
 
   if(!accountsFetched) {
     const url = ApiUrlBuilder(["accounts"])
-    get(url, data => dispatch(renderAccounts(data)))
+    const onSuccess = data => dispatch(renderAccounts(data))
+    const onFailure = data => console.log(data)
+    get(url, onSuccess, onFailure)
   }
 
   if (accountsFetched && !fetchedTransfers) {
     const url = ApiUrlBuilder(["transfers"], { page: currentPage })
-    get(url, data => dispatch(fetched(data)))
+    const onSuccess = data => dispatch(fetched(data))
+    const onFailure = data => console.log(data)
+    get(url, onSuccess, onFailure)
   }
 
   return (
