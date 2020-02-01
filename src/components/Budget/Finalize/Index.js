@@ -22,6 +22,8 @@ const Index = (props) => {
     year,
   } = props
 
+  const onFailure = data => console.log(data)
+
   if (!isEndOfMonth) {
     return (
       <Redirect to={`/budget/${month}/${year}`} />
@@ -29,16 +31,14 @@ const Index = (props) => {
   }
 
   if (!baseMonthFetched) {
-    get(
-      ApiUrlBuilder(["budget/items"], { month: month, year: year }),
-      data => dispatch(baseMonthFetch(data))
-    )
+    const url = ApiUrlBuilder(["budget/items"], { month: month, year: year })
+    const onSuccess = data => dispatch(baseMonthFetch(data))
+    get(url, onSuccess, onFailure)
   }
 
   if (baseMonthFetched && !nextMonthFetched) {
     const url = ApiUrlBuilder(["budget/items"], { month: nextMonth, year: nextYear })
     const onSuccess = data => dispatch(nextMonthFetch(data))
-    const onFailure = data => console.log(data)
     get(url, onSuccess, onFailure)
   }
 
