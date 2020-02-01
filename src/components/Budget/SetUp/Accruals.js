@@ -30,7 +30,10 @@ const Accruals = (props) => {
     baseMonth,
     collection,
     dispatch,
+    isFetched,
     month,
+    paramMonth,
+    paramYear,
     year,
   } = props
 
@@ -41,7 +44,11 @@ const Accruals = (props) => {
     format: "monthYear"
   })
 
-  if (reviewCount > 0) {
+  if (!isFetched) {
+    return (
+      <Redirect to={`/budget/set-up/${paramMonth}/${paramYear}/intro`} />
+    )
+  } else if (reviewCount > 0) {
     return (
       <div className="set-up-workspace">
         <div className="previous-month-items">
@@ -218,8 +225,11 @@ const Button = ({ handleClick, iconClass, spanClass }) => (
   </span>
 )
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+  const paramMonth = parseInt(ownProps.match.params.month)
+  const paramYear = parseInt(ownProps.match.params.year)
   const { month, year } = state.budget.setup.newMonth
+  const { isFetched } = state.budget.setup.baseMonth
   const categories = state.budget.categories.collection
   const findCategory = (item) => categories.find(c => c.id === item.budget_category_id)
   const mergeDefaultAmount = (item) => (
@@ -234,6 +244,9 @@ const mapStateToProps = (state) => {
   return {
     baseMonth: state.budget.setup.baseMonth,
     collection: collection,
+    isFetched: isFetched,
+    paramMonth: paramMonth,
+    paramYear: paramYear,
     month: month,
     year: year,
   }

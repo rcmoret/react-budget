@@ -56,22 +56,10 @@ const mapStateToProps = (state, ownProps) => {
   const targetMonth = parseInt(ownProps.match.params.month)
   const targetYear = parseInt(ownProps.match.params.year)
   const newMonth = state.budget.setup.newMonth
-  const collection = newMonth.collection.sort((a, b) => {
-    if (a.expense && !b.expense) {
-      return 1
-    } else if (!a.expense && !b.expense) {
-      return a.amount <= b.amount ? 1 : -1
-    } else if (a.expense && b.expense) {
-      return a.amount >= b.amount ? 1 : -1
-    } else { /* a is revenue && b.expense */
-      return -1
-    }
-  })
 
   return {
     baseMonth: state.budget.setup.baseMonth,
     categoriesFetched: state.budget.categories.fetched,
-    collection: collection,
     newMonth: newMonth,
     targetMonth: targetMonth,
     targetYear: targetYear,

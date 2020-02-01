@@ -11,20 +11,7 @@ import Discretionary from "./Discretionary"
 
 const Items = ({ collection, discretionary, month, year }) => {
   const monthString = dateFormatter.formatted({ month: month, year: year, format: "monthYear" })
-
-  const sortFn = (a, b) => {
-    if (a.budget_category_id !== b.budget_cateogry_id) {
-      return a.name < b.name ? -1 : 1
-    } else {
-      if (a.amount === b.amount) {
-        return a.id - b.id
-      } else {
-        return Math.abs(a.amount) - Math.abs(b.amount)
-      }
-    }
-  }
-  const revenues = collection.filter(item => !item.expense).sort(sortFn)
-  const expenses = collection.filter(item => item.expense).sort(sortFn)
+  const { expenses, revenues } = collection
 
   return (
     <div className="new-month-items">
@@ -68,12 +55,26 @@ const Item = ({ amount, name }) => {
 }
 
 const mapStateToProps = (state) => {
+  const sortFn = (a, b) => {
+    if (a.budget_category_id !== b.budget_cateogry_id) {
+      return a.name < b.name ? -1 : 1
+    } else {
+      if (a.amount === b.amount) {
+        return a.id - b.id
+      } else {
+        return Math.abs(a.amount) - Math.abs(b.amount)
+      }
+    }
+  }
+
   const newMonth = state.budget.setup.newMonth
   const { collection, month, year } = newMonth
   const discretionary = collection.reduce((acc, item) => acc += item.amount, 0)
+  const expenses = collection.sort(sortFn).filter(item => item.expense)
+  const revenues = collection.sort(sortFn).filter(item => !item.expense)
 
   return {
-    collection: collection,
+    collection: { revenues: revenues, expenses: expenses },
     discretionary: discretionary,
     month: month,
     year: year,
