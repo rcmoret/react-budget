@@ -32,7 +32,9 @@ export default (props) => {
   const createFromTransaction = () => {
     const url = ApiUrlBuilder(["accounts", selectedFromAccountId, "transactions"])
     const body = JSON.stringify({
-      amount: totalExtra,
+      details_attributes: [{
+        amount: totalExtra,
+      }],
       description: copy.finalize.depositMessage(dateString),
       notes: note,
     })
@@ -47,7 +49,9 @@ export default (props) => {
   const createToTransaction = (callback) => {
     const url = ApiUrlBuilder(["accounts", selectedToAccountId, "transactions"])
     const body = JSON.stringify({
-      amount: (-1 * totalExtra),
+      details_attributes: [{
+        amount: (-1 * totalExtra),
+      }],
       description: copy.finalize.depositMessage(dateString),
       budget_exclusion: true,
     })

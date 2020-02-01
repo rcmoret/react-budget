@@ -26,6 +26,7 @@ const initialState = {
     clearance_date: "",
     description: "",
     showForm: false,
+    budget_exclusion: false,
     details: [emptyDetail],
   },
 }

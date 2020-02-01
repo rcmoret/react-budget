@@ -16,7 +16,7 @@ export default ({ amount, baseItem, dispatch }) => {
     remaining
   } = baseItem
 
-  if ((amount * 100) !== remaining) {
+  if (Math.round(amount * 100) !== remaining) {
     return null
   }
 
