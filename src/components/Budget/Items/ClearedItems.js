@@ -90,10 +90,34 @@ const ClearedItem = ({ amount, expense, difference, icon_class_name, name, spent
 const mapStateToProps = (state) => {
   const { collection } = state.budget.monthly
   const { showCleared } = state.budget.menuOptions
+
+  const sortByAmount = (a, b) => Math.abs(b.amount) - Math.abs(a.amount)
+  const sortByName = (a, b) => {
+    if (a.name < b.name) {
+      return -1
+    } else if (a.name > b.name) {
+      return 1
+    } else {
+      return sortByAmount(a, b)
+    }
+  }
+
+  const sortOrder = state.budget.menuOptions.sortOrder
+  const sortFn = () => {
+    switch (sortOrder) {
+    case "byAmount":
+      return sortByAmount
+    case "byName":
+      return sortByName
+    default:
+      return sortByName
+    }
+  }
+
   const revenues = collection.filter(item => !item.expense && !item.deletable)
-    .sort((a, b) => (Math.abs(b.amount) - Math.abs(a.amount)))
+    .sort(sortFn())
   const expenses = collection.filter(item => item.expense && !item.deletable)
-    .sort((a, b) => (Math.abs(b.amount) - Math.abs(a.amount)))
+    .sort(sortFn())
 
   return {
     expenses: expenses,
