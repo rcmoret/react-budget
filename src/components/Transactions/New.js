@@ -54,7 +54,7 @@ const New = (props) => {
     })
     const onSuccess = (data) => {
       dispatch(created(data))
-      dispatch(resetNew())
+      dispatch(resetNew({ showForm: true }))
     }
     const onFailure = data => console.log({ body: body, data: data })
     post(url, body, onSuccess, onFailure)

@@ -36,8 +36,8 @@ export const fetchedBudgetItems = (response) => {
   return { type: "transactions/FETCHED_BUDGET_ITEMS", payload: response }
 }
 
-export const resetNew = () => {
-  return { type: "transactions/RESET_NEW", payload: null }
+export const resetNew = (payload) => {
+  return { type: "transactions/RESET_NEW", payload: payload }
 }
 
 export const updateNew = (payload) => {

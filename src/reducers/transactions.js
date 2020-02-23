@@ -154,7 +154,7 @@ export default (state = initialState, action) => {
   case "transactions/RESET_NEW":
     return {
       ...state,
-      new: initialState.new
+      new: { ...initialState.new, ...action.payload },
     }
   case "transactions/UPDATE_NEW":
     return {
