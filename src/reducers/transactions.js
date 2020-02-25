@@ -1,6 +1,6 @@
-import objectifyMonthly from "../shared/models/monthlyBudgetItem"
-import objectifyTransaction from "../shared/models/transaction"
-import objectifyWeekly from "../shared/models/weeklyBudgetItem"
+import objectifyMonthly from "../models/monthlyBudgetItem"
+import objectifyTransaction from "../models/transaction"
+import objectifyWeekly from "../models/weeklyBudgetItem"
 import * as helpers from "./helpers/transactionHelpers"
 import { updateProps } from "./helpers/shared"
 

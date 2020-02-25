@@ -1,5 +1,5 @@
 import { before, isInRange } from "../../functions/DateFormatter"
-import objectifyTransaction from "../../shared/models/transaction"
+import objectifyTransaction from "../../models/transaction"
 
 export const editDetailProps = (txn, newProps) => {
   return {

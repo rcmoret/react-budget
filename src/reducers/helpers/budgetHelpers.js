@@ -1,7 +1,7 @@
 import { updateItemInCollection } from "./shared"
-import objectifyDiscretionary from "../../shared/models/discretionary"
-import objectifyMonthly from "../../shared/models/monthlyBudgetItem"
-import objectifyWeekly from "../../shared/models/weeklyBudgetItem"
+import objectifyDiscretionary from "../../models/discretionary"
+import objectifyMonthly from "../../models/monthlyBudgetItem"
+import objectifyWeekly from "../../models/weeklyBudgetItem"
 
 export const setUpIndex = (payload, state) => {
   const { collection, metadata } = payload

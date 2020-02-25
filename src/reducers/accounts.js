@@ -1,5 +1,5 @@
 import { update, updated, updateProps } from "./helpers/shared"
-import objectifyTransaction from "../shared/models/transaction"
+import objectifyTransaction from "../models/transaction"
 
 const initialState = {
   collection: [],

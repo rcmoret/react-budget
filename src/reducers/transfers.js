@@ -1,4 +1,4 @@
-import objectifyTransaction from "../shared/models/transaction"
+import objectifyTransaction from "../models/transaction"
 
 const initialNew = {
   to_account_id: null,
