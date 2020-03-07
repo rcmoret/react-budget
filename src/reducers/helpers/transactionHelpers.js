@@ -3,25 +3,32 @@ import objectifyTransaction from "../../models/transaction"
 
 export const editNew = (transaction, newProps) => {
   const editedNew = { ...transaction, ...newProps }
-  const budget_exclusion = editedNew.budget_exclusion
+  const { budget_exclusion } = editedNew
 
   if (!budget_exclusion) {
-    return editedNew
+    return {
+      ...transaction,
+      updatedProps: { ...transaction.updatedProps, ...newProps }
+    }
   } else {
     return {
-      ...editedNew,
-      details: editedNew.details.map(detail => ({ ...detail, budget_item_id: null }))
+      ...transaction,
+      updatedProps: { ...transaction.updatedProps, ...newProps },
+      details: editedNew.details.map(detail => ({ ...detail, updatedProps: { budget_item_id: null } }))
     }
   }
 }
 
 export const editProps = (transaction, newProps) => {
   if (!newProps.budget_exclusion) {
-    return { ...transaction, ...newProps }
+    return {
+      ...transaction,
+      updatedProps: { ...transaction.updatedProps, ...newProps }
+    }
   } else {
     return {
       ...transaction,
-      ...newProps,
+      updatedProps: { ...transaction.updatedProps, ...newProps },
       details: transaction.details.map(detail => ({ ...detail, budget_item_id: null }))
     }
   }
@@ -31,25 +38,21 @@ export const editDetailProps = (txn, newProps) => {
   return {
     ...txn,
     details: txn.details.map(detail => {
-      if (detail._id !== newProps.detailId) {
-        return detail
-      } else {
-        if (!txn.budget_exclusion) {
-          return {
-            ...detail,
-            updatedProps: {
-              ...detail.updatedProps,
-              ...newProps,
-            }
+      if (!txn.budget_exclusion) {
+        return {
+          ...detail,
+          updatedProps: {
+            ...detail.updatedProps,
+            ...newProps,
           }
-        } else {
-          return {
-            ...detail,
-            updatedProps: {
-              ...detail.updatedProps,
-              ...newProps,
-              budget_item_id: null,
-            }
+        }
+      } else {
+        return {
+          ...detail,
+          updatedProps: {
+            ...detail.updatedProps,
+            ...newProps,
+            budget_item_id: null,
           }
         }
       }
@@ -124,7 +127,7 @@ export const updateNewDetail = (payload, state) => {
   const itemIdFor = (detail) => budget_exclusion ? null : detail.budget_item_id
   const updatedDetails = details.map((detail, n) => {
     if (n === index) {
-      return { ...detail, ...attributes, budget_item_id: itemIdFor(detail) }
+      return { ...detail, ...attributes, budget_item_id: itemIdFor({ ...detail, ...attributes }) }
     } else {
       return { ...detail, budget_item_id: itemIdFor(detail) }
     }

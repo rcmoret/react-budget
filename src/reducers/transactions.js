@@ -2,7 +2,6 @@ import objectifyMonthly from "../models/monthlyBudgetItem"
 import objectifyTransaction from "../models/transaction"
 import objectifyWeekly from "../models/weeklyBudgetItem"
 import * as helpers from "./helpers/transactionHelpers"
-import { updateProps } from "./helpers/shared"
 
 const emptyDetail = {
   amount: "",
