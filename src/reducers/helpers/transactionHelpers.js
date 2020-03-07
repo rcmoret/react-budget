@@ -6,15 +6,11 @@ export const editNew = (transaction, newProps) => {
   const { budget_exclusion } = editedNew
 
   if (!budget_exclusion) {
-    return {
-      ...transaction,
-      updatedProps: { ...transaction.updatedProps, ...newProps }
-    }
+    return editedNew
   } else {
     return {
-      ...transaction,
-      updatedProps: { ...transaction.updatedProps, ...newProps },
-      details: editedNew.details.map(detail => ({ ...detail, updatedProps: { budget_item_id: null } }))
+      ...editedNew,
+      details: editedNew.details.map(detail => ({ ...detail, budget_item_id: null }))
     }
   }
 }
