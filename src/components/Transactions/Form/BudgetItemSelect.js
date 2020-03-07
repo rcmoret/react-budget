@@ -12,6 +12,7 @@ import DetailBudgetItemSelect from "./DetailBudgetItemSelect"
 
 const BudgetItemSelect = (props) => {
   const {
+    budget_exclusion,
     dateObject,
     primaryDetail,
     details,
@@ -56,6 +57,7 @@ const BudgetItemSelect = (props) => {
       <div className="budget-item-select">
         <DetailBudgetItemSelect
           _id={primaryDetail._id || 0}
+          budget_exclusion={budget_exclusion}
           onDetailChange={onDetailChange}
           options={options}
           {...primaryDetail}

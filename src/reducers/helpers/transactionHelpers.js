@@ -1,6 +1,32 @@
 import { before, isInRange } from "../../functions/DateFormatter"
 import objectifyTransaction from "../../models/transaction"
 
+export const editNew = (transaction, newProps) => {
+  const editedNew = { ...transaction, ...newProps }
+  const budget_exclusion = editedNew.budget_exclusion
+
+  if (!budget_exclusion) {
+    return editedNew
+  } else {
+    return {
+      ...editedNew,
+      details: editedNew.details.map(detail => ({ ...detail, budget_item_id: null }))
+    }
+  }
+}
+
+export const editProps = (transaction, newProps) => {
+  if (!newProps.budget_exclusion) {
+    return { ...transaction, ...newProps }
+  } else {
+    return {
+      ...transaction,
+      ...newProps,
+      details: transaction.details.map(detail => ({ ...detail, budget_item_id: null }))
+    }
+  }
+}
+
 export const editDetailProps = (txn, newProps) => {
   return {
     ...txn,
@@ -8,11 +34,22 @@ export const editDetailProps = (txn, newProps) => {
       if (detail._id !== newProps.detailId) {
         return detail
       } else {
-        return {
-          ...detail,
-          updatedProps: {
-            ...detail.updatedProps,
-            ...newProps,
+        if (!txn.budget_exclusion) {
+          return {
+            ...detail,
+            updatedProps: {
+              ...detail.updatedProps,
+              ...newProps,
+            }
+          }
+        } else {
+          return {
+            ...detail,
+            updatedProps: {
+              ...detail.updatedProps,
+              ...newProps,
+              budget_item_id: null,
+            }
           }
         }
       }
@@ -82,10 +119,15 @@ const updatedCollection = (payload, state) => {
 }
 
 export const updateNewDetail = (payload, state) => {
-  const { details } = state.new
+  const { budget_exclusion, details } = state.new
   const { index, attributes } = payload
+  const itemIdFor = (detail) => budget_exclusion ? null : detail.budget_item_id
   const updatedDetails = details.map((detail, n) => {
-    return n === index ? { ...detail, ...attributes } : detail
+    if (n === index) {
+      return { ...detail, ...attributes, budget_item_id: itemIdFor(detail) }
+    } else {
+      return { ...detail, budget_item_id: itemIdFor(detail) }
+    }
   })
 
   return {

@@ -117,21 +117,23 @@ export default (state = initialState, action) => {
   case "transactions/EDIT":
     return {
       ...state,
-      collection: state.collection.map(txn => {
-        return txn.id !== action.payload.id ? txn : { ...txn, ...action.payload }
-      })
+      collection: state.collection.map(txn => (
+        txn.id !== action.payload.id ? txn : { ...txn, ...action.payload }
+      ))
     }
   case "transactions/EDIT_PROPS":
     return {
       ...state,
-      collection: updateProps(action.payload, state.collection)
+      collection: state.collection.map(txn => (
+        action.payload.id === txn.id ? helpers.editProps(txn, action.payload) : txn
+      ))
     }
   case "transactions/EDIT_DETAIL_PROPS":
     return {
       ...state,
-      collection: state.collection.map(txn => {
-        return txn.id === action.payload.txnId ? helpers.editDetailProps(txn, action.payload) : txn
-      })
+      collection: state.collection.map(txn => (
+        txn.id === action.payload.txnId ? helpers.editDetailProps(txn, action.payload) : txn
+      ))
     }
   case "transactions/FETCHED":
     return {
@@ -159,10 +161,7 @@ export default (state = initialState, action) => {
   case "transactions/UPDATE_NEW":
     return {
       ...state,
-      new: {
-        ...state.new,
-        ...action.payload
-      }
+      new: helpers.editNew(state.new, action.payload)
     }
   case "transactions/UPDATE_NEW_DETAIL":
     return helpers.updateNewDetail(action.payload, state)
