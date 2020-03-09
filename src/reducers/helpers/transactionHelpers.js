@@ -31,10 +31,12 @@ export const editProps = (transaction, newProps) => {
 }
 
 export const editDetailProps = (txn, newProps) => {
+  const isBudgetInclusion = !txn.budget_exclusion
+
   return {
     ...txn,
     details: txn.details.map(detail => {
-      if (!txn.budget_exclusion) {
+      if (detail.id === newProps.detailId && isBudgetInclusion) {
         return {
           ...detail,
           updatedProps: {
@@ -42,6 +44,8 @@ export const editDetailProps = (txn, newProps) => {
             ...newProps,
           }
         }
+      } else if (isBudgetInclusion) {
+        return detail
       } else {
         return {
           ...detail,
