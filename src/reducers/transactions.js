@@ -157,6 +157,16 @@ export default (state = initialState, action) => {
       ...state,
       new: { ...initialState.new, ...action.payload },
     }
+  case "transactions/TOGGLE_EDIT_FORM":
+    return helpers.toggleEditForm(action.payload, state)
+  case "transactions/TOGGLE_NEW_FORM":
+    return {
+      ...state,
+      new: { ...state.new, showForm: !state.new.showForm },
+      collection: state.collection.map(txn => (
+        {...txn, showForm: (!state.new.showForm ? false : txn.showForm)}
+      )),
+    }
   case "transactions/UPDATE_NEW":
     return {
       ...state,

@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { budget as copy } from "../../locales/copy"
 import { titleize } from "../../locales/functions"
 
-import { addDetailToNew, created, resetNew, updateNew, updateNewDetail } from "../../actions/transactions"
+import { addDetailToNew, created, resetNew, toggleNewForm, updateNew, updateNewDetail } from "../../actions/transactions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import MoneyFormatter from "../../functions/MoneyFormatter"
@@ -24,11 +24,13 @@ const New = (props) => {
 
   const handleKeyDown = () => null
 
-  const resetForm = (e) => {
-    e.preventDefault()
+  const resetForm = () => {
     const action = resetNew()
     dispatch(action)
+    closeForm()
   }
+
+  const closeForm = () => dispatch(toggleNewForm())
 
   const onChange = (payload) => {
     const action = updateNew(payload)

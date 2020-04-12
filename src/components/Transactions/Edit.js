@@ -4,7 +4,13 @@ import { connect } from "react-redux"
 import { budget as budgetCopy, transaction as copy } from "../../locales/copy"
 import { titleize } from "../../locales/functions"
 
-import { addDetailToEntry, edit, editDetailProps, editProps, updated } from "../../actions/transactions"
+import {
+  addDetailToEntry,
+  editDetailProps,
+  editProps,
+  toggleEditForm,
+  updated,
+} from "../../actions/transactions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import MoneyFormatter from "../../functions/MoneyFormatter"
@@ -25,7 +31,7 @@ const Edit = (props) => {
 
   const resetForm = (e) => {
     e.preventDefault()
-    const action = edit({ id: id, showForm: false })
+    const action = toggleEditForm({ id: id })
     dispatch(action)
   }
 

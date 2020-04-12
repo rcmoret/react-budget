@@ -40,6 +40,14 @@ export const resetNew = (payload) => {
   return { type: "transactions/RESET_NEW", payload: payload }
 }
 
+export const toggleEditForm = ({ id }) => (
+  { type: "transactions/TOGGLE_EDIT_FORM", payload: id }
+)
+
+export const toggleNewForm = () => (
+  { type: "transactions/TOGGLE_NEW_FORM", payload: null }
+)
+
 export const updateNew = (payload) => {
   return { type: "transactions/UPDATE_NEW", payload: payload }
 }
