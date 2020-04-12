@@ -1,11 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import { fetchedBudgetItems } from "../../../actions/transactions"
-
-import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { fromDateString } from "../../../functions/DateFormatter"
-import { get } from "../../../functions/ApiClient"
 
 import Select from "react-select"
 import DetailBudgetItemSelect from "./DetailBudgetItemSelect"
@@ -13,24 +9,13 @@ import DetailBudgetItemSelect from "./DetailBudgetItemSelect"
 const BudgetItemSelect = (props) => {
   const {
     budget_exclusion,
-    dateObject,
     primaryDetail,
     details,
-    dispatch,
     emptyOption,
-    fetched,
-    month,
     onDetailChange,
     options,
-    year,
   } = props
 
-  if (!(fetched && month === dateObject.month && year === dateObject.year)) {
-    const url = ApiUrlBuilder(["budget", "items"], { ...dateObject })
-    const onSuccess = data => dispatch(fetchedBudgetItems(data))
-    const onFailure = data => console.log(data)
-    get(url, onSuccess, onFailure)
-  }
 
   if (details.length > 1) {
     return (
@@ -68,7 +53,6 @@ const BudgetItemSelect = (props) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { fetched, month, year } = state.transactions.budgetItems
   const dateObject = fromDateString(state.transactions.metadata.date_range[0], { format: "object" })
   const { details, options } = ownProps
   const primaryDetail = details.length === 1 ? details[0] : null
@@ -80,11 +64,8 @@ const mapStateToProps = (state, ownProps) => {
     dateObject: dateObject,
     primaryDetail: primaryDetail,
     emptyOption: emptyOption,
-    fetched: fetched,
-    month: month,
     options: options,
     value: value,
-    year: year,
     ...ownProps,
   }
 }

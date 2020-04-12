@@ -3,6 +3,8 @@ import objectifyTransaction from "../models/transaction"
 import objectifyWeekly from "../models/weeklyBudgetItem"
 import * as helpers from "./helpers/transactionHelpers"
 
+const today = new Date()
+
 const emptyDetail = {
   amount: "",
   budget_item_id: null,
@@ -12,7 +14,10 @@ const initialState = {
   metadata: {
     date_range: ["", ""],
     prior_balance: 0,
-    query_options: {},
+    query_options: {
+      month: (today.getMonth() + 1),
+      year: (today.getFullYear()),
+    },
   },
   collection: [],
   budgetItems: {
@@ -24,7 +29,7 @@ const initialState = {
     check_number: "",
     clearance_date: "",
     description: "",
-    showForm: false,
+    showForm: true,
     budget_exclusion: false,
     details: [emptyDetail],
   },

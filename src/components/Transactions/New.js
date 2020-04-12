@@ -7,6 +7,7 @@ import { titleize } from "../../locales/functions"
 import { addDetailToNew, created, resetNew, toggleNewForm, updateNew, updateNewDetail } from "../../actions/transactions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import FindOrDefault from "../../functions/FindOrDefault"
 import MoneyFormatter from "../../functions/MoneyFormatter"
 import { post } from "../../functions/ApiClient"
 
@@ -81,7 +82,7 @@ const New = (props) => {
 const mapStateToProps = (state) => {
   const transaction = state.transactions.new
   const selectedAccountId = parseInt(state.transactions.metadata.query_options.account_id)
-  const selectedAccount = state.accounts.collection.find(account => account.id === selectedAccountId)
+  const selectedAccount = FindOrDefault(state.accounts.collection, (account => account.id === selectedAccountId), { cash_flow: true })
   const items = state.transactions.budgetItems.collection
   const collection = items.filter(item => !item.monthly || item.deletable)
   const labelFor = (item) => `${item.name} (${MoneyFormatter(item.remaining, { absolute: true })})`

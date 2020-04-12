@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import { fetchedTransactions } from "../../actions/transactions"
+import { fetchedBudgetItems, fetchedTransactions } from "../../actions/transactions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { get } from "../../functions/ApiClient"
@@ -12,6 +12,7 @@ const Wrapper = (props) => {
   const {
     accountId,
     dispatch,
+    fetched,
     month,
     urlAccountId,
     urlMonth,
@@ -23,13 +24,27 @@ const Wrapper = (props) => {
     return null
   }
 
-  if (urlMonth !== month || urlYear !== year || urlAccountId !== accountId) {
+  const fetchTransactions = () => {
     const url = ApiUrlBuilder(
       ["accounts", urlAccountId, "transactions"], { month: urlMonth, year: urlYear }
     )
     const onSuccess = data => dispatch(fetchedTransactions(data))
     const onFailure = data => console.log(data)
     get(url, onSuccess, onFailure)
+  }
+
+  const fetchBudgetItems = () => {
+    const url = ApiUrlBuilder(["budget", "items"], { month: urlMonth, year: urlYear })
+    const onSuccess = data => dispatch(fetchedBudgetItems(data))
+    const onFailure = data => console.log(data)
+    get(url, onSuccess, onFailure)
+  }
+
+  if (urlMonth !== month || urlYear !== year || urlAccountId !== accountId) {
+    fetchTransactions()
+    if (!fetched || (urlMonth !== month || urlYear !== year)) {
+      fetchBudgetItems()
+    }
   }
 
   return (
@@ -39,9 +54,11 @@ const Wrapper = (props) => {
 
 const mapStateToProps = (state, ownProps) => {
   const { query_options } = state.transactions.metadata
+  const { fetched } = state.transactions.budgetItems
 
   return {
     accountId: parseInt(query_options.account_id),
+    fetched: fetched,
     month: parseInt(query_options.month),
     urlAccountId: ownProps.accountId,
     urlMonth: ownProps.month,
