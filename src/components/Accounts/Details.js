@@ -5,19 +5,27 @@ import TransactionsWrapper from "../Transactions/Wrapper"
 
 export default ({ month, year, selectedAccountId }) => {
   if (selectedAccountId === 0) {
-    return(
-      <div>
-        <TransfersLink />
-        <ManageButton />
-      </div>
+    return (
+      <AdminLinks />
     )
   } else {
     return(
-      <TransactionsWrapper
-        accountId={selectedAccountId}
-        month={month}
-        year={year}
-      />
+      <div>
+        <TransactionsWrapper
+          accountId={selectedAccountId}
+          month={month}
+          year={year}
+        />
+        <hr />
+        <AdminLinks />
+      </div>
     )
   }
 }
+
+const AdminLinks = () => (
+  <div>
+    <TransfersLink />
+    <ManageButton />
+  </div>
+)
