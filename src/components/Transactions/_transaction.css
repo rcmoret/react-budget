@@ -2,6 +2,9 @@
   background-color: white;
   padding: 0.8%;
   border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .transaction-wrapper:nth-of-type(2n) {
@@ -9,14 +12,14 @@
 }
 
 .transaction  {
-  display: inline-block;
-  width: 97%;
+  width: 87%;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .transaction .left-icon {
-  display: inline-block;
   color: #737373;
-  width: 1.5%;
+  width: 2.5%;
 }
 
 .transaction .left-icon a {
@@ -29,8 +32,7 @@
 }
 
 .transaction .clearance-date {
-  display: inline-block;
-  width: 10%;
+  width: 15%;
 }
 
 .transaction .description {
@@ -39,23 +41,38 @@
 }
 
 .transaction .balance, .transaction .amount {
-  display: inline-block;
   width: 8%;
   text-align: right;
 }
 
+.transaction .amount .amount-detail {
+  display: block;
+  width: 100%;
+}
+
+.transaction .transaction-info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 58%;
+}
+
+.transaction .transaction-info .transaction-info-line {
+  display: block;
+  width: 100%;
+}
+
 .transaction .budget-categories, .transaction .balance, .transaction .check-number, .transaction .notes {
-  display: inline-block;
-  margin-right: 1%;
-  vertical-align: top;
+  margin-right: 2%;
 }
 
 .transaction .budget-categories {
-  max-width: 30%;
+  max-width: 40%;
 }
 
 .transaction .notes {
-  max-width: 30%;
+  max-width: 45%;
 }
 
 .transaction .exclusion {
@@ -67,6 +84,7 @@
 
 .transaction-edit-button, .transaction-delete-button {
   display: inline-block;
+  margin-right: 10px;
 }
 
 .transaction .notes {

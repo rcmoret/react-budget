@@ -3,8 +3,10 @@ import Icon from "../../Icons/Icon"
 
 export default (props) => {
   const {
+    check_number,
     description,
     details,
+    notes,
     showDetail,
   } = props
 
@@ -21,6 +23,12 @@ export default (props) => {
             {item.budget_category}
           </span>
         )}
+      </div>
+    )
+  } else if (showDetail && (check_number === "" || check_number === null) && notes === null) {
+    return (
+      <div className="budget-categories">
+        <Icon className="fas fa-list" />
       </div>
     )
   } else {

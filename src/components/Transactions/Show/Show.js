@@ -14,9 +14,9 @@ import CheckNumber from "./CheckNumber"
 import ClearanceDate from "./ClearanceDate"
 import DeleteButton from "./DeleteButton"
 import Description from "./Description"
-import Details from "./Details"
 import Edit from "../Edit"
 import EditLink from "./EditLink"
+import Icon from "../../Icons/Icon"
 import Notes from "./Notes"
 import LeftIcon from "./LeftIcon"
 
@@ -82,20 +82,50 @@ const Show = (props) => {
             description={description}
             details={details}
           />
-          <Amount amount={amount} />
+          <div className="amount">
+            <Amount
+              amount={amount}
+              details={details}
+              showDetail={showDetail}
+            />
+          </div>
           <Balance balance={balance} />
-          <BudgetCategories showDetail={showDetail} {...props} />
-          <CheckNumber checkNumber={check_number} />
-          <BudgetExclusion budgetExclusion={budget_exclusion} />
-          <Notes notes={notes} />
+          <div className="transaction-info">
+            <BudgetCategories showDetail={showDetail} {...props} />
+            <CheckNumber checkNumber={check_number} />
+            <BudgetExclusion budgetExclusion={budget_exclusion} />
+            <Notes notes={notes} />
+            <BudgetCategoryDetails showDetail={showDetail} {...props} />
+          </div>
         </div>
-        <EditLink transactionId={id} editable={props.deletable} />
-        {" "}
-        <DeleteButton onClick={transactionDelete} deletable={props.deletable} />
-        <Details showDetail={showDetail} details={details} />
+        <div className="transaction-links">
+          <EditLink transactionId={id} editable={props.deletable} />
+          {" "}
+          <DeleteButton onClick={transactionDelete} deletable={props.deletable} />
+        </div>
       </div>
     )
   }
 }
+
+const BudgetCategoryDetails = ({ details, showDetail }) => {
+  if (showDetail) {
+    return (
+      <div className="transaction-info-line">
+        {details.map(detail => (
+          <Detail key={detail.id} {...detail} />
+        ))}
+      </div>
+    )
+  } else {
+    return null
+  }
+}
+
+const Detail = ({ budget_category, icon_class_name }) => (
+  <div className="detail-show">
+    <Icon className={icon_class_name} /> {budget_category}
+  </div>
+)
 
 export default connect((_state, ownProps) => ownProps)(Show)
