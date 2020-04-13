@@ -29,6 +29,7 @@ header .tab {
   display: inline-block;
   width: 45.5%;
   margin-right: 0.5%;
+  margin-bottom: 12px;
   background-color: #efefef;
   border-radius: 10px;
   padding: 1% 2%;

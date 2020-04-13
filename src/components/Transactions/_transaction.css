@@ -12,14 +12,13 @@
 }
 
 .transaction  {
-  width: 87%;
-  display: flex;
-  justify-content: flex-start;
+  /* width: 87%; */
+  /* display: flex; */
+  /* justify-content: flex-start; */
 }
 
 .transaction .left-icon {
   color: #737373;
-  width: 2.5%;
 }
 
 .transaction .left-icon a {
@@ -31,17 +30,7 @@
   color: #737373;
 }
 
-.transaction .clearance-date {
-  width: 15%;
-}
-
-.transaction .description {
-  display: inline-block;
-  width: 20%;
-}
-
 .transaction .balance, .transaction .amount {
-  width: 8%;
   text-align: right;
 }
 
@@ -67,10 +56,6 @@
   margin-right: 2%;
 }
 
-.transaction .budget-categories {
-  max-width: 40%;
-}
-
 .transaction .notes {
   max-width: 45%;
 }
@@ -80,11 +65,6 @@
   font-style: italic;
   font-size: 0.8em;
   margin-right: 1%
-}
-
-.transaction-edit-button, .transaction-delete-button {
-  display: inline-block;
-  margin-right: 10px;
 }
 
 .transaction .notes {
@@ -102,4 +82,89 @@
 
 .page-links a {
   margin-right: 8%;
+}
+
+/* large screens */
+@media screen and (min-width: 768px) {
+}
+
+/* small/mobile screens */
+@media screen and (max-width: 768px) {
+  .transaction-wrapper .transaction-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    font-size: 0.85em;
+  }
+
+  .transaction-wrapper .transaction  {
+    width: 95%;
+  }
+
+  .transaction-wrapper .clearance-date {
+    margin-left: 2%;
+    width: 18%;
+  }
+
+  .transaction-wrapper .description {
+    width: 70%;
+  }
+
+  .transaction-wrapper .left-content {
+    width: 70%;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .transaction-wrapper span.long-date {
+    display: none;
+  }
+
+  .transaction-wrapper span.short-date.pending {
+    font-size: 0.65em;
+    font-style: italic;
+  }
+
+  .transaction-wrapper .txn-info {
+    padding: 0 2%;
+    width: 65%;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .transaction-wrapper .txn-balance {
+    font-size: 0.8em;
+    font-style: italic;
+  }
+
+  .transaction-wrapper .description {
+    font-size: 1.1em;
+  }
+
+  .transaction-wrapper .description span.plain-text,
+  .transaction-wrapper .description span.budget-item i {
+    display: none;
+  }
+
+  .transaction-wrapper .info-item {
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+    border-right: 1px solid black;
+  }
+
+  .transaction-wrapper .info-item.budget-exclusion {
+    font-size: 0.8em;
+    font-style: italic;
+  }
+
+  .transaction-wrapper .info-item span.spacer {
+    margin: 0 6px;
+  }
+
+  .transaction-wrapper .info-item:first-of-type {
+    border-left: 1px solid black;
+  }
 }

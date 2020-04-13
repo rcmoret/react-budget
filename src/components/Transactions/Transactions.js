@@ -86,11 +86,14 @@ const mapStateToProps = (state, ownProps) => {
   }
 
   const initialTransaction = {
+    id: 0,
+    amount: metadata.prior_balance,
     balance: metadata.prior_balance,
+    check_number: null,
     clearance_date: metadata.date_range[0],
-    amount: null,
     description: "Balance",
     details: [],
+    notes: null,
   }
 
   const { month, year } = ownProps

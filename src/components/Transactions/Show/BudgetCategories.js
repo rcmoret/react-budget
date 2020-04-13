@@ -11,8 +11,11 @@ export default (props) => {
   } = props
 
   const budgetItems = details.filter(detail => detail.budget_item_id !== null)
+  const emptyCheckNumber = (check_number === "" || check_number === null)
+  const emptyDescription = (description === "" || description === null)
+  const emptyNotes = (notes === "" || notes === null)
 
-  if (budgetItems.length > 0 && description !== null && !showDetail) {
+  if (budgetItems.length > 0 && !emptyDescription && !showDetail) {
     return (
       <div className="budget-categories">
         {budgetItems.map((item, index) =>
@@ -25,7 +28,7 @@ export default (props) => {
         )}
       </div>
     )
-  } else if (showDetail && (check_number === "" || check_number === null) && notes === null) {
+  } else if (showDetail &&  emptyCheckNumber && emptyNotes) {
     return (
       <div className="budget-categories">
         <Icon className="fas fa-list" />
