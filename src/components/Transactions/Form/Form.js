@@ -86,6 +86,9 @@ export default (props) => {
           budget_exclusion={budget_exclusion}
           selectedAccount={selectedAccount}
         />
+        <Receipt
+          onChange={onChange}
+        />
         <SubmitButton
           buttonText={buttonText}
           onSubmit={onSubmit}
@@ -94,6 +97,19 @@ export default (props) => {
       <AddDetailLink
         addDetail={addDetail}
       />
+    </div>
+  )
+}
+
+const Receipt = ({ onChange }) => {
+  const handleImageChange = event => {
+    const file = event.target.files[0]
+    onChange({ receipt: file })
+  }
+
+  return (
+    <div>
+      <input type="file" name="receipt" onChange={handleImageChange} />
     </div>
   )
 }

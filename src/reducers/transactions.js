@@ -31,6 +31,7 @@ const initialState = {
     description: "",
     showForm: true,
     budget_exclusion: false,
+    receipt: null,
     details: [emptyDetail],
   },
 }
