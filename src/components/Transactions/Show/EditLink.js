@@ -1,8 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import { toggleEditForm } from "../../../actions/transactions"
-
 import { Link } from "react-router-dom"
 
 const EditLink = ({ onClick }) => (

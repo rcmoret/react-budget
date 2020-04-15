@@ -6,7 +6,6 @@ import { edit, deleteTransaction, toggleEditForm } from "../../../actions/transa
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 
-import Icon from "../../Icons/Icon"
 import Amount from "./Amount"
 import Balance from "./Balance"
 import BottomRow from "./BottomRow"
@@ -14,8 +13,10 @@ import BudgetCategories from "./BudgetCategories"
 import BudgetExclusion from "./BudgetExclusion"
 import CheckNumber from "./CheckNumber"
 import ClearanceDate from "./ClearanceDate"
+import DeleteButton from "./DeleteButton"
 import Description from "./Description"
 import Edit from "../Edit"
+import EditLink from "./EditLink"
 import Notes from "./Notes"
 import LeftIcon from "./LeftIcon"
 import TxnLinks from "./TxnLinks"
@@ -78,6 +79,14 @@ const Show = (props) => {
         <div className="transaction">
           <div className="transaction-row">
             <div className="left-content">
+              <div className="left-caret">
+                <LeftIcon
+                  collapseDetail={collapseDetail}
+                  details={details}
+                  expandDetail={expandDetail}
+                  showDetail={showDetail}
+                />
+              </div>
               <ClearanceDate clearanceDate={clearance_date} />
               <Description
                 collapseDetail={collapseDetail}
@@ -87,13 +96,26 @@ const Show = (props) => {
                 showDetail={showDetail}
               />
             </div>
-            <Amount amount={amount} />
+            <div className="middle-content">
+              <Amount amount={amount} details={details} showDetail={showDetail} />
+              <Balance balance={balance} />
+              <BudgetCategories
+                description={description}
+                details={details}
+                showDetail={showDetail}
+              />
+              <Notes notes={notes} />
+              <CheckNumber checkNumber={check_number} />
+              <BudgetExclusion budgetExclusion={budget_exclusion} />
+            </div>
           </div>
+          <EndLinks revealForm={revealForm} transactionDelete={transactionDelete} />
           <BottomRow
             id={id}
             balance={balance}
             budgetExclusion={budget_exclusion}
             check_number={check_number}
+            description={description}
             details={details}
             notes={notes}
             showDetail={showDetail}
@@ -110,5 +132,12 @@ const Show = (props) => {
     )
   }
 }
+
+const EndLinks = ({ revealForm, transactionDelete }) => (
+  <div className="end-links">
+    <EditLink onClick={revealForm} />
+    <DeleteButton onClick={transactionDelete} />
+  </div>
+)
 
 export default connect((_state, ownProps) => ownProps)(Show)

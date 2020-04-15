@@ -8,7 +8,7 @@ export default ({ id, revealForm, showDetail, transactionDelete }) => {
     return null
   } else {
     return (
-      <div className="transaction-row">
+      <div className="transaction-row txn-links">
         <EditLink onClick={revealForm} />
         <DeleteButton onClick={transactionDelete} />
       </div>

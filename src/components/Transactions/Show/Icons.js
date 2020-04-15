@@ -2,12 +2,12 @@ import React from "react"
 
 import Icon from "../../Icons/Icon"
 
-export const BudgetCategoryIcons = ({ details }) => {
+export const BudgetCategoryIcons = ({ description, details }) => {
   const budgetItems = details.filter(detail => detail.budget_item_id !== null)
+  const emptyDescription = (description === null || description === "")
+  const showDetail = details.length > 1 || (budgetItems.length === 1 && !emptyDescription)
 
-  if (budgetItems.length === 0) {
-    return null
-  } else {
+  if (showDetail) {
     return (
       <div className="info-item">
         {budgetItems.map((item, index) => (
@@ -19,6 +19,8 @@ export const BudgetCategoryIcons = ({ details }) => {
         ))}
       </div>
     )
+  } else {
+    return null
   }
 }
 

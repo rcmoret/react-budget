@@ -2,9 +2,9 @@ import React from "react"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 export default ({ amount, details, showDetail }) => {
-  if (showDetail) {
+  if (showDetail && details.length > 1) {
     return (
-      <div>
+      <div className="amounts">
         <div className="amount-detail">
           {MoneyFormatter(amount)}
         </div>
@@ -15,7 +15,7 @@ export default ({ amount, details, showDetail }) => {
     )
   } else {
     return (
-      <div>
+      <div className="amounts">
         <div className="amount-detail">
           {MoneyFormatter(amount)}
         </div>

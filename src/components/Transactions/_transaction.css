@@ -84,8 +84,70 @@
   margin-right: 8%;
 }
 
+.transaction-wrapper .description .description-detail {
+  font-size: 0.8em;
+  font-style: italic;
+}
+
 /* large screens */
 @media screen and (min-width: 768px) {
+  .transaction-wrapper span.short-date {
+    display: none;
+  }
+
+  .transaction-wrapper .transaction {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .transaction-wrapper .transaction-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .transaction-wrapper .description .link,
+  .transaction-wrapper .transaction-row.txn-links,
+  .transaction-wrapper .transaction-row.txn-second-row,
+  .transaction-wrapper .description span.link {
+    display: none;
+  }
+
+  .transaction-wrapper .left-content {
+    display: flex;
+    justify-content: flex-start;
+    width: 35%;
+  }
+
+  .transaction-wrapper .middle-content {
+    display: flex;
+    justify-content: flex-start;
+    width: 60%;
+  }
+
+  .transaction-wrapper .middle-content .amounts,
+  .transaction-wrapper .middle-content .balance {
+    width: 15%;
+    text-align: right;
+  }
+
+  .transaction-wrapper .left-content .left-caret {
+    min-width: 5%;
+  }
+
+  .transaction-wrapper .left-content .clearance-date {
+    margin-right: 15px;
+    min-width: 27%;
+  }
+
+  .transaction-wrapper .end-links {
+    display: flex;
+  }
+
+  .transaction-wrapper .end-links .transaction-delete-button {
+    margin-left: 15px;
+  }
 }
 
 /* small/mobile screens */
@@ -118,8 +180,8 @@
     justify-content: flex-start;
   }
 
-  .transaction-wrapper span.long-date {
-    display: none;
+  .transaction-wrapper .middle-content .amount-detail {
+    text-align: right;
   }
 
   .transaction-wrapper span.short-date.pending {
@@ -141,10 +203,18 @@
 
   .transaction-wrapper .description {
     font-size: 1.1em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
-  .transaction-wrapper .description span.plain-text,
-  .transaction-wrapper .description span.budget-item i {
+  .transaction-wrapper .balance,
+  .transaction-wrapper .budget-categories,
+  .transaction-wrapper .description .plain-text,
+  .transaction-wrapper span.long-date,
+  .transaction-wrapper .middle-content .check-number,
+  .transaction-wrapper .middle-content .exclusion,
+  .transaction-wrapper .middle-content .notes,
+  .transaction-wrapper .end-links {
     display: none;
   }
 
@@ -167,4 +237,13 @@
   .transaction-wrapper .info-item:first-of-type {
     border-left: 1px solid black;
   }
+
+  .transaction-wrapper .transaction .txn-info-stack {
+    width: 75%;
+  }
+
+  .transaction-wrapper .transaction .notes {
+    max-width: 100%;
+  }
+
 }

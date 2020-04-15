@@ -3,7 +3,8 @@ import React from "react"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 import { BudgetCategoryIcons, CheckIcon, NotesIcon } from "./Icons"
-import Icon from "../../Icons/Icon"
+import CheckNumber from "./CheckNumber"
+import Notes from "./Notes"
 
 export default (props) => {
   const {
@@ -11,6 +12,7 @@ export default (props) => {
     balance,
     budgetExclusion,
     check_number,
+    description,
     details,
     notes,
     showDetail,
@@ -20,10 +22,11 @@ export default (props) => {
     return null
   } else {
     return (
-      <div className="transaction-row">
+      <div className="transaction-row txn-second-row">
         <TransactionInfo
           budgetExclusion={budgetExclusion}
           check_number={check_number}
+          description={description}
           details={details}
           notes={notes}
           showDetail={showDetail}
@@ -40,18 +43,29 @@ const TransactionInfo = (props) => {
   const {
     budgetExclusion,
     check_number,
+    description,
     details,
     notes,
+    showDetail,
   } = props
 
-  return (
-    <div className="txn-info">
-      <BudgetCategoryIcons details={details} />
-      <NotesIcon notes={notes} />
-      <CheckIcon checkNumber={check_number} />
-      <BudgetExclusion exclusion={budgetExclusion} />
-    </div>
-  )
+  if (showDetail) {
+    return (
+      <div className="txn-info-stack">
+        <Notes notes={notes} />
+        <CheckNumber checkNumber={check_number} />
+      </div>
+    )
+  } else {
+    return (
+      <div className="txn-info">
+        <BudgetCategoryIcons description={description} details={details} />
+        <NotesIcon notes={notes} />
+        <CheckIcon checkNumber={check_number} />
+        <BudgetExclusion exclusion={budgetExclusion} />
+      </div>
+    )
+  }
 }
 
 const BudgetExclusion = ({ exclusion }) => {
