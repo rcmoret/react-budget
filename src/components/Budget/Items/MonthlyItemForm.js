@@ -91,6 +91,7 @@ const MonthlyItemForm = (props) => {
             value={amount}
             onChange={onAmountChange}
             onKeyDown={handleKeyDown}
+            size="8"
           />
           <Errors errors={errors} />
         </div>
