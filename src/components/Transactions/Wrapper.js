@@ -40,9 +40,15 @@ const Wrapper = (props) => {
     get(url, onSuccess, onFailure)
   }
 
-  if (urlMonth !== month || urlYear !== year || urlAccountId !== accountId) {
-    fetchTransactions()
-    if (!fetched || (urlMonth !== month || urlYear !== year)) {
+  const isNewMonthYear = !(urlMonth === month && urlYear === year)
+  const isTransctionCacheStale = (isNewMonthYear ||  urlAccountId !== accountId)
+  const isBudgetCacheStale = (!fetched || isNewMonthYear)
+
+  if (isTransctionCacheStale || isBudgetCacheStale) {
+    if (isTransctionCacheStale) {
+      fetchTransactions()
+    }
+    if (isBudgetCacheStale) {
       fetchBudgetItems()
     }
   }
