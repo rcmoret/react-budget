@@ -92,7 +92,11 @@ const mapStateToProps = (state) => {
     }
     const strictExp = new RegExp(`^${searchTerm}.*`, "i")
     const looseExp = new RegExp(`(^|\\s)${searchTerm}.*`, "i")
-    if (a.name.match(strictExp) && b.name.match(strictExp)) {
+    if (a.isNew && !b.isNew) {
+      return -1
+    } else if (!a.isNew && b.isNew) {
+      return 1
+    } else if (a.name.match(strictExp) && b.name.match(strictExp)) {
       return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
     } else if (a.name.match(strictExp)) {
       return -1
