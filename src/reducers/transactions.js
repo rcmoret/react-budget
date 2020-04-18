@@ -8,6 +8,7 @@ const today = new Date()
 const emptyDetail = {
   amount: "",
   budget_item_id: null,
+  disabled: false,
 }
 
 const initialState = {

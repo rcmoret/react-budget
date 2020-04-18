@@ -6,14 +6,22 @@ import { transaction as copy } from "../../../locales/copy"
 
 export default (props) => {
   const {
-    _id,
+    index,
+    detail,
+    onDetailChange,
+    options,
+  } = props
+
+  const {
+    id,
     amount,
     budget_category,
     budget_exclusion,
     budget_item_id,
-    onDetailChange,
-    options,
-  } = props
+    disabled,
+  } = detail
+
+  const _id = id || index
 
   const onChange = (e) => {
     if (amount === "" && e.monthly) {
@@ -33,9 +41,9 @@ export default (props) => {
   }
 
   return (
-    <div className="detail-budget-item-select">
+    <div className={`detail-budget-item-select ${disabled ? "disabled" : ""}`}>
       <Select
-        isDisabled={budget_exclusion}
+        isDisabled={disabled || budget_exclusion}
         options={options}
         value={selectValue()}
         onChange={onChange}

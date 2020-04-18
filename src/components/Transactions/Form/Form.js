@@ -1,15 +1,17 @@
 import React from "react"
 
 import AddDetailLink from "./AddDetailLink"
-import Amounts from "./Amount"
 import BudgetExclusion from "./BudgetExclusion"
-import BudgetItemSelect from "./BudgetItemSelect"
 import CheckNumber from "./CheckNumber"
 import ClearanceDate from "./ClearanceDate"
 import Descriptions from "./Descriptions"
+import DetailAmount from "./DetailAmount"
+import DetailBudgetItemSelect from "./DetailBudgetItemSelect"
 import { Link } from "react-router-dom"
 import Notes from "./Notes"
 import SubmitButton from "./Submit"
+
+import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 export default (props) => {
   const {
@@ -26,7 +28,6 @@ export default (props) => {
   } = props
 
   const {
-    amount,
     budget_exclusion,
     check_number,
     clearance_date,
@@ -37,40 +38,39 @@ export default (props) => {
 
   return (
     <div className="transaction-form transaction-wrapper">
-      <div className="top-line">
-        <div className="close-icon">
-          <Link
-            to="#"
-            onClick={resetForm}
-            className="fas fa-times"
+      <div className="transaction">
+        <div className="transaction-row left-content">
+          <div className="close-icon">
+            <Link
+              to="#"
+              onClick={resetForm}
+              className="fas fa-times"
+            />
+          </div>
+          <ClearanceDate
+            clearanceDate={clearance_date}
+            onChange={onChange}
+            handleKeyDown={handleKeyDown}
           />
         </div>
-        <ClearanceDate
-          clearanceDate={clearance_date}
-          onChange={onChange}
-          handleKeyDown={handleKeyDown}
-        />
-        <Descriptions
-          description={description}
-          handleKeyDown={handleKeyDown}
-          onChange={onChange}
-          details={details}
-        />
-        <Amounts
-          amount={amount}
-          handleKeyDown={handleKeyDown}
-          onChange={onChange}
-          onDetailChange={onDetailChange}
-          details={details}
-        />
-        <BudgetItemSelect
-          details={details}
-          onChange={onChange}
-          budget_exclusion={budget_exclusion}
-          onDetailChange={onDetailChange}
-          options={budgetOptions}
-        />
-        <div className="additional-options">
+        <div className="transaction-row middle-content">
+          <Descriptions
+            description={description}
+            handleKeyDown={handleKeyDown}
+            onChange={onChange}
+            details={details}
+          />
+        </div>
+        <div className="detail-wrapper">
+          <Details
+            details={details}
+            detailCount={details.length}
+            handleKeyDown={handleKeyDown}
+            onDetailChange={onDetailChange}
+            options={budgetOptions}
+          />
+        </div>
+        <div className="transaction-row options">
           <Notes
             handleKeyDown={handleKeyDown}
             onChange={onChange}
@@ -80,23 +80,23 @@ export default (props) => {
             onChange={onChange}
             check_number={check_number || ""}
           />
+          <BudgetExclusion
+            onChange={onChange}
+            budget_exclusion={budget_exclusion}
+            selectedAccount={selectedAccount}
+          />
+          <Receipt
+            onChange={onChange}
+          />
+          <SubmitButton
+            buttonText={buttonText}
+            onSubmit={onSubmit}
+          />
+          <AddDetailLink
+            addDetail={addDetail}
+          />
         </div>
-        <BudgetExclusion
-          onChange={onChange}
-          budget_exclusion={budget_exclusion}
-          selectedAccount={selectedAccount}
-        />
-        <Receipt
-          onChange={onChange}
-        />
-        <SubmitButton
-          buttonText={buttonText}
-          onSubmit={onSubmit}
-        />
       </div>
-      <AddDetailLink
-        addDetail={addDetail}
-      />
     </div>
   )
 }
@@ -111,5 +111,45 @@ const Receipt = ({ onChange }) => {
     <div>
       <input type="file" name="receipt" onChange={handleImageChange} />
     </div>
+  )
+}
+
+const Details = (props) => {
+  const {
+    details,
+    detailCount,
+    handleKeyDown,
+    onDetailChange,
+    options,
+  } = props
+
+  const total = details.reduce((acc, detail) => acc + (parseFloat(detail.amount || 0)), 0)
+  const nullFn = () => null
+  const initialDetail = { id: 0, amount: MoneyFormatter(total * 100), disabled: true, handleKeyDown: nullFn, onDetailChange: nullFn, budgetItemId: null }
+
+  const detailCollection = (detailCount === 1) ? details : [initialDetail, ...details]
+  const indexFor = index => (detailCount === 1) ? 0 : index - 1
+
+  return (
+    detailCollection.map((detail, index) => {
+      return (
+        <div className="transaction-row" key={index}>
+          <DetailAmount
+            index={indexFor(index)}
+            detail={detail}
+            onDetailChange={onDetailChange}
+            onKeyDown={handleKeyDown}
+          />
+          <div className="budget-item-select">
+            <DetailBudgetItemSelect
+              index={indexFor(index)}
+              detail={detail}
+              onDetailChange={onDetailChange}
+              options={options}
+            />
+          </div>
+        </div>
+      )
+    })
   )
 }

@@ -2,56 +2,157 @@
   margin-top: 1%;
 }
 
-.transaction-form .top-line {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
+/* large screens */
+@media screen and (min-width: 768px) {
+  .transaction-wrapper.transaction-form .transaction {
+    justify-content: flex-start;
+  }
+
+  .transaction-wrapper.transaction-form .transaction-row.left-content {
+    width: 11.5%;
+  }
+
+  .transaction-wrapper.transaction-form .left-content .clearance-date input {
+    width: 80%;
+    margin-left: 15px;
+  }
+
+  .transaction-wrapper.transaction-form .middle-content {
+    width: 30%;
+    margin-right: 2%;
+  }
+
+  .transaction-wrapper.transaction-form .middle-content .description {
+    width: 100%;
+  }
+
+  .transaction-wrapper.transaction-form .middle-content .description input {
+    width: 100%;
+  }
+
+  .transaction-wrapper.transaction-form .detail-wrapper {
+    width: 25%;
+  }
+
+  .transaction-wrapper.transaction-form .transaction-row.options {
+    display: none;
+  }
+
+  .transaction-wrapper.transaction-form .budget-item-select {
+    display: inline-block;
+    width: 72%;
+  }
+
+  .transaction-wrapper.transaction-form .budget-item-select .detail-budget-item-select {
+    width: 92%;
+  }
+
+  .transaction-wrapper.transaction-form .budget-item-select .detail-budget-item-select.disabled {
+    display: none;
+  }
+
+  .transaction-wrapper.transaction-form .budget-item-select span.disabled {
+    display: none;
+  }
 }
 
-.transaction-form .close-icon {
-  width: 2%;
+/* small/mobile screens */
+@media screen and (max-width: 768px) {
+  .transaction-wrapper.transaction-form .left-content {
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+  }
+
+  .transaction-wrapper.transaction-form .left-content .clearance-date {
+    display: flex;
+  }
+
+  .transaction-wrapper.transaction-form .description input {
+    min-width: 65%;
+  }
+
+  .transaction-wrapper.transaction-form .transaction-row.form-details {
+    justify-content: space-between;
+  }
+
+  .transaction-wrapper.transaction-form .detail-amount {
+    text-align: left;
+    width: 18%;
+  }
+
+  .transaction-wrapper.transaction-form .detail-amount input {
+    text-align: right;
+  }
+
+  .transaction-wrapper.transaction-form .budget-item-select {
+    display: inline-block;
+    width: 52%;
+  }
+
+  .transaction-wrapper.transaction-form .budget-item-select .detail-budget-item-select {
+    width: 92%;
+  }
+
+  .transaction-wrapper.transaction-form .budget-item-select .detail-budget-item-select.disabled {
+    display: none;
+  }
+
+  .transaction-wrapper.transaction-form .budget-item-select span.disabled {
+    display: none;
+  }
 }
 
-.clearance-date input {
-  width: 85%;
-  margin-left: 5%;
-}
+/* .transaction-form .top-line { */
+/*   width: 100%; */
+/*   display: flex; */
+/*   flex-wrap: wrap; */
+/* } */
 
-.transaction-form .description {
-  display: inline-block;
-  vertical-align: top;
-  width: 20%;
-}
+/* .transaction-form .close-icon { */
+/*   width: 2%; */
+/* } */
 
-.description input {
-  width: 95%;
-  margin-left: 5%;
-}
+/* .clearance-date input { */
+/*   width: 85%; */
+/*   margin-left: 5%; */
+/* } */
 
-.transaction-form .amount {
-  display: inline-block;
-  vertical-align: top;
-}
+/* .transaction-form .description { */
+/*   display: inline-block; */
+/*   vertical-align: top; */
+/*   width: 20%; */
+/* } */
 
-.amount input {
-  width: 80%;
-  margin-left: 15%;
-  text-align: right;
-}
+/* .description input { */
+/*   width: 95%; */
+/*   margin-left: 5%; */
+/* } */
 
-.budget-item-select {
-  width: 20%;
-  margin-right: 2%;
-}
+/* .transaction-form .amount { */
+/*   display: inline-block; */
+/*   vertical-align: top; */
+/* } */
 
-.transaction-form .budget-item-select {
-  display: inline-block;
-  vertical-align: top;
-}
+/* .amount input { */
+/*   width: 80%; */
+/*   margin-left: 15%; */
+/*   text-align: right; */
+/* } */
 
-.budget-item-select div {
-  display: flex;
-}
+/* .budget-item-select { */
+/*   width: 20%; */
+/*   margin-right: 2%; */
+/* } */
+
+/* .transaction-form .budget-item-select { */
+/*   display: inline-block; */
+/*   vertical-align: top; */
+/* } */
+
+/* .budget-item-select div { */
+/*   display: flex; */
+/* } */
 
 .budget-item-select-container {
   width: 100%;
@@ -79,59 +180,59 @@
   width: 100%
 }
 
-.check-number input {
-  width: 64%;
-}
+/* .check-number input { */
+/*   width: 64%; */
+/* } */
 
-.options {
-  margin-top: 1%;
-  vertical-align: top;
-}
+/* .options { */
+/*   margin-top: 1%; */
+/*   vertical-align: top; */
+/* } */
 
-.transaction-form textarea {
-  resize: none;
-  width: 100%;
-}
+/* .transaction-form textarea { */
+/*   resize: none; */
+/*   width: 100%; */
+/* } */
 
-.input-notes {
-  width: 80%;
-  margin-left: -0.5%;
-}
+/* .input-notes { */
+/*   width: 80%; */
+/*   margin-left: -0.5%; */
+/* } */
 
-.transaction-form .budget-exclusion {
-  display: inline-block;
-  vertical-align: top;
-}
+/* .transaction-form .budget-exclusion { */
+/*   display: inline-block; */
+/*   vertical-align: top; */
+/* } */
 
-.transaction-form .transaction-submit {
-  display: inline-block;
-  vertical-align: top;
-  width: 10%;
-  margin-left: 1.5%;
-}
+/* .transaction-form .transaction-submit { */
+/*   display: inline-block; */
+/*   vertical-align: top; */
+/*   width: 10%; */
+/*   margin-left: 1.5%; */
+/* } */
 
-.transaction-submit button {
-  background-color: #59D176;
-  border-radius: 8px;
-  padding: 5%;
-  font-size: 0.8em;
-  border: none;
-}
+/* .transaction-submit button { */
+/*   background-color: #59D176; */
+/*   border-radius: 8px; */
+/*   padding: 5%; */
+/*   font-size: 0.8em; */
+/*   border: none; */
+/* } */
 
-.left-stuff {
-  width: 12%;
-  display: flex;
-}
+/* .left-stuff { */
+/*   width: 12%; */
+/*   display: flex; */
+/* } */
 
-.left-stuff .option {
-  margin-top: 10%;
-}
+/* .left-stuff .option { */
+/*   margin-top: 10%; */
+/* } */
 
-.detail {
-  margin-top: 20.2px;
-}
+/* .detail { */
+/*   margin-top: 20.2px; */
+/* } */
 
-.transaction-form .additional-options {
-  display: inline-block;
-  vertical-align: top;
-}
+/* .transaction-form .additional-options { */
+/*   display: inline-block; */
+/*   vertical-align: top; */
+/* } */
