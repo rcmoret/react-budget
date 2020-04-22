@@ -24,6 +24,14 @@ export const editDetailProps = (payload) => {
   return { type: "transactions/EDIT_DETAIL_PROPS", payload: payload }
 }
 
+export const editFormOptions = (payload) => (
+  { type: "transactions/EDIT_FORM_OPTIONS", payload: payload }
+)
+
+export const editNewFormOptions = (payload) => (
+  { type: "transactions/EDIT_NEW_FORM_OPTIONS", payload: payload }
+)
+
 export const editProps = (payload) => {
   return { type: "transactions/EDIT_PROPS", payload: payload }
 }

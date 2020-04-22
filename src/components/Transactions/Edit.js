@@ -7,6 +7,7 @@ import { titleize } from "../../locales/functions"
 import {
   addDetailToEntry,
   editDetailProps,
+  editFormOptions,
   editProps,
   toggleEditForm,
   updated,
@@ -50,6 +51,12 @@ const Edit = (props) => {
     dispatch(action)
   }
 
+  const toggleFormOption = (e) => {
+    const optionName = e.target.name
+    const action = editFormOptions({ id: id, [optionName]: !transaction.formOptions[optionName] })
+    dispatch(action)
+  }
+
   const onSubmit = () => {
     const description = transaction.description === "" ? null : transaction.description
     const url = ApiUrlBuilder(["accounts", account_id, "transactions", id])
@@ -84,6 +91,7 @@ const Edit = (props) => {
         onDetailChange={onDetailChange}
         onSubmit={onSubmit}
         resetForm={resetForm}
+        toggleFormOption={toggleFormOption}
         {...props}
       />
     )

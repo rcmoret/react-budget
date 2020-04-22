@@ -2,6 +2,64 @@
   margin-top: 1%;
 }
 
+.accounts .transaction-wrapper.transaction-form .transaction-row.options .option-icons span.highlighted a {
+  color: #8AB6FF;
+}
+
+.transaction-wrapper.transaction-form .transaction-row.options .option-icons {
+  display: flex;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.transaction-wrapper.transaction-form .transaction-row.options .option-icon {
+  min-width: 20%;
+}
+
+.transaction-wrapper.transaction-form .transaction-row.options .option-input {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.transaction-wrapper.transaction-form .transaction-row.options .option-input textarea {
+  resize: none;
+  min-width: 70%;
+}
+
+.transaction-wrapper.transaction-form .transaction-row.options .option-input .form-budget-exclusion,
+.transaction-wrapper.transaction-form .transaction-row.options .option-input.receipt {
+  display: flex;
+  justify-content: space-between;
+}
+
+.budget-item-select-container {
+  width: 100%;
+  display: block;
+}
+
+.budget-item-select__control {
+  display: block;
+  width: 100%;
+  margin-left: 10%;
+}
+
+.budget-item-select .budget-item-select__menu {
+  margin-left: 10%;
+  width: 90%;
+}
+
+.budget-item-select .budget-item-select__menu-list {
+  display: block;
+  width: 100%
+}
+
+.budget-item-select .budget-item-select__option {
+  display: block;
+  width: 100%
+}
+
 /* large screens */
 @media screen and (min-width: 768px) {
   .transaction-wrapper.transaction-form .transaction {
@@ -31,16 +89,44 @@
   }
 
   .transaction-wrapper.transaction-form .detail-wrapper {
-    width: 25%;
+    width: 29%;
   }
 
   .transaction-wrapper.transaction-form .transaction-row.options {
-    display: none;
+    width: 12%;
+    margin-left: 2%;
+    display: block;
   }
+
+  /* .transaction-wrapper.transaction-form .transaction-row.options .option-icons { */
+  /*   display: flex; */
+  /*   width: 100%; */
+  /* } */
+
+  /* .transaction-wrapper.transaction-form .transaction-row.options .option-icon { */
+  /*   min-width: 20%; */
+  /* } */
+
+  /* .transaction-wrapper.transaction-form .transaction-row.options .option-input { */
+  /*   margin-top: 10px; */
+  /*   width: 100%; */
+  /*   display: flex; */
+  /*   justify-content: space-between; */
+  /* } */
+
+  /* .transaction-wrapper.transaction-form .transaction-row.options .option-input notes { */
+  /*   width: 100%; */
+  /* } */
+
+  /* .transaction-wrapper.transaction-form .transaction-row.options .option-input textarea { */
+  /*   resize: none; */
+  /*   min-width: 80%; */
+  /* } */
 
   .transaction-wrapper.transaction-form .budget-item-select {
     display: inline-block;
-    width: 72%;
+    width: 66%;
+    margin-right: 2%;
   }
 
   .transaction-wrapper.transaction-form .budget-item-select .detail-budget-item-select {
@@ -78,7 +164,7 @@
 
   .transaction-wrapper.transaction-form .detail-amount {
     text-align: left;
-    width: 18%;
+    width: 13%;
   }
 
   .transaction-wrapper.transaction-form .detail-amount input {
@@ -87,7 +173,8 @@
 
   .transaction-wrapper.transaction-form .budget-item-select {
     display: inline-block;
-    width: 52%;
+    width: 50%;
+    margin-right: -20%;
   }
 
   .transaction-wrapper.transaction-form .budget-item-select .detail-budget-item-select {
@@ -100,6 +187,20 @@
 
   .transaction-wrapper.transaction-form .budget-item-select span.disabled {
     display: none;
+  }
+
+  .transaction-wrapper.transaction-form .transaction-row.options .option-icons {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+  }
+
+  .transaction-wrapper.transaction-form .transaction-row.options .input-options {
+    width: 100%;
+  }
+
+  .transaction-wrapper.transaction-form .transaction-row.options .option-input {
+    justify-content: space-between;
   }
 }
 
@@ -153,32 +254,6 @@
 /* .budget-item-select div { */
 /*   display: flex; */
 /* } */
-
-.budget-item-select-container {
-  width: 100%;
-  display: block;
-}
-
-.budget-item-select__control {
-  display: block;
-  width: 100%;
-  margin-left: 10%;
-}
-
-.budget-item-select .budget-item-select__menu {
-  margin-left: 10%;
-  width: 90%;
-}
-
-.budget-item-select .budget-item-select__menu-list {
-  display: block;
-  width: 100%
-}
-
-.budget-item-select .budget-item-select__option {
-  display: block;
-  width: 100%
-}
 
 /* .check-number input { */
 /*   width: 64%; */

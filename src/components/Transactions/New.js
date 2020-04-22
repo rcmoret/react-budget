@@ -4,7 +4,15 @@ import { connect } from "react-redux"
 import { budget as copy } from "../../locales/copy"
 import { titleize } from "../../locales/functions"
 
-import { addDetailToNew, created, resetNew, toggleNewForm, updateNew, updateNewDetail } from "../../actions/transactions"
+import {
+  addDetailToNew,
+  created,
+  editNewFormOptions,
+  resetNew,
+  toggleNewForm,
+  updateNew,
+  updateNewDetail,
+} from "../../actions/transactions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import FindOrDefault from "../../functions/FindOrDefault"
@@ -29,6 +37,12 @@ const New = (props) => {
     const action = resetNew()
     dispatch(action)
     closeForm()
+  }
+
+  const toggleFormOption = e => {
+    const { name } = e.target
+    const action = editNewFormOptions({ [name]: !transaction.formOptions[name] })
+    dispatch(action)
   }
 
   const closeForm = () => dispatch(toggleNewForm())
@@ -75,6 +89,7 @@ const New = (props) => {
       onSubmit={onSubmit}
       resetForm={resetForm}
       selectedAccount={selectedAccount}
+      toggleFormOption={toggleFormOption}
     />
   )
 }

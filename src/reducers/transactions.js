@@ -1,5 +1,5 @@
 import objectifyMonthly from "../models/monthlyBudgetItem"
-import objectifyTransaction from "../models/transaction"
+import objectifyTransaction, { defaultFormOptions } from "../models/transaction"
 import objectifyWeekly from "../models/weeklyBudgetItem"
 import * as helpers from "./helpers/transactionHelpers"
 
@@ -30,9 +30,11 @@ const initialState = {
     check_number: "",
     clearance_date: "",
     description: "",
+    notes: null,
     showForm: true,
     budget_exclusion: false,
     receipt: null,
+    formOptions: defaultFormOptions,
     details: [emptyDetail],
   },
 }
@@ -126,6 +128,24 @@ export default (state = initialState, action) => {
       collection: state.collection.map(txn => (
         txn.id !== action.payload.id ? txn : { ...txn, ...action.payload }
       ))
+    }
+  case "transactions/EDIT_FORM_OPTIONS":
+    return {
+      ...state,
+      collection: state.collection.map(txn => (
+        txn.id !== action.payload.id ? txn : { ...txn, formOptions: {...txn.formOptions, ...action.payload } }
+      ))
+    }
+  case "transactions/EDIT_NEW_FORM_OPTIONS":
+    return {
+      ...state,
+      new: {
+        ...state.new,
+        formOptions: {
+          ...state.new.formOptions,
+          ...action.payload,
+        },
+      },
     }
   case "transactions/EDIT_PROPS":
     return {
