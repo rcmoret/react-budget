@@ -111,12 +111,11 @@ export default (props) => {
             />
           </div>
         </div>
+        <SubmitButton
+          buttonText={buttonText}
+          onSubmit={onSubmit}
+        />
       </div>
     </div>
   )
 }
-
-// <SubmitButton
-//   buttonText={buttonText}
-//   onSubmit={onSubmit}
-// />
