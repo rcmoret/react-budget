@@ -4,16 +4,13 @@ import BudgetExclusion from "./BudgetExclusion"
 import CheckNumber from "./CheckNumber"
 import ClearanceDate from "./ClearanceDate"
 import Descriptions from "./Descriptions"
-import DetailAmount from "./DetailAmount"
 import Details from "./Details"
-import DetailBudgetItemSelect from "./DetailBudgetItemSelect"
 import { Link } from "react-router-dom"
 import Notes from "./Notes"
 import OptionIcons from "./OptionIcons"
 import Receipt from "./Receipt"
 import SubmitButton from "./Submit"
 
-import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 export default (props) => {
   const {

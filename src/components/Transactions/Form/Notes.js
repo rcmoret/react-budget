@@ -1,6 +1,5 @@
 import React from "react"
 
-import Icon from "../../Icons/Icon"
 import { Link } from "react-router-dom"
 
 import { transaction as copy } from "../../../locales/copy"
