@@ -78,6 +78,18 @@
   margin-right: 8%;
 }
 
+.page-links a:first-of-type span {
+  margin-right: 7px;
+}
+
+.page-links a:last-of-type span {
+  margin-left: 7px;
+}
+
+.page-links span {
+  font-size: 0.8em;
+}
+
 .transaction-wrapper .description .description-detail {
   font-size: 0.8em;
   font-style: italic;
