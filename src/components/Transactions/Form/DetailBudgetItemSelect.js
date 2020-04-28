@@ -8,6 +8,7 @@ export default (props) => {
   const {
     index,
     detail,
+    budget_exclusion,
     onDetailChange,
     options,
   } = props
@@ -16,7 +17,6 @@ export default (props) => {
     id,
     amount,
     budget_category,
-    budget_exclusion,
     budget_item_id,
     disabled,
   } = detail

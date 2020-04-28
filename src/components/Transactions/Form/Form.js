@@ -64,6 +64,7 @@ export default (props) => {
         <div className="detail-wrapper">
           <Details
             addDetail={addDetail}
+            budget_exclusion={budget_exclusion}
             details={details}
             detailCount={details.length}
             handleKeyDown={handleKeyDown}

@@ -8,6 +8,7 @@ import { Link } from "react-router-dom"
 export default (props) => {
   const {
     addDetail,
+    budget_exclusion,
     details,
     detailCount,
     handleKeyDown,
