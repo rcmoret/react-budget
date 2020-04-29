@@ -3,7 +3,7 @@ import TransfersLink from "./TransfersLink"
 import ManageButton from "./ManageButton"
 import TransactionsWrapper from "../Transactions/Wrapper"
 
-export default ({ month, year, selectedAccountId }) => {
+export default ({ month, year, selectedAccount, selectedAccountId }) => {
   if (selectedAccountId === 0) {
     return (
       <AdminLinks />
@@ -14,6 +14,7 @@ export default ({ month, year, selectedAccountId }) => {
         <TransactionsWrapper
           accountId={selectedAccountId}
           month={month}
+          selectedAccount={selectedAccount}
           year={year}
         />
         <hr />

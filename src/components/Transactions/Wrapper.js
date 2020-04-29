@@ -1,7 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import { fetchedBudgetItems, fetchedTransactions } from "../../actions/transactions"
+import { fetchedBudgetItems, fetchedTransactions, updateNew } from "../../actions/transactions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { get } from "../../functions/ApiClient"
@@ -14,6 +14,7 @@ const Wrapper = (props) => {
     dispatch,
     fetched,
     month,
+    selectedAccount,
     urlAccountId,
     urlMonth,
     urlYear,
@@ -40,6 +41,13 @@ const Wrapper = (props) => {
     get(url, onSuccess, onFailure)
   }
 
+  const resetNewBudgetExclusion = () => {
+    if (selectedAccount.id !== null && selectedAccount.cash_flow) {
+      const action = updateNew({ budget_exclusion: false })
+      dispatch(action)
+    }
+  }
+
   const isNewMonthYear = !(urlMonth === month && urlYear === year)
   const isTransctionCacheStale = (isNewMonthYear ||  urlAccountId !== accountId)
   const isBudgetCacheStale = (!fetched || isNewMonthYear)
@@ -47,10 +55,12 @@ const Wrapper = (props) => {
   if (isTransctionCacheStale || isBudgetCacheStale) {
     if (isTransctionCacheStale) {
       fetchTransactions()
+      resetNewBudgetExclusion()
     }
     if (isBudgetCacheStale) {
       fetchBudgetItems()
     }
+    return null
   }
 
   return (

@@ -4,6 +4,7 @@ import { fetched } from "./actions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { get } from "../../functions/ApiClient"
+import FindOrDefault from "../../functions/FindOrDefault"
 
 import Details from "./Details"
 import { Redirect } from "react-router-dom"
@@ -16,6 +17,7 @@ const Wrapper = (props) => {
     dateParams,
     dispatch,
     month,
+    selectedAccount,
     selectedAccountId,
     year,
   } = props
@@ -38,6 +40,7 @@ const Wrapper = (props) => {
         <Details
           month={month}
           selectedAccountId={selectedAccountId}
+          selectedAccount={selectedAccount}
           year={year}
         />
         <hr/>
@@ -57,6 +60,15 @@ const mapStateToProps = (state, ownProps) => {
   const accountsFetched = state.accounts.accountsFetched
   const collection = state.accounts.collection.sort((a, b) => a.priority - b.priority)
 
+  const nullAccount = {
+    id: null,
+    cash_flow: true,
+    name: "",
+    priority: "",
+  }
+
+  const selectedAccount = FindOrDefault(state.accounts.collection, acct => acct.id === selectedAccountId, nullAccount)
+
   return {
     accountsFetched: accountsFetched,
     collection: collection,
@@ -66,6 +78,7 @@ const mapStateToProps = (state, ownProps) => {
       year: ownProps.match.params.year,
     },
     selectedAccountId: selectedAccountId,
+    selectedAccount: selectedAccount,
     year: year,
   }
 }
