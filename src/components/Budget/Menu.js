@@ -65,6 +65,7 @@ const Links = (props) => {
     isEndOfMonth,
     isFuture,
     month,
+    requiresCloseOut,
     requiresSetUp,
     showAccruals,
     showCleared,
@@ -106,6 +107,7 @@ const Links = (props) => {
           dispatch={dispatch}
           isEndOfMonth={isEndOfMonth}
           month={month}
+          requiresCloseOut={requiresCloseOut}
           year={year}
         />
         <hr />
@@ -164,8 +166,8 @@ const Links = (props) => {
   }
 }
 
-const FinalizeButton = ({ isEndOfMonth, month, year }) => {
-  if (!isEndOfMonth) { return null }
+const FinalizeButton = ({ isEndOfMonth, month, requiresCloseOut, year }) => {
+  if (!isEndOfMonth || !requiresCloseOut) { return null }
 
   return (
     <Link
