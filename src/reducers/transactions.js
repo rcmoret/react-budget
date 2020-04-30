@@ -179,6 +179,8 @@ export default (state = initialState, action) => {
         year: action.payload.metadata.year,
       },
     }
+  case "transactions/REMOVE_DETAIL":
+    return helpers.removeDetail({...action.payload, state: state })
   case "transactions/REMOVE_NEW_DETAIL":
     return {
       ...state,

@@ -62,6 +62,11 @@ export default (state = initialState, action) => {
       ...state,
       collection: updateBalance(objectifyTransaction(action.payload), state.collection),
     }
+  case "transactions/REMOVE_DETAIL":
+    return {
+      ...state,
+      collection: updateBalance(action.payload, state.collection),
+    }
   case "transactions/DELETED":
     return {
       ...state,

@@ -85,6 +85,27 @@ export const editProps = (transaction, newProps) => {
   }
 }
 
+export const removeDetail = ({ amount, clearance_date, detailId, transactionId, state }) => {
+  const { prior_balance, date_range } = state.metadata
+  const updated = transaction => {
+    const updatedTransaction = {
+      ...transaction,
+      details: transaction.details.filter(detail => detail.id !== detailId)
+    }
+    return objectifyTransaction(updatedTransaction)
+  }
+  const newPrior = before(clearance_date, date_range[0]) ? (prior_balance + amount) : prior_balance
+
+  return {
+    ...state,
+    metadata: {
+      ...state.metadata,
+      prior_balance: newPrior,
+    },
+    collection: state.collection.map(txn => txn.id === transactionId ? updated(txn) : txn),
+  }
+}
+
 export const toggleEditForm = (id, state) => {
   const selectedTxn = findOrDefault(state.collection, (txn => txn.id === id), { showForm: true })
 
@@ -117,7 +138,7 @@ export const transferCreated = (payload, state) => {
   const toAccountId = toTransaction.account_id
   const fromAccountId = fromTransaction.account_id
 
-  if (selectedAccountId === undefined) {
+  if (selectedAccountId === undefined || selectedAccountId === null) {
     return state
   } else if (toAccountId === parseInt(selectedAccountId)) {
     return createTransaction(toTransaction, state)

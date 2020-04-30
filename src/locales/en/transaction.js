@@ -10,6 +10,7 @@ export const transaction = {
   dateRange: (start, end) => `${start} to ${end}`,
   date: "date",
   deleteConfirmationMessage: "Are you sure you want to delete this transaction?",
+  deleteDetailConfirmationMessage: "Are you sure you want to delete this transaction detail?",
   description: "description",
   notes: "notes",
   pending: "pending",

@@ -47,6 +47,7 @@ export default (props) => {
           <AddDetail
             id={detail.id}
             addDetail={addDetail}
+            amount={detail.amount}
             index={index}
             isLastDetail={isLastDetail}
             removeDetail={removeDetail}
@@ -57,8 +58,9 @@ export default (props) => {
   )
 }
 
-const AddDetail = ({ id, addDetail, index, isLastDetail, removeDetail }) => {
-  const onRemove = () => removeDetail(id || index - 1)
+const AddDetail = ({ id, addDetail, amount, index, isLastDetail, removeDetail }) => {
+  const _id = id || index - 1
+  const onRemove = () => removeDetail(_id, amount)
 
   if (index === 0) {
     return (

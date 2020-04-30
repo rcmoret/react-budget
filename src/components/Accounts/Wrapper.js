@@ -27,6 +27,7 @@ const Wrapper = (props) => {
     const onSuccess = data => dispatch(fetched(data))
     const onFailure = data => console.log(data)
     get(url, onSuccess, onFailure)
+    return null
   }
 
 

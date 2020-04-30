@@ -9,6 +9,7 @@ import {
   editDetailProps,
   editFormOptions,
   editProps,
+  removeDetail,
   toggleEditForm,
   updated,
 } from "../../actions/transactions"
@@ -21,7 +22,7 @@ import Form from "./Form/Form"
 
 const Edit = (props) => {
   const { budgetOptions, dispatch, transaction } = props
-  const { id, account_id, details } = transaction
+  const { id, account_id, clearance_date, details } = transaction
 
   const handleKeyDown = (e) => {
     if (e.which !== 13) {
@@ -34,6 +35,26 @@ const Edit = (props) => {
     e.preventDefault()
     const action = toggleEditForm({ id: id })
     dispatch(action)
+  }
+
+  const detailDelete = (detailId, amount) => {
+    const confirmation = window.confirm(copy.deleteDetailConfirmationMessage)
+    if (confirmation) {
+      const action = removeDetail({
+        account_id: account_id,
+        amount: (Math.round(amount * -100)),
+        clearance_date: clearance_date,
+        detailId: detailId,
+        transactionId: id,
+      })
+      const url = ApiUrlBuilder(["accounts", account_id, "transactions", id])
+      const body = JSON.stringify({
+        details_attributes: [{ id: detailId, _destroy: true }]
+      })
+      const onSuccess = () => dispatch(action)
+      const onFailure = data => console.log(data)
+      put(url, body, onSuccess, onFailure)
+    }
   }
 
   const onChange = (payload) => {
@@ -90,6 +111,7 @@ const Edit = (props) => {
         onChange={onChange}
         onDetailChange={onDetailChange}
         onSubmit={onSubmit}
+        removeDetail={detailDelete}
         resetForm={resetForm}
         toggleFormOption={toggleFormOption}
         {...props}
