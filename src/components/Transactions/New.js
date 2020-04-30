@@ -9,6 +9,7 @@ import {
   created,
   editNewFormOptions,
   resetNew,
+  removeNewDetail,
   toggleNewForm,
   updateNew,
   updateNewDetail,
@@ -28,6 +29,11 @@ const New = (props) => {
   const addDetail = (e) => {
     e.preventDefault()
     const action = addDetailToNew()
+    dispatch(action)
+  }
+
+  const removeDetail = (index) => {
+    const action = removeNewDetail({ index: index })
     dispatch(action)
   }
 
@@ -87,6 +93,7 @@ const New = (props) => {
       onChange={onChange}
       onDetailChange={onDetailChange}
       onSubmit={onSubmit}
+      removeDetail={removeDetail}
       resetForm={resetForm}
       selectedAccount={selectedAccount}
       toggleFormOption={toggleFormOption}

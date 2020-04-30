@@ -21,6 +21,7 @@ export default (props) => {
     onChange,
     onDetailChange,
     onSubmit,
+    removeDetail,
     resetForm,
     selectedAccount,
     toggleFormOption,
@@ -70,6 +71,7 @@ export default (props) => {
             handleKeyDown={handleKeyDown}
             onDetailChange={onDetailChange}
             options={budgetOptions}
+            removeDetail={removeDetail}
           />
         </div>
         <div className="transaction-row options">

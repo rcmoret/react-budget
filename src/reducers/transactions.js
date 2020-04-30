@@ -179,6 +179,14 @@ export default (state = initialState, action) => {
         year: action.payload.metadata.year,
       },
     }
+  case "transactions/REMOVE_NEW_DETAIL":
+    return {
+      ...state,
+      new: {
+        ...state.new,
+        details: state.new.details.filter((detail, index) => index !== action.payload.index)
+      },
+    }
   case "transactions/RESET_NEW":
     return {
       ...state,

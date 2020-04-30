@@ -14,6 +14,7 @@ export default (props) => {
     handleKeyDown,
     onDetailChange,
     options,
+    removeDetail,
   } = props
 
   const total = details.reduce((acc, detail) => acc + (parseFloat(detail.amount || 0)), 0)
@@ -37,26 +38,35 @@ export default (props) => {
           <div className="budget-item-select">
             <DetailBudgetItemSelect
               index={indexFor(index)}
+              budget_exclusion={budget_exclusion}
               detail={detail}
               onDetailChange={onDetailChange}
               options={options}
             />
           </div>
-          <AddDetail addDetail={addDetail} index={index} isLastDetail={isLastDetail}  />
+          <AddDetail
+            id={detail.id}
+            addDetail={addDetail}
+            index={index}
+            isLastDetail={isLastDetail}
+            removeDetail={removeDetail}
+          />
         </div>
       )
     })
   )
 }
 
-const AddDetail = ({ addDetail, index, isLastDetail }) => {
+const AddDetail = ({ id, addDetail, index, isLastDetail, removeDetail }) => {
+  const onRemove = () => removeDetail(id || index - 1)
+
   if (index === 0) {
     return (
       <Link to="#" onClick={addDetail} tabIndex="-1" className="fas fa-plus-circle" />
     )
   } else {
     return (
-      <Link to="#" onClick={() => null} tabIndex="-1" className="fas fa-times-circle" />
+      <Link to="#" onClick={onRemove} tabIndex="-1" className="fas fa-times-circle" />
     )
   }
 }

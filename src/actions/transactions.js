@@ -48,6 +48,10 @@ export const resetNew = (payload) => {
   return { type: "transactions/RESET_NEW", payload: payload }
 }
 
+export const removeNewDetail = (payload) => (
+  { type: "transactions/REMOVE_NEW_DETAIL", payload: payload }
+)
+
 export const toggleEditForm = ({ id }) => (
   { type: "transactions/TOGGLE_EDIT_FORM", payload: id }
 )
