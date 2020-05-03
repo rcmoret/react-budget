@@ -60,9 +60,9 @@ const TransactionInfo = (props) => {
     return (
       <div className="txn-info">
         <BudgetCategoryIcons description={description} details={details} />
+        <BudgetExclusion exclusion={budgetExclusion} />
         <NotesIcon notes={notes} />
         <CheckIcon checkNumber={check_number} />
-        <BudgetExclusion exclusion={budgetExclusion} />
       </div>
     )
   }

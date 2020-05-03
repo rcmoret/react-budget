@@ -2,7 +2,10 @@
   margin-top: 1%;
 }
 
-/* .accounts .transaction-wrapper.transaction-form .transaction-row.options .option-icons span.highlighted a { */
+.transaction-wrapper.transaction-form .detail-amount input {
+  text-align: right;
+}
+
 .option-icons span.highlighted a {
   color: #8AB6FF;
 }
@@ -184,10 +187,6 @@
   .transaction-wrapper.transaction-form .detail-amount {
     text-align: left;
     width: 13%;
-  }
-
-  .transaction-wrapper.transaction-form .detail-amount input {
-    text-align: right;
   }
 
   .transaction-wrapper.transaction-form .budget-item-select {

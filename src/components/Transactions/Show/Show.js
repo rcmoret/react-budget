@@ -13,10 +13,9 @@ import BudgetCategories from "./BudgetCategories"
 import BudgetExclusion from "./BudgetExclusion"
 import CheckNumber from "./CheckNumber"
 import ClearanceDate from "./ClearanceDate"
-import DeleteButton from "./DeleteButton"
 import Description from "./Description"
 import Edit from "../Edit"
-import EditLink from "./EditLink"
+import EndLinks from "./EndLinks"
 import Notes from "./Notes"
 import LeftIcon from "./LeftIcon"
 import TxnLinks from "./TxnLinks"
@@ -104,9 +103,9 @@ const Show = (props) => {
                 details={details}
                 showDetail={showDetail}
               />
+              <BudgetExclusion budgetExclusion={budget_exclusion} />
               <Notes notes={notes} />
               <CheckNumber checkNumber={check_number} />
-              <BudgetExclusion budgetExclusion={budget_exclusion} />
             </div>
           </div>
           <EndLinks revealForm={revealForm} transactionDelete={transactionDelete} />
@@ -132,12 +131,5 @@ const Show = (props) => {
     )
   }
 }
-
-const EndLinks = ({ revealForm, transactionDelete }) => (
-  <div className="end-links">
-    <EditLink onClick={revealForm} />
-    <DeleteButton onClick={transactionDelete} />
-  </div>
-)
 
 export default connect((_state, ownProps) => ownProps)(Show)
