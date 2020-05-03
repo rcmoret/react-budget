@@ -11,6 +11,7 @@ export const account = {
   nonCashFlow: "non cash flow",
   priority: "Priority",
   resetButtonText: "reset",
+  slugLabel: "short name (slug)",
   transferLinkText: "inter-account transfers",
   updateButtonText: "update account",
 }

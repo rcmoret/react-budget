@@ -27,15 +27,9 @@ const Edit = (props) => {
     dispatch(action)
   }
 
-  const updateName = (e) => {
+  const updateAccountProps = (e) => {
     e.preventDefault()
-    const action = updateProps({ id: id, name: e.target.value })
-    dispatch(action)
-  }
-
-  const updatePriority = (e) => {
-    e.preventDefault()
-    const action = updateProps({ id: id, priority: e.target.value })
+    const action = updateProps({ id: id, [e.target.name]: e.target.value })
     dispatch(action)
   }
 
@@ -60,8 +54,7 @@ const Edit = (props) => {
       {...formProps}
       closeForm={closeForm}
       title={name}
-      updateName={updateName}
-      updatePriority={updatePriority}
+      updateAccountProps={updateAccountProps}
       updateCashFlow={updateCashFlow}
       resetForm={resetForm}
       submitForm={submitForm}

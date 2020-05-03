@@ -29,7 +29,17 @@ export default (props) => (
           </label>
         </div>
         <div className="input">
-          <input type="text" name="name" value={props.name} onChange={props.updateName} />
+          <input type="text" name="name" value={props.name} onChange={props.updateAccountProps} />
+        </div>
+      </div>
+      <div className="form-row">
+        <div className="label">
+          <label>
+            {titleize(copy.slugLabel)}
+          </label>
+        </div>
+        <div className="input">
+          <input type="text" name="slug" value={props.slug} onChange={props.updateAccountProps} />
         </div>
       </div>
       <div className="form-row">
@@ -39,13 +49,13 @@ export default (props) => (
           </label>
         </div>
         <div className="input">
-          <input type="number" name="priority" value={props.priority} onChange={props.updatePriority} />
+          <input type="number" name="priority" value={props.priority} onChange={props.updateAccountProps} />
         </div>
       </div>
       <div className="form-row">
         <div className="label">
           <label>
-            {cashFlow}
+            {titleize(cashFlow)}
           </label>
         </div>
         <div className="input">

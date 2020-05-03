@@ -6,7 +6,6 @@ import { titleize } from "../../locales/functions"
 import { deleted, update } from "./actions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
-import MoneyFormatter from "../../functions/MoneyFormatter"
 
 import Edit from "./Edit"
 import Icon from "../Icons/Icon"
@@ -15,12 +14,12 @@ import { Link } from "react-router-dom"
 const AccountShow = (props) => {
   const {
     id,
-    balance,
     cash_flow,
     dispatch,
     name,
     priority,
     showForm,
+    slug,
   } = props
 
   const {
@@ -62,11 +61,11 @@ const AccountShow = (props) => {
               onClick={revealForm}
             />
           </h3>
+          <div className="slug">
+            {titleize(copy.slugLabel)}: {slug}
+          </div>
           <div className="cash-flow">
             {titleize(cash_flow ? cashFlow : nonCashFlow)}
-          </div>
-          <div className="balance">
-            {copy.balance}: {MoneyFormatter(balance)}
           </div>
           <div className="priority">
             {copy.priority}: {priority}
