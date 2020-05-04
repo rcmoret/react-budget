@@ -47,8 +47,8 @@ export default () => (
             <Route exact path="/accounts" component={AccountWrapper} />
             <Route exact path="/accounts/index" component={AccountIndex} />
             <Route exact path="/accounts/transfers" component={Transfers} />
-            <Route path="/accounts/:id/:month?/:year?" component={AccountWrapper} />
-            <Route path="/accounts/:id/" component={AccountWrapper} />
+            <Route path="/accounts/:slug/:month?/:year?" component={AccountWrapper} />
+            <Route path="/accounts/:slug/" component={AccountWrapper} />
             <Route exact path="/budget/categories" component={BudgetCategories} />
             <Route exact path="/budget/icons" component={Icons} />
             <Route exact path="/budget/:month/:year" component={BudgetIndex} />

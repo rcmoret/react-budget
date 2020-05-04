@@ -19,6 +19,7 @@ const Wrapper = (props) => {
     month,
     selectedAccount,
     selectedAccountId,
+    slug,
     year,
   } = props
 
@@ -49,26 +50,27 @@ const Wrapper = (props) => {
     )
   } else {
     return (
-      <Redirect to={`/accounts/${selectedAccountId}/${month}/${year}`} />
+      <Redirect to={`/accounts/${slug}/${month}/${year}`} />
     )
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const selectedAccountId = parseInt(ownProps.match.params.id || state.transactions.metadata.query_options.account_id || 0)
+  const nullAccount = {
+    id: 0,
+    cash_flow: true,
+    name: "",
+    priority: "",
+    slug: null,
+  }
+
+  const slug = ownProps.match.params.slug
+  const selectedAccount = FindOrDefault(state.accounts.collection, acct => acct.slug === slug, nullAccount)
+  const selectedAccountId = selectedAccount.id
   const month = parseInt(ownProps.match.params.month) || state.transactions.metadata.query_options.month
   const year = parseInt(ownProps.match.params.year) || state.transactions.metadata.query_options.year
   const accountsFetched = state.accounts.accountsFetched
   const collection = state.accounts.collection.sort((a, b) => a.priority - b.priority)
-
-  const nullAccount = {
-    id: null,
-    cash_flow: true,
-    name: "",
-    priority: "",
-  }
-
-  const selectedAccount = FindOrDefault(state.accounts.collection, acct => acct.id === selectedAccountId, nullAccount)
 
   return {
     accountsFetched: accountsFetched,
@@ -80,6 +82,7 @@ const mapStateToProps = (state, ownProps) => {
     },
     selectedAccountId: selectedAccountId,
     selectedAccount: selectedAccount,
+    slug: slug,
     year: year,
   }
 }
