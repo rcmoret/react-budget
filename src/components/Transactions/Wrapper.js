@@ -76,6 +76,7 @@ const mapStateToProps = (state, ownProps) => {
     accountId: parseInt(query_options.account_id),
     fetched: fetched,
     month: parseInt(query_options.month),
+    slug: ownProps.slug,
     urlAccountId: ownProps.accountId,
     urlMonth: ownProps.month,
     urlYear: ownProps.year,

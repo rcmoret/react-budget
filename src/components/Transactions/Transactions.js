@@ -13,17 +13,17 @@ import Transaction from "./Show/Show"
 
 const Transactions = (props) => {
   const {
-    accountId,
     collection,
     endDate,
     initialTransaction,
     nextMonth,
     prevMonth,
+    slug,
     startDate,
   } = props
 
-  const nextMonthUrl = `/accounts/${accountId}/${nextMonth.month}/${nextMonth.year}`
-  const prevMonthUrl = `/accounts/${accountId}/${prevMonth.month}/${prevMonth.year}`
+  const nextMonthUrl = `/accounts/${slug}/${nextMonth.month}/${nextMonth.year}`
+  const prevMonthUrl = `/accounts/${slug}/${prevMonth.month}/${prevMonth.year}`
 
   return (
     <div className="transactions">

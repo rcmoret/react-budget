@@ -43,6 +43,7 @@ const Wrapper = (props) => {
           month={month}
           selectedAccountId={selectedAccountId}
           selectedAccount={selectedAccount}
+          slug={slug}
           year={year}
         />
         <hr/>
