@@ -164,6 +164,10 @@ export default (state = initialState, action) => {
   case "transactions/FETCHED":
     return {
       ...state,
+      new: {
+        ...state.new,
+        budget_exclusion: false,
+      },
       metadata: action.payload.metadata,
       collection: action.payload.transactions.map(txn => objectifyTransaction(txn)),
     }
