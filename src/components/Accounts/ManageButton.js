@@ -7,8 +7,10 @@ import { Link } from "react-router-dom"
 
 export default () => (
   <div className="transactions">
-    <Link to="/accounts/index">
-      <h3>{titleize(copy.manageLinkText)}</h3>
-    </Link>
+    <h3>
+      <Link to="/accounts/index">
+        {titleize(copy.manageLinkText)}
+      </Link>
+    </h3>
   </div>
 )

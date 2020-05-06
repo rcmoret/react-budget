@@ -7,12 +7,12 @@ import { Link } from "react-router-dom"
 
 export default () => (
   <div className="transfers-link">
-    <Link to="/accounts/transfers">
-      <h3>
+    <h3>
+      <Link to="/accounts/transfers">
         {titleize(accountCopy.transferLinkText)}
         {" "}
         <i className="fas fa-exchange-alt" />
-      </h3>
-    </Link>
+      </Link>
+    </h3>
   </div>
 )
