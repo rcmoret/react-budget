@@ -51,7 +51,6 @@ const Wrapper = (props) => {
     if (isBudgetCacheStale) {
       fetchBudgetItems()
     }
-    return null
   }
 
   return (
