@@ -20,6 +20,7 @@ const initialState = {
       year: (today.getFullYear()),
     },
   },
+  slug: null,
   collection: [],
   budgetItems: {
     collection: [],
@@ -170,6 +171,7 @@ export default (state = initialState, action) => {
       },
       metadata: action.payload.metadata,
       collection: action.payload.transactions.map(txn => objectifyTransaction(txn)),
+      slug: action.payload.slug,
     }
   case "transactions/FETCHED_BUDGET_ITEMS":
     return {

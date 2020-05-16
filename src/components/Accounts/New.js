@@ -31,17 +31,13 @@ const New = (props) => {
     dispatch(action)
   }
 
-  const updateName = (e) => {
-    dispatch(updateNew({ name: e.target.value }))
-  }
-
-  const updatePriority = (e) => {
-    const action = updateNew({ priority: e.target.value })
+  const updateCashFlow = () => {
+    const action = updateNew({ cash_flow: !cash_flow })
     dispatch(action)
   }
 
-  const updateCashFlow = () => {
-    const action = updateNew({ cash_flow: !cash_flow })
+  const updateAccountProps = (e) => {
+    const action = updateNew({ [e.target.name]: e.target.value })
     dispatch(action)
   }
 
@@ -63,8 +59,7 @@ const New = (props) => {
         closeForm={closeForm}
         submitForm={submitForm}
         title="Add New"
-        updateName={updateName}
-        updatePriority={updatePriority}
+        updateAccountProps={updateAccountProps}
         updateCashFlow={updateCashFlow}
       />
     )

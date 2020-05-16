@@ -8,6 +8,7 @@ const initialState = {
   newAccount: {
     cash_flow: true,
     name: "",
+    slug: "",
     priority: "",
   },
 }

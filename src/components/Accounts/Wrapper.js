@@ -65,7 +65,7 @@ const mapStateToProps = (state, ownProps) => {
     slug: null,
   }
 
-  const slug = ownProps.match.params.slug
+  const slug = ownProps.match.params.slug || state.transactions.slug
   const selectedAccount = FindOrDefault(state.accounts.collection, acct => acct.slug === slug, nullAccount)
   const selectedAccountId = selectedAccount.id
   const month = parseInt(ownProps.match.params.month) || state.transactions.metadata.query_options.month
