@@ -23,4 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 /src/constants/Api.js
+/src/constants/Key.js
 /src/locales/overrides/*.js

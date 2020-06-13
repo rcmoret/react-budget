@@ -1,8 +1,9 @@
 import API_URL from "../constants/Api"
+import KEY from "../constants/Key"
 
 const ApiUrlBuilder = (path_segments = [], params = {}) => {
   const query = Object
-    .entries(params)
+    .entries({ ...params, key: KEY })
     .map(arr => arr.join("="))
     .join("&")
   const url = [API_URL, ...path_segments].join("/")
