@@ -22,6 +22,7 @@ import Total from "./Items/Total"
 
 export default (props) => {
   const {
+    apiKey,
     dispatch,
     item,
     month,
@@ -134,6 +135,7 @@ export default (props) => {
             dispatch={dispatch}
           />
           <Submit
+            apiKey={apiKey}
             amount={amount}
             budgetCategoryId={baseItem.budget_category_id}
             baseItemId={id}

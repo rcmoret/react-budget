@@ -11,7 +11,7 @@ import { put } from "../../functions/ApiClient"
 
 import Form from "./Form/Form"
 
-const Edit = ({ dispatch, icon }) => {
+const Edit = ({ apiKey, dispatch, icon }) => {
   const { id } = icon
 
   const onChange = (e) => {
@@ -20,7 +20,7 @@ const Edit = ({ dispatch, icon }) => {
   }
 
   const onSubmit = () => {
-    const url = ApiUrlBuilder(["icons", id])
+    const url = ApiUrlBuilder(["icons", id], { key: apiKey })
     const body = JSON.stringify(icon.updatedProps)
     const onSuccess = data => {
       dispatch(updated(data))
@@ -41,4 +41,5 @@ const Edit = ({ dispatch, icon }) => {
   )
 }
 
-export default connect((_state, ownProps) => ownProps)(Edit)
+const mapStateToProps = (state, ownProps) => ({ ...ownProps, apiKey: state.apiKey.apiKey })
+export default connect(mapStateToProps)(Edit)

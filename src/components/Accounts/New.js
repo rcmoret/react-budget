@@ -11,6 +11,7 @@ import { Link } from "react-router-dom"
 
 const New = (props) => {
   const {
+    apiKey,
     cash_flow,
     dispatch,
     name,
@@ -42,7 +43,7 @@ const New = (props) => {
   }
 
   const submitForm = () => {
-    const url = ApiUrlBuilder(["accounts"])
+    const url = ApiUrlBuilder(["accounts"], { key: apiKey })
     const body = JSON.stringify({ name: name, priority: priority, cash_flow: cash_flow })
     const onSuccess = (data) => {
       dispatch(created(data))
@@ -80,6 +81,7 @@ const New = (props) => {
 
 const mapStateToProps = (state) => {
   return {
+    apiKey: state.apiKey.apiKey,
     ...state.accounts.newAccount,
     showNewForm: state.accounts.showNewForm
   }

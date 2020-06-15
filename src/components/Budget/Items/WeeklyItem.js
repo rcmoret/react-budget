@@ -25,6 +25,7 @@ const WeeklyItem = (props) => {
   const {
     id,
     amount,
+    apiKey,
     budget_category_id,
     daysRemaining,
     difference,
@@ -61,7 +62,7 @@ const WeeklyItem = (props) => {
     const dateString = formatter({ month: month, year: year, format: "shortMonthYear" })
     const confirmation = window.confirm(deleteConfirmationMessage(name, dateString))
     if (confirmation) {
-      const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items", id])
+      const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items", id], { key: apiKey })
       fetch(url, { method: "delete" })
         .then(() => dispatch(removeWeeklyItem({ id: id })))
     }
@@ -134,4 +135,5 @@ const WeeklyItem = (props) => {
   )
 }
 
-export default connect((_state, ownProps) => ownProps)(WeeklyItem)
+const mapStateToProps = (state, ownProps) => ({ ...ownProps, apiKey: state.apiKey.apiKey })
+export default connect(mapStateToProps)(WeeklyItem)

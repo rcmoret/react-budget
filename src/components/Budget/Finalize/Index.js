@@ -11,6 +11,7 @@ import { Redirect } from "react-router"
 
 const Index = (props) => {
   const {
+    apiKey,
     baseMonthFetched,
     baseMonthFinalized,
     dispatch,
@@ -31,13 +32,13 @@ const Index = (props) => {
   }
 
   if (!baseMonthFetched) {
-    const url = ApiUrlBuilder(["budget/items"], { month: month, year: year })
+    const url = ApiUrlBuilder(["budget/items"], { month: month, year: year, key: apiKey })
     const onSuccess = data => dispatch(baseMonthFetch(data))
     get(url, onSuccess, onFailure)
   }
 
   if (baseMonthFetched && !nextMonthFetched) {
-    const url = ApiUrlBuilder(["budget/items"], { month: nextMonth, year: nextYear })
+    const url = ApiUrlBuilder(["budget/items"], { month: nextMonth, year: nextYear, key: apiKey })
     const onSuccess = data => dispatch(nextMonthFetch(data))
     get(url, onSuccess, onFailure)
   }
@@ -72,8 +73,10 @@ const mapStateToProps = (state, ownProps) => {
   const nextMonth = (finalize.next.month || (baseMonth === 12 ? 1 : (baseMonth + 1)))
   const nextYear = (finalize.next.year || (baseMonth === 12 ? (baseYear + 1) : baseYear))
   const isEndOfMonth = isToday(new Date((year || baseYear), (month || baseMonth), 0))
+  const { apiKey } = state.apiKey
 
   return {
+    apiKey: apiKey,
     baseMonthFetched: baseMonthFetched,
     baseMonthFinalized: baseMonthFinalized,
     isEndOfMonth: isEndOfMonth,

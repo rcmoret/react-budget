@@ -8,12 +8,12 @@ import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 
 import { Link } from "react-router-dom"
 
-const DeleteButton = ({ amount, from_account_id, dispatch, id, to_account_id }) => {
+const DeleteButton = ({ amount, apiKey, from_account_id, dispatch, id, to_account_id }) => {
   const onClick = (e) => {
     e.preventDefault()
     const confirmation = window.confirm(copy.deleteConfirmationMessage)
     if (confirmation) {
-      const url = ApiUrlBuilder(["transfers", id])
+      const url = ApiUrlBuilder(["transfers", id], { key: apiKey })
       fetch(url, { method: "delete" })
         .then(() => dispatch(deleted({
           id: id,
@@ -35,8 +35,8 @@ const DeleteButton = ({ amount, from_account_id, dispatch, id, to_account_id }) 
   )
 }
 
-const mapStateToProps = (_state, ownProps) => {
-  return { id: ownProps.id }
+const mapStateToProps = (state, ownProps) => {
+  return { id: ownProps.id, apiKey: state.apiKey.apiKey }
 }
 
 export default connect(mapStateToProps)(DeleteButton)

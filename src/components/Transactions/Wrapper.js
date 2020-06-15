@@ -11,6 +11,7 @@ import Transactions from "./Transactions"
 const Wrapper = (props) => {
   const {
     accountId,
+    apiKey,
     dispatch,
     fetched,
     month,
@@ -27,7 +28,7 @@ const Wrapper = (props) => {
 
   const fetchTransactions = () => {
     const url = ApiUrlBuilder(
-      ["accounts", urlAccountId, "transactions"], { month: urlMonth, year: urlYear }
+      ["accounts", urlAccountId, "transactions"], { month: urlMonth, year: urlYear, key: apiKey }
     )
     const onSuccess = data => dispatch(fetchedTransactions({...data, slug: slug }))
     const onFailure = data => console.log(data)
@@ -35,7 +36,7 @@ const Wrapper = (props) => {
   }
 
   const fetchBudgetItems = () => {
-    const url = ApiUrlBuilder(["budget", "items"], { month: urlMonth, year: urlYear })
+    const url = ApiUrlBuilder(["budget", "items"], { month: urlMonth, year: urlYear, key: apiKey })
     const onSuccess = data => dispatch(fetchedBudgetItems(data))
     const onFailure = data => console.log(data)
     get(url, onSuccess, onFailure)
@@ -62,9 +63,11 @@ const Wrapper = (props) => {
 const mapStateToProps = (state, ownProps) => {
   const { query_options } = state.transactions.metadata
   const { fetched } = state.transactions.budgetItems
+  const { apiKey } = state.apiKey
 
   return {
     accountId: parseInt(query_options.account_id),
+    apiKey: apiKey,
     fetched: fetched,
     month: parseInt(query_options.month),
     slug: ownProps.slug,

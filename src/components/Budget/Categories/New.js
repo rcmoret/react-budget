@@ -22,6 +22,7 @@ import { Link } from "react-router-dom"
 const NewBudgetCategory = (props) => {
   const {
     addNew,
+    apiKey,
     cancelButtonText,
     createButtonText,
   } = copy.category
@@ -43,7 +44,7 @@ const NewBudgetCategory = (props) => {
   }
 
   const onSubmit = () => {
-    const url = ApiUrlBuilder(["budget/categories"])
+    const url = ApiUrlBuilder(["budget/categories"], { key: apiKey })
     const body = JSON.stringify({
       ...newCategory,
       default_amount: decimalToInt(newCategory.default_amount),
@@ -106,7 +107,10 @@ const NewBudgetCategory = (props) => {
 }
 
 const mapStateToProps = (state) => {
+  const { apiKey } = state.apiKey
+
   return {
+    apiKey: apiKey,
     newCategory: state.budget.newCategory,
     showForm: state.budget.categories.showForm,
   }

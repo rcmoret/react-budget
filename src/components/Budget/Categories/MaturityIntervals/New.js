@@ -13,6 +13,7 @@ import Form from "./Form"
 export default (props) => {
   const {
     id,
+    apiKey,
     dispatch,
     newMaturityIntervalAttributes,
     showMaturityIntervalForm,
@@ -35,7 +36,7 @@ export default (props) => {
   }
 
   const addMaturityInterval = () => {
-    const url = ApiUrlBuilder(["budget/categories", id, "maturity_intervals"])
+    const url = ApiUrlBuilder(["budget/categories", id, "maturity_intervals"], { key: apiKey })
     const body = JSON.stringify(newMaturityIntervalAttributes)
     const onSuccess = data => dispatch(maturityIntervalCreated({
       id: id,

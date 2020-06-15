@@ -14,6 +14,7 @@ import Transactions from "./../Shared/Transactions"
 const DiscretionaryDetail = (props) => {
   const {
     amount,
+    apiKey,
     collection,
     days_remaining,
     dispatch,
@@ -30,7 +31,7 @@ const DiscretionaryDetail = (props) => {
   }
 
   if (showDetail && !fetchedTransactions ) {
-    const url = ApiUrlBuilder(["budget", "discretionary", "transactions"], { month: month, year: year })
+    const url = ApiUrlBuilder(["budget", "discretionary", "transactions"], { month: month, year: year, key: apiKey })
     const onSuccess = data => dispatch(fetchedDiscretionaryTransactions(data))
     const onFailure = data => console.log(data)
     get(url, onSuccess, onFailure)
@@ -72,10 +73,12 @@ const mapStateToProps = (state) => {
       return (a.clearance_date > b.clearance_date) ? 1 : -1
     }
   })
+  const { apiKey } = state.apiKey
 
   return {
     ...state.budget.metadata,
     ...state.budget.discretionary,
+    apiKey: apiKey,
     collection: collection
   }
 }

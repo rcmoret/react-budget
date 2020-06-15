@@ -16,18 +16,18 @@ import NewTransfer from "./NewTransfer"
 import PaginationLinks from "./PaginationLinks"
 import Transfer from "./Transfer"
 
-const Index = ({ accounts, accountsFetched, collection, dispatch, fetchedTransfers, metadata }) => {
+const Index = ({ accounts, accountsFetched, apiKey, collection, dispatch, fetchedTransfers, metadata }) => {
   const { currentPage, total, viewing } = metadata
 
   if(!accountsFetched) {
-    const url = ApiUrlBuilder(["accounts"])
+    const url = ApiUrlBuilder(["accounts"], { key: apiKey })
     const onSuccess = data => dispatch(renderAccounts(data))
     const onFailure = data => console.log(data)
     get(url, onSuccess, onFailure)
   }
 
   if (accountsFetched && !fetchedTransfers) {
-    const url = ApiUrlBuilder(["transfers"], { page: currentPage })
+    const url = ApiUrlBuilder(["transfers"], { page: currentPage, key: apiKey })
     const onSuccess = data => dispatch(fetched(data))
     const onFailure = data => console.log(data)
     get(url, onSuccess, onFailure)
@@ -77,6 +77,7 @@ const mapStateToProps = (state) => {
   const date = new Date()
   const today = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0,10)
   const { accountsFetched } = state.accounts
+  const { apiKey } = state.apiKey
 
   const collection = state.transfers.collection.sort((a, b) => {
     if (a.from_transaction.clearance_date === b.from_transaction.clearance_date) {
@@ -96,6 +97,7 @@ const mapStateToProps = (state) => {
     accounts: state.accounts.collection,
     collection: collection,
     accountsFetched: accountsFetched,
+    apiKey: apiKey,
   }
 }
 

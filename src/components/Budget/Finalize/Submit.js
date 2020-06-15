@@ -14,6 +14,7 @@ import Icon from "../../Icons/Icon"
 
 export default (props) => {
   const {
+    apiKey,
     dispatch,
     month,
     note,
@@ -30,7 +31,7 @@ export default (props) => {
   const dateString = DateFormatter({ month: month, year: year, format: "numericMonthYear" })
 
   const createFromTransaction = () => {
-    const url = ApiUrlBuilder(["accounts", selectedFromAccountId, "transactions"])
+    const url = ApiUrlBuilder(["accounts", selectedFromAccountId, "transactions"], { key: apiKey })
     const body = JSON.stringify({
       details_attributes: [{
         amount: totalExtra,
@@ -47,7 +48,7 @@ export default (props) => {
   }
 
   const createToTransaction = (callback) => {
-    const url = ApiUrlBuilder(["accounts", selectedToAccountId, "transactions"])
+    const url = ApiUrlBuilder(["accounts", selectedToAccountId, "transactions"], { key: apiKey })
     const body = JSON.stringify({
       details_attributes: [{
         amount: (-1 * totalExtra),
@@ -65,7 +66,7 @@ export default (props) => {
   }
 
   const updateInterval = () => {
-    const url = ApiUrlBuilder(["intervals", month, year])
+    const url = ApiUrlBuilder(["intervals", month, year], { key: apiKey })
     const body = JSON.stringify({ close_out_completed_at: new Date() })
     put(url, body, () => dispatch(markIntervalClosed))
   }

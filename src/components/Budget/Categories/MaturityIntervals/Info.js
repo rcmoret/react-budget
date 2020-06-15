@@ -22,6 +22,7 @@ const MaturityInfo = (props) => {
   const {
     id,
     accrual,
+    apiKey,
     dispatch,
     maturityIntervals,
     maturityIntervalsFetched,
@@ -31,7 +32,7 @@ const MaturityInfo = (props) => {
   } = props
 
   if (!maturityIntervalsFetched && showMaturityIntervals) {
-    const url = ApiUrlBuilder(["budget/categories", id, "maturity_intervals"])
+    const url = ApiUrlBuilder(["budget/categories", id, "maturity_intervals"], { key: apiKey })
     const onSuccess = data => dispatch(
       accrualMaturityIntervalsFetched({
         id: id,
@@ -98,6 +99,7 @@ const MaturityInfo = (props) => {
           />
           <NewMaturityInterval
             id={id}
+            apiKey={apiKey}
             dispatch={dispatch}
             newMaturityIntervalAttributes={newMaturityIntervalAttributes}
             showMaturityIntervalForm={showMaturityIntervalForm}
@@ -106,6 +108,7 @@ const MaturityInfo = (props) => {
         {groupedIntervals.map(intervalsByYear =>
           <MaturityIntervalByYear
             key={intervalsByYear.year}
+            apiKey={apiKey}
             dispatch={dispatch}
             {...intervalsByYear}
           />
@@ -117,13 +120,14 @@ const MaturityInfo = (props) => {
   }
 }
 
-const MaturityIntervalByYear = ({ collection, dispatch, year }) => (
+const MaturityIntervalByYear = ({ apiKey, collection, dispatch, year }) => (
   <div>
     <strong>{year}</strong>
     <div>
       {collection.map(interval =>
         <Show
           key={interval.id}
+          apiKey={apiKey}
           dispatch={dispatch}
           {...interval}
         />
@@ -151,8 +155,10 @@ const mapStateToProps = ((state, ownProps) => {
   const maturityIntervals = state.budget.maturityIntervals
     .filter(filterFn)
     .sort(sortFn)
+  const { apiKey } = state.apiKey
 
   return {
+    apiKey: apiKey,
     ...ownProps,
     maturityIntervals: maturityIntervals,
   }

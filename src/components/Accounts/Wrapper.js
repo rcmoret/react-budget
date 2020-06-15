@@ -13,6 +13,7 @@ import Tabs from "./Tabs"
 const Wrapper = (props) => {
   const {
     accountsFetched,
+    apiKey,
     collection,
     dateParams,
     dispatch,
@@ -24,7 +25,7 @@ const Wrapper = (props) => {
   } = props
 
   if (!accountsFetched) {
-    const url = ApiUrlBuilder(["accounts"])
+    const url = ApiUrlBuilder(["accounts"], { key: apiKey })
     const onSuccess = data => dispatch(fetched(data))
     const onFailure = data => console.log(data)
     get(url, onSuccess, onFailure)
@@ -46,7 +47,6 @@ const Wrapper = (props) => {
           slug={slug}
           year={year}
         />
-        <hr/>
       </div>
     )
   } else {
@@ -72,9 +72,11 @@ const mapStateToProps = (state, ownProps) => {
   const year = parseInt(ownProps.match.params.year) || state.transactions.metadata.query_options.year
   const accountsFetched = state.accounts.accountsFetched
   const collection = state.accounts.collection.sort((a, b) => a.priority - b.priority)
+  const { apiKey } = state.apiKey
 
   return {
     accountsFetched: accountsFetched,
+    apiKey: apiKey,
     collection: collection,
     month: month,
     dateParams: {

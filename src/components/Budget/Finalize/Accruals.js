@@ -14,6 +14,7 @@ import UpdateButton from "./UpdateAccruals"
 
 const Accruals = (props) => {
   const {
+    apiKey,
     collection,
     dispatch,
     extra,
@@ -72,6 +73,7 @@ const Accruals = (props) => {
               <Show
                 key={wrapper.baseItem.id}
                 {...wrapper}
+                apiKey={apiKey}
                 dispatch={dispatch}
                 nextMonth={nextMonth}
                 nextYear={nextYear}
@@ -79,6 +81,7 @@ const Accruals = (props) => {
             )}
             <div className="next-month-accrual-submit">
               <UpdateButton
+                apiKey={apiKey}
                 collection={collection}
                 dispatch={dispatch}
               />
@@ -113,8 +116,10 @@ const mapStateToProps = (state, ownProps) => {
         nextItem: nextMonthCollection.find(i => i.budget_category_id === item.budget_category_id),
       }
     })
+  const { apiKey } = state.apiKey
 
   return {
+    apiKey: apiKey,
     collection: collection,
     isFetched: isFetched,
     extra: extra,

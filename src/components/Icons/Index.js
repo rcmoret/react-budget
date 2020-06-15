@@ -12,13 +12,14 @@ import Show from "./Show"
 const Index = (props) => {
   const {
     dispatch,
+    apiKey,
     collectionFetched,
     firstColumn,
     secondColumn,
   } = props
 
   if (!collectionFetched) {
-    const url = ApiUrlBuilder(["icons"])
+    const url = ApiUrlBuilder(["icons"], { key: apiKey })
     const onSuccess = data => dispatch(fetched(data))
     const onFailure = data => console.log(data)
     get(url, onSuccess, onFailure)
@@ -58,7 +59,10 @@ const mapStateToProps = (state) => {
   const columnSize = Math.ceil(count / 2.0)
   const firstColumn = collection.slice(0, columnSize)
   const secondColumn = collection.slice(columnSize, (columnSize * 2))
+  const { apiKey } = state.apiKey
+
   return {
+    apiKey: apiKey,
     firstColumn: firstColumn,
     secondColumn: secondColumn,
     collectionFetched: fetched,

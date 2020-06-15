@@ -23,7 +23,7 @@ import { post } from "../../functions/ApiClient"
 import Form from "./Form/Form"
 
 const New = (props) => {
-  const { budgetOptions, dispatch, selectedAccount, transaction } = props
+  const { apiKey, budgetOptions, dispatch, selectedAccount, transaction } = props
   const { details } = transaction
 
   const addDetail = (e) => {
@@ -69,7 +69,7 @@ const New = (props) => {
       return { ...detail, amount: adjusted }
     })
     const description = transaction.description === "" ? null : transaction.description
-    const url = ApiUrlBuilder(["accounts", selectedAccount.id, "transactions"])
+    const url = ApiUrlBuilder(["accounts", selectedAccount.id, "transactions"], { key: apiKey })
     const body = JSON.stringify({
       ...transaction,
       description: description,
@@ -122,8 +122,10 @@ const mapStateToProps = (state) => {
     .sort(sortFn)
   const discretionary = { label: titleize(copy.discretionary.title), value: null }
   const budgetOptions = [discretionary, ...itemOptions]
+  const { apiKey } = state.apiKey
 
   return {
+    apiKey: apiKey,
     buttonText: "Create Transaction",
     budgetOptions: budgetOptions,
     selectedAccount: selectedAccount,

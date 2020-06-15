@@ -23,6 +23,8 @@ import BudgetSetUpRevenues from "./components/Budget/SetUp/Revenues"
 import BudgetCategories from "./components/Budget/Categories/Index"
 import Header from "./components/Header"
 import Icons from "./components/Icons/Index"
+import KeyForm from "./components/Key/Form"
+import apiKeyReducer from "./components/Key/reducer"
 import Transfers from "./components/Transfers/Index"
 import "./App.css"
 
@@ -31,6 +33,7 @@ const store = createStore(
     accounts: accountsReducer,
     budget: budgetReducer,
     icons: iconsReducer,
+    apiKey: apiKeyReducer,
     transactions: transactionsReducer,
     transfers: transfersReducer,
   }),
@@ -63,6 +66,7 @@ export default () => (
             <Route path="/budget/set-up/:month/:year/revenues" component={BudgetSetUpRevenues} />
             <Route exact path="/budget/:month?/:year?" component={BudgetHome} />
           </Switch>
+          <KeyForm />
         </div>
       </Router>
     </Provider>

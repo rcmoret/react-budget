@@ -21,6 +21,7 @@ const ReviewItem = (props) => {
   } = copy.setup
 
   const {
+    apiKey,
     category,
     count,
     dayToDayItem,
@@ -89,7 +90,7 @@ const ReviewItem = (props) => {
   }
 
   const createItem = () => {
-    const url = ApiUrlBuilder(["budget/categories", category.id, "items"])
+    const url = ApiUrlBuilder(["budget/categories", category.id, "items"], { key: apiKey })
     const body = JSON.stringify({ amount: decimalToInt(amount), month: month, year: year })
     const onSuccess = data => {
       dispatch(addItem(data))
@@ -101,7 +102,7 @@ const ReviewItem = (props) => {
   }
 
   const updateItem = () => {
-    const url = ApiUrlBuilder(["budget/categories", dayToDayItem.budget_category_id, "items", dayToDayItem.id])
+    const url = ApiUrlBuilder(["budget/categories", dayToDayItem.budget_category_id, "items", dayToDayItem.id], { key: apiKey })
     const body = JSON.stringify({ amount: (decimalToInt(amount) + dayToDayItem.amount) })
     const onSuccess = data => {
       dispatch(updateExisting(data))
@@ -282,8 +283,10 @@ const mapStateToProps = (state, ownProps) => {
   const { newItem } = state.budget.setup.newMonth
   const category = state.budget.categories.collection.find(category => category.id === item.budget_category_id)
   const dayToDayItem = item.monthly ? null : newMonth.collection.find(i => i.budget_category_id === item.budget_category_id)
+  const { apiKey } = state.apiKey
 
   return {
+    apiKey: apiKey,
     category: category,
     dayToDayItem: dayToDayItem,
     item: item,

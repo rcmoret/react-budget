@@ -27,6 +27,7 @@ const Accruals = (props) => {
   } = copy.setup
 
   const {
+    apiKey,
     baseMonth,
     collection,
     dispatch,
@@ -64,6 +65,7 @@ const Accruals = (props) => {
             )}
           </div>
           <SubmitButton
+            apiKey={apiKey}
             collection={collection}
             dispatch={dispatch}
             month={month}
@@ -80,14 +82,14 @@ const Accruals = (props) => {
   }
 }
 
-const SubmitButton = ({ collection, dispatch, month, year }) => {
+const SubmitButton = ({ apiKey, collection, dispatch, month, year }) => {
   const {
     accrualButtonText,
   } = copy.setup
 
   const submit = (item) => {
     const amount = item.updatedProps ? decimalToInt(item.updatedProps.amount) : item.defaultAmount
-    const url = ApiUrlBuilder(["budget/categories", item.budget_category_id, "items"])
+    const url = ApiUrlBuilder(["budget/categories", item.budget_category_id, "items"], { key: apiKey })
     const body = JSON.stringify({ amount: amount, month: month, year: year })
     const onSuccess = data => dispatch(addItem(data))
     const onFailure = data => console.log({ body: body, data: data })
@@ -235,6 +237,7 @@ const mapStateToProps = (state, ownProps) => {
   const mergeDefaultAmount = (item) => (
     { ...item, defaultAmount: findCategory(item).default_amount }
   )
+  const { apiKey } = state.apiKey
 
   const collection = state.budget.setup.baseMonth.collection
     .filter(item => item.accrual)
@@ -242,6 +245,7 @@ const mapStateToProps = (state, ownProps) => {
     .sort((a, b) => a.name < b.name ? -1 : 1)
 
   return {
+    apiKey: apiKey,
     baseMonth: state.budget.setup.baseMonth,
     collection: collection,
     isFetched: isFetched,

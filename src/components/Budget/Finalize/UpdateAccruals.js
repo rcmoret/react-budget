@@ -11,9 +11,9 @@ import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import delay from "../../../functions/Delay"
 import { put } from "../../../functions/ApiClient"
 
-export default ({ collection, dispatch }) => {
+export default ({ apiKey, collection, dispatch }) => {
   const submit = ({ id, amount, budget_category_id }) => {
-    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items", id])
+    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items", id], { key: apiKey })
     const body =  JSON.stringify({ amount: amount })
     const onSuccess = data => dispatch(updateFinalizeItem(data))
     const onFailure = data => console.log({ body: body, data: data })

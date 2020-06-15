@@ -15,6 +15,7 @@ import Select from "react-select"
 const WeeklyItemForm = (props) => {
   const {
     amount,
+    apiKey,
     budget_category_id,
     categories,
     dispatch,
@@ -48,7 +49,7 @@ const WeeklyItemForm = (props) => {
 
   const onSave = (e) => {
     e.preventDefault()
-    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items"])
+    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items"], { key: apiKey })
     const body = JSON.stringify({
       amount: decimalToInt(amount),
       month: month,
@@ -123,8 +124,11 @@ const mapStateToProps = (state) => {
   const { newItem } = state.budget.weekly
   const value = options.find(option => option.value === newItem.budget_category_id)
   const { month, year } = state.budget.metadata
+  const { apiKey } = state.apiKey
+
   return {
     amount: newItem.amount,
+    apiKey: apiKey,
     categories: categories,
     budget_category_id: newItem.budget_category_id,
     errors: (newItem.errors.amount || []),

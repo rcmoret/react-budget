@@ -15,6 +15,7 @@ import Form from "./Form"
 export default (props) => {
   const {
     id,
+    apiKey,
     category_id,
     dispatch,
     month,
@@ -48,7 +49,7 @@ export default (props) => {
   const onSubmit = (e) => {
     e.preventDefault()
     put(
-      ApiUrlBuilder(["budget/categories", category_id, "maturity_intervals", id]),
+      ApiUrlBuilder(["budget/categories", category_id, "maturity_intervals", id], { key: apiKey }),
       JSON.stringify(maturityInterval),
       (data) => {
         dispatch(updateMaturityInterval(data))

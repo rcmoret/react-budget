@@ -11,6 +11,7 @@ import Transactions from "../Shared/Transactions"
 
 const WeeklyDetail = (props) => {
   const {
+    apiKey,
     budget_category_id,
     budgetedPerDay,
     budgetedPerWeek,
@@ -30,7 +31,8 @@ const WeeklyDetail = (props) => {
 
   if (collection.length < transaction_count) {
     const url = ApiUrlBuilder(
-      ["budget", "categories", budget_category_id, "items", id, "transactions"]
+      ["budget", "categories", budget_category_id, "items", id, "transactions"],
+      { key: apiKey }
     )
     const onSuccess = data => dispatch(fetchedWeeklyTransactions({
       id: id,
@@ -59,7 +61,7 @@ const WeeklyDetail = (props) => {
   )
 }
 
-const mapStateToProps = (_state, ownProps) => {
+const mapStateToProps = (state, ownProps) => {
   const date = new Date()
   const today = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0,10)
 
@@ -75,9 +77,11 @@ const mapStateToProps = (_state, ownProps) => {
       return (a.clearance_date > b.clearance_date) ? 1 : -1
     }
   })
+  const { apiKey } = state.apiKey
 
   return {
     ...ownProps,
+    apiKey: apiKey,
     collection: collection
   }
 }

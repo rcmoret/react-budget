@@ -14,6 +14,7 @@ import { Link } from "react-router-dom"
 export default (props) => {
   const {
     id,
+    apiKey,
     category_id,
     dispatch,
     month,
@@ -33,7 +34,7 @@ export default (props) => {
     const { deleteConfirmMessage } = copy.maturityInterval
     const confirmation = window.confirm(deleteConfirmMessage)
     if (!confirmation) { return }
-    const url = ApiUrlBuilder(["budget/categories", category_id, "maturity_intervals", id])
+    const url = ApiUrlBuilder(["budget/categories", category_id, "maturity_intervals", id], { key: apiKey })
     const action = removeMaturityInterval({ id: id })
     fetch(url, { method: "delete" })
       .then(() => dispatch(action))

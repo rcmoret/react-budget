@@ -18,6 +18,7 @@ import Icon from "../../../Icons/Icon"
 export default (props) => {
   const {
     amount,
+    apiKey,
     baseItemId,
     budgetCategoryId,
     dispatch,
@@ -55,7 +56,7 @@ export default (props) => {
   }
 
   const updateItem = () => {
-    const url = ApiUrlBuilder(["budget/categories", budgetCategoryId, "items", nextItem.id])
+    const url = ApiUrlBuilder(["budget/categories", budgetCategoryId, "items", nextItem.id], { key: apiKey })
     const body = JSON.stringify({ amount: total })
     const onSuccess = (data) => {
       dispatch(updateFinalizeItem(data))
@@ -65,7 +66,7 @@ export default (props) => {
   }
 
   const createItem = () => {
-    const url = ApiUrlBuilder(["budget/categories", budgetCategoryId, "items"])
+    const url = ApiUrlBuilder(["budget/categories", budgetCategoryId, "items"], { key: apiKey })
     const body = JSON.stringify({
       amount: total,
       month: nextMonth,

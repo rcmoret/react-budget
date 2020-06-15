@@ -57,3 +57,12 @@ ul.input-errors {
   text-align: left;
   margin-left: -18%;
 }
+
+.key-form {
+  margin-top: 45px;
+  padding: 0.5% 2%
+}
+
+.key-form input {
+  width: 25%;
+}

@@ -13,6 +13,7 @@ const MonthlyAmountInput = (props) => {
   const {
     id,
     amount,
+    apiKey,
     budget_category_id,
     dispatch,
     errors,
@@ -46,7 +47,7 @@ const MonthlyAmountInput = (props) => {
   }
   const saveChange = (e) => {
     e.preventDefault()
-    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items", id])
+    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items", id], { key: apiKey })
     const body = JSON.stringify({ amount: decimalToInt(floatAmount) })
     const onSuccess = data => {
       const action = updateMonthlyItem({
@@ -89,6 +90,6 @@ const MonthlyAmountInput = (props) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) =>  ownProps
+const mapStateToProps = (state, ownProps) =>  ({ ...ownProps, apiKey: state.apiKey.apiKey })
 
 export default connect(mapStateToProps)(MonthlyAmountInput)
