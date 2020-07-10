@@ -28,7 +28,8 @@
 }
 
 .transaction-wrapper.transaction-form .transaction-row.options .option-input textarea {
-  resize: none;
+  font-family: inherit;
+  resize: vertical;
   min-width: 70%;
 }
 
