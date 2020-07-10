@@ -62,7 +62,9 @@ export default (props) => {
       dispatch(updateFinalizeItem(data))
       markReviewed()
     }
-    put(url, body, onSuccess)
+    const onFailure = data => console.log({ body: body, data: data })
+
+    put(url, body, onSuccess, onFailure)
   }
 
   const createItem = () => {
@@ -81,7 +83,9 @@ export default (props) => {
       dispatch(addFinalizeItem(data))
       markReviewed()
     }
-    post(url, body, onSuccess)
+    const onFailure = data => console.log({ body: body, data: data })
+
+    post(url, body, onSuccess, onFailure)
   }
 
   return (
