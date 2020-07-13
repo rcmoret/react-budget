@@ -8,6 +8,7 @@ import { addItem, editNew, markReviewed, requeue, updateExisting } from "../../.
 import * as dateFormatter from "../../../functions/DateFormatter"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
+import EvaluateInput from "../../../functions/DynamicInputEvaluator"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 import { post, put } from "../../../functions/ApiClient"
 
@@ -82,8 +83,9 @@ const ReviewItem = (props) => {
   }
 
   const updateAmount = (e) => {
+    const amount = EvaluateInput(e.target.value)
     const action = editNew({
-      amount: e.target.value,
+      amount: amount,
       selectedOption: "",
     })
     dispatch(action)

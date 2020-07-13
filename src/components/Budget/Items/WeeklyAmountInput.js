@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 import { editWeeklyItem, updateWeeklyItem } from "../../../actions/budget"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
+import EvaluateInput from "../../../functions/DynamicInputEvaluator"
 import { put } from "../../../functions/ApiClient"
 
 import Errors from "../../Errors/Errors"
@@ -60,7 +61,7 @@ const WeeklyAmountInput = (props) => {
     e.preventDefault()
     const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items", id], { key: apiKey })
     const body = JSON.stringify({
-      amount: decimalToInt(floatAmount),
+      amount: decimalToInt(EvaluateInput(floatAmount)),
       month: month,
       year: year
     })

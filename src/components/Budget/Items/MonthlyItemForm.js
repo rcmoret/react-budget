@@ -11,6 +11,7 @@ import {
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
+import EvaluateInput from "../../../functions/DynamicInputEvaluator"
 import { post } from "../../../functions/ApiClient"
 
 import Errors from "../../Errors/Errors"
@@ -55,7 +56,7 @@ const MonthlyItemForm = (props) => {
     e.preventDefault()
     const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items"], { key: apiKey })
     const body = JSON.stringify({
-      amount: decimalToInt(amount),
+      amount: decimalToInt(EvaluateInput(amount)),
       month: month,
       year: year
     })

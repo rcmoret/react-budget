@@ -4,6 +4,14 @@
 
 .transaction-wrapper.transaction-form .detail-amount input {
   text-align: right;
+  max-width: 75%;
+}
+
+.transaction-wrapper.transaction-form .detail-amount .calculator-button  {
+  text-align: right;
+  width: 12%;
+  float: right;
+  display: inline-block;
 }
 
 .option-icons span.highlighted a {

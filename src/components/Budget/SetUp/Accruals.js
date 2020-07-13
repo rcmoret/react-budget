@@ -14,6 +14,7 @@ import * as dateFormatter from "../../../functions/DateFormatter"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
 import delay from "../../../functions/Delay"
+import EvaluateInput from "../../../functions/DynamicInputEvaluator"
 import { post } from "../../../functions/ApiClient"
 
 import Icon from "../../Icons/Icon"
@@ -88,7 +89,7 @@ const SubmitButton = ({ apiKey, collection, dispatch, month, year }) => {
   } = copy.setup
 
   const submit = (item) => {
-    const amount = item.updatedProps ? decimalToInt(item.updatedProps.amount) : item.defaultAmount
+    const amount = item.updatedProps ? decimalToInt(EvaluateInput(item.updatedProps.amount)) : item.defaultAmount
     const url = ApiUrlBuilder(["budget/categories", item.budget_category_id, "items"], { key: apiKey })
     const body = JSON.stringify({ amount: amount, month: month, year: year })
     const onSuccess = data => dispatch(addItem(data))
