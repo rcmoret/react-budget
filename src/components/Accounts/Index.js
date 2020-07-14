@@ -8,12 +8,15 @@ import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import New from "./New"
 import Show from "./Show"
 
-const Index = ({ apiKey, collection, dispatch, accountsFetched }) => {
+const Index = ({ apiErrorPresent, apiKey, collection, dispatch, accountsFetched }) => {
+  if (apiErrorPresent) {
+    return null
+  }
+
   if (!accountsFetched) {
     const url = ApiUrlBuilder(["accounts"], { key: apiKey })
     const onSuccess = data => dispatch(fetched(data))
-    const onFailure = data => console.log(data)
-    get(url, onSuccess, onFailure)
+    get(url, onSuccess)
   }
 
   return (
@@ -35,9 +38,11 @@ const mapStateToProps = (state) => {
   const { collection, accountsFetched } = state.accounts
   const accounts = collection.sort((a, b) => a.priority - b.priority)
   const { apiKey } = state.apiKey
+  const apiErrorPresent = state.messages.errors.api.length > 0
 
   return {
     accountsFetched: accountsFetched,
+    apiErrorPresent: apiErrorPresent,
     apiKey: apiKey,
     collection: accounts,
   }

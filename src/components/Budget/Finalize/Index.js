@@ -11,6 +11,7 @@ import { Redirect } from "react-router"
 
 const Index = (props) => {
   const {
+    apiErrorPresent,
     apiKey,
     baseMonthFetched,
     baseMonthFinalized,
@@ -23,24 +24,22 @@ const Index = (props) => {
     year,
   } = props
 
-  const onFailure = data => console.log(data)
-
   if (!isEndOfMonth) {
     return (
       <Redirect to={`/budget/${month}/${year}`} />
     )
   }
 
-  if (!baseMonthFetched) {
+  if (!apiErrorPresent && !baseMonthFetched) {
     const url = ApiUrlBuilder(["budget/items"], { month: month, year: year, key: apiKey })
     const onSuccess = data => dispatch(baseMonthFetch(data))
-    get(url, onSuccess, onFailure)
+    get(url, onSuccess)
   }
 
-  if (baseMonthFetched && !nextMonthFetched) {
+  if (!apiErrorPresent && baseMonthFetched && !nextMonthFetched) {
     const url = ApiUrlBuilder(["budget/items"], { month: nextMonth, year: nextYear, key: apiKey })
     const onSuccess = data => dispatch(nextMonthFetch(data))
-    get(url, onSuccess, onFailure)
+    get(url, onSuccess)
   }
 
   if (!baseMonthFetched || !nextMonthFetched) {
@@ -74,8 +73,10 @@ const mapStateToProps = (state, ownProps) => {
   const nextYear = (finalize.next.year || (baseMonth === 12 ? (baseYear + 1) : baseYear))
   const isEndOfMonth = isToday(new Date((year || baseYear), (month || baseMonth), 0))
   const { apiKey } = state.apiKey
+  const apiErrorPresent = state.messages.errors.api.length > 0
 
   return {
+    apiErrorPresent: apiErrorPresent,
     apiKey: apiKey,
     baseMonthFetched: baseMonthFetched,
     baseMonthFinalized: baseMonthFinalized,

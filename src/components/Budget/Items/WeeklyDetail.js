@@ -11,6 +11,7 @@ import Transactions from "../Shared/Transactions"
 
 const WeeklyDetail = (props) => {
   const {
+    apiErrorPresent,
     apiKey,
     budget_category_id,
     budgetedPerDay,
@@ -29,18 +30,14 @@ const WeeklyDetail = (props) => {
     return null
   }
 
-  if (collection.length < transaction_count) {
-    const url = ApiUrlBuilder(
-      ["budget", "categories", budget_category_id, "items", id, "transactions"],
-      { key: apiKey }
-    )
+  if (!apiErrorPresent && collection.length < transaction_count) {
+    const urlSegments = ["budget", "categories", budget_category_id, "items", id, "transactions"]
+    const url = ApiUrlBuilder(urlSegments, { key: apiKey })
     const onSuccess = data => dispatch(fetchedWeeklyTransactions({
       id: id,
       collection: data
     }))
-    const onFailure = data => console.log(data)
-
-    get(url, onSuccess, onFailure)
+    get(url, onSuccess)
   }
 
   return (
@@ -78,9 +75,11 @@ const mapStateToProps = (state, ownProps) => {
     }
   })
   const { apiKey } = state.apiKey
+  const apiErrorPresent = state.messages.errors.api.length > 0
 
   return {
     ...ownProps,
+    apiErrorPresent: apiErrorPresent,
     apiKey: apiKey,
     collection: collection
   }

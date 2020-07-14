@@ -11,6 +11,7 @@ import { Redirect } from "react-router"
 
 const Intro = (props) => {
   const {
+    apiErrorPresent,
     apiKey,
     baseMonth,
     categoriesFetched,
@@ -22,29 +23,32 @@ const Intro = (props) => {
 
   const { month, year } = newMonth
 
+  if (apiErrorPresent) {
+    return null
+  }
+
+  const urlBuilder = (segments, query) => ApiUrlBuilder(segments, { ...query, key: apiKey })
+
   if (!categoriesFetched) {
-    const url = ApiUrlBuilder(["budget/categories"], { key: apiKey })
+    const url = urlBuilder(["budget/categories"])
     const onSuccess = data => dispatch(fetched(data))
-    const onFailure = data => console.log(data)
-    get(url, onSuccess, onFailure)
+    get(url, onSuccess)
     return null
   }
 
   if (categoriesFetched && !newMonth.isFetched) {
-    const url = ApiUrlBuilder(["budget/items"], { month: targetMonth, year: targetYear, key: apiKey })
+    const url = urlBuilder(["budget/items"], { month: targetMonth, year: targetYear })
     const onSuccess = data => dispatch(newMonthFetched(data))
-    const onFailure = data => console.log(data)
-    get(url, onSuccess, onFailure)
+    get(url, onSuccess)
     return null
   }
 
   if (categoriesFetched && newMonth.isFetched && !baseMonth.isFetched) {
     const month = targetMonth === 1 ? 12 : (targetMonth - 1)
     const year = targetMonth === 1 ? (targetYear - 1) : targetYear
-    const url = ApiUrlBuilder(["budget/items"], { month: month, year: year, key: apiKey })
+    const url = urlBuilder(["budget/items"], { month: month, year: year })
     const onSuccess = data => dispatch(baseMonthFetched(data))
-    const onFailure = data => console.log(data)
-    get(url, onSuccess, onFailure)
+    get(url, onSuccess)
     return null
   }
 
@@ -58,9 +62,11 @@ const mapStateToProps = (state, ownProps) => {
   const targetYear = parseInt(ownProps.match.params.year)
   const newMonth = state.budget.setup.newMonth
   const { apiKey } = state.apiKey
+  const apiErrorPresent = state.messages.errors.api.length > 0
 
   return {
     apiKey: apiKey,
+    apiErrorPresent: apiErrorPresent,
     baseMonth: state.budget.setup.baseMonth,
     categoriesFetched: state.budget.categories.fetched,
     newMonth: newMonth,

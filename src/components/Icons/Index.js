@@ -11,6 +11,7 @@ import Show from "./Show"
 
 const Index = (props) => {
   const {
+    apiErrorPresent,
     dispatch,
     apiKey,
     collectionFetched,
@@ -18,11 +19,10 @@ const Index = (props) => {
     secondColumn,
   } = props
 
-  if (!collectionFetched) {
-    const url = ApiUrlBuilder(["icons"], { key: apiKey })
+  if (!apiErrorPresent && !collectionFetched) {
+    const url = ApiUrlBuilder({ route: "icons-index" })
     const onSuccess = data => dispatch(fetched(data))
-    const onFailure = data => console.log(data)
-    get(url, onSuccess, onFailure)
+    get(url, onSuccess)
   }
 
   return (
@@ -52,6 +52,7 @@ const Index = (props) => {
 
 const mapStateToProps = (state) => {
   const { fetched } = state.icons
+  const { errors } = state.messages
   const collection = state.icons.collection.sort((a, b) => {
     return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
   })
@@ -59,10 +60,10 @@ const mapStateToProps = (state) => {
   const columnSize = Math.ceil(count / 2.0)
   const firstColumn = collection.slice(0, columnSize)
   const secondColumn = collection.slice(columnSize, (columnSize * 2))
-  const { apiKey } = state.apiKey
+  const apiErrorPresent = errors.api.length > 0
 
   return {
-    apiKey: apiKey,
+    apiErrorPresent: apiErrorPresent,
     firstColumn: firstColumn,
     secondColumn: secondColumn,
     collectionFetched: fetched,

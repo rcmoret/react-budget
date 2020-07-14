@@ -22,6 +22,7 @@ const MaturityInfo = (props) => {
   const {
     id,
     accrual,
+    apiErrorPresent,
     apiKey,
     dispatch,
     maturityIntervals,
@@ -31,7 +32,7 @@ const MaturityInfo = (props) => {
     showMaturityIntervals,
   } = props
 
-  if (!maturityIntervalsFetched && showMaturityIntervals) {
+  if (!apiErrorPresent && !maturityIntervalsFetched && showMaturityIntervals) {
     const url = ApiUrlBuilder(["budget/categories", id, "maturity_intervals"], { key: apiKey })
     const onSuccess = data => dispatch(
       accrualMaturityIntervalsFetched({
@@ -39,8 +40,7 @@ const MaturityInfo = (props) => {
         collection: data,
       })
     )
-    const onFailure = data => console.log(data)
-    get(url, onSuccess, onFailure)
+    get(url, onSuccess)
   }
 
   const fetchMaturityIntervals = () => {
@@ -156,8 +156,10 @@ const mapStateToProps = ((state, ownProps) => {
     .filter(filterFn)
     .sort(sortFn)
   const { apiKey } = state.apiKey
+  const apiErrorPresent = state.messages.errors.api.length > 0
 
   return {
+    apiErrorPresent: apiErrorPresent,
     apiKey: apiKey,
     ...ownProps,
     maturityIntervals: maturityIntervals,

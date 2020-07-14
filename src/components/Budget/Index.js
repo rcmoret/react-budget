@@ -14,6 +14,7 @@ import WeeklyItems from "./Items/WeeklyItems"
 
 const BudgetIndex = (props) => {
   const {
+    apiErrorPresent,
     apiKey,
     categoresWereFetched,
     dispatch,
@@ -25,16 +26,16 @@ const BudgetIndex = (props) => {
     year,
   } = props
 
-  if (!itemsFetched || !isCurrent) {
+  if (!apiErrorPresent && (!itemsFetched || !isCurrent)) {
     const url = ApiUrlBuilder(["budget/items"], { month: month, year: year, key: apiKey })
     const onSuccess = data => dispatch(fetched(data))
-    const onFailure = data => console.log(data)
-    get(url, onSuccess, onFailure)
+    get(url, onSuccess)
   }
 
-  if (itemsFetched && !categoresWereFetched) {
+  if (!apiErrorPresent && (itemsFetched && !categoresWereFetched)) {
     const url = ApiUrlBuilder(["budget/categories"], { key: apiKey })
-    get(url, data => dispatch(categoriesFetched(data)))
+    const onSuccess = data => dispatch(categoriesFetched(data))
+    get(url, onSuccess)
   }
 
   return (
@@ -61,9 +62,11 @@ const mapStateToProps = (state, ownProps) => {
   const isFuture = (year > today.getFullYear() || (year === today.getFullYear() && month > (today.getMonth() + 1)))
   const categoresWereFetched = state.budget.categories.fetched
   const { apiKey } = state.apiKey
+  const apiErrorPresent = state.messages.errors.api.length > 0
 
   return {
     ...state.budget,
+    apiErrorPresent: apiErrorPresent,
     apiKey: apiKey,
     categoresWereFetched: categoresWereFetched,
     isCurrent: isCurrent,

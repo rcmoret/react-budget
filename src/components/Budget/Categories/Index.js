@@ -15,20 +15,18 @@ import NewBudgetCategory from "./New"
 import Show from "./Show"
 
 const BudgetCategories = (props) => {
-  const { apiKey, collection, dispatch, fetched } = props
+  const { apiErrorPresent, apiKey, collection, dispatch, fetched } = props
 
-  if (!fetched) {
+  if (!apiErrorPresent && !fetched) {
     const url = ApiUrlBuilder(["budget", "categories"], { key: apiKey })
     const onSuccess = data => dispatch(categoriesFetched(data))
-    const onFailure = data => console.log(data)
-    get(url, onSuccess, onFailure)
+    get(url, onSuccess)
   }
 
-  if (fetched && !props.iconsFetched) {
+  if (fetched && !props.iconsFetched && !apiErrorPresent) {
     const url = ApiUrlBuilder(["icons"], { key: apiKey })
     const onSuccess = data => dispatch(iconsFetched(data))
-    const onFailure = data => console.log(data)
-    get(url, onSuccess, onFailure)
+    get(url, onSuccess)
   }
 
   return (
@@ -119,9 +117,11 @@ const mapStateToProps = (state) => {
     .filter(searchFilter)
     .sort(sortBy)
   const { apiKey } = state.apiKey
+  const apiErrorPresent = state.messages.errors.api.length > 0
 
   return {
     apiKey: apiKey,
+    apiErrorPresent: apiErrorPresent,
     collection: categories,
     fetched: fetched,
     iconsFetched: iconsFetched,

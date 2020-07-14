@@ -16,21 +16,20 @@ import NewTransfer from "./NewTransfer"
 import PaginationLinks from "./PaginationLinks"
 import Transfer from "./Transfer"
 
-const Index = ({ accounts, accountsFetched, apiKey, collection, dispatch, fetchedTransfers, metadata }) => {
+const Index = (props) => {
+  const { accounts, accountsFetched, apiErrorPresent, apiKey, collection, dispatch, fetchedTransfers, metadata } = props
   const { currentPage, total, viewing } = metadata
 
-  if(!accountsFetched) {
+  if(!apiErrorPresent && !accountsFetched) {
     const url = ApiUrlBuilder(["accounts"], { key: apiKey })
     const onSuccess = data => dispatch(renderAccounts(data))
-    const onFailure = data => console.log(data)
-    get(url, onSuccess, onFailure)
+    get(url, onSuccess)
   }
 
-  if (accountsFetched && !fetchedTransfers) {
+  if (!apiErrorPresent && accountsFetched && !fetchedTransfers) {
     const url = ApiUrlBuilder(["transfers"], { page: currentPage, key: apiKey })
     const onSuccess = data => dispatch(fetched(data))
-    const onFailure = data => console.log(data)
-    get(url, onSuccess, onFailure)
+    get(url, onSuccess)
   }
 
   return (
@@ -92,12 +91,15 @@ const mapStateToProps = (state) => {
     }
   })
 
+  const apiErrorPresent = state.messages.errors.api.length > 0
+
   return {
     ...state.transfers,
     accounts: state.accounts.collection,
     collection: collection,
     accountsFetched: accountsFetched,
     apiKey: apiKey,
+    apiErrorPresent: apiErrorPresent,
   }
 }
 

@@ -11,6 +11,7 @@ import Transactions from "./Transactions"
 const Wrapper = (props) => {
   const {
     accountId,
+    apiErrorPresent,
     apiKey,
     dispatch,
     fetched,
@@ -31,22 +32,22 @@ const Wrapper = (props) => {
       ["accounts", urlAccountId, "transactions"], { month: urlMonth, year: urlYear, key: apiKey }
     )
     const onSuccess = data => dispatch(fetchedTransactions({...data, slug: slug }))
-    const onFailure = data => console.log(data)
-    get(url, onSuccess, onFailure)
+    get(url, onSuccess)
   }
 
   const fetchBudgetItems = () => {
     const url = ApiUrlBuilder(["budget", "items"], { month: urlMonth, year: urlYear, key: apiKey })
     const onSuccess = data => dispatch(fetchedBudgetItems(data))
-    const onFailure = data => console.log(data)
-    get(url, onSuccess, onFailure)
+    get(url, onSuccess)
   }
 
   const isNewMonthYear = !(urlMonth === month && urlYear === year)
   const isTransctionCacheStale = (isNewMonthYear ||  urlAccountId !== accountId)
   const isBudgetCacheStale = (!fetched || isNewMonthYear)
 
-  if (isTransctionCacheStale || isBudgetCacheStale) {
+  if (apiErrorPresent) {
+    return null
+  } else if (isTransctionCacheStale || isBudgetCacheStale) {
     if (isTransctionCacheStale) {
       fetchTransactions()
     }
@@ -64,9 +65,11 @@ const mapStateToProps = (state, ownProps) => {
   const { query_options } = state.transactions.metadata
   const { fetched } = state.transactions.budgetItems
   const { apiKey } = state.apiKey
+  const apiErrorPresent = state.messages.errors.api.length > 0
 
   return {
     accountId: parseInt(query_options.account_id),
+    apiErrorPresent: apiErrorPresent,
     apiKey: apiKey,
     fetched: fetched,
     month: parseInt(query_options.month),

@@ -13,6 +13,7 @@ import Tabs from "./Tabs"
 const Wrapper = (props) => {
   const {
     accountsFetched,
+    apiErrorPresent,
     apiKey,
     collection,
     dateParams,
@@ -24,11 +25,10 @@ const Wrapper = (props) => {
     year,
   } = props
 
-  if (!accountsFetched) {
+  if (!apiErrorPresent && !accountsFetched) {
     const url = ApiUrlBuilder(["accounts"], { key: apiKey })
     const onSuccess = data => dispatch(fetched(data))
-    const onFailure = data => console.log(data)
-    get(url, onSuccess, onFailure)
+    get(url, onSuccess)
     return null
   }
 
@@ -73,9 +73,11 @@ const mapStateToProps = (state, ownProps) => {
   const accountsFetched = state.accounts.accountsFetched
   const collection = state.accounts.collection.sort((a, b) => a.priority - b.priority)
   const { apiKey } = state.apiKey
+  const apiErrorPresent = state.messages.errors.api.length > 0
 
   return {
     accountsFetched: accountsFetched,
+    apiErrorPresent: apiErrorPresent,
     apiKey: apiKey,
     collection: collection,
     month: month,

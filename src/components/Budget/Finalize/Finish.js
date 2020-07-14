@@ -20,6 +20,7 @@ import Select from "react-select"
 const Finish = (props) => {
   const {
     accountsFetched,
+    apiErrorPresent,
     apiKey,
     baseMonthFetched,
     baseMonthFinalized,
@@ -52,11 +53,10 @@ const Finish = (props) => {
     const body = JSON.stringify({ close_out_completed_at: new Date() })
     put(url, body, () => dispatch(markIntervalClosed))
     return null
-  } else if (!accountsFetched) {
+  } else if (!apiErrorPresent && !accountsFetched) {
     const url = ApiUrlBuilder(["accounts"])
     const onSuccess = data => dispatch(acctFetched(data))
-    const onFailure = data => console.log(data)
-    get(url, onSuccess, onFailure)
+    get(url, onSuccess)
     return null
   } else {
     return (
