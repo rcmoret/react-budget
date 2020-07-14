@@ -49,7 +49,7 @@ const NewBudgetCategory = (props) => {
       ...newCategory,
       default_amount: decimalToInt(newCategory.default_amount),
     })
-    const dispatches = (data) => {
+    const onSuccess = data => {
       const createdAction = created(data)
       dispatch(createdAction)
       dispatch(resetNewForm())
@@ -58,7 +58,7 @@ const NewBudgetCategory = (props) => {
       dispatch(errorsOnNew(response))
     }
 
-    post(url, body, dispatches, errorHandler)
+    post(url, body, onSuccess, errorHandler)
   }
 
   const resetForm = (e) => {

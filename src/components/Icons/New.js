@@ -12,17 +12,18 @@ import { post } from "../../functions/ApiClient"
 import Form from "./Form/Form"
 
 const New = (props) => {
+  const { dispatch } = props
+
   const onChange = (e) => {
     const action = updateNew({[e.target.name]: e.target.value })
     props.dispatch(action)
   }
 
   const onSubmit = () => {
-    post(
-      ApiUrlBuilder(["icons"]),
-      JSON.stringify(props.newIcon),
-      (data) => props.dispatch(created(data))
-    )
+    const url = ApiUrlBuilder(["icons"])
+    const body = JSON.stringify(props.newIcon)
+    const onSuccess = data => dispatch(created(data))
+    post(url, body, onSuccess)
   }
 
   return (

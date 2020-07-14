@@ -99,7 +99,6 @@ const ReviewItem = (props) => {
       dispatch(markReviewed({ id: item.id }))
     }
     const onFailure = data => console.log({ body: body, data: data })
-
     post(url, body, onSuccess, onFailure)
   }
 

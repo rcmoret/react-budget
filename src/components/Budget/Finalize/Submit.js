@@ -43,7 +43,6 @@ export default (props) => {
       dispatch(created(data))
     }
     const onFailure = data => console.log({ body: body, data: data })
-
     post(url, body, onSuccess, onFailure)
   }
 
@@ -61,7 +60,6 @@ export default (props) => {
       callback()
     }
     const onFailure = data => console.log({ body: body, data: data })
-
     post(url, body, onSuccess, onFailure)
   }
 
