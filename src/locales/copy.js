@@ -10,6 +10,7 @@ import {
   setup as setupContent,
   shared as sharedContent,
 } from "./en/budget"
+import { errors as errorsContent } from "./en/errors"
 import { overrides } from "./overrides/copy"
 import { terms as termsContent } from "./terms"
 import { transfer as transferContent } from "./en/transfer"
@@ -57,6 +58,11 @@ export const budget = {
     ...sharedContent,
     ...overrides.shared,
   }
+}
+
+export const errors = {
+  ...errorsContent,
+  ...overrides.errors,
 }
 
 export const icon = {

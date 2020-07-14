@@ -5,6 +5,7 @@ import { createStore, combineReducers } from "redux"
 import accountsReducer from "./reducers/accounts"
 import budgetReducer from "./reducers/budget"
 import iconsReducer from "./reducers/icons"
+import messageReducer from "./components/Messages/reducer"
 import transactionsReducer from "./reducers/transactions"
 import transfersReducer from "./reducers/transfers"
 import AccountWrapper from "./components/Accounts/Wrapper"
@@ -21,9 +22,9 @@ import BudgetSetUpFinalize from "./components/Budget/SetUp/Finalize"
 import BudgetSetUpIntro from "./components/Budget/SetUp/Introduction"
 import BudgetSetUpRevenues from "./components/Budget/SetUp/Revenues"
 import BudgetCategories from "./components/Budget/Categories/Index"
+import BannerMessages from "./components/Messages/Banner"
 import Header from "./components/Header"
 import Icons from "./components/Icons/Index"
-import KeyForm from "./components/Key/Form"
 import apiKeyReducer from "./components/Key/reducer"
 import Transfers from "./components/Transfers/Index"
 import "./App.css"
@@ -34,6 +35,7 @@ const store = createStore(
     apiKey: apiKeyReducer,
     budget: budgetReducer,
     icons: iconsReducer,
+    messages: messageReducer,
     transactions: transactionsReducer,
     transfers: transfersReducer,
   }),
@@ -46,6 +48,7 @@ export default () => (
       <Router>
         <div>
           <Header />
+          <BannerMessages />
           <Switch>
             <Route exact path="/accounts" component={AccountWrapper} />
             <Route exact path="/accounts/index" component={AccountIndex} />
@@ -66,7 +69,6 @@ export default () => (
             <Route path="/budget/set-up/:month/:year/revenues" component={BudgetSetUpRevenues} />
             <Route exact path="/budget/:month?/:year?" component={BudgetHome} />
           </Switch>
-          <KeyForm />
         </div>
       </Router>
     </Provider>

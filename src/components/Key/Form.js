@@ -3,6 +3,8 @@ import { connect } from "react-redux"
 
 import { terms } from "../../locales/copy"
 
+import { removeApiError } from "../Messages/actions"
+
 const Form = ({ dispatch, newApiKey }) => {
   const editedAction = apiKey => ({ type: "key/EDITED", payload: { apiKey: apiKey } })
   const updatedAction = apiKey => ({ type: "key/UPDATED", payload: { apiKey: apiKey } })
@@ -14,12 +16,12 @@ const Form = ({ dispatch, newApiKey }) => {
   const handleKeyDown = e => {
     if (e.which === 13) {
       dispatch(updatedAction(newApiKey))
+      dispatch(removeApiError({ status: 401 }))
     }
   }
 
   return (
     <div className="key-form">
-      <hr />
       <i className="fas fa-key fa-rotate-270" />
       {" "}
       <input

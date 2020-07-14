@@ -45,6 +45,10 @@ header a {
   text-align: center;
 }
 
+.font-red {
+  color: #FF3C52; /* red */
+}
+
 input.errors {
   border: 1px solid #FF3C52; /* red */
 }
@@ -59,10 +63,29 @@ ul.input-errors {
 }
 
 .key-form {
-  margin-top: 45px;
-  padding: 0.5% 2%
+  padding: 0.5% 1%
 }
 
 .key-form input {
   width: 25%;
+}
+
+.top-level-messages {
+  padding: 0.5% 3%;
+  background-color: #C0D6FF;
+  margin-bottom: 1%;
+}
+
+.top-level-messages a,
+.top-level-messages a:visited {
+  color: black;
+}
+
+.top-level-messages span.message-heading {
+  font-size: 1.3em;
+}
+
+.top-level-messages .message {
+  margin: 1%;
+  font-size: 1.1em;
 }
