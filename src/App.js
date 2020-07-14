@@ -31,9 +31,9 @@ import "./App.css"
 const store = createStore(
   combineReducers({
     accounts: accountsReducer,
+    apiKey: apiKeyReducer,
     budget: budgetReducer,
     icons: iconsReducer,
-    apiKey: apiKeyReducer,
     transactions: transactionsReducer,
     transfers: transfersReducer,
   }),
