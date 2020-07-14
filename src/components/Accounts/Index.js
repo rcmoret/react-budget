@@ -2,16 +2,18 @@ import React from "react"
 import { connect } from "react-redux"
 
 import { fetched } from "./actions"
+import { get } from "../../functions/ApiClient"
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 
 import New from "./New"
 import Show from "./Show"
 
-const Index = ({ collection, dispatch, accountsFetched }) => {
+const Index = ({ apiKey, collection, dispatch, accountsFetched }) => {
   if (!accountsFetched) {
-    fetch(ApiUrlBuilder(["accounts"]))
-      .then(response => response.json())
-      .then(data => dispatch(fetched(data)))
+    const url = ApiUrlBuilder(["accounts"], { key: apiKey })
+    const onSuccess = data => dispatch(fetched(data))
+    const onFailure = data => console.log(data)
+    get(url, onSuccess, onFailure)
   }
 
   return (
@@ -32,10 +34,12 @@ const Index = ({ collection, dispatch, accountsFetched }) => {
 const mapStateToProps = (state) => {
   const { collection, accountsFetched } = state.accounts
   const accounts = collection.sort((a, b) => a.priority - b.priority)
+  const { apiKey } = state.apiKey
 
   return {
-    collection: accounts,
     accountsFetched: accountsFetched,
+    apiKey: apiKey,
+    collection: accounts,
   }
 }
 
