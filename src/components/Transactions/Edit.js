@@ -52,8 +52,7 @@ const Edit = (props) => {
         details_attributes: [{ id: detailId, _destroy: true }]
       })
       const onSuccess = () => dispatch(action)
-      const onFailure = data => console.log(data)
-      put(url, body, onSuccess, onFailure)
+      put(url, body, onSuccess)
     }
   }
 

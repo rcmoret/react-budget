@@ -63,7 +63,6 @@ export default (props) => {
       markReviewed()
     }
     const onFailure = data => console.log({ body: body, data: data })
-
     put(url, body, onSuccess, onFailure)
   }
 

@@ -66,7 +66,8 @@ export default (props) => {
   const updateInterval = () => {
     const url = ApiUrlBuilder(["intervals", month, year], { key: apiKey })
     const body = JSON.stringify({ close_out_completed_at: new Date() })
-    put(url, body, () => dispatch(markIntervalClosed))
+    const onSuccess = () => dispatch(markIntervalClosed)
+    put(url, body, onSuccess)
   }
 
   const handleSubmit = () => {
