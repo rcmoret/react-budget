@@ -106,7 +106,6 @@ const NewBudgetCategory = (props) => {
 }
 
 const mapStateToProps = (state) => {
-
   const { newCategory } = state.budget
   const errors = newCategory.errors.reduce((acc, error) => {
     Object.entries(error).map(arr => {
