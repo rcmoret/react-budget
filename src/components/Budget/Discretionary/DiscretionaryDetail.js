@@ -15,7 +15,6 @@ const DiscretionaryDetail = (props) => {
   const {
     amount,
     apiErrorPresent,
-    apiKey,
     collection,
     days_remaining,
     dispatch,
@@ -34,7 +33,7 @@ const DiscretionaryDetail = (props) => {
   if (!apiErrorPresent && showDetail && !fetchedTransactions ) {
     const url = ApiUrlBuilder({
       route: "discretionary-transactions-index",
-      query: { month: month, year: year, key: apiKey }
+      query: { month: month, year: year }
     })
     const onSuccess = data => dispatch(fetchedDiscretionaryTransactions(data))
     get(url, onSuccess)
@@ -76,14 +75,12 @@ const mapStateToProps = (state) => {
       return (a.clearance_date > b.clearance_date) ? 1 : -1
     }
   })
-  const { apiKey } = state.apiKey
   const apiErrorPresent = state.messages.errors.api.length > 0
 
   return {
     ...state.budget.metadata,
     ...state.budget.discretionary,
     apiErrorPresent: apiErrorPresent,
-    apiKey: apiKey,
     collection: collection
   }
 }

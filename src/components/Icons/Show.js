@@ -11,7 +11,7 @@ import { Link } from "react-router-dom"
 import Edit from "./Edit"
 import Icon from "./Icon"
 
-const Show = ({ apiKey, dispatch, icon }) => {
+const Show = ({ dispatch, icon }) => {
   const { id, class_name, name, showForm } = icon
 
   const renderForm = (e) => {
@@ -24,7 +24,7 @@ const Show = ({ apiKey, dispatch, icon }) => {
     e.preventDefault()
     const confirmation = window.confirm(copy.icon.deleteConfirmationMessage(name))
     if (confirmation) {
-      const url = ApiUrlBuilder({ route: "icon-show", id: id, query: { key: apiKey } })
+      const url = ApiUrlBuilder({ route: "icon-show", id: id })
       fetch(url, { method: "delete" })
         .then(() => dispatch(deleted(id)))
     }
@@ -64,5 +64,6 @@ const Show = ({ apiKey, dispatch, icon }) => {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({ ...ownProps, apiKey: state.apiKey.apiKey })
+const mapStateToProps = (_state, ownProps) => ownProps
+
 export default connect(mapStateToProps)(Show)

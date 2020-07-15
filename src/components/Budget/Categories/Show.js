@@ -26,7 +26,6 @@ const Show = (props) => {
   const {
     id,
     accrual,
-    apiKey,
     default_amount,
     errors,
     expense,
@@ -50,7 +49,7 @@ const Show = (props) => {
     e.preventDefault()
     const confirmation = window.confirm(deleteConfirmMessage(name))
     if (confirmation) {
-    const url = ApiUrlBuilder({ route: "budget-category-show", id: id, query: { key: apiKey } })
+    const url = ApiUrlBuilder({ route: "budget-category-show", id: id })
       fetch(url, { method: "delete" })
         .then(() => dispatch(deleted(id)))
     }
@@ -103,5 +102,6 @@ const Show = (props) => {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({ ...ownProps, apiKey: state.apiKey.apiKey })
+const mapStateToProps = (_state, ownProps) => ownProps
+
 export default connect(mapStateToProps)(Show)

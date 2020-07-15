@@ -25,7 +25,6 @@ const Show = (props) => {
     id,
     account_id,
     amount,
-    apiKey,
     balance,
     budget_exclusion,
     check_number,
@@ -62,12 +61,7 @@ const Show = (props) => {
     if (!confirmation) {
       return
     } else {
-      const url = ApiUrlBuilder({
-        route: "transaction-show",
-        id: id,
-        accountId: account_id,
-        query: { key: apiKey },
-      })
+      const url = ApiUrlBuilder({ route: "transaction-show", id: id, accountId: account_id })
       const action = deleteTransaction({ id: id, amount: (-1 * amount), account_id: account_id })
       fetch(url, { method: "delete" })
         .then(() => props.dispatch(action))
@@ -138,5 +132,6 @@ const Show = (props) => {
   }
 }
 
-export const mapStateToProps = (state, ownProps) => ({ ...ownProps, apiKey: state.apiKey.apiKey })
+export const mapStateToProps = (_state, ownProps) => ownProps
+
 export default connect(mapStateToProps)(Show)

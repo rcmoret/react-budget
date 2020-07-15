@@ -14,7 +14,7 @@ const Index = ({ apiErrorPresent, apiKey, collection, dispatch, accountsFetched 
   }
 
   if (!accountsFetched) {
-    const url = ApiUrlBuilder({ route: "accounts-index", query: { key: apiKey } })
+    const url = ApiUrlBuilder({ route: "accounts-index" })
     const onSuccess = data => dispatch(fetched(data))
     get(url, onSuccess)
   }
@@ -37,13 +37,11 @@ const Index = ({ apiErrorPresent, apiKey, collection, dispatch, accountsFetched 
 const mapStateToProps = (state) => {
   const { collection, accountsFetched } = state.accounts
   const accounts = collection.sort((a, b) => a.priority - b.priority)
-  const { apiKey } = state.apiKey
   const apiErrorPresent = state.messages.errors.api.length > 0
 
   return {
     accountsFetched: accountsFetched,
     apiErrorPresent: apiErrorPresent,
-    apiKey: apiKey,
     collection: accounts,
   }
 }

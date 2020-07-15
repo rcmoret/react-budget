@@ -22,8 +22,7 @@ const MaturityInfo = (props) => {
   const {
     id,
     accrual,
-    apiErrorPresent,
-    apiKey,
+    isApiUnauthorized,
     dispatch,
     maturityIntervals,
     maturityIntervalsFetched,
@@ -36,7 +35,6 @@ const MaturityInfo = (props) => {
     const url = ApiUrlBuilder({
       route: "budget-category-maturity-intervals-index",
       budgetCategoryId: id,
-      query: { key: apiKey },
     })
     const onSuccess = data => dispatch(
       accrualMaturityIntervalsFetched({
@@ -103,7 +101,6 @@ const MaturityInfo = (props) => {
           />
           <NewMaturityInterval
             id={id}
-            apiKey={apiKey}
             dispatch={dispatch}
             newMaturityIntervalAttributes={newMaturityIntervalAttributes}
             showMaturityIntervalForm={showMaturityIntervalForm}
@@ -112,7 +109,6 @@ const MaturityInfo = (props) => {
         {groupedIntervals.map(intervalsByYear =>
           <MaturityIntervalByYear
             key={intervalsByYear.year}
-            apiKey={apiKey}
             dispatch={dispatch}
             {...intervalsByYear}
           />
@@ -124,14 +120,13 @@ const MaturityInfo = (props) => {
   }
 }
 
-const MaturityIntervalByYear = ({ apiKey, collection, dispatch, year }) => (
+const MaturityIntervalByYear = ({ collection, dispatch, year }) => (
   <div>
     <strong>{year}</strong>
     <div>
       {collection.map(interval =>
         <Show
           key={interval.id}
-          apiKey={apiKey}
           dispatch={dispatch}
           {...interval}
         />
@@ -159,12 +154,11 @@ const mapStateToProps = ((state, ownProps) => {
   const maturityIntervals = state.budget.maturityIntervals
     .filter(filterFn)
     .sort(sortFn)
-  const { apiKey } = state.apiKey
-  const apiErrorPresent = state.messages.errors.api.length > 0
+  const isApiUnauthorized = state.api.status === 401
+
 
   return {
-    apiErrorPresent: apiErrorPresent,
-    apiKey: apiKey,
+    isApiUnauthorized: isApiUnauthorized,
     ...ownProps,
     maturityIntervals: maturityIntervals,
   }

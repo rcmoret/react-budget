@@ -72,11 +72,7 @@ const New = (props) => {
       return { ...detail, amount: adjusted }
     })
     const description = transaction.description === "" ? null : transaction.description
-    const url = ApiUrlBuilder({
-      route: "transactions-index",
-      accountId: selectedAccount.id,
-      query: { key: apiKey },
-    })
+    const url = ApiUrlBuilder({ route: "transactions-index", accountId: selectedAccount.id })
     const body = JSON.stringify({
       ...transaction,
       description: description,
@@ -128,15 +124,12 @@ const mapStateToProps = (state) => {
     .sort(sortFn)
   const discretionary = { label: titleize(copy.discretionary.title), value: null }
   const budgetOptions = [discretionary, ...itemOptions]
-  const { apiKey } = state.apiKey
   const { showCheck, showNotes } = transaction.formOptions
 
   return {
-    apiKey: apiKey,
     buttonText: "Create Transaction",
     budgetOptions: budgetOptions,
     selectedAccount: selectedAccount,
-    showBudgetExclusion: !selectedAccount.cashFlow,
     showCheck: showCheck,
     showBudgetExclusion: !selectedAccount.cashFlow,
     showNotes: showNotes,

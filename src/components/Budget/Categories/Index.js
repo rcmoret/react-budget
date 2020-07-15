@@ -15,16 +15,16 @@ import NewBudgetCategory from "./New"
 import Show from "./Show"
 
 const BudgetCategories = (props) => {
-  const { apiErrorPresent, apiKey, collection, dispatch, fetched } = props
+  const { apiErrorPresent, collection, dispatch, fetched } = props
 
   if (!apiErrorPresent && !fetched) {
-    const url = ApiUrlBuilder({ route: "budget-categories-index", query: { key: apiKey } })
+    const url = ApiUrlBuilder({ route: "budget-categories-index" })
     const onSuccess = data => dispatch(categoriesFetched(data))
     get(url, onSuccess)
   }
 
   if (fetched && !props.iconsFetched && !apiErrorPresent) {
-    const url = ApiUrlBuilder({ route: "icons-index",  query: { key: apiKey } })
+    const url = ApiUrlBuilder({ route: "icons-index" })
     const onSuccess = data => dispatch(iconsFetched(data))
     get(url, onSuccess)
   }
@@ -116,11 +116,9 @@ const mapStateToProps = (state) => {
     .filter(adverbFilter)
     .filter(searchFilter)
     .sort(sortBy)
-  const { apiKey } = state.apiKey
   const apiErrorPresent = state.messages.errors.api.length > 0
 
   return {
-    apiKey: apiKey,
     apiErrorPresent: apiErrorPresent,
     collection: categories,
     fetched: fetched,

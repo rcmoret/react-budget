@@ -49,12 +49,12 @@ const Finish = (props) => {
       <Redirect to={`/budget/${nextMonth}/${nextYear}`} />
     )
   } else if (totalExtra >= 0) {
-    const url = ApiUrlBuilder({ route: "interval-show", month: month, year: year, query: { key: apiKey } })
+    const url = ApiUrlBuilder({ route: "interval-show", month: month, year: year })
     const body = JSON.stringify({ close_out_completed_at: new Date() })
     put(url, body, () => dispatch(markIntervalClosed))
     return null
   } else if (!apiErrorPresent && !accountsFetched) {
-    const url = ApiUrlBuilder({ route: "accounts-index", query: { key: apiKey } })
+    const url = ApiUrlBuilder({ route: "accounts-index" })
     const onSuccess = data => dispatch(acctFetched(data))
     get(url, onSuccess)
     return null

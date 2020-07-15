@@ -12,7 +12,6 @@ const Wrapper = (props) => {
   const {
     accountId,
     apiErrorPresent,
-    apiKey,
     dispatch,
     fetched,
     month,
@@ -31,14 +30,14 @@ const Wrapper = (props) => {
     const url = ApiUrlBuilder({
       route: "transactions-index",
       accountId: urlAccountId,
-      query: { month: urlMonth, year: urlYear, key: apiKey },
+      query: { month: urlMonth, year: urlYear },
     })
     const onSuccess = data => dispatch(fetchedTransactions({...data, slug: slug }))
     get(url, onSuccess)
   }
 
   const fetchBudgetItems = () => {
-    const url = ApiUrlBuilder({ route: "budget-items-index", query: { month: urlMonth, year: urlYear, key: apiKey } })
+    const url = ApiUrlBuilder({ route: "budget-items-index", query: { month: urlMonth, year: urlYear } })
     const onSuccess = data => dispatch(fetchedBudgetItems(data))
     get(url, onSuccess)
   }
@@ -66,13 +65,11 @@ const Wrapper = (props) => {
 const mapStateToProps = (state, ownProps) => {
   const { query_options } = state.transactions.metadata
   const { fetched } = state.transactions.budgetItems
-  const { apiKey } = state.apiKey
   const apiErrorPresent = state.messages.errors.api.length > 0
 
   return {
     accountId: parseInt(query_options.account_id),
     apiErrorPresent: apiErrorPresent,
-    apiKey: apiKey,
     fetched: fetched,
     month: parseInt(query_options.month),
     slug: ownProps.slug,

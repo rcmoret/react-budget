@@ -15,7 +15,6 @@ import Form from "./Form"
 export default (props) => {
   const {
     id,
-    apiKey,
     category_id,
     dispatch,
     month,
@@ -52,7 +51,6 @@ export default (props) => {
       route: "budget-category-maturity-interval-show",
       id: id,
       budgetCategoryId: category_id,
-      query: { key: apiKey },
     })
     const body = JSON.stringify(maturityInterval)
     const onSuccess = data => {

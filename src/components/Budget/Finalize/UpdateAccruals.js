@@ -17,7 +17,6 @@ export default ({ apiKey, collection, dispatch }) => {
       route: "budget-item-show",
       id: id,
       budgetCategoryId: budget_category_id,
-      query: { key: apiKey }
     })
     const body =  JSON.stringify({ amount: amount })
     const onSuccess = data => dispatch(updateFinalizeItem(data))

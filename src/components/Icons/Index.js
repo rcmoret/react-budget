@@ -12,7 +12,6 @@ import Show from "./Show"
 const Index = (props) => {
   const {
     apiErrorPresent,
-    apiKey,
     dispatch,
     collectionFetched,
     firstColumn,

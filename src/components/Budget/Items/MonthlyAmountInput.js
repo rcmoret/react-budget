@@ -14,7 +14,6 @@ const MonthlyAmountInput = (props) => {
   const {
     id,
     amount,
-    apiKey,
     budget_category_id,
     dispatch,
     errors,
@@ -52,7 +51,6 @@ const MonthlyAmountInput = (props) => {
       route: "budget-item-show",
       id: id,
       budgetCategoryId: budget_category_id,
-      query: { key: apiKey },
     })
     const body = JSON.stringify({ amount: decimalToInt(EvaluateInput(floatAmount)) })
     const onSuccess = data => {
@@ -96,6 +94,6 @@ const MonthlyAmountInput = (props) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) =>  ({ ...ownProps, apiKey: state.apiKey.apiKey })
+const mapStateToProps = (_state, ownProps) =>  ownProps
 
 export default connect(mapStateToProps)(MonthlyAmountInput)

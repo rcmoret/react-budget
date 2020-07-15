@@ -17,12 +17,7 @@ const Finalize = ({ apiKey, dispatch, month, setUpCompletedAt, year }) => {
 
   const markComplete = (e) => {
     e.preventDefault()
-    const url = ApiUrlBuilder({
-      route: "interval-show",
-      month: month,
-      year: year,
-      query: { key: apiKey }
-    })
+    const url = ApiUrlBuilder({ route: "interval-show", month: month, year: year })
     const body = JSON.stringify({ set_up_completed_at: new Date() })
     const onSuccess = data => dispatch(updateMetadata(data))
     const onFailure = data => console.log({ body: body, data: data })

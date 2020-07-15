@@ -25,7 +25,6 @@ const WeeklyItem = (props) => {
   const {
     id,
     amount,
-    apiKey,
     budget_category_id,
     daysRemaining,
     difference,
@@ -66,7 +65,6 @@ const WeeklyItem = (props) => {
         route: "budget-item-show",
         id: id,
         budgetCategoryId: budget_category_id,
-        query: { key: apiKey },
       })
       fetch(url, { method: "delete" })
         .then(() => dispatch(removeWeeklyItem({ id: id })))
@@ -140,5 +138,6 @@ const WeeklyItem = (props) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => ({ ...ownProps, apiKey: state.apiKey.apiKey })
+const mapStateToProps = (_state, ownProps) => ownProps
+
 export default connect(mapStateToProps)(WeeklyItem)

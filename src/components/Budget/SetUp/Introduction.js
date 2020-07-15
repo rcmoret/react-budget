@@ -12,7 +12,6 @@ import { Redirect } from "react-router"
 const Intro = (props) => {
   const {
     apiErrorPresent,
-    apiKey,
     baseMonth,
     categoriesFetched,
     dispatch,
@@ -28,7 +27,7 @@ const Intro = (props) => {
   }
 
   if (!categoriesFetched) {
-    const url = ApiUrlBuilder({ route: "budget-categories-index", query: { key: apiKey } })
+    const url = ApiUrlBuilder({ route: "budget-categories-index" })
     const onSuccess = data => dispatch(fetched(data))
     get(url, onSuccess)
     return null
@@ -37,7 +36,7 @@ const Intro = (props) => {
   if (categoriesFetched && !newMonth.isFetched) {
     const url = ApiUrlBuilder({
       route: "budget-items-index",
-      query: { month: targetMonth, year: targetYear, key: apiKey },
+      query: { month: targetMonth, year: targetYear },
     })
     const onSuccess = data => dispatch(newMonthFetched(data))
     get(url, onSuccess)
@@ -49,7 +48,7 @@ const Intro = (props) => {
     const year = targetMonth === 1 ? (targetYear - 1) : targetYear
     const url = ApiUrlBuilder({
       route: "budget-items-index",
-      query: { month: month, year: year, key: apiKey },
+      query: { month: month, year: year  },
     })
     const onSuccess = data => dispatch(baseMonthFetched(data))
     get(url, onSuccess)
@@ -65,11 +64,9 @@ const mapStateToProps = (state, ownProps) => {
   const targetMonth = parseInt(ownProps.match.params.month)
   const targetYear = parseInt(ownProps.match.params.year)
   const newMonth = state.budget.setup.newMonth
-  const { apiKey } = state.apiKey
   const apiErrorPresent = state.messages.errors.api.length > 0
 
   return {
-    apiKey: apiKey,
     apiErrorPresent: apiErrorPresent,
     baseMonth: state.budget.setup.baseMonth,
     categoriesFetched: state.budget.categories.fetched,

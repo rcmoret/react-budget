@@ -10,7 +10,6 @@ import Form from "./Form/Form"
 const Edit = (props) => {
   const {
     id,
-    apiKey,
     dispatch,
     name,
     updatedProps,
@@ -40,11 +39,7 @@ const Edit = (props) => {
   }
 
   const submitForm = () => {
-    const url = ApiUrlBuilder({
-      route: "account-show",
-      id: id,
-      query: { key: apiKey },
-    })
+    const url = ApiUrlBuilder({ route: "account-show", id: id })
     const body = JSON.stringify(updatedProps)
     const onSuccess = data => {
       dispatch(updated(data))
@@ -67,6 +62,6 @@ const Edit = (props) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => ({ ...ownProps, apiKey: state.apiKey.apiKey })
+const mapStateToProps = (_state, ownProps) => ownProps
 
 export default connect(mapStateToProps)(Edit)

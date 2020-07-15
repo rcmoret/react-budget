@@ -21,7 +21,7 @@ import { put } from "../../functions/ApiClient"
 import Form from "./Form/Form"
 
 const Edit = (props) => {
-  const { apiKey, budgetOptions, dispatch, transaction } = props
+  const { budgetOptions, dispatch, transaction } = props
   const { id, account_id, clearance_date, details } = transaction
 
   const handleKeyDown = (e) => {
@@ -47,12 +47,7 @@ const Edit = (props) => {
         detailId: detailId,
         transactionId: id,
       })
-      const url = ApiUrlBuilder({
-        route: "transaction-show",
-        id: id,
-        accountId: account_id,
-        query: { key: apiKey },
-      })
+      const url = ApiUrlBuilder({ route: "transaction-show", id: id, accountId: account_id })
       const body = JSON.stringify({
         details_attributes: [{ id: detailId, _destroy: true }]
       })
@@ -84,12 +79,7 @@ const Edit = (props) => {
 
   const onSubmit = () => {
     const description = transaction.description === "" ? null : transaction.description
-    const url = ApiUrlBuilder({
-      route: "transaction-show",
-      id: id,
-      accountId: account_id,
-      query: { key: apiKey },
-    })
+    const url = ApiUrlBuilder({ route: "transaction-show", id: id, accountId: account_id })
     const body = JSON.stringify({
       ...transaction,
       description: description,
@@ -161,7 +151,6 @@ const mapStateToProps = (state, ownProps) => {
     .sort(sortFn)
   const discretionary = { label: titleize(budgetCopy.discretionary.title), value: null }
   const budgetOptions = [discretionary, ...itemOptions]
-  const { apiKey } = state.apiKey
 
   return {
     transaction: {
@@ -172,7 +161,6 @@ const mapStateToProps = (state, ownProps) => {
     },
     budgetOptions: budgetOptions,
     selectedAccount: state.accounts.collection.find(acct => acct.id === ownProps.account_id),
-    apiKey: apiKey,
   }
 }
 

@@ -14,7 +14,6 @@ const WeeklyAmountInput = (props) => {
   const {
     id,
     amount,
-    apiKey,
     budget_category_id,
     dispatch,
     floatAmount,
@@ -63,7 +62,6 @@ const WeeklyAmountInput = (props) => {
       route: "budget-item-show",
       id: id,
       budgetCategoryId: budget_category_id,
-      query: { key: apiKey },
     })
     const body = JSON.stringify({
       amount: decimalToInt(EvaluateInput(floatAmount)),
@@ -108,15 +106,12 @@ const WeeklyAmountInput = (props) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const { apiKey } = state.apiKey
-
-  return {
-    apiKey: apiKey,
+const mapStateToProps = (state, ownProps) => (
+  {
     month: state.budget.metadata.month,
     year: state.budget.metadata.year,
     ...ownProps,
   }
-}
+)
 
 export default connect(mapStateToProps)(WeeklyAmountInput)

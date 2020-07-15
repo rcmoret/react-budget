@@ -15,7 +15,6 @@ import WeeklyItems from "./Items/WeeklyItems"
 const BudgetIndex = (props) => {
   const {
     apiErrorPresent,
-    apiKey,
     categoresWereFetched,
     dispatch,
     isCurrent,
@@ -29,14 +28,14 @@ const BudgetIndex = (props) => {
   if (!apiErrorPresent && (!itemsFetched || !isCurrent)) {
     const url = ApiUrlBuilder({
       route: "budget-items-index",
-      query: { month: month, year: year, key: apiKey },
+      query: { month: month, year: year },
     })
     const onSuccess = data => dispatch(fetched(data))
     get(url, onSuccess)
   }
 
   if (!apiErrorPresent && (itemsFetched && !categoresWereFetched)) {
-    const url = ApiUrlBuilder({ route: "budget-categories-index", query: { key: apiKey } })
+    const url = ApiUrlBuilder({ route: "budget-categories-index" })
     const onSuccess = data => dispatch(categoriesFetched(data))
     get(url, onSuccess)
   }
@@ -64,13 +63,11 @@ const mapStateToProps = (state, ownProps) => {
   const today = new Date()
   const isFuture = (year > today.getFullYear() || (year === today.getFullYear() && month > (today.getMonth() + 1)))
   const categoresWereFetched = state.budget.categories.fetched
-  const { apiKey } = state.apiKey
   const apiErrorPresent = state.messages.errors.api.length > 0
 
   return {
     ...state.budget,
     apiErrorPresent: apiErrorPresent,
-    apiKey: apiKey,
     categoresWereFetched: categoresWereFetched,
     isCurrent: isCurrent,
     isFuture: isFuture,

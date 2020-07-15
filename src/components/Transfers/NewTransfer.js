@@ -12,11 +12,11 @@ import { post } from "../../functions/ApiClient"
 import Select from "react-select"
 
 const New = (props) => {
-  const { apiKey, currentPage, dispatch, fromOptions, fromValue, newTransfer, toOptions, toValue } = props
+  const { currentPage, dispatch, fromOptions, fromValue, newTransfer, toOptions, toValue } = props
   const { amount, from_account_id, to_account_id  } = newTransfer
 
   const submit = () => {
-    const url = ApiUrlBuilder({ route: "transfers-index", query: { key: apiKey } })
+    const url = ApiUrlBuilder({ route: "transfers-index" })
     const body = JSON.stringify({
       amount: Math.round(amount * 100),
       to_account_id: to_account_id,
@@ -98,7 +98,6 @@ const mapStateToProps = (state) => {
   }
   const fromValue = options.from.find(opt => opt.value === from_account_id)
   const toValue = options.from.find(opt => opt.value === to_account_id)
-  const { apiKey } = state.apiKey
 
   return {
     newTransfer: newTransfer,
@@ -107,7 +106,6 @@ const mapStateToProps = (state) => {
     toOptions: options.to,
     toValue: toValue,
     currentPage: state.transfers.metadata.currentPage,
-    apiKey: apiKey,
   }
 }
 

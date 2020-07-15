@@ -20,7 +20,6 @@ import Select from "react-select"
 const MonthlyItemForm = (props) => {
   const {
     amount,
-    apiKey,
     budget_category_id,
     categories,
     dispatch,
@@ -57,7 +56,6 @@ const MonthlyItemForm = (props) => {
     const url = ApiUrlBuilder({
       route: "budget-category-items-index",
       id: budget_category_id,
-      query: { key: apiKey },
     })
     const body = JSON.stringify({
       amount: decimalToInt(EvaluateInput(amount)),
@@ -125,11 +123,9 @@ const mapStateToProps = (state) => {
   const { newItem } = state.budget.monthly
   const value = options.find(option => option.value === newItem.budget_category_id)
   const { month, year } = state.budget.metadata
-  const { apiKey } = state.apiKey
 
   return {
     amount: newItem.amount,
-    apiKey: apiKey,
     budget_category_id: newItem.budget_category_id,
     categories: categories,
     errors: (newItem.errors.amount || []),

@@ -14,7 +14,6 @@ const Wrapper = (props) => {
   const {
     accountsFetched,
     apiErrorPresent,
-    apiKey,
     collection,
     dateParams,
     dispatch,
@@ -26,7 +25,7 @@ const Wrapper = (props) => {
   } = props
 
   if (!apiErrorPresent && !accountsFetched) {
-    const url = ApiUrlBuilder({ route: "accounts-index", query: { key: apiKey } })
+    const url = ApiUrlBuilder({ route: "accounts-index" })
     const onSuccess = data => dispatch(fetched(data))
     get(url, onSuccess)
     return null
@@ -72,13 +71,11 @@ const mapStateToProps = (state, ownProps) => {
   const year = parseInt(ownProps.match.params.year) || state.transactions.metadata.query_options.year
   const accountsFetched = state.accounts.accountsFetched
   const collection = state.accounts.collection.sort((a, b) => a.priority - b.priority)
-  const { apiKey } = state.apiKey
   const apiErrorPresent = state.messages.errors.api.length > 0
 
   return {
     accountsFetched: accountsFetched,
     apiErrorPresent: apiErrorPresent,
-    apiKey: apiKey,
     collection: collection,
     month: month,
     dateParams: {

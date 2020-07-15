@@ -14,7 +14,7 @@ import Errors from "../../Errors/Errors"
 import Icon from "../../Icons/Icon"
 
 export default (wrapper) => {
-  const { apiKey, baseItem, dispatch } = wrapper
+  const { baseItem, dispatch } = wrapper
   const { floatRemaining, remaining } = baseItem
   const amount = floatRemaining === undefined ? (remaining / 100.0).toFixed(2) : floatRemaining
 
@@ -63,7 +63,6 @@ export default (wrapper) => {
         <Errors errors={errors()} />
       </div>
       <NextMonthItem
-        apiKey={apiKey}
         {...wrapper.nextItem}
         baseItem={wrapper.baseItem}
         dispatch={wrapper.dispatch}
@@ -83,7 +82,6 @@ const NextMonthItem = (props) => {
   const {
     id,
     amount,
-    apiKey,
     baseItem,
     dispatch,
     nextMonth,
@@ -99,7 +97,6 @@ const NextMonthItem = (props) => {
   } else if (baseItem.status !== "reviewed") {
     return (
       <MissingItem
-        apiKey={apiKey}
         {...baseItem}
         dispatch={dispatch}
         nextMonth={nextMonth}
@@ -126,7 +123,6 @@ const Total = ({ nextMonth, remaining }) => {
 const MissingItem = (props) => {
   const {
     id,
-    apiKey,
     budget_category_id,
     dispatch,
     monthly,
@@ -150,7 +146,6 @@ const MissingItem = (props) => {
     const url = ApiUrlBuilder({
       route: "budget-category-items-index",
       id: budget_category_id,
-      query: { key: apiKey },
     })
     const body = JSON.stringify({
       amount: 0,

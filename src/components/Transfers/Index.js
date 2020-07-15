@@ -17,17 +17,17 @@ import PaginationLinks from "./PaginationLinks"
 import Transfer from "./Transfer"
 
 const Index = (props) => {
-  const { accounts, accountsFetched, apiErrorPresent, apiKey, collection, dispatch, fetchedTransfers, metadata } = props
+  const { accounts, accountsFetched, apiErrorPresent, collection, dispatch, fetchedTransfers, metadata } = props
   const { currentPage, total, viewing } = metadata
 
   if(!apiErrorPresent && !accountsFetched) {
-    const url = ApiUrlBuilder({ route: "accounts-index", query: { key: apiKey } })
+    const url = ApiUrlBuilder({ route: "accounts-index" })
     const onSuccess = data => dispatch(renderAccounts(data))
     get(url, onSuccess)
   }
 
   if (!apiErrorPresent && accountsFetched && !fetchedTransfers) {
-    const url = ApiUrlBuilder({ route: "transfers-index", query: { page: currentPage, key: apiKey } })
+    const url = ApiUrlBuilder({ route: "transfers-index", query: { page: currentPage } })
     const onSuccess = data => dispatch(fetched(data))
     get(url, onSuccess)
   }
@@ -76,7 +76,6 @@ const mapStateToProps = (state) => {
   const date = new Date()
   const today = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0,10)
   const { accountsFetched } = state.accounts
-  const { apiKey } = state.apiKey
 
   const collection = state.transfers.collection.sort((a, b) => {
     if (a.from_transaction.clearance_date === b.from_transaction.clearance_date) {
@@ -98,7 +97,6 @@ const mapStateToProps = (state) => {
     accounts: state.accounts.collection,
     collection: collection,
     accountsFetched: accountsFetched,
-    apiKey: apiKey,
     apiErrorPresent: apiErrorPresent,
   }
 }

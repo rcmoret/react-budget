@@ -14,7 +14,6 @@ import { Link } from "react-router-dom"
 export default (props) => {
   const {
     id,
-    apiKey,
     category_id,
     dispatch,
     month,
@@ -38,7 +37,6 @@ export default (props) => {
       route: "budget-category-maturity-interval-show",
       id: id,
       budgetCategoryId: category_id,
-      query: { key: apiKey },
     })
     const action = removeMaturityInterval({ id: id })
     fetch(url, { method: "delete" })

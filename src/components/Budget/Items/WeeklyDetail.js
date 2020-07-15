@@ -12,7 +12,6 @@ import Transactions from "../Shared/Transactions"
 const WeeklyDetail = (props) => {
   const {
     apiErrorPresent,
-    apiKey,
     budget_category_id,
     budgetedPerDay,
     budgetedPerWeek,
@@ -35,7 +34,6 @@ const WeeklyDetail = (props) => {
       route: "budget-item-transactions-index",
       id: id,
       budgetCategoryId: budget_category_id,
-      query: { key: apiKey },
     })
     const onSuccess = data => dispatch(fetchedWeeklyTransactions({
       id: id,
@@ -78,13 +76,11 @@ const mapStateToProps = (state, ownProps) => {
       return (a.clearance_date > b.clearance_date) ? 1 : -1
     }
   })
-  const { apiKey } = state.apiKey
   const apiErrorPresent = state.messages.errors.api.length > 0
 
   return {
     ...ownProps,
     apiErrorPresent: apiErrorPresent,
-    apiKey: apiKey,
     collection: collection
   }
 }

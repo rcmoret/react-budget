@@ -13,7 +13,7 @@ import MonthlyAmount from "./MonthlyAmount"
 const MonthlyItem = (props) => {
   const deleteItem = (e) => {
     e.preventDefault()
-    const { apiKey, budget_category_id, id, name, month, year } = props
+    const { budget_category_id, id, name, month, year } = props
     const dateString = formatter({ month: month, year: year, format: "shortMonthYear" })
     const confirmation = window.confirm(copy.item.deleteConfirmationMessage(name, dateString))
     if (confirmation) {
@@ -21,7 +21,6 @@ const MonthlyItem = (props) => {
         route: "budget-item-show",
         id: id,
         budgetCategoryId: budget_category_id,
-        query: { key: apiKey },
       })
       fetch(url, { method: "delete" })
         .then(() => props.dispatch(removeMonthlyItem({ id: id })))
@@ -60,10 +59,8 @@ const MonthlyItem = (props) => {
 
 const mapStateToProps = (state, ownProps) => {
   const { month, year } = state.budget.metadata
-  const { apiKey } = state.apiKey
 
   return {
-    apiKey: apiKey,
     month: month,
     year: year,
     ...ownProps

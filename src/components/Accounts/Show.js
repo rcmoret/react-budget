@@ -14,7 +14,6 @@ import { Link } from "react-router-dom"
 const AccountShow = (props) => {
   const {
     id,
-    apiKey,
     cash_flow,
     dispatch,
     name,
@@ -38,7 +37,7 @@ const AccountShow = (props) => {
   const destroy = () => {
     const confirmation = window.confirm(deleteConfirmationMessage(name))
     if (!confirmation) { return }
-    const url = ApiUrlBuilder({ route: "account-show", id: id, query: { key: apiKey } })
+    const url = ApiUrlBuilder({ route: "account-show", id: id })
     fetch(url, { method: "delete" })
       .then(() => dispatch(deleted({ id: id })))
   }
@@ -84,5 +83,5 @@ const AccountShow = (props) => {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({ ...ownProps, apiKey: state.apiKey.apiKey })
+const mapStateToProps = (_state, ownProps) => ownProps
 export default connect(mapStateToProps)(AccountShow)
