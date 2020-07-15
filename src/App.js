@@ -1,13 +1,7 @@
 import React from "react"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import { Provider } from "react-redux"
-import { createStore, combineReducers } from "redux"
-import accountsReducer from "./reducers/accounts"
-import budgetReducer from "./reducers/budget"
-import iconsReducer from "./reducers/icons"
-import messageReducer from "./components/Messages/reducer"
-import transactionsReducer from "./reducers/transactions"
-import transfersReducer from "./reducers/transfers"
+import store from "./store"
 import AccountWrapper from "./components/Accounts/Wrapper"
 import AccountIndex from "./components/Accounts/Index"
 import BudgetFinalizeIndex from "./components/Budget/Finalize/Index"
@@ -25,22 +19,9 @@ import BudgetCategories from "./components/Budget/Categories/Index"
 import BannerMessages from "./components/Messages/Banner"
 import Header from "./components/Header"
 import Icons from "./components/Icons/Index"
-import apiKeyReducer from "./components/Key/reducer"
 import Transfers from "./components/Transfers/Index"
 import "./App.css"
 
-const store = createStore(
-  combineReducers({
-    accounts: accountsReducer,
-    apiKey: apiKeyReducer,
-    budget: budgetReducer,
-    icons: iconsReducer,
-    messages: messageReducer,
-    transactions: transactionsReducer,
-    transfers: transfersReducer,
-  }),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-)
 
 export default () => (
   <div className="App">

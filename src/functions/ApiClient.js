@@ -1,5 +1,7 @@
 import { addApiError } from "../components/Messages/actions"
 
+import { dispatch } from "../store"
+
 const defaultOnFail = data => console.log(data)
 
 export const get = (url, onSuccess, onFailure = defaultOnFail) => {

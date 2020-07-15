@@ -1,8 +1,12 @@
 import API_URL from "../constants/Api"
 
+import { getState } from "../store"
+
 const ApiUrlBuilder = (options = {}) => {
   const { route } = options
-  const query = options.query || {}
+  const query = { ...options.query, key: apiKey }
+  const state = getState()
+  const { apiKey } = state.apiKey
   const path = pathTo(route, options)
   const queryString = Object
     .entries(query)
