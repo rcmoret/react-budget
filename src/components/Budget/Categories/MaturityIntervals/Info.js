@@ -33,7 +33,11 @@ const MaturityInfo = (props) => {
   } = props
 
   if (!apiErrorPresent && !maturityIntervalsFetched && showMaturityIntervals) {
-    const url = ApiUrlBuilder(["budget/categories", id, "maturity_intervals"], { key: apiKey })
+    const url = ApiUrlBuilder({
+      route: "budget-category-maturity-intervals-index",
+      budgetCategoryId: id,
+      query: { key: apiKey },
+    })
     const onSuccess = data => dispatch(
       accrualMaturityIntervalsFetched({
         id: id,

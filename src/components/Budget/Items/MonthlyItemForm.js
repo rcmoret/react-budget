@@ -54,7 +54,11 @@ const MonthlyItemForm = (props) => {
 
   const onSave = (e) => {
     e.preventDefault()
-    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items"], { key: apiKey })
+    const url = ApiUrlBuilder({
+      route: "budget-category-items-index",
+      id: budget_category_id,
+      query: { key: apiKey },
+    })
     const body = JSON.stringify({
       amount: decimalToInt(EvaluateInput(amount)),
       month: month,

@@ -48,7 +48,12 @@ export default (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    const url = ApiUrlBuilder(["budget/categories", category_id, "maturity_intervals", id])
+    const url = ApiUrlBuilder({
+      route: "budget-category-maturity-interval-show",
+      id: id,
+      budgetCategoryId: category_id,
+      query: { key: apiKey },
+    })
     const body = JSON.stringify(maturityInterval)
     const onSuccess = data => {
       dispatch(updateMaturityInterval(data))

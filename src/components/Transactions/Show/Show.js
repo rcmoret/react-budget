@@ -62,7 +62,12 @@ const Show = (props) => {
     if (!confirmation) {
       return
     } else {
-      const url = ApiUrlBuilder(["accounts", account_id, "transactions", id], { key: apiKey })
+      const url = ApiUrlBuilder({
+        route: "transaction-show",
+        id: id,
+        accountId: account_id,
+        query: { key: apiKey },
+      })
       const action = deleteTransaction({ id: id, amount: (-1 * amount), account_id: account_id })
       fetch(url, { method: "delete" })
         .then(() => props.dispatch(action))

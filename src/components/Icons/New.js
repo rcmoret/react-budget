@@ -12,7 +12,7 @@ import { post } from "../../functions/ApiClient"
 import Form from "./Form/Form"
 
 const New = (props) => {
-  const { dispatch } = props
+  const { apiKey, dispatch } = props
 
   const onChange = (e) => {
     const action = updateNew({[e.target.name]: e.target.value })
@@ -20,7 +20,7 @@ const New = (props) => {
   }
 
   const onSubmit = () => {
-    const url = ApiUrlBuilder(["icons"])
+    const url = ApiUrlBuilder({ route: "icons-index", query: { key: apiKey } })
     const body = JSON.stringify(props.newIcon)
     const onSuccess = data => dispatch(created(data))
     post(url, body, onSuccess)
@@ -37,7 +37,7 @@ const New = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  return { newIcon: state.icons.newIcon }
+  return { apiKey: state.apiKey.apiKey, newIcon: state.icons.newIcon }
 }
 
 export default connect(mapStateToProps)(New)

@@ -38,7 +38,7 @@ const AccountShow = (props) => {
   const destroy = () => {
     const confirmation = window.confirm(deleteConfirmationMessage(name))
     if (!confirmation) { return }
-    const url = ApiUrlBuilder(["accounts", id], { key: apiKey })
+    const url = ApiUrlBuilder({ route: "account-show", id: id, query: { key: apiKey } })
     fetch(url, { method: "delete" })
       .then(() => dispatch(deleted({ id: id })))
   }

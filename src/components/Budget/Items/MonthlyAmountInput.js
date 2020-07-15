@@ -48,7 +48,12 @@ const MonthlyAmountInput = (props) => {
   }
   const saveChange = (e) => {
     e.preventDefault()
-    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items", id], { key: apiKey })
+    const url = ApiUrlBuilder({
+      route: "budget-item-show",
+      id: id,
+      budgetCategoryId: budget_category_id,
+      query: { key: apiKey },
+    })
     const body = JSON.stringify({ amount: decimalToInt(EvaluateInput(floatAmount)) })
     const onSuccess = data => {
       const action = updateMonthlyItem({

@@ -28,15 +28,17 @@ const Wrapper = (props) => {
   }
 
   const fetchTransactions = () => {
-    const url = ApiUrlBuilder(
-      ["accounts", urlAccountId, "transactions"], { month: urlMonth, year: urlYear, key: apiKey }
-    )
+    const url = ApiUrlBuilder({
+      route: "transactions-index",
+      accountId: urlAccountId,
+      query: { month: urlMonth, year: urlYear, key: apiKey },
+    })
     const onSuccess = data => dispatch(fetchedTransactions({...data, slug: slug }))
     get(url, onSuccess)
   }
 
   const fetchBudgetItems = () => {
-    const url = ApiUrlBuilder(["budget", "items"], { month: urlMonth, year: urlYear, key: apiKey })
+    const url = ApiUrlBuilder({ route: "budget-items-index", query: { month: urlMonth, year: urlYear, key: apiKey } })
     const onSuccess = data => dispatch(fetchedBudgetItems(data))
     get(url, onSuccess)
   }

@@ -24,7 +24,7 @@ const Show = ({ apiKey, dispatch, icon }) => {
     e.preventDefault()
     const confirmation = window.confirm(copy.icon.deleteConfirmationMessage(name))
     if (confirmation) {
-      const url = ApiUrlBuilder(["icons", id], { key: apiKey })
+      const url = ApiUrlBuilder({ route: "icon-show", id: id, query: { key: apiKey } })
       fetch(url, { method: "delete" })
         .then(() => dispatch(deleted(id)))
     }

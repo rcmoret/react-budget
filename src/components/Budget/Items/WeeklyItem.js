@@ -62,7 +62,12 @@ const WeeklyItem = (props) => {
     const dateString = formatter({ month: month, year: year, format: "shortMonthYear" })
     const confirmation = window.confirm(deleteConfirmationMessage(name, dateString))
     if (confirmation) {
-      const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items", id], { key: apiKey })
+      const url = ApiUrlBuilder({
+        route: "budget-item-show",
+        id: id,
+        budgetCategoryId: budget_category_id,
+        query: { key: apiKey },
+      })
       fetch(url, { method: "delete" })
         .then(() => dispatch(removeWeeklyItem({ id: id })))
     }

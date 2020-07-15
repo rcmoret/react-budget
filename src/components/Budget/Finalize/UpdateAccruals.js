@@ -13,7 +13,12 @@ import { put } from "../../../functions/ApiClient"
 
 export default ({ apiKey, collection, dispatch }) => {
   const submit = ({ id, amount, budget_category_id }) => {
-    const url = ApiUrlBuilder(["budget/categories", budget_category_id, "items", id], { key: apiKey })
+    const url = ApiUrlBuilder({
+      route: "budget-item-show",
+      id: id,
+      budgetCategoryId: budget_category_id,
+      query: { key: apiKey }
+    })
     const body =  JSON.stringify({ amount: amount })
     const onSuccess = data => dispatch(updateFinalizeItem(data))
     const onFailure = data => console.log({ body: body, data: data })

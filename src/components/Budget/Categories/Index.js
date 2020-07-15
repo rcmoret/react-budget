@@ -18,13 +18,13 @@ const BudgetCategories = (props) => {
   const { apiErrorPresent, apiKey, collection, dispatch, fetched } = props
 
   if (!apiErrorPresent && !fetched) {
-    const url = ApiUrlBuilder(["budget", "categories"], { key: apiKey })
+    const url = ApiUrlBuilder({ route: "budget-categories-index", query: { key: apiKey } })
     const onSuccess = data => dispatch(categoriesFetched(data))
     get(url, onSuccess)
   }
 
   if (fetched && !props.iconsFetched && !apiErrorPresent) {
-    const url = ApiUrlBuilder(["icons"], { key: apiKey })
+    const url = ApiUrlBuilder({ route: "icons-index",  query: { key: apiKey } })
     const onSuccess = data => dispatch(iconsFetched(data))
     get(url, onSuccess)
   }

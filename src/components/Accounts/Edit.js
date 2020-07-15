@@ -40,7 +40,11 @@ const Edit = (props) => {
   }
 
   const submitForm = () => {
-    const url = ApiUrlBuilder(["accounts", id], { key: apiKey })
+    const url = ApiUrlBuilder({
+      route: "account-show",
+      id: id,
+      query: { key: apiKey },
+    })
     const body = JSON.stringify(updatedProps)
     const onSuccess = data => {
       dispatch(updated(data))

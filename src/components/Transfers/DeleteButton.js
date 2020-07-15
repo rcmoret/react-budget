@@ -13,7 +13,7 @@ const DeleteButton = ({ amount, apiKey, from_account_id, dispatch, id, to_accoun
     e.preventDefault()
     const confirmation = window.confirm(copy.deleteConfirmationMessage)
     if (confirmation) {
-      const url = ApiUrlBuilder(["transfers", id], { key: apiKey })
+      const url = ApiUrlBuilder({ route: "transfer-show", id: id, query: { key: apiKey } })
       fetch(url, { method: "delete" })
         .then(() => dispatch(deleted({
           id: id,

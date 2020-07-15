@@ -34,7 +34,12 @@ export default (props) => {
     const { deleteConfirmMessage } = copy.maturityInterval
     const confirmation = window.confirm(deleteConfirmMessage)
     if (!confirmation) { return }
-    const url = ApiUrlBuilder(["budget/categories", category_id, "maturity_intervals", id], { key: apiKey })
+    const url = ApiUrlBuilder({
+      route: "budget-category-maturity-interval-show",
+      id: id,
+      budgetCategoryId: category_id,
+      query: { key: apiKey },
+    })
     const action = removeMaturityInterval({ id: id })
     fetch(url, { method: "delete" })
       .then(() => dispatch(action))

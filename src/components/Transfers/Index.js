@@ -21,13 +21,13 @@ const Index = (props) => {
   const { currentPage, total, viewing } = metadata
 
   if(!apiErrorPresent && !accountsFetched) {
-    const url = ApiUrlBuilder(["accounts"], { key: apiKey })
+    const url = ApiUrlBuilder({ route: "accounts-index", query: { key: apiKey } })
     const onSuccess = data => dispatch(renderAccounts(data))
     get(url, onSuccess)
   }
 
   if (!apiErrorPresent && accountsFetched && !fetchedTransfers) {
-    const url = ApiUrlBuilder(["transfers"], { page: currentPage, key: apiKey })
+    const url = ApiUrlBuilder({ route: "transfers-index", query: { page: currentPage, key: apiKey } })
     const onSuccess = data => dispatch(fetched(data))
     get(url, onSuccess)
   }

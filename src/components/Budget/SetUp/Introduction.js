@@ -27,17 +27,18 @@ const Intro = (props) => {
     return null
   }
 
-  const urlBuilder = (segments, query) => ApiUrlBuilder(segments, { ...query, key: apiKey })
-
   if (!categoriesFetched) {
-    const url = urlBuilder(["budget/categories"])
+    const url = ApiUrlBuilder({ route: "budget-categories-index", query: { key: apiKey } })
     const onSuccess = data => dispatch(fetched(data))
     get(url, onSuccess)
     return null
   }
 
   if (categoriesFetched && !newMonth.isFetched) {
-    const url = urlBuilder(["budget/items"], { month: targetMonth, year: targetYear })
+    const url = ApiUrlBuilder({
+      route: "budget-items-index",
+      query: { month: targetMonth, year: targetYear, key: apiKey },
+    })
     const onSuccess = data => dispatch(newMonthFetched(data))
     get(url, onSuccess)
     return null
@@ -46,7 +47,10 @@ const Intro = (props) => {
   if (categoriesFetched && newMonth.isFetched && !baseMonth.isFetched) {
     const month = targetMonth === 1 ? 12 : (targetMonth - 1)
     const year = targetMonth === 1 ? (targetYear - 1) : targetYear
-    const url = urlBuilder(["budget/items"], { month: month, year: year })
+    const url = ApiUrlBuilder({
+      route: "budget-items-index",
+      query: { month: month, year: year, key: apiKey },
+    })
     const onSuccess = data => dispatch(baseMonthFetched(data))
     get(url, onSuccess)
     return null

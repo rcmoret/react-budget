@@ -72,7 +72,11 @@ const New = (props) => {
       return { ...detail, amount: adjusted }
     })
     const description = transaction.description === "" ? null : transaction.description
-    const url = ApiUrlBuilder(["accounts", selectedAccount.id, "transactions"], { key: apiKey })
+    const url = ApiUrlBuilder({
+      route: "transactions-index",
+      accountId: selectedAccount.id,
+      query: { key: apiKey },
+    })
     const body = JSON.stringify({
       ...transaction,
       description: description,

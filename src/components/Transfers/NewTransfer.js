@@ -16,7 +16,7 @@ const New = (props) => {
   const { amount, from_account_id, to_account_id  } = newTransfer
 
   const submit = () => {
-    const url = ApiUrlBuilder(["transfers"], { key: apiKey })
+    const url = ApiUrlBuilder({ route: "transfers-index", query: { key: apiKey } })
     const body = JSON.stringify({
       amount: Math.round(amount * 100),
       to_account_id: to_account_id,

@@ -27,13 +27,16 @@ const BudgetIndex = (props) => {
   } = props
 
   if (!apiErrorPresent && (!itemsFetched || !isCurrent)) {
-    const url = ApiUrlBuilder(["budget/items"], { month: month, year: year, key: apiKey })
+    const url = ApiUrlBuilder({
+      route: "budget-items-index",
+      query: { month: month, year: year, key: apiKey },
+    })
     const onSuccess = data => dispatch(fetched(data))
     get(url, onSuccess)
   }
 
   if (!apiErrorPresent && (itemsFetched && !categoresWereFetched)) {
-    const url = ApiUrlBuilder(["budget/categories"], { key: apiKey })
+    const url = ApiUrlBuilder({ route: "budget-categories-index", query: { key: apiKey } })
     const onSuccess = data => dispatch(categoriesFetched(data))
     get(url, onSuccess)
   }

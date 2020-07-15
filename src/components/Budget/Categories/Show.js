@@ -50,7 +50,7 @@ const Show = (props) => {
     e.preventDefault()
     const confirmation = window.confirm(deleteConfirmMessage(name))
     if (confirmation) {
-      const url = ApiUrlBuilder(["budget", "categories", id], { key: apiKey })
+    const url = ApiUrlBuilder({ route: "budget-category-show", id: id, query: { key: apiKey } })
       fetch(url, { method: "delete" })
         .then(() => dispatch(deleted(id)))
     }

@@ -31,8 +31,12 @@ const WeeklyDetail = (props) => {
   }
 
   if (!apiErrorPresent && collection.length < transaction_count) {
-    const urlSegments = ["budget", "categories", budget_category_id, "items", id, "transactions"]
-    const url = ApiUrlBuilder(urlSegments, { key: apiKey })
+    const url = ApiUrlBuilder({
+      route: "budget-item-transactions-index",
+      id: id,
+      budgetCategoryId: budget_category_id,
+      query: { key: apiKey },
+    })
     const onSuccess = data => dispatch(fetchedWeeklyTransactions({
       id: id,
       collection: data

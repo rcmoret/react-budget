@@ -36,7 +36,11 @@ export default (props) => {
   }
 
   const addMaturityInterval = () => {
-    const url = ApiUrlBuilder(["budget/categories", id, "maturity_intervals"], { key: apiKey })
+    const url = ApiUrlBuilder({
+      route: "budget-category-maturity-intervals-index",
+      budgetCategoryId: id,
+      query: { key: apiKey },
+    })
     const body = JSON.stringify(newMaturityIntervalAttributes)
     const onSuccess = data => dispatch(maturityIntervalCreated({
       id: id,

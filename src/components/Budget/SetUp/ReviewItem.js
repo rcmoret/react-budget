@@ -92,7 +92,11 @@ const ReviewItem = (props) => {
   }
 
   const createItem = () => {
-    const url = ApiUrlBuilder(["budget/categories", category.id, "items"], { key: apiKey })
+    const url = ApiUrlBuilder({
+      route: "budget-category-items-index",
+      budgetCategoryId: category.id,
+      query: { key: apiKey },
+    })
     const body = JSON.stringify({ amount: decimalToInt(amount), month: month, year: year })
     const onSuccess = data => {
       dispatch(addItem(data))
@@ -103,7 +107,12 @@ const ReviewItem = (props) => {
   }
 
   const updateItem = () => {
-    const url = ApiUrlBuilder(["budget/categories", dayToDayItem.budget_category_id, "items", dayToDayItem.id], { key: apiKey })
+    const url = ApiUrlBuilder({
+      route: "budget-item-show",
+      id: dayToDayItem.id,
+      budgetCategoryId: dayToDayItem.budget_category_id,
+      query: { key: apiKey },
+    })
     const body = JSON.stringify({ amount: (decimalToInt(amount) + dayToDayItem.amount) })
     const onSuccess = data => {
       dispatch(updateExisting(data))

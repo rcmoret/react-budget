@@ -90,7 +90,11 @@ const SubmitButton = ({ apiKey, collection, dispatch, month, year }) => {
 
   const submit = (item) => {
     const amount = item.updatedProps ? decimalToInt(EvaluateInput(item.updatedProps.amount)) : item.defaultAmount
-    const url = ApiUrlBuilder(["budget/categories", item.budget_category_id, "items"], { key: apiKey })
+    const url = ApiUrlBuilder({
+      route: "budget-category-items-index",
+      id: item.budget_category_id,
+      query: { key: apiKey },
+    })
     const body = JSON.stringify({ amount: amount, month: month, year: year })
     const onSuccess = data => dispatch(addItem(data))
     const onFailure = data => console.log({ body: body, data: data })

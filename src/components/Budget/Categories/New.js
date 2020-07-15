@@ -44,7 +44,7 @@ const NewBudgetCategory = (props) => {
   }
 
   const onSubmit = () => {
-    const url = ApiUrlBuilder(["budget/categories"], { key: apiKey })
+    const url = ApiUrlBuilder({ route: "budget-categories-index", query: { key: apiKey } })
     const body = JSON.stringify({
       ...newCategory,
       default_amount: decimalToInt(newCategory.default_amount),

@@ -14,7 +14,7 @@ const Index = ({ apiErrorPresent, apiKey, collection, dispatch, accountsFetched 
   }
 
   if (!accountsFetched) {
-    const url = ApiUrlBuilder(["accounts"], { key: apiKey })
+    const url = ApiUrlBuilder({ route: "accounts-index", query: { key: apiKey } })
     const onSuccess = data => dispatch(fetched(data))
     get(url, onSuccess)
   }

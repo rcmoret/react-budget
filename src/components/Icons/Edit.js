@@ -20,7 +20,7 @@ const Edit = ({ apiKey, dispatch, icon }) => {
   }
 
   const onSubmit = () => {
-    const url = ApiUrlBuilder(["icons", id], { key: apiKey })
+    const url = ApiUrlBuilder({ route: "icon-show", id: id, query: { key: apiKey } })
     const body = JSON.stringify(icon.updatedProps)
     const onSuccess = data => {
       dispatch(updated(data))

@@ -55,7 +55,7 @@ const Edit = (props) => {
   }
 
   const onSubmit = () => {
-    const url = ApiUrlBuilder(["budget", "categories", id], { key: apiKey })
+    const url = ApiUrlBuilder({ route: "budget-category-show", id: id,  query: { key: apiKey } })
     const body = JSON.stringify(putBody())
     const onSuccess = (data) => dispatch(updated({ ...data, showForm: false }))
     const onFailure = (data) => dispatch(applyErrorsOnEdit({ id: id, ...data }))

@@ -32,7 +32,10 @@ const DiscretionaryDetail = (props) => {
   }
 
   if (!apiErrorPresent && showDetail && !fetchedTransactions ) {
-    const url = ApiUrlBuilder(["budget", "discretionary", "transactions"], { month: month, year: year, key: apiKey })
+    const url = ApiUrlBuilder({
+      route: "discretionary-transactions-index",
+      query: { month: month, year: year, key: apiKey }
+    })
     const onSuccess = data => dispatch(fetchedDiscretionaryTransactions(data))
     get(url, onSuccess)
   }

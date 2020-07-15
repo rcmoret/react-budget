@@ -47,7 +47,12 @@ const Edit = (props) => {
         detailId: detailId,
         transactionId: id,
       })
-      const url = ApiUrlBuilder(["accounts", account_id, "transactions", id], { key: apiKey })
+      const url = ApiUrlBuilder({
+        route: "transaction-show",
+        id: id,
+        accountId: account_id,
+        query: { key: apiKey },
+      })
       const body = JSON.stringify({
         details_attributes: [{ id: detailId, _destroy: true }]
       })
@@ -79,7 +84,12 @@ const Edit = (props) => {
 
   const onSubmit = () => {
     const description = transaction.description === "" ? null : transaction.description
-    const url = ApiUrlBuilder(["accounts", account_id, "transactions", id], { key: apiKey })
+    const url = ApiUrlBuilder({
+      route: "transaction-show",
+      id: id,
+      accountId: account_id,
+      query: { key: apiKey },
+    })
     const body = JSON.stringify({
       ...transaction,
       description: description,

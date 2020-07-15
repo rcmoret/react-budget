@@ -26,7 +26,7 @@ const Wrapper = (props) => {
   } = props
 
   if (!apiErrorPresent && !accountsFetched) {
-    const url = ApiUrlBuilder(["accounts"], { key: apiKey })
+    const url = ApiUrlBuilder({ route: "accounts-index", query: { key: apiKey } })
     const onSuccess = data => dispatch(fetched(data))
     get(url, onSuccess)
     return null

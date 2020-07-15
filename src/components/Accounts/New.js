@@ -43,7 +43,7 @@ const New = (props) => {
   }
 
   const submitForm = () => {
-    const url = ApiUrlBuilder(["accounts"], { key: apiKey })
+    const url = ApiUrlBuilder({ route: "accounts-index", query: { key: apiKey } })
     const body = JSON.stringify({ name: name, priority: priority, cash_flow: cash_flow })
     const onSuccess = (data) => {
       dispatch(created(data))

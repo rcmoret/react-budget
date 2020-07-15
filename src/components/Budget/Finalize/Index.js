@@ -31,13 +31,19 @@ const Index = (props) => {
   }
 
   if (!apiErrorPresent && !baseMonthFetched) {
-    const url = ApiUrlBuilder(["budget/items"], { month: month, year: year, key: apiKey })
+    const url = ApiUrlBuilder({
+      route: "budget-items-index",
+      query: { month: month, year: year, key: apiKey },
+    })
     const onSuccess = data => dispatch(baseMonthFetch(data))
     get(url, onSuccess)
   }
 
   if (!apiErrorPresent && baseMonthFetched && !nextMonthFetched) {
-    const url = ApiUrlBuilder(["budget/items"], { month: nextMonth, year: nextYear, key: apiKey })
+    const url = ApiUrlBuilder({
+      route: "budget-items-index",
+      query: { month: nextMonth, year: nextYear, key: apiKey },
+    })
     const onSuccess = data => dispatch(nextMonthFetch(data))
     get(url, onSuccess)
   }

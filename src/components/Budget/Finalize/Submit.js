@@ -31,7 +31,11 @@ export default (props) => {
   const dateString = DateFormatter({ month: month, year: year, format: "numericMonthYear" })
 
   const createFromTransaction = () => {
-    const url = ApiUrlBuilder(["accounts", selectedFromAccountId, "transactions"], { key: apiKey })
+    const url = ApiUrlBuilder({
+      route: "transactions-index",
+      accountId: selectedFromAccountId,
+      query: { key: apiKey },
+    })
     const body = JSON.stringify({
       details_attributes: [{
         amount: totalExtra,
@@ -47,7 +51,11 @@ export default (props) => {
   }
 
   const createToTransaction = (callback) => {
-    const url = ApiUrlBuilder(["accounts", selectedToAccountId, "transactions"], { key: apiKey })
+    const url = ApiUrlBuilder({
+      route: "transactions-index",
+      accountId: selectedToAccountId,
+      query: { key: apiKey },
+    })
     const body = JSON.stringify({
       details_attributes: [{
         amount: (-1 * totalExtra),
@@ -64,7 +72,12 @@ export default (props) => {
   }
 
   const updateInterval = () => {
-    const url = ApiUrlBuilder(["intervals", month, year], { key: apiKey })
+    const url = ApiUrlBuilder({
+      route: "interval-show",
+      month: month,
+      year: year,
+      query: { key: apiKey },
+    })
     const body = JSON.stringify({ close_out_completed_at: new Date() })
     const onSuccess = () => dispatch(markIntervalClosed)
     put(url, body, onSuccess)
