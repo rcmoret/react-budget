@@ -2,6 +2,12 @@
   text-align: center;
 }
 
+.budget h4.group-heading {
+  text-align: left;
+  color: #59D176; /* green */
+  font-style: italic;
+}
+
 .set-up-workspace {
   padding: 0 2%;
 }
@@ -15,13 +21,14 @@
 .budget .budget-item {
   background-color: #efefef;
   padding: 2% 3%;
-  width: 100%;
+  width: 94%;
   border-radius: 15px;
 }
 
 .budget .budget-group {
   width: 100%;
-  padding: 0;
+  border-bottom: 2px ridge #737373;
+  padding: 0 0 15px 0;
 }
 
 .budget .budget-group .budget-item:nth-of-type(2n) {
@@ -301,6 +308,10 @@
   width: 100%;
 }
 
+.budget-group-header.underlined {
+  border-bottom: 2px ridge #737373;
+}
+
 .budget-group-header .title {
   width: 94%;
   display: inline-block;
@@ -348,6 +359,9 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  border-radius: 8px;
+  padding: 10px 5px 15px;
+  border: 2px ridge #737373;
 }
 
 .budget .select-wrapper .budget-category-select__menu {

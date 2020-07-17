@@ -5,6 +5,7 @@ import { budget as copy } from "../../../locales/copy"
 import { titleize } from "../../../locales/functions"
 
 import Discretionary from "../Discretionary/Discretionary"
+import GroupHeader from "./GroupHeader"
 import WeeklyHeader from "./WeeklyHeader"
 import WeeklyGroup from "./WeeklyGroup"
 
@@ -12,7 +13,9 @@ const WeeklyItems = (props) => (
   <div className="weekly-items">
     <WeeklyHeader />
     <div className="budget-group">
-      <h4>{titleize(copy.discretionary.title)}</h4>
+      <GroupHeader
+        title={titleize(copy.discretionary.title)}
+      />
       <Discretionary />
     </div>
     <WeeklyGroup

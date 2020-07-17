@@ -5,13 +5,13 @@ import { budget as copy } from "../../../locales/copy"
 import { titleize } from "../../../locales/functions"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
+import GroupHeader from "./GroupHeader"
 import Icon from "../../Icons/Icon"
 
 const ClearedItems = ({ expenses, revenues, showCleared }) => {
   if (showCleared) {
     return (
       <div>
-        <hr/>
         <h3>{titleize(copy.item.cleared)}</h3>
         <ClearedGroup
           collection={revenues}
@@ -32,7 +32,7 @@ const ClearedGroup = ({ collection, title }) => {
   if (collection.length > 0) {
     return (
       <div className="budget-group">
-        <h4>{title}</h4>
+        <GroupHeader title={title} />
         {collection.map(item =>
           <ClearedItem
             key={item.id}

@@ -1,4 +1,6 @@
 import React from "react"
+
+import GroupHeader from "./GroupHeader"
 import WeeklyItem from "./WeeklyItem"
 
 const WeeklyGroup = (props) => {
@@ -6,7 +8,7 @@ const WeeklyGroup = (props) => {
   if (collection.length > 0) {
     return (
       <div className="budget-group">
-        <h4>{title}</h4>
+        <GroupHeader title={title} />
         {collection.map(item =>
           <WeeklyItem
             key={item.id}

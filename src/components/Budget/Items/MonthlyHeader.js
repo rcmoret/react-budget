@@ -32,18 +32,18 @@ const MonthlyHeader = (props) => {
     }))
   }
 
-  const className = props.showForm ? "fa fa-times-circle" : "fa fa-plus-circle"
+  const iconClassName = props.showForm ? "fa fa-times-circle" : "fa fa-plus-circle"
+  const divClassName = `budget-group-header ${props.showForm ? "" : "underlined"}`
   return (
-    <div className="budget-group-header">
+    <div className={divClassName}>
       <div className="title">
         <h3>{titleize(`${monthly} ${items}`)}</h3>
       </div>
       <Link
         to="#"
         onClick={props.showForm ? closeForm : showForm}
-        className={className}
+        className={iconClassName}
       />
-      <hr/>
       <MonthlyItemForm />
     </div>
   )
