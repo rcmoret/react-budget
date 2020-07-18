@@ -20,8 +20,7 @@ const Finalize = ({ apiKey, dispatch, month, setUpCompletedAt, year }) => {
     const url = ApiUrlBuilder({ route: "interval-show", month: month, year: year })
     const body = JSON.stringify({ set_up_completed_at: new Date() })
     const onSuccess = data => dispatch(updateMetadata(data))
-    const onFailure = data => console.log({ body: body, data: data })
-    put(url, body, onSuccess, onFailure)
+    put(url, body, onSuccess)
   }
 
   if (!setUpCompletedAt) {

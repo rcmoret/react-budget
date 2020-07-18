@@ -26,8 +26,7 @@ const Edit = ({ dispatch, icon }) => {
       dispatch(updated(data))
       dispatch(update({ id: id, showForm: false }))
     }
-    const onFailure = data => console.log({ body: body, data: data })
-    put(url, body, onSuccess, onFailure)
+    put(url, body, onSuccess)
   }
 
   const formProps = { ...icon, ...icon.updatedProps }

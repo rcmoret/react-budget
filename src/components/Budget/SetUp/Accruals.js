@@ -93,8 +93,7 @@ const SubmitButton = ({ apiKey, collection, dispatch, month, year }) => {
     const url = ApiUrlBuilder({ route: "budget-category-items-index", id: item.budget_category_id })
     const body = JSON.stringify({ amount: amount, month: month, year: year })
     const onSuccess = data => dispatch(addItem(data))
-    const onFailure = data => console.log({ body: body, data: data })
-    post(url, body, onSuccess, onFailure)
+    post(url, body, onSuccess)
   }
 
   const submitAccruals = async () => {

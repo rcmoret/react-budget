@@ -44,8 +44,7 @@ export default (props) => {
       id: id,
       maturityInterval: data
     }))
-    const onFailure = data => console.log({ body: body, data: data })
-    post(url, body, onSuccess, onFailure)
+    post(url, body, onSuccess)
   }
 
   const onChange = (payload) => {

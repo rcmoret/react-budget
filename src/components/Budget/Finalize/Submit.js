@@ -41,8 +41,7 @@ export default (props) => {
     const onSuccess = data => {
       dispatch(created(data))
     }
-    const onFailure = data => console.log({ body: body, data: data })
-    post(url, body, onSuccess, onFailure)
+    post(url, body, onSuccess)
   }
 
   const createToTransaction = (callback) => {
@@ -58,8 +57,7 @@ export default (props) => {
       dispatch(created(data))
       callback()
     }
-    const onFailure = data => console.log({ body: body, data: data })
-    post(url, body, onSuccess, onFailure)
+    post(url, body, onSuccess)
   }
 
   const updateInterval = () => {

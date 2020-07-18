@@ -3,22 +3,38 @@ import { apiStatusUpdated } from "../components/Api/actions"
 
 import { dispatch } from "../store"
 
-const defaultOnFail = data => console.log(data)
-
-export const get = (url, onSuccess, onFailure = defaultOnFail) => {
-  fetch(url)
-    .then(response => responseHandler(response, onSuccess, onFailure))
+const defaultOnFailure = (data, { body, status, url }) => {
+  const action = addApiError({
+    status: status,
+    message: JSON.stringify(data.errors),
+    context: { errors: data.errors, body: body, url: url }
+  })
+  dispatch(action)
 }
 
-export const post = (url, body, onSuccess, onFailure = defaultOnFail) => {
+export const get = (url, onSuccess, onFailure) => {
+  const context = { url: url, onSuccess: onSuccess, onFailure: onFailure }
+  fetch(url)
+    .then(response => responseHandler(response, context))
+}
+
+export const post = (url, body, onSuccess, onFailure) => {
   call(url, "POST", body, onSuccess, onFailure)
 }
 
-export const put = (url, body,  onSuccess, onFailure = defaultOnFail) => {
+export const put = (url, body,  onSuccess, onFailure) => {
   call(url, "PUT", body, onSuccess, onFailure)
 }
 
 const call = (url, verb, body, onSuccess, onFailure) => {
+  const context = {
+    body: body,
+    onSuccess: onSuccess,
+    onFailure: (onFailure || defaultOnFailure),
+    url: url,
+    verb: verb,
+  }
+
   fetch(url, {
     method: verb,
     headers: {
@@ -27,21 +43,22 @@ const call = (url, verb, body, onSuccess, onFailure) => {
     },
     body: body,
   })
-    .then(response => responseHandler(response, onSuccess, onFailure))
+    .then(response => responseHandler(response, context))
 }
 
-const responseHandler = (response, onSuccess, onFailure) => {
+const responseHandler = (response, context) => {
+  const { body, onSuccess, onFailure, url } = context
+
   if (response.status === 401 || response.status === 404) {
     response.json()
       .then(data => {
-        const action = addApiError({ status: response.status, message: data.errors })
+        defaultOnFailure(data, { body: body, status: response.status, url: url })
         dispatch(apiStatusUpdated({ status: response.status }))
-        dispatch(action)
       })
   } else if (!response.ok) {
     response.json()
       .then(data => {
-        onFailure(data)
+        onFailure(data, { body: body, status: response.status })
         dispatch(apiStatusUpdated({ status: response.status }))
       })
   } else {

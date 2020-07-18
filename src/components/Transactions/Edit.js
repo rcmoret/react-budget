@@ -96,8 +96,7 @@ const Edit = (props) => {
       showForm: false,
       originalAmount: transaction.originalAmount
     }))
-    const onFailure = data => console.log({ body: body, data: data })
-    put(url, body, onSuccess, onFailure)
+    put(url, body, onSuccess)
   }
 
   if (transaction.showForm) {

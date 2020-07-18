@@ -20,8 +20,7 @@ export default ({ apiKey, collection, dispatch }) => {
     })
     const body =  JSON.stringify({ amount: amount })
     const onSuccess = data => dispatch(updateFinalizeItem(data))
-    const onFailure = data => console.log({ body: body, data: data })
-    put(url, body, onSuccess, onFailure)
+    put(url, body, onSuccess)
   }
 
   const amountFor = (item) => {

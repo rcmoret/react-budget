@@ -97,8 +97,7 @@ const ReviewItem = (props) => {
       dispatch(addItem(data))
       dispatch(markReviewed({ id: item.id }))
     }
-    const onFailure = data => console.log({ body: body, data: data })
-    post(url, body, onSuccess, onFailure)
+    post(url, body, onSuccess)
   }
 
   const updateItem = () => {
@@ -112,8 +111,7 @@ const ReviewItem = (props) => {
       dispatch(updateExisting(data))
       dispatch(markReviewed({ id: item.id }))
     }
-    const onFailure = data => console.log({ body: body, data: data })
-    put(url, body, onSuccess, onFailure)
+    put(url, body, onSuccess)
   }
 
   return (
