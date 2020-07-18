@@ -31,7 +31,7 @@ const MaturityInfo = (props) => {
     showMaturityIntervals,
   } = props
 
-  if (!apiErrorPresent && !maturityIntervalsFetched && showMaturityIntervals) {
+  if (!isApiUnauthorized && !maturityIntervalsFetched && showMaturityIntervals) {
     const url = ApiUrlBuilder({
       route: "budget-category-maturity-intervals-index",
       budgetCategoryId: id,
@@ -155,7 +155,6 @@ const mapStateToProps = ((state, ownProps) => {
     .filter(filterFn)
     .sort(sortFn)
   const isApiUnauthorized = state.api.status === 401
-
 
   return {
     isApiUnauthorized: isApiUnauthorized,

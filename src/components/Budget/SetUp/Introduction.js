@@ -11,7 +11,7 @@ import { Redirect } from "react-router"
 
 const Intro = (props) => {
   const {
-    apiErrorPresent,
+    isApiUnauthorized,
     baseMonth,
     categoriesFetched,
     dispatch,
@@ -22,7 +22,7 @@ const Intro = (props) => {
 
   const { month, year } = newMonth
 
-  if (apiErrorPresent) {
+  if (isApiUnauthorized) {
     return null
   }
 
@@ -64,10 +64,10 @@ const mapStateToProps = (state, ownProps) => {
   const targetMonth = parseInt(ownProps.match.params.month)
   const targetYear = parseInt(ownProps.match.params.year)
   const newMonth = state.budget.setup.newMonth
-  const apiErrorPresent = state.messages.errors.api.length > 0
+  const isApiUnauthorized = state.messages.errors.api.length > 0
 
   return {
-    apiErrorPresent: apiErrorPresent,
+    isApiUnauthorized: isApiUnauthorized,
     baseMonth: state.budget.setup.baseMonth,
     categoriesFetched: state.budget.categories.fetched,
     newMonth: newMonth,

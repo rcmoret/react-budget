@@ -14,7 +14,7 @@ import Transactions from "./../Shared/Transactions"
 const DiscretionaryDetail = (props) => {
   const {
     amount,
-    apiErrorPresent,
+    isApiUnauthorized,
     collection,
     days_remaining,
     dispatch,
@@ -30,7 +30,7 @@ const DiscretionaryDetail = (props) => {
     return null
   }
 
-  if (!apiErrorPresent && showDetail && !fetchedTransactions ) {
+  if (!isApiUnauthorized && showDetail && !fetchedTransactions ) {
     const url = ApiUrlBuilder({
       route: "discretionary-transactions-index",
       query: { month: month, year: year }
@@ -75,12 +75,12 @@ const mapStateToProps = (state) => {
       return (a.clearance_date > b.clearance_date) ? 1 : -1
     }
   })
-  const apiErrorPresent = state.messages.errors.api.length > 0
+  const isApiUnauthorized = state.messages.errors.api.length > 0
 
   return {
     ...state.budget.metadata,
     ...state.budget.discretionary,
-    apiErrorPresent: apiErrorPresent,
+    isApiUnauthorized: isApiUnauthorized,
     collection: collection
   }
 }

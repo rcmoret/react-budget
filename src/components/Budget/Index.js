@@ -14,7 +14,7 @@ import WeeklyItems from "./Items/WeeklyItems"
 
 const BudgetIndex = (props) => {
   const {
-    apiErrorPresent,
+    isApiUnauthorized,
     categoresWereFetched,
     dispatch,
     isCurrent,
@@ -25,7 +25,7 @@ const BudgetIndex = (props) => {
     year,
   } = props
 
-  if (!apiErrorPresent && (!itemsFetched || !isCurrent)) {
+  if (!isApiUnauthorized && (!itemsFetched || !isCurrent)) {
     const url = ApiUrlBuilder({
       route: "budget-items-index",
       query: { month: month, year: year },
@@ -34,7 +34,7 @@ const BudgetIndex = (props) => {
     get(url, onSuccess)
   }
 
-  if (!apiErrorPresent && (itemsFetched && !categoresWereFetched)) {
+  if (!isApiUnauthorized && (itemsFetched && !categoresWereFetched)) {
     const url = ApiUrlBuilder({ route: "budget-categories-index" })
     const onSuccess = data => dispatch(categoriesFetched(data))
     get(url, onSuccess)
@@ -63,11 +63,11 @@ const mapStateToProps = (state, ownProps) => {
   const today = new Date()
   const isFuture = (year > today.getFullYear() || (year === today.getFullYear() && month > (today.getMonth() + 1)))
   const categoresWereFetched = state.budget.categories.fetched
-  const apiErrorPresent = state.messages.errors.api.length > 0
+  const isApiUnauthorized = state.messages.errors.api.length > 0
 
   return {
     ...state.budget,
-    apiErrorPresent: apiErrorPresent,
+    isApiUnauthorized: isApiUnauthorized,
     categoresWereFetched: categoresWereFetched,
     isCurrent: isCurrent,
     isFuture: isFuture,

@@ -20,7 +20,7 @@ import Select from "react-select"
 const Finish = (props) => {
   const {
     accountsFetched,
-    apiErrorPresent,
+    isApiUnauthorized,
     apiKey,
     baseMonthFetched,
     baseMonthFinalized,
@@ -53,7 +53,7 @@ const Finish = (props) => {
     const body = JSON.stringify({ close_out_completed_at: new Date() })
     put(url, body, () => dispatch(markIntervalClosed))
     return null
-  } else if (!apiErrorPresent && !accountsFetched) {
+  } else if (!isApiUnauthorized && !accountsFetched) {
     const url = ApiUrlBuilder({ route: "accounts-index" })
     const onSuccess = data => dispatch(acctFetched(data))
     get(url, onSuccess)

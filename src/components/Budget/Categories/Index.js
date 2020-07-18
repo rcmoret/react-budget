@@ -15,15 +15,15 @@ import NewBudgetCategory from "./New"
 import Show from "./Show"
 
 const BudgetCategories = (props) => {
-  const { apiErrorPresent, collection, dispatch, fetched } = props
+  const { isApiUnauthorized, collection, dispatch, fetched } = props
 
-  if (!apiErrorPresent && !fetched) {
+  if (!isApiUnauthorized && !fetched) {
     const url = ApiUrlBuilder({ route: "budget-categories-index" })
     const onSuccess = data => dispatch(categoriesFetched(data))
     get(url, onSuccess)
   }
 
-  if (fetched && !props.iconsFetched && !apiErrorPresent) {
+  if (fetched && !props.iconsFetched && !isApiUnauthorized) {
     const url = ApiUrlBuilder({ route: "icons-index" })
     const onSuccess = data => dispatch(iconsFetched(data))
     get(url, onSuccess)
@@ -116,10 +116,10 @@ const mapStateToProps = (state) => {
     .filter(adverbFilter)
     .filter(searchFilter)
     .sort(sortBy)
-  const apiErrorPresent = state.messages.errors.api.length > 0
+  const isApiUnauthorized = state.messages.errors.api.length > 0
 
   return {
-    apiErrorPresent: apiErrorPresent,
+    isApiUnauthorized: isApiUnauthorized,
     collection: categories,
     fetched: fetched,
     iconsFetched: iconsFetched,

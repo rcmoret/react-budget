@@ -11,7 +11,7 @@ import Transactions from "../Shared/Transactions"
 
 const WeeklyDetail = (props) => {
   const {
-    apiErrorPresent,
+    isApiUnauthorized,
     budget_category_id,
     budgetedPerDay,
     budgetedPerWeek,
@@ -29,7 +29,7 @@ const WeeklyDetail = (props) => {
     return null
   }
 
-  if (!apiErrorPresent && collection.length < transaction_count) {
+  if (!isApiUnauthorized && collection.length < transaction_count) {
     const url = ApiUrlBuilder({
       route: "budget-item-transactions-index",
       id: id,
@@ -76,11 +76,11 @@ const mapStateToProps = (state, ownProps) => {
       return (a.clearance_date > b.clearance_date) ? 1 : -1
     }
   })
-  const apiErrorPresent = state.messages.errors.api.length > 0
+  const isApiUnauthorized = state.messages.errors.api.length > 0
 
   return {
     ...ownProps,
-    apiErrorPresent: apiErrorPresent,
+    isApiUnauthorized: isApiUnauthorized,
     collection: collection
   }
 }

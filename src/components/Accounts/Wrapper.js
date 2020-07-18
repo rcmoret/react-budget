@@ -13,7 +13,7 @@ import Tabs from "./Tabs"
 const Wrapper = (props) => {
   const {
     accountsFetched,
-    apiErrorPresent,
+    isApiUnauthorized,
     collection,
     dateParams,
     dispatch,
@@ -24,7 +24,7 @@ const Wrapper = (props) => {
     year,
   } = props
 
-  if (!apiErrorPresent && !accountsFetched) {
+  if (!isApiUnauthorized && !accountsFetched) {
     const url = ApiUrlBuilder({ route: "accounts-index" })
     const onSuccess = data => dispatch(fetched(data))
     get(url, onSuccess)
@@ -71,11 +71,11 @@ const mapStateToProps = (state, ownProps) => {
   const year = parseInt(ownProps.match.params.year) || state.transactions.metadata.query_options.year
   const accountsFetched = state.accounts.accountsFetched
   const collection = state.accounts.collection.sort((a, b) => a.priority - b.priority)
-  const apiErrorPresent = state.messages.errors.api.length > 0
+  const isApiUnauthorized = state.messages.errors.api.length > 0
 
   return {
     accountsFetched: accountsFetched,
-    apiErrorPresent: apiErrorPresent,
+    isApiUnauthorized: isApiUnauthorized,
     collection: collection,
     month: month,
     dateParams: {

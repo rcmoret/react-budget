@@ -11,7 +11,7 @@ import Transactions from "./Transactions"
 const Wrapper = (props) => {
   const {
     accountId,
-    apiErrorPresent,
+    isApiUnauthorized,
     dispatch,
     fetched,
     month,
@@ -46,7 +46,7 @@ const Wrapper = (props) => {
   const isTransctionCacheStale = (isNewMonthYear ||  urlAccountId !== accountId)
   const isBudgetCacheStale = (!fetched || isNewMonthYear)
 
-  if (apiErrorPresent) {
+  if (isApiUnauthorized) {
     return null
   } else if (isTransctionCacheStale || isBudgetCacheStale) {
     if (isTransctionCacheStale) {
@@ -65,11 +65,11 @@ const Wrapper = (props) => {
 const mapStateToProps = (state, ownProps) => {
   const { query_options } = state.transactions.metadata
   const { fetched } = state.transactions.budgetItems
-  const apiErrorPresent = state.messages.errors.api.length > 0
+  const isApiUnauthorized = state.messages.errors.api.length > 0
 
   return {
     accountId: parseInt(query_options.account_id),
-    apiErrorPresent: apiErrorPresent,
+    isApiUnauthorized: isApiUnauthorized,
     fetched: fetched,
     month: parseInt(query_options.month),
     slug: ownProps.slug,

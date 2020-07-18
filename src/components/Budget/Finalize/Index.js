@@ -11,7 +11,7 @@ import { Redirect } from "react-router"
 
 const Index = (props) => {
   const {
-    apiErrorPresent,
+    isApiUnauthorized,
     baseMonthFetched,
     baseMonthFinalized,
     dispatch,
@@ -29,7 +29,7 @@ const Index = (props) => {
     )
   }
 
-  if (!apiErrorPresent && !baseMonthFetched) {
+  if (!isApiUnauthorized && !baseMonthFetched) {
     const url = ApiUrlBuilder({
       route: "budget-items-index",
       query: { month: month, year: year },
@@ -38,7 +38,7 @@ const Index = (props) => {
     get(url, onSuccess)
   }
 
-  if (!apiErrorPresent && baseMonthFetched && !nextMonthFetched) {
+  if (!isApiUnauthorized && baseMonthFetched && !nextMonthFetched) {
     const url = ApiUrlBuilder({
       route: "budget-items-index",
       query: { month: nextMonth, year: nextYear },
@@ -77,10 +77,10 @@ const mapStateToProps = (state, ownProps) => {
   const nextMonth = (finalize.next.month || (baseMonth === 12 ? 1 : (baseMonth + 1)))
   const nextYear = (finalize.next.year || (baseMonth === 12 ? (baseYear + 1) : baseYear))
   const isEndOfMonth = isToday(new Date((year || baseYear), (month || baseMonth), 0))
-  const apiErrorPresent = state.messages.errors.api.length > 0
+  const isApiUnauthorized = state.messages.errors.api.length > 0
 
   return {
-    apiErrorPresent: apiErrorPresent,
+    isApiUnauthorized: isApiUnauthorized,
     baseMonthFetched: baseMonthFetched,
     baseMonthFinalized: baseMonthFinalized,
     isEndOfMonth: isEndOfMonth,

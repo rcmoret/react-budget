@@ -11,14 +11,14 @@ import Show from "./Show"
 
 const Index = (props) => {
   const {
-    apiErrorPresent,
     dispatch,
+    isApiUnauthorized,
     collectionFetched,
     firstColumn,
     secondColumn,
   } = props
 
-  if (!apiErrorPresent && !collectionFetched) {
+  if (!isApiUnauthorized && !collectionFetched) {
     const url = ApiUrlBuilder({ route: "icons-index" })
     const onSuccess = data => dispatch(fetched(data))
     get(url, onSuccess)
@@ -59,10 +59,10 @@ const mapStateToProps = (state) => {
   const columnSize = Math.ceil(count / 2.0)
   const firstColumn = collection.slice(0, columnSize)
   const secondColumn = collection.slice(columnSize, (columnSize * 2))
-  const apiErrorPresent = errors.api.length > 0
+  const isApiUnauthorized = errors.api.length > 0
 
   return {
-    apiErrorPresent: apiErrorPresent,
+    isApiUnauthorized: isApiUnauthorized,
     firstColumn: firstColumn,
     secondColumn: secondColumn,
     collectionFetched: fetched,

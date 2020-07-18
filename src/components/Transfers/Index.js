@@ -17,16 +17,16 @@ import PaginationLinks from "./PaginationLinks"
 import Transfer from "./Transfer"
 
 const Index = (props) => {
-  const { accounts, accountsFetched, apiErrorPresent, collection, dispatch, fetchedTransfers, metadata } = props
+  const { accounts, accountsFetched, isApiUnauthorized, collection, dispatch, fetchedTransfers, metadata } = props
   const { currentPage, total, viewing } = metadata
 
-  if(!apiErrorPresent && !accountsFetched) {
+  if(!isApiUnauthorized && !accountsFetched) {
     const url = ApiUrlBuilder({ route: "accounts-index" })
     const onSuccess = data => dispatch(renderAccounts(data))
     get(url, onSuccess)
   }
 
-  if (!apiErrorPresent && accountsFetched && !fetchedTransfers) {
+  if (!isApiUnauthorized && accountsFetched && !fetchedTransfers) {
     const url = ApiUrlBuilder({ route: "transfers-index", query: { page: currentPage } })
     const onSuccess = data => dispatch(fetched(data))
     get(url, onSuccess)
@@ -90,14 +90,14 @@ const mapStateToProps = (state) => {
     }
   })
 
-  const apiErrorPresent = state.messages.errors.api.length > 0
+  const isApiUnauthorized = state.messages.errors.api.length > 0
 
   return {
     ...state.transfers,
     accounts: state.accounts.collection,
     collection: collection,
     accountsFetched: accountsFetched,
-    apiErrorPresent: apiErrorPresent,
+    isApiUnauthorized: isApiUnauthorized,
   }
 }
 
