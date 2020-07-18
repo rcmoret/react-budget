@@ -65,7 +65,7 @@ const Wrapper = (props) => {
 const mapStateToProps = (state, ownProps) => {
   const { query_options } = state.transactions.metadata
   const { fetched } = state.transactions.budgetItems
-  const isApiUnauthorized = state.messages.errors.api.length > 0
+  const isApiUnauthorized = state.api.status === 401
 
   return {
     accountId: parseInt(query_options.account_id),

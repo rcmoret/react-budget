@@ -37,7 +37,7 @@ const Index = ({ isApiUnauthorized, apiKey, collection, dispatch, accountsFetche
 const mapStateToProps = (state) => {
   const { collection, accountsFetched } = state.accounts
   const accounts = collection.sort((a, b) => a.priority - b.priority)
-  const isApiUnauthorized = state.messages.errors.api.length > 0
+  const isApiUnauthorized = state.api.status === 401
 
   return {
     accountsFetched: accountsFetched,

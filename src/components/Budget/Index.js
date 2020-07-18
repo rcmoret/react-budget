@@ -63,7 +63,7 @@ const mapStateToProps = (state, ownProps) => {
   const today = new Date()
   const isFuture = (year > today.getFullYear() || (year === today.getFullYear() && month > (today.getMonth() + 1)))
   const categoresWereFetched = state.budget.categories.fetched
-  const isApiUnauthorized = state.messages.errors.api.length > 0
+  const isApiUnauthorized = state.api.status === 401
 
   return {
     ...state.budget,

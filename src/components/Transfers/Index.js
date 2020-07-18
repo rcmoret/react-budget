@@ -90,7 +90,7 @@ const mapStateToProps = (state) => {
     }
   })
 
-  const isApiUnauthorized = state.messages.errors.api.length > 0
+  const isApiUnauthorized = state.api.status === 401
 
   return {
     ...state.transfers,

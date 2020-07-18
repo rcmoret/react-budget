@@ -71,7 +71,7 @@ const mapStateToProps = (state, ownProps) => {
   const year = parseInt(ownProps.match.params.year) || state.transactions.metadata.query_options.year
   const accountsFetched = state.accounts.accountsFetched
   const collection = state.accounts.collection.sort((a, b) => a.priority - b.priority)
-  const isApiUnauthorized = state.messages.errors.api.length > 0
+  const isApiUnauthorized = state.api.status === 401
 
   return {
     accountsFetched: accountsFetched,

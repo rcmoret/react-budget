@@ -76,7 +76,7 @@ const mapStateToProps = (state, ownProps) => {
       return (a.clearance_date > b.clearance_date) ? 1 : -1
     }
   })
-  const isApiUnauthorized = state.messages.errors.api.length > 0
+  const isApiUnauthorized = state.api.status === 401
 
   return {
     ...ownProps,

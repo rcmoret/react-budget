@@ -64,7 +64,7 @@ const mapStateToProps = (state, ownProps) => {
   const targetMonth = parseInt(ownProps.match.params.month)
   const targetYear = parseInt(ownProps.match.params.year)
   const newMonth = state.budget.setup.newMonth
-  const isApiUnauthorized = state.messages.errors.api.length > 0
+  const isApiUnauthorized = state.api.status === 401
 
   return {
     isApiUnauthorized: isApiUnauthorized,

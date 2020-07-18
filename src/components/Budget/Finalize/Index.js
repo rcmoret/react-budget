@@ -77,7 +77,7 @@ const mapStateToProps = (state, ownProps) => {
   const nextMonth = (finalize.next.month || (baseMonth === 12 ? 1 : (baseMonth + 1)))
   const nextYear = (finalize.next.year || (baseMonth === 12 ? (baseYear + 1) : baseYear))
   const isEndOfMonth = isToday(new Date((year || baseYear), (month || baseMonth), 0))
-  const isApiUnauthorized = state.messages.errors.api.length > 0
+  const isApiUnauthorized = state.api.status === 401
 
   return {
     isApiUnauthorized: isApiUnauthorized,

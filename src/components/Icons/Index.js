@@ -59,7 +59,7 @@ const mapStateToProps = (state) => {
   const columnSize = Math.ceil(count / 2.0)
   const firstColumn = collection.slice(0, columnSize)
   const secondColumn = collection.slice(columnSize, (columnSize * 2))
-  const isApiUnauthorized = errors.api.length > 0
+  const isApiUnauthorized = state.api.status === 401
 
   return {
     isApiUnauthorized: isApiUnauthorized,

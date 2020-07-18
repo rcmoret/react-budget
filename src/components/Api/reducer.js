@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
   case "api/STATUS_UPDATED":
     return { ...state, status: action.payload.status }
   case "api/KEY_UPDATED":
-    return { ...state, key: action.payload.key }
+    return { ...state, key: action.payload.key, status: null }
   case "messages/ADD_API_ERROR":
     return { ...state, status: action.payload.status }
   default:

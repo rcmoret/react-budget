@@ -35,6 +35,7 @@ const responseHandler = (response, onSuccess, onFailure) => {
     response.json()
       .then(data => {
         const action = addApiError({ status: 401, message: data.error })
+        dispatch(apiStatusUpdated({ status: response.status }))
         dispatch(action)
       })
   } else if (!response.ok) {
