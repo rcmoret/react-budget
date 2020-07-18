@@ -52,12 +52,12 @@ const mapStateToProps = (state) => {
   }
 
   const revenues = collection
-    .filter(item => !item.expense && item.deletable)
+    .filter(item => !item.expense && !item.isCleared)
     .filter(accrualFilter)
     .sort(sortFn())
 
   const expenses = collection
-    .filter(item => item.expense && item.deletable)
+    .filter(item => item.expense && !item.isCleared)
     .filter(accrualFilter)
     .sort(sortFn())
 
