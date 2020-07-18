@@ -31,10 +31,10 @@ const call = (url, verb, body, onSuccess, onFailure) => {
 }
 
 const responseHandler = (response, onSuccess, onFailure) => {
-  if (response.status === 401) {
+  if (response.status === 401 || response.status === 404) {
     response.json()
       .then(data => {
-        const action = addApiError({ status: 401, message: data.error })
+        const action = addApiError({ status: response.status, message: data.errors })
         dispatch(apiStatusUpdated({ status: response.status }))
         dispatch(action)
       })
