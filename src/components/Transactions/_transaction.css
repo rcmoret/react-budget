@@ -52,6 +52,12 @@
 
 .transaction .notes {
   max-width: 45%;
+  min-width: 33%;
+  display: flex;
+}
+
+.transaction .notes .notes-icon {
+  margin-right: 1%;
 }
 
 .transaction .exclusion {
