@@ -60,7 +60,6 @@ const initialState = {
   menuOptions: {
     showAccruals: false,
     showCleared: false,
-    showOptions: true,
     sortOrder: "byName",
   },
   finalize: {

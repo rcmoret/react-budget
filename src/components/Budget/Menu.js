@@ -7,7 +7,6 @@ import {
   changeItemSortOrder,
   toggleAccrualItems,
   toggleClearedItems,
-  toggleMenu,
 } from "../../actions/budget"
 
 import DateFormatter, { isToday } from "../../functions/DateFormatter"
@@ -16,48 +15,47 @@ import Icon from "../Icons/Icon"
 import { Link } from "react-router-dom"
 import SetUpButton from "./SetUpButton"
 
-const Menu = (props) => {
-  const {
-    dispatch,
-    showOptions,
-  } = props
+const {
+  category,
+  item,
+  menu,
+} = copy
 
-  return (
-    <nav className="budget-actions">
-      <Title
-        dispatch={dispatch}
-        showOptions={showOptions}
-      />
-      <Links
-        {...props}
-      />
-    </nav>
-  )
-}
+const {
+  finalizeLinkText,
+  hide,
+  order,
+  show,
+  title,
+} = menu
 
-const Title = ({ dispatch, showOptions }) => {
-  const toggleCaret = (e) => {
-    e.preventDefault()
-    const action = toggleMenu({ showOptions: !showOptions })
-    dispatch(action)
-  }
+const {
+  cleared,
+  items,
+} = item
 
-  const iconClassName = showOptions ? "fas fa-caret-down" : "fas fa-caret-right"
+const {
+  accruing,
+  categories,
+  monthly,
+} = category
 
-  return (
-    <h3>
-      <Link
-        to="#"
-        onClick={toggleCaret}
-      >
-        <Icon className={iconClassName} />
-        {" "}
-        {titleize(copy.menu.title)}
-      </Link>
-    </h3>
-  )
-}
+const Menu = (props) => (
+  <nav className="budget-actions">
+    <Title />
+    <Links
+      {...props}
+    />
+  </nav>
+)
 
+const Title = () => (
+  <h3>
+    &bull;
+    {" "}
+    {titleize(title)}
+  </h3>
+)
 
 const Links = (props) => {
   const {
@@ -69,7 +67,6 @@ const Links = (props) => {
     requiresSetUp,
     showAccruals,
     showCleared,
-    showOptions,
     sortOrder,
     year,
   } = props
@@ -93,99 +90,82 @@ const Links = (props) => {
     dispatch(action)
   }
 
-  if (showOptions) {
-    return (
-      <div>
-        <SetUpButton
-          dispatch={dispatch}
-          month={month}
-          year={year}
-          isFuture={isFuture}
-          requiresSetUp={requiresSetUp}
-        />
-        <FinalizeButton
-          dispatch={dispatch}
-          isEndOfMonth={isEndOfMonth}
-          month={month}
-          requiresCloseOut={requiresCloseOut}
-          year={year}
-        />
-        <hr />
-        <Link to="/budget/categories">
-          <div className="budget-action">
-            <strong>{titleize(`${copy.menu.manage} ${copy.category.categories}`)}</strong>
-          </div>
-        </Link>
-        <Link to="/budget/icons">
-          <div className="budget-action">
-            <strong>{titleize(`${copy.menu.manage} ${iconCopy.icons}`)}</strong>
-          </div>
-        </Link>
-        <hr />
-        <Link
-          to="#"
-          onClick={toggleSort}
-        >
-          <div className="budget-action">
-            <strong>{`${titleize(copy.menu.order)} ${newSortOrder.replace(/([A-Z])/g, " $1")}`}</strong>
-          </div>
-        </Link>
-        <Link
-          to="#"
-          onClick={toggleCleared}
-        >
-          <div className="budget-action">
-            <strong>
-              {titleize([
-                (showCleared ? copy.menu.hide : copy.menu.show),
-                copy.item.cleared,
-                copy.category.monthly,
-                copy.item.items,
-              ].join(" "))}
-            </strong>
-          </div>
-        </Link>
-        <Link
-          to="#"
-          onClick={toggleAccruals}
-        >
-          <div className="budget-action">
-            <strong>
-              {titleize([
-                (showAccruals ? copy.menu.hide : copy.menu.show),
-                copy.category.accruing,
-                copy.item.items,
-              ].join(" "))}
-            </strong>
-          </div>
-        </Link>
-      </div>
-    )
-  } else {
-    return null
-  }
+  return (
+    <div>
+      <SetUpButton
+        dispatch={dispatch}
+        month={month}
+        year={year}
+        isFuture={isFuture}
+        requiresSetUp={requiresSetUp}
+      />
+      <FinalizeButton
+        isEndOfMonth={isEndOfMonth}
+        month={month}
+        requiresCloseOut={requiresCloseOut}
+        year={year}
+      />
+      <MenuLink
+        linkCopy={categories}
+        path="/budget/categories"
+      />
+      <MenuLink
+        linkCopy={iconCopy.icons}
+        path={"/budget/icons"}
+      />
+      <hr />
+      <MenuLink
+        iconClassName="fas fa-exchange-alt fa-rotate-90"
+        linkCopy={`${order} ${newSortOrder.replace(/([A-Z])/g, " $1")}`}
+        onClick={toggleSort}
+      />
+      <MenuLink
+        iconClassName={showCleared ? "far fa-eye-slash" : "far fa-eye"}
+        linkCopy={`${(showCleared ? hide : show)} ${cleared} ${monthly} ${items}`}
+        onClick={toggleCleared}
+        showCleared={showCleared}
+      />
+      <MenuLink
+        onClick={toggleAccruals}
+        iconClassName={showAccruals ? "fas fa-book-open" : "fas fa-book"}
+        linkCopy={`${(showAccruals ? hide : show)} ${accruing} ${items}`}
+        showAccruals={showAccruals}
+      />
+    </div>
+  )
 }
 
-const FinalizeButton = ({ isEndOfMonth, month, requiresCloseOut, year }) => {
-  if (!isEndOfMonth || !requiresCloseOut) { return null }
+export const MenuLink = ({ iconClassName, linkCopy, onClick, path }) => {
+  const to = path || "#"
 
   return (
-    <Link
-      to={`/budget/finalize/${month}/${year}/start`}
-    >
+    <Link to={to} onClick={onClick} >
       <div className="budget-action">
         <strong>
-          {titleize(copy.menu.finalizeLinkText(
-            DateFormatter({
-              month: month,
-              year: year,
-              format: "monthYear"
-            })
-          ))}
+          &#9702;
+          {" "}
+          <Icon className={iconClassName} />
+          {" "}
+          {titleize(linkCopy)}
         </strong>
       </div>
     </Link>
   )
+}
+
+const FinalizeButton = ({ isEndOfMonth, month, requiresCloseOut, year }) => {
+  const linkCopy = finalizeLinkText(DateFormatter({ month: month, year: year, format: "monthYear" }))
+
+  if (!isEndOfMonth || !requiresCloseOut) {
+    return null
+  } else {
+    return (
+      <MenuLink
+        linkCopy={linkCopy}
+        path={`/budget/finalize/${month}/${year}/start`}
+      />
+    )
+  }
 }
 
 const mapStateToProps = (state, ownProps) => {

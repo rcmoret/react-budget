@@ -536,8 +536,7 @@ nav.budget-actions {
 }
 
 nav.budget-actions .budget-action {
-  padding: 8px 4px 8px 12px;
-  background: #EFEFEF;
+  padding: 8px 4px 8px 0;
   border-radius: 12px;
   margin-bottom: 8px;
   width: 90%;

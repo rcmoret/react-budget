@@ -110,11 +110,10 @@ export const maturityInterval = {
 export const menu = {
   hide: "hide",
   finalizeLinkText:  (monthString) => `Finalize ${monthString}`,
-  manage: "manage",
   order: "order",
   setUpLinkText: (dateString) => `Set up ${dateString}`,
   show: "show",
-  title: "menu",
+  title: "budget admin",
 }
 
 export const setup = {

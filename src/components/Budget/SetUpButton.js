@@ -4,19 +4,17 @@ import { budget as copy } from "../../locales/copy"
 
 import * as dateFormatter from "../../functions/DateFormatter"
 
-import { Link } from "react-router-dom"
+import { MenuLink } from "./Menu"
 
 export default ({ month, year, isFuture, requiresSetUp }) => {
+  const monthString = dateFormatter.formatted({ month: month, year: year, format: "monthYear" })
+
   if (requiresSetUp && isFuture) {
-    const monthString = dateFormatter.formatted({ month: month, year: year, format: "monthYear" })
     return (
-      <Link
-        to={`/budget/set-up/${month}/${year}/intro`}
-      >
-        <div className="budget-action">
-          <strong>{copy.menu.setUpLinkText(monthString)}</strong>
-        </div>
-      </Link>
+      <MenuLink
+        linkCopy={copy.menu.setUpLinkText(monthString)}
+        path={`/budget/set-up/${month}/${year}/intro`}
+      />
     )
   } else {
     return null
