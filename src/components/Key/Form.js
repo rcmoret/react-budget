@@ -5,17 +5,17 @@ import { terms } from "../../locales/copy"
 
 import { removeApiError } from "../Messages/actions"
 
-const Form = ({ dispatch, newApiKey }) => {
-  const editedAction = apiKey => ({ type: "key/EDITED", payload: { apiKey: apiKey } })
-  const updatedAction = apiKey => ({ type: "key/UPDATED", payload: { apiKey: apiKey } })
+import { apiKeyEdited, apiKeyUpdated } from "../Api/actions"
+
+const Form = ({ dispatch, keyFormInput }) => {
 
   const onChange = e => {
-    dispatch(editedAction(e.target.value))
+    dispatch(apiKeyEdited(e.target.value))
   }
 
   const handleKeyDown = e => {
     if (e.which === 13) {
-      dispatch(updatedAction(newApiKey))
+      dispatch(apiKeyUpdated(keyFormInput))
       dispatch(removeApiError({ status: 401 }))
     }
   }
@@ -26,7 +26,7 @@ const Form = ({ dispatch, newApiKey }) => {
       {" "}
       <input
         name="apiKey"
-        value={newApiKey}
+        value={keyFormInput}
         onChange={onChange}
         onKeyDown={handleKeyDown}
         placeholder={terms.apiKey}
@@ -35,6 +35,6 @@ const Form = ({ dispatch, newApiKey }) => {
   )
 }
 
-const mapStateToProps = state => state.apiKey
+const mapStateToProps = state => ({ ...state.api })
 
 export default connect(mapStateToProps)(Form)

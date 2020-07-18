@@ -1,7 +1,7 @@
 import { createStore, combineReducers } from "redux"
 
 import accountsReducer from "./reducers/accounts"
-import apiKeyReducer from "./components/Key/reducer"
+import apiReducer from "./components/Api/reducer"
 import budgetReducer from "./reducers/budget"
 import iconsReducer from "./reducers/icons"
 import messageReducer from "./components/Messages/reducer"
@@ -11,7 +11,7 @@ import transfersReducer from "./reducers/transfers"
 const store = createStore(
   combineReducers({
     accounts: accountsReducer,
-    apiKey: apiKeyReducer,
+    api: apiReducer,
     budget: budgetReducer,
     icons: iconsReducer,
     messages: messageReducer,

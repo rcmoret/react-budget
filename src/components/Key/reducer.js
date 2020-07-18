@@ -5,10 +5,10 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch(action.type) {
-  case "key/EDITED":
-    return { ...state, newApiKey: action.payload.apiKey }
+  case "api/KEY_EDITED":
+    return { ...state, newApiKey: action.payload.key }
   case "key/UPDATED":
-    return { ...state, apiKey: action.payload.apiKey, newApiKey: "" }
+    return { ...state, apiKey: action.payload.key, newApiKey: "" }
   default:
     return state
   }

@@ -1,4 +1,5 @@
 import { addApiError } from "../components/Messages/actions"
+import { apiStatusUpdated } from "../components/Api/actions"
 
 import { dispatch } from "../store"
 
@@ -38,9 +39,15 @@ const responseHandler = (response, onSuccess, onFailure) => {
       })
   } else if (!response.ok) {
     response.json()
-      .then(data => onFailure(data))
+      .then(data => {
+        onFailure(data)
+        dispatch(apiStatusUpdated({ status: response.status }))
+      })
   } else {
     response.json()
-      .then(data => onSuccess(data))
+      .then(data => {
+        onSuccess(data)
+        dispatch(apiStatusUpdated({ status: response.status }))
+      })
   }
 }
