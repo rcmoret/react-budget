@@ -123,12 +123,13 @@ const mapStateToProps = (state) => {
   const { newItem } = state.budget.monthly
   const value = options.find(option => option.value === newItem.budget_category_id)
   const { month, year } = state.budget.metadata
+  const errors = newItem.errors.map(error => error.amount)
 
   return {
     amount: newItem.amount,
     budget_category_id: newItem.budget_category_id,
     categories: categories,
-    errors: (newItem.errors.amount || []),
+    errors: errors,
     fetched: state.budget.categories.fetched,
     month: month,
     options: options,

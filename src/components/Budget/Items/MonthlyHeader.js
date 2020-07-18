@@ -28,7 +28,7 @@ const MonthlyHeader = (props) => {
     props.dispatch(editNewMonthlyItem({
       amount: "",
       budget_category_id: null,
-      errors: {},
+      errors: [],
     }))
   }
 

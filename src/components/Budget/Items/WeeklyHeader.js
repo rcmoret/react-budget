@@ -20,7 +20,7 @@ const WeeklyHeader = (props) => {
     props.dispatch(editNewWeeklyItem({
       amount: "",
       budget_category_id: null,
-      errors: {},
+      errors: [],
     }))
   }
 
