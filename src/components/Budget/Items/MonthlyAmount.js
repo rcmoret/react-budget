@@ -25,7 +25,7 @@ const Amount = (props) => {
     const action = editMonthlyItem({
       id: id,
       updateItem: true,
-      errors: {}
+      errors: [],
     })
     dispatch(action)
   }

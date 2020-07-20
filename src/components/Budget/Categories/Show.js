@@ -39,7 +39,7 @@ const Show = (props) => {
     e.preventDefault()
     const action = update({
       id: id,
-      errors: (errors || {}),
+      errors: (errors || []),
       showForm: true,
     })
     dispatch(action)

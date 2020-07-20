@@ -8,7 +8,7 @@ const initialNewCategory = {
   accrual: "false",
   showForm: false,
   icon_id: null,
-  errors: {},
+  errors: [],
 }
 
 const today = new Date()
@@ -113,7 +113,7 @@ export default (state = initialState, action) => {
         ...state.categories,
         collection: state.categories.collection.map(category => {
           if (category.id === action.payload.id) {
-            return { ...category, errors: { ...category.errors, ...action.payload.errors } }
+            return { ...category, errors: [...category.errors, ...action.payload.errors] }
           } else {
             return category
           }
@@ -158,7 +158,7 @@ export default (state = initialState, action) => {
       ...state,
       newCategory: {
         ...state.newCategory,
-        ...action.payload, // comes in as { errors: { name: ["invalid"] } }
+        ...action.payload, // comes in as { errors: [{ name: ["invalid"] }] }
       },
     }
   case "budget/categories/FETCHED":

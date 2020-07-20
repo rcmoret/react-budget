@@ -1,5 +1,4 @@
 const initialState = {
-  isAuthorized: false,
   key: null,
   keyFormInput: "",
   status: null,
@@ -13,8 +12,6 @@ export default (state = initialState, action) => {
     return { ...state, status: action.payload.status }
   case "api/KEY_UPDATED":
     return { ...state, key: action.payload.key, status: null }
-  case "messages/ADD_API_ERROR":
-    return { ...state, status: action.payload.status }
   default:
     return state
   }

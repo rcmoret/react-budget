@@ -51,7 +51,6 @@ const Index = (props) => {
 
 const mapStateToProps = (state) => {
   const { fetched } = state.icons
-  const { errors } = state.messages
   const collection = state.icons.collection.sort((a, b) => {
     return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
   })

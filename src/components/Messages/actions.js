@@ -1,3 +1,3 @@
-export const addApiError = error => ({ type: "messages/ADD_API_ERROR", payload: error })
+export const addErrorMessages = error => ({ type: "messages/ADD_ERROR_MESSAGES", payload: error })
 
-export const removeApiError = errorMessage => ({ type: "messages/REMOVE_API_ERROR", payload: errorMessage })
+export const removeErrorMessage = errorMessage => ({ type: "messages/REMOVE_ERROR_MESSAGE", payload: errorMessage })

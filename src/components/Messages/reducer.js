@@ -1,47 +1,83 @@
+import findOrDefault from "../../functions/FindOrDefault"
+
+const apiErrors ={
+  type: "api",
+  messages: {},
+  requests: [],
+}
+
 const initialState = {
-  errors: {
-    api: [],
-  },
+  errors: [
+    {...apiErrors},
+    {
+      type: "misc",
+      messages: {},
+      requests: [],
+    },
+  ],
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-  case "messages/ADD_API_ERROR":
+  case "messages/ADD_ERROR_MESSAGES":
     return {
       ...state,
-      errors: {
-        ...state.errors,
-        api: includeApiError(state, action.payload),
-        // [...new Set([...state.errors.api, action.payload])],
-      },
+      errors: updateErrors(state, action.payload),
     }
-  case "messages/REMOVE_API_ERROR":
+  case "messages/REMOVE_ERROR_MESSAGE":
     return {
       ...state,
-      errors: {
-        ...state.errors,
-        api: state.errors.api.filter(error => error.status !== action.payload.status),
-      },
+      errors: removeErrors(state, action.payload)
     }
   default:
     return state
   }
 }
 
-const includeApiError = (state, payload) => {
-  const existingErrors = state.errors.api
+const emptyErrorObject = {
+  messages: {},
+  requests: [],
+}
 
-  const unauthorziedErrors = existingErrors.filter(error => error.status === 401)
-  const matchingMessages = existingErrors.filter(error => error.status === payload.status && error.message === payload.message)
+const updateErrors = (state, payload) => {
+  const { errors } = payload
+  const keysFromState = state.errors.map(err => err.type)
+  const keys = errors.reduce((acc, err) => [...acc, ...Object.keys(err)], [])
 
-  if (payload.status === 401 && unauthorziedErrors.length > 0) {
-    return existingErrors
-  } else if (matchingMessages.length > 0) {
-    return existingErrors
-  } else {
-    return [
-      payload,
-      ...existingErrors,
-    ]
-  }
+  return [...new Set([...keys, ...keysFromState])].map(key => {
+    const error = findOrDefault(state.errors, err => err.type === key, { type: key, ...emptyErrorObject })
+    const payloadError = findOrDefault(errors, err => err.hasOwnProperty(error.type), null)
+
+    if (payloadError === null) {
+      return error
+    } else {
+      const errorTypeMessages = error.messages[payload.status] || []
+      return {
+        ...error,
+        messages: {
+          ...error.messages,
+          [payload.status]: [...new Set([...errorTypeMessages, ...payloadError[error.type]])]
+        },
+        requests: [...error.requests, payload],
+      }
+    }
+  })
+}
+
+const removeErrors = (state, payload) => {
+  const { errors } = state
+  const { errorMessage, status, type } = payload
+
+  return errors.map(err => {
+    if (err.type === type) {
+      return {
+        ...err,
+        messages: {
+          [status]: err.messages[status].filter(e => e !== errorMessage),
+        },
+      }
+    } else {
+      return err
+    }
+  })
 }

@@ -1,19 +1,20 @@
-import { addApiError } from "../components/Messages/actions"
+import { addErrorMessages } from "../components/Messages/actions"
 import { apiStatusUpdated } from "../components/Api/actions"
 
 import { dispatch } from "../store"
 
 const defaultOnFailure = (data, { body, status, url }) => {
-  const action = addApiError({
+  const action = addErrorMessages({
+    requestBody: body,
+    errors: data.errors,
     status: status,
-    message: JSON.stringify(data.errors),
-    context: { errors: data.errors, body: body, url: url }
+    url: url,
   })
   dispatch(action)
 }
 
 export const get = (url, onSuccess, onFailure) => {
-  const context = { url: url, onSuccess: onSuccess, onFailure: onFailure }
+  const context = { url: url, onSuccess: onSuccess, onFailure: onFailure, body: {} }
   fetch(url)
     .then(response => responseHandler(response, context))
 }
@@ -37,11 +38,11 @@ const call = (url, verb, body, onSuccess, onFailure) => {
 
   fetch(url, {
     method: verb,
+    body: body,
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
     },
-    body: body,
   })
     .then(response => responseHandler(response, context))
 }
@@ -52,20 +53,20 @@ const responseHandler = (response, context) => {
   if (response.status === 401 || response.status === 404) {
     response.json()
       .then(data => {
-        defaultOnFailure(data, { body: body, status: response.status, url: url })
         dispatch(apiStatusUpdated({ status: response.status }))
+        defaultOnFailure(data, { body: body, status: response.status, url: url })
       })
   } else if (!response.ok) {
     response.json()
       .then(data => {
-        onFailure(data, { body: body, status: response.status })
         dispatch(apiStatusUpdated({ status: response.status }))
+        onFailure(data, { body: body, status: response.status, url: url })
       })
   } else {
     response.json()
       .then(data => {
-        onSuccess(data)
         dispatch(apiStatusUpdated({ status: response.status }))
+        onSuccess(data)
       })
   }
 }

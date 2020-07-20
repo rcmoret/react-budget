@@ -107,8 +107,22 @@ const NewBudgetCategory = (props) => {
 
 const mapStateToProps = (state) => {
 
+  const { newCategory } = state.budget
+  const errors = newCategory.errors.reduce((acc, error) => {
+    Object.entries(error).map(arr => {
+      const key = arr[0]
+      const messages = arr[1]
+      const existingMessages = acc[key] || []
+      acc[key] = [...existingMessages, ...messages]
+
+      return acc
+    })
+
+    return acc
+  }, {})
+
   return {
-    newCategory: state.budget.newCategory,
+    newCategory: { ...newCategory, errors: errors },
     showForm: state.budget.categories.showForm,
   }
 }

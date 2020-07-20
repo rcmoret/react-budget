@@ -92,6 +92,26 @@ const Edit = (props) => {
   )
 }
 
-const mapStateToProps = (_state, ownProps) => ownProps
+const mapStateToProps = (_state, ownProps) => {
+  const { category } = ownProps
+
+  const errors = category.errors.reduce((acc, error) => {
+    Object.entries(error).map(arr => {
+      const key = arr[0]
+      const messages = arr[1]
+      const existingMessages = acc[key] || []
+      acc[key] = [...existingMessages, ...messages]
+
+      return acc
+    })
+
+    return acc
+  }, {})
+
+  return {
+    ...ownProps,
+    category: { ...category, errors: errors }
+  }
+}
 
 export default connect(mapStateToProps)(Edit)
