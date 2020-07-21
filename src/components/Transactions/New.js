@@ -2,6 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 
 import { budget as copy } from "../../locales/copy"
+import objectify from "../../models/transaction"
 import { titleize } from "../../locales/functions"
 
 import {
@@ -23,7 +24,9 @@ import { post } from "../../functions/ApiClient"
 import Form from "./Form/Form"
 
 const New = (props) => {
-  const { apiKey, budgetOptions, dispatch, selectedAccount, transaction } = props
+  const { apiKey, budgetOptions, dispatch, selectedAccount, showBudgetExclusion, showCheck, showNotes } = props
+  const formOptions = { showBudgetExclusion: showBudgetExclusion, showCheck: showCheck, showNotes: showNotes }
+  const transaction = objectify(props.transaction, formOptions)
   const { details } = transaction
 
   const addDetail = (e) => {
@@ -123,12 +126,17 @@ const mapStateToProps = (state) => {
   const discretionary = { label: titleize(copy.discretionary.title), value: null }
   const budgetOptions = [discretionary, ...itemOptions]
   const { apiKey } = state.apiKey
+  const { showCheck, showNotes } = transaction.formOptions
 
   return {
     apiKey: apiKey,
     buttonText: "Create Transaction",
     budgetOptions: budgetOptions,
     selectedAccount: selectedAccount,
+    showBudgetExclusion: !selectedAccount.cashFlow,
+    showCheck: showCheck,
+    showBudgetExclusion: !selectedAccount.cashFlow,
+    showNotes: showNotes,
     transaction: transaction,
   }
 }
