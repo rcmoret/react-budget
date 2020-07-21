@@ -24,7 +24,7 @@ import { post } from "../../functions/ApiClient"
 import Form from "./Form/Form"
 
 const New = (props) => {
-  const { apiKey, budgetOptions, dispatch, selectedAccount, showBudgetExclusion, showCheck, showNotes } = props
+  const { budgetOptions, dispatch, selectedAccount, showBudgetExclusion, showCheck, showNotes } = props
   const formOptions = { showBudgetExclusion: showBudgetExclusion, showCheck: showCheck, showNotes: showNotes }
   const transaction = objectify(props.transaction, formOptions)
   const { details } = transaction
