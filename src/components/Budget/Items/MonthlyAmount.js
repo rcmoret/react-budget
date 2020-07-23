@@ -15,7 +15,10 @@ const Amount = (props) => {
     budget_category_id,
     dispatch,
     errors,
+    month,
+    name,
     updateItem,
+    year,
   } = props
 
   const floatAmount = props.floatAmount || (amount / 100.0).toFixed(2)
@@ -38,6 +41,9 @@ const Amount = (props) => {
         budget_category_id={budget_category_id}
         errors={errors}
         floatAmount={floatAmount}
+        month={month}
+        name={name}
+        year={year}
       />
     )
   } else {

@@ -5,6 +5,7 @@ import { editMonthlyItem, updateMonthlyItem } from "../../../actions/budget"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
 import EvaluateInput from "../../../functions/DynamicInputEvaluator"
+import EventMessageBuilder from "../../../functions/EventMessageBuilder"
 import { put } from "../../../functions/ApiClient"
 
 import Errors from "../../Errors/Errors"
@@ -18,6 +19,9 @@ const MonthlyAmountInput = (props) => {
     dispatch,
     errors,
     floatAmount,
+    month,
+    name,
+    year,
   } = props
 
   const handleChange = (e) => {
@@ -53,6 +57,15 @@ const MonthlyAmountInput = (props) => {
       budgetCategoryId: budget_category_id,
     })
     const body = JSON.stringify({ amount: decimalToInt(EvaluateInput(floatAmount)) })
+    const event = EventMessageBuilder({
+      eventType: "budget-item-update",
+      id: id,
+      month: month,
+      year: year,
+      category: name,
+      newAmount: EvaluateInput(floatAmount),
+      originalAmount: (amount / 100.0).toFixed(2)
+    })
     const onSuccess = data => {
       const action = updateMonthlyItem({
         ...data,
@@ -80,7 +93,7 @@ const MonthlyAmountInput = (props) => {
       })
       dispatch(action)
     }
-    put(url, body, { onSuccess: onSuccess, onFailure: onFailure })
+    put(url, body, { onSuccess: onSuccess, onFailure: onFailure, event: event })
   }
 
   return (

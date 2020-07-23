@@ -8,6 +8,7 @@ import { markIntervalClosed } from "../actions/finalize"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import DateFormatter from "../../../functions/DateFormatter"
+import EventMessageBuilder from "../../../functions/EventMessageBuilder"
 import { post, put } from "../../../functions/ApiClient"
 
 import Icon from "../../Icons/Icon"
@@ -62,9 +63,14 @@ export default (props) => {
 
   const updateInterval = () => {
     const url = ApiUrlBuilder({ route: "interval-show", month: month, year: year })
-    const body = JSON.stringify({ close_out_completed_at: new Date() })
-    const onSuccess = () => dispatch(markIntervalClosed)
-    put(url, body, { onSuccess: onSuccess })
+    const body = { close_out_completed_at: new Date() }
+    const event = EventMessageBuilder({
+      eventType: "interval-closed",
+      closeOutCompletedAt: body.close_out_completed_at,
+      month: month,
+      year: year,
+    })
+    put(url, JSON.stringify(body), { onSuccess: () => dispatch(markIntervalClosed), event: event })
   }
 
   const handleSubmit = () => {

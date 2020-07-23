@@ -7,12 +7,13 @@ import { titleize } from "../../locales/functions"
 import { update, updated, updateProps } from "./actions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import EventMessageBuilder, { changedProps } from "../../functions/EventMessageBuilder"
 import { put } from "../../functions/ApiClient"
 
 import Form from "./Form/Form"
 
 const Edit = ({ dispatch, icon }) => {
-  const { id } = icon
+  const { id, updatedProps } = icon
 
   const onChange = (e) => {
     const action = updateProps({ id: id, [e.target.name]: e.target.value })
@@ -21,12 +22,17 @@ const Edit = ({ dispatch, icon }) => {
 
   const onSubmit = () => {
     const url = ApiUrlBuilder({ route: "icon-show", id: id })
-    const body = JSON.stringify(icon.updatedProps)
+    const body = JSON.stringify(updatedProps)
+    const event = EventMessageBuilder({
+      eventType: "icon-update",
+      id: id,
+      changedProps: changedProps(icon, updatedProps),
+    })
     const onSuccess = data => {
       dispatch(updated(data))
       dispatch(update({ id: id, showForm: false }))
     }
-    put(url, body, { onSuccess: onSuccess })
+    put(url, body, { onSuccess: onSuccess, event: event })
   }
 
   const formProps = { ...icon, ...icon.updatedProps }

@@ -5,6 +5,7 @@ import { editWeeklyItem, updateWeeklyItem } from "../../../actions/budget"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
 import EvaluateInput from "../../../functions/DynamicInputEvaluator"
+import EventMessageBuilder from "../../../functions/EventMessageBuilder"
 import { put } from "../../../functions/ApiClient"
 
 import Errors from "../../Errors/Errors"
@@ -19,6 +20,7 @@ const WeeklyAmountInput = (props) => {
     floatAmount,
     errors,
     month,
+    name,
     spent,
     year,
   } = props
@@ -68,6 +70,15 @@ const WeeklyAmountInput = (props) => {
       month: month,
       year: year
     })
+    const event = EventMessageBuilder({
+      eventType: "budget-item-update",
+      id: id,
+      month: month,
+      year: year,
+      category: name,
+      newAmount: EvaluateInput(floatAmount),
+      originalAmount: (amount / 100.0).toFixed(2)
+    })
     const onSuccess = data => {
       const action = updateWeeklyItem({
         ...data,
@@ -81,7 +92,7 @@ const WeeklyAmountInput = (props) => {
       const action = editWeeklyItem({ id: id, ...data })
       dispatch(action)
     }
-    put(url, body, { onSuccess: onSuccess, onFailure: onFailure })
+    put(url, body, { onSuccess: onSuccess, onFailure: onFailure, event: event })
   }
 
   return (

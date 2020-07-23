@@ -9,6 +9,7 @@ import * as dateFormatter from "../../../functions/DateFormatter"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
 import EvaluateInput from "../../../functions/DynamicInputEvaluator"
+import EventMessageBuilder from "../../../functions/EventMessageBuilder"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 import { post, put } from "../../../functions/ApiClient"
 
@@ -106,12 +107,22 @@ const ReviewItem = (props) => {
       id: dayToDayItem.id,
       budgetCategoryId: dayToDayItem.budget_category_id,
     })
-    const body = JSON.stringify({ amount: (decimalToInt(amount) + dayToDayItem.amount) })
+    const updatedAmount = decimalToInt(amount) + dayToDayItem.amount
+    const event = EventMessageBuilder({
+      eventType: "budget-item-update",
+      id: dayToDayItem.id,
+      category: dayToDayItem.name,
+      month: month,
+      year: year,
+      originalAmount: dayToDayItem.amount,
+      newAmount: updatedAmount,
+    })
+    const body = JSON.stringify({ amount: updatedAmount })
     const onSuccess = data => {
       dispatch(updateExisting(data))
       dispatch(markReviewed({ id: item.id }))
     }
-    put(url, body, { onSuccess: onSuccess })
+    put(url, body, { onSuccess: onSuccess, event: event })
   }
 
   return (

@@ -8,6 +8,7 @@ import {
 } from "../../../../actions/budget/categories"
 
 import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
+import EventMessageBuilder, { changedProps } from "../../../../functions/EventMessageBuilder"
 import { put } from "../../../../functions/ApiClient"
 
 import Form from "./Form"
@@ -18,6 +19,7 @@ export default (props) => {
     category_id,
     dispatch,
     month,
+    name,
     updatedProps,
     year,
   } = props
@@ -47,6 +49,12 @@ export default (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault()
+    const event = EventMessageBuilder({
+      eventType: "maturity-interval-update",
+      id: id,
+      name: name,
+      changedProps: changedProps(props, updatedProps),
+    })
     const url = ApiUrlBuilder({
       route: "budget-category-maturity-interval-show",
       id: id,
@@ -57,7 +65,7 @@ export default (props) => {
       dispatch(updateMaturityInterval(data))
       closeForm()
     }
-    put(url, body, { onSuccess: onSuccess })
+    put(url, body, { onSuccess: onSuccess, event: event })
   }
 
   return (

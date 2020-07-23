@@ -11,6 +11,7 @@ import {
 } from "../../../actions/budget/categories"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
+import EventMessageBuilder, { changedProps } from "../../../functions/EventMessageBuilder"
 import { put } from "../../../functions/ApiClient"
 
 import Form from "./Form/Form"
@@ -58,7 +59,12 @@ const Edit = (props) => {
     const body = JSON.stringify(putBody())
     const onSuccess = (data) => dispatch(updated({ ...data, showForm: false }))
     const onFailure = (data) => dispatch(applyErrorsOnEdit({ id: id, ...data }))
-    put(url, body, { onSuccess: onSuccess, onFailure: onFailure })
+    const event = EventMessageBuilder({
+      eventType: "budget-category-update",
+      id: id,
+      changedProps: changedProps(category, updatedProps),
+    })
+    put(url, body, { onSuccess: onSuccess, onFailure: onFailure, event: event })
   }
 
   const formProps = {

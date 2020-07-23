@@ -9,6 +9,7 @@ import { markIntervalClosed, updateSelectedFromAccountId, updateSelectedToAccoun
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { get, put } from "../../../functions/ApiClient"
+import EventMessageBuilder from "../../../functions/EventMessageBuilder"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 import Submit from "./Submit"
@@ -50,8 +51,15 @@ const Finish = (props) => {
     )
   } else if (totalExtra >= 0) {
     const url = ApiUrlBuilder({ route: "interval-show", month: month, year: year })
-    const body = JSON.stringify({ close_out_completed_at: new Date() })
-    put(url, body, { onSuccess: () => dispatch(markIntervalClosed) })
+    const body = { close_out_completed_at: new Date() }
+    const event = EventMessageBuilder({
+      eventType: "interval-mark-complete",
+      month: month,
+      year: year,
+      closeOutCompletedAt: body.close_out_completed_at,
+    })
+    const onSuccess = () => dispatch(markIntervalClosed)
+    put(url, JSON.stringify(body), { event: event, onSuccess: onSuccess  })
     return null
   } else if (!isApiUnauthorized && !accountsFetched) {
     const url = ApiUrlBuilder({ route: "accounts-index" })

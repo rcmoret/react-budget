@@ -11,6 +11,7 @@ import {
 import { addMonthlyItem, addWeeklyItem } from "../../../../actions/budget"
 
 import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
+import EventMessageBuilder from "../../../../functions/EventMessageBuilder"
 import { post, put } from "../../../../functions/ApiClient"
 
 import Icon from "../../../Icons/Icon"
@@ -61,11 +62,20 @@ export default (props) => {
       budgetCategoryId: budgetCategoryId,
     })
     const body = JSON.stringify({ amount: total })
+    const event = EventMessageBuilder({
+      eventType: "budget-item-update",
+      id: nextItem.id,
+      category: nextItem.name,
+      month: nextItem.month,
+      year: nextItem.year,
+      originalAmount: nextItem.originalAmount,
+      newAmount: amount,
+    })
     const onSuccess = (data) => {
       dispatch(updateFinalizeItem(data))
       markReviewed()
     }
-    put(url, body, { onSuccess: onSuccess })
+    put(url, body, { event: event, onSuccess: onSuccess })
   }
 
   const createItem = () => {

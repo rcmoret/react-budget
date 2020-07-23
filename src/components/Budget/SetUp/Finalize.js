@@ -6,6 +6,7 @@ import { titleize } from "../../../locales/functions"
 import { updateMetadata } from "../../../actions/budget/setup"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import EventMessageBuilder from "../../../functions/EventMessageBuilder"
 import { put } from "../../../functions/ApiClient"
 
 import Icon from "../../Icons/Icon"
@@ -18,9 +19,15 @@ const Finalize = ({ apiKey, dispatch, month, setUpCompletedAt, year }) => {
   const markComplete = (e) => {
     e.preventDefault()
     const url = ApiUrlBuilder({ route: "interval-show", month: month, year: year })
-    const body = JSON.stringify({ set_up_completed_at: new Date() })
+    const body = { set_up_completed_at: new Date() }
     const onSuccess = data => dispatch(updateMetadata(data))
-    put(url, body, { onSuccess: onSuccess })
+    const event = EventMessageBuilder({
+      eventType: "interval-mark-complete",
+      month: month,
+      year: year,
+      ...body
+    })
+    put(url, JSON.stringify(body), { onSuccess: onSuccess, event: event })
   }
 
   if (!setUpCompletedAt) {

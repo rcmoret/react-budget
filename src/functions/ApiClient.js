@@ -65,11 +65,11 @@ const responseHandler = (response, context, event) => {
   } else {
     response.json()
       .then(data => {
-        dispatch(apiStatusUpdated({ status: response.status }))
         onSuccess(data)
         if (context.verb !== "GET") {
           dispatch(addEvent(event))
         }
+        dispatch(apiStatusUpdated({ status: response.status }))
       })
   }
 }

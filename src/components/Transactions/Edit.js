@@ -15,6 +15,7 @@ import {
 } from "../../actions/transactions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import EventMessageBuilder, { changedProps } from "../../functions/EventMessageBuilder"
 import MoneyFormatter from "../../functions/MoneyFormatter"
 import { put } from "../../functions/ApiClient"
 
@@ -37,8 +38,10 @@ const Edit = (props) => {
     dispatch(action)
   }
 
-  const detailDelete = (detailId, amount) => {
+  const detailDelete = (detailId, detail) => {
     const confirmation = window.confirm(copy.deleteDetailConfirmationMessage)
+    const { amount, budget_item_id, budget_category } = detail
+
     if (confirmation) {
       const action = removeDetail({
         account_id: account_id,
@@ -52,7 +55,15 @@ const Edit = (props) => {
         details_attributes: [{ id: detailId, _destroy: true }]
       })
       const onSuccess = () => dispatch(action)
-      put(url, body, { onSuccess: onSuccess })
+      const event = EventMessageBuilder({
+        eventType: "transaction-detail-delete",
+        id: detailId,
+        entryId: id,
+        amount: amount,
+        budgetItemId: budget_item_id,
+        budgetCategory: budget_category
+      })
+      put(url, body, { event: event, onSuccess: onSuccess })
     }
   }
 
@@ -83,7 +94,7 @@ const Edit = (props) => {
     const body = JSON.stringify({
       ...transaction,
       description: description,
-      details_attributes: transaction.details.map(detail => (
+      details_attributes: details.map(detail => (
         {
           ...detail,
           ...detail.updatedProps,
@@ -96,7 +107,18 @@ const Edit = (props) => {
       showForm: false,
       originalAmount: transaction.originalAmount
     }))
-    put(url, body, onSuccess)
+    const event = EventMessageBuilder({
+      eventType: "transaction-entry-update",
+      id: id,
+      changedProps: transaction.changedProps,
+      details: details.map(detail => (
+        {
+          id: detail.id,
+          changedProps: changedProps({ ...detail, ...detail.originalProps }, detail.updatedProps),
+        }
+      ))
+    })
+    put(url, body, { onSuccess: onSuccess, event: event })
   }
 
   if (transaction.showForm) {
@@ -129,6 +151,7 @@ const mapStateToProps = (state, ownProps) => {
   const details = ownProps.details.map(detail => {
     return {
       ...detail,
+      originalProps: detail,
       amount: parseFloat(detail.amount / 100.0).toFixed(2),
       ...detail.updatedProps,
       updatedProps: {
@@ -155,6 +178,7 @@ const mapStateToProps = (state, ownProps) => {
     transaction: {
       ...ownProps,
       ...updatedProps,
+      changedProps: changedProps(ownProps, updatedProps),
       details: details,
       originalAmount: ownProps.amount,
     },

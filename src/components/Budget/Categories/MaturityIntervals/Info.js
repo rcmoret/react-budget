@@ -26,6 +26,7 @@ const MaturityInfo = (props) => {
     dispatch,
     maturityIntervals,
     maturityIntervalsFetched,
+    name,
     newMaturityIntervalAttributes,
     showMaturityIntervalForm,
     showMaturityIntervals,
@@ -102,6 +103,7 @@ const MaturityInfo = (props) => {
           <NewMaturityInterval
             id={id}
             dispatch={dispatch}
+            name={name}
             newMaturityIntervalAttributes={newMaturityIntervalAttributes}
             showMaturityIntervalForm={showMaturityIntervalForm}
           />
@@ -110,6 +112,7 @@ const MaturityInfo = (props) => {
           <MaturityIntervalByYear
             key={intervalsByYear.year}
             dispatch={dispatch}
+            name={name}
             {...intervalsByYear}
           />
         )}
@@ -120,7 +123,7 @@ const MaturityInfo = (props) => {
   }
 }
 
-const MaturityIntervalByYear = ({ collection, dispatch, year }) => (
+const MaturityIntervalByYear = ({ collection, dispatch, name, year }) => (
   <div>
     <strong>{year}</strong>
     <div>
@@ -129,6 +132,7 @@ const MaturityIntervalByYear = ({ collection, dispatch, year }) => (
           key={interval.id}
           dispatch={dispatch}
           {...interval}
+          name={name}
         />
       )}
     </div>
