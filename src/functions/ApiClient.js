@@ -1,4 +1,4 @@
-import { addErrorMessages } from "../components/Messages/actions"
+import { addErrorMessages, addEvent } from "../components/Messages/actions"
 import { apiStatusUpdated } from "../components/Api/actions"
 
 import { dispatch } from "../store"
@@ -24,10 +24,10 @@ export const post = (url, body, { onSuccess, onFailure }) => {
 }
 
 export const put = (url, body, { onSuccess, onFailure, event }) => {
-  call(url, "PUT", body, { onSuccess: onSuccess, onFailure: onFailure })
+  call(url, "PUT", body, { onSuccess: onSuccess, onFailure: onFailure, event: event })
 }
 
-const call = (url, verb, body, { onSuccess, onFailure }) => {
+const call = (url, verb, body, { onSuccess, onFailure, event }) => {
   const context = {
     body: body,
     onSuccess: onSuccess,
@@ -44,10 +44,10 @@ const call = (url, verb, body, { onSuccess, onFailure }) => {
       "Content-Type": "application/json",
     },
   })
-    .then(response => responseHandler(response, context))
+    .then(response => responseHandler(response, context, event))
 }
 
-const responseHandler = (response, context) => {
+const responseHandler = (response, context, event) => {
   const { body, onSuccess, onFailure, url } = context
 
   if (response.status === 401 || response.status === 404) {
@@ -67,6 +67,9 @@ const responseHandler = (response, context) => {
       .then(data => {
         dispatch(apiStatusUpdated({ status: response.status }))
         onSuccess(data)
+        if (context.verb !== "GET") {
+          dispatch(addEvent(event))
+        }
       })
   }
 }

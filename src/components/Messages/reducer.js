@@ -15,6 +15,7 @@ const initialState = {
       requests: [],
     },
   ],
+  events: [],
 }
 
 export default (state = initialState, action) => {
@@ -23,6 +24,14 @@ export default (state = initialState, action) => {
     return {
       ...state,
       errors: updateErrors(state, action.payload),
+    }
+  case "messages/ADD_EVENT":
+    return {
+      ...state,
+      events: [
+        ...state.events,
+        action.payload,
+      ],
     }
   case "messages/REMOVE_ERROR_MESSAGE":
     return {
