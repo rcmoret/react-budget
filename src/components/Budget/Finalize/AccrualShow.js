@@ -160,7 +160,7 @@ const MissingItem = (props) => {
       }
       dispatch(addFinalizeItem(data))
     }
-    post(url, body, onSuccess)
+    post(url, body, { onSuccess: onSuccess })
   }
 
   return (

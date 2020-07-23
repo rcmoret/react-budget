@@ -71,7 +71,7 @@ const MonthlyItemForm = (props) => {
       const action = editNewMonthlyItem({ errors: data.errors })
       dispatch(action)
     }
-    post(url, body, onSuccess, onFailure)
+    post(url, body, { onSuccess: onSuccess, onFailure: onFailure })
   }
 
   if (showForm) {

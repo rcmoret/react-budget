@@ -23,7 +23,7 @@ const New = (props) => {
     const url = ApiUrlBuilder({ route: "icons-index" })
     const body = JSON.stringify(props.newIcon)
     const onSuccess = data => dispatch(created(data))
-    post(url, body, onSuccess)
+    post(url, body, { onSuccess: onSuccess })
   }
 
   return (

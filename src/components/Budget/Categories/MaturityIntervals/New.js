@@ -44,7 +44,7 @@ export default (props) => {
       id: id,
       maturityInterval: data
     }))
-    post(url, body, onSuccess)
+    post(url, body, { onSuccess: onSuccess })
   }
 
   const onChange = (payload) => {

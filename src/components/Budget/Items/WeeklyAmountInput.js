@@ -81,7 +81,7 @@ const WeeklyAmountInput = (props) => {
       const action = editWeeklyItem({ id: id, ...data })
       dispatch(action)
     }
-    put(url, body, onSuccess, onFailure)
+    put(url, body, { onSuccess: onSuccess, onFailure: onFailure })
   }
 
   return (

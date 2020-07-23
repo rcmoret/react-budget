@@ -14,20 +14,20 @@ const defaultOnFailure = (data, { body, status, url }) => {
 }
 
 export const get = (url, onSuccess, onFailure) => {
-  const context = { url: url, onSuccess: onSuccess, onFailure: onFailure, body: {} }
+  const context = { verb: "GET", url: url, onSuccess: onSuccess, onFailure: onFailure, body: {} }
   fetch(url)
     .then(response => responseHandler(response, context))
 }
 
-export const post = (url, body, onSuccess, onFailure) => {
-  call(url, "POST", body, onSuccess, onFailure)
+export const post = (url, body, { onSuccess, onFailure }) => {
+  call(url, "POST", body, { onSuccess: onSuccess, onFailure: onFailure })
 }
 
-export const put = (url, body,  onSuccess, onFailure) => {
-  call(url, "PUT", body, onSuccess, onFailure)
+export const put = (url, body, { onSuccess, onFailure, event }) => {
+  call(url, "PUT", body, { onSuccess: onSuccess, onFailure: onFailure })
 }
 
-const call = (url, verb, body, onSuccess, onFailure) => {
+const call = (url, verb, body, { onSuccess, onFailure }) => {
   const context = {
     body: body,
     onSuccess: onSuccess,

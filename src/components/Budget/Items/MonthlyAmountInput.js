@@ -80,7 +80,7 @@ const MonthlyAmountInput = (props) => {
       })
       dispatch(action)
     }
-    put(url, body, onSuccess, onFailure)
+    put(url, body, { onSuccess: onSuccess, onFailure: onFailure })
   }
 
   return (

@@ -67,7 +67,7 @@ const WeeklyItemForm = (props) => {
       const action = editNewWeeklyItem({ errors: data.errors })
       dispatch(action)
     }
-    post(url, body, onSuccess, onFailure)
+    post(url, body, { onSuccess: onSuccess, onFailure: onFailure })
   }
 
   if (!showForm) {

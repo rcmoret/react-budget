@@ -51,7 +51,7 @@ const Finish = (props) => {
   } else if (totalExtra >= 0) {
     const url = ApiUrlBuilder({ route: "interval-show", month: month, year: year })
     const body = JSON.stringify({ close_out_completed_at: new Date() })
-    put(url, body, () => dispatch(markIntervalClosed))
+    put(url, body, { onSuccess: () => dispatch(markIntervalClosed) })
     return null
   } else if (!isApiUnauthorized && !accountsFetched) {
     const url = ApiUrlBuilder({ route: "accounts-index" })

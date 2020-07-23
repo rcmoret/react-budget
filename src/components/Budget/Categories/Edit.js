@@ -58,7 +58,7 @@ const Edit = (props) => {
     const body = JSON.stringify(putBody())
     const onSuccess = (data) => dispatch(updated({ ...data, showForm: false }))
     const onFailure = (data) => dispatch(applyErrorsOnEdit({ id: id, ...data }))
-    put(url, body, onSuccess, onFailure)
+    put(url, body, { onSuccess: onSuccess, onFailure: onFailure })
   }
 
   const formProps = {

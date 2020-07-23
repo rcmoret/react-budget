@@ -82,7 +82,7 @@ const New = (props) => {
       dispatch(created(data))
       dispatch(resetNew({ showForm: true }))
     }
-    post(url, body, onSuccess)
+    post(url, body, { onSuccess: onSuccess })
   }
 
   return (

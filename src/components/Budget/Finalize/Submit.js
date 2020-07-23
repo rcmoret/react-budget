@@ -41,7 +41,7 @@ export default (props) => {
     const onSuccess = data => {
       dispatch(created(data))
     }
-    post(url, body, onSuccess)
+    post(url, body, { onSuccess: onSuccess })
   }
 
   const createToTransaction = (callback) => {
@@ -64,7 +64,7 @@ export default (props) => {
     const url = ApiUrlBuilder({ route: "interval-show", month: month, year: year })
     const body = JSON.stringify({ close_out_completed_at: new Date() })
     const onSuccess = () => dispatch(markIntervalClosed)
-    put(url, body, onSuccess)
+    put(url, body, { onSuccess: onSuccess })
   }
 
   const handleSubmit = () => {

@@ -52,7 +52,7 @@ const Edit = (props) => {
         details_attributes: [{ id: detailId, _destroy: true }]
       })
       const onSuccess = () => dispatch(action)
-      put(url, body, onSuccess)
+      put(url, body, { onSuccess: onSuccess })
     }
   }
 

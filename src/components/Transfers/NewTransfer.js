@@ -23,7 +23,7 @@ const New = (props) => {
       from_account_id: from_account_id,
     })
     const onSuccess = data => dispatch(created(data))
-    post(url, body, onSuccess)
+    post(url, body, { onSuccess: onSuccess })
   }
 
   const updateAmount = (e) => {

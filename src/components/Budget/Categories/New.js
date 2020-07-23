@@ -57,7 +57,7 @@ const NewBudgetCategory = (props) => {
       dispatch(errorsOnNew(response))
     }
 
-    post(url, body, onSuccess, errorHandler)
+    post(url, body, { onSuccess: onSuccess, onFailure: errorHandler })
   }
 
   const resetForm = (e) => {
