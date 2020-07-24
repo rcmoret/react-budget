@@ -7,6 +7,7 @@ import {
 } from "../../../../actions/budget/categories"
 import * as DateFunctions from "../../../../functions/DateFormatter"
 import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
+import { deleteRequest } from "../../../../functions/ApiClient"
 
 import Edit from "./Edit"
 import { Link } from "react-router-dom"
@@ -39,8 +40,7 @@ export default (props) => {
       budgetCategoryId: category_id,
     })
     const action = removeMaturityInterval({ id: id })
-    fetch(url, { method: "delete" })
-      .then(() => dispatch(action))
+    deleteRequest(url, {}, () => dispatch(action))
   }
 
   if (!showForm) {

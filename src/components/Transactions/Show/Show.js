@@ -5,6 +5,7 @@ import { transaction as copy } from "../../../locales/copy"
 import { edit, deleteTransaction, toggleEditForm } from "../../../actions/transactions"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import { deleteRequest } from "../../../functions/ApiClient"
 
 import Amount from "./Amount"
 import Balance from "./Balance"
@@ -63,8 +64,7 @@ const Show = (props) => {
     } else {
       const url = ApiUrlBuilder({ route: "transaction-show", id: id, accountId: account_id })
       const action = deleteTransaction({ id: id, amount: (-1 * amount), account_id: account_id })
-      fetch(url, { method: "delete" })
-        .then(() => props.dispatch(action))
+      deleteRequest(url, {}, () => props.dispatch(action))
     }
   }
 

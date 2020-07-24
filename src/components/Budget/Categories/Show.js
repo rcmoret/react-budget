@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 import { budget as copy } from "../../../locales/copy"
 import { deleted, update } from "../../../actions/budget/categories"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import { deleteRequest } from "../../../functions/ApiClient"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 import Edit from "./Edit"
@@ -49,9 +50,8 @@ const Show = (props) => {
     e.preventDefault()
     const confirmation = window.confirm(deleteConfirmMessage(name))
     if (confirmation) {
-    const url = ApiUrlBuilder({ route: "budget-category-show", id: id })
-      fetch(url, { method: "delete" })
-        .then(() => dispatch(deleted(id)))
+      const url = ApiUrlBuilder({ route: "budget-category-show", id: id })
+      deleteRequest(url, {}, dispatch(deleted(id)))
     }
   }
 

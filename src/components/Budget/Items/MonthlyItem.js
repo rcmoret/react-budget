@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 import { budget as copy } from "../../../locales/copy"
 import { removeMonthlyItem } from "../../../actions/budget"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import { deleteRequest } from "../../../functions/ApiClient"
 import formatter from "../../../functions/DateFormatter"
 
 import DeleteButton from "../Shared/DeleteButton"
@@ -22,8 +23,7 @@ const MonthlyItem = (props) => {
         id: id,
         budgetCategoryId: budget_category_id,
       })
-      fetch(url, { method: "delete" })
-        .then(() => props.dispatch(removeMonthlyItem({ id: id })))
+      deleteRequest(url, {}, props.dispatch(removeMonthlyItem({ id: id })))
     }
   }
 

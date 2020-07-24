@@ -5,6 +5,7 @@ import { budget as copy } from "../../../locales/copy"
 import { editWeeklyItem, removeWeeklyItem } from "../../../actions/budget"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import { deleteRequest } from "../../../functions/ApiClient"
 import formatter from "../../../functions/DateFormatter"
 
 import Caret from "../Shared/Caret"
@@ -66,8 +67,7 @@ const WeeklyItem = (props) => {
         id: id,
         budgetCategoryId: budget_category_id,
       })
-      fetch(url, { method: "delete" })
-        .then(() => dispatch(removeWeeklyItem({ id: id })))
+      deleteRequest(url, {}, () => dispatch(removeWeeklyItem({ id: id })))
     }
   }
 

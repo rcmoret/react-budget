@@ -6,6 +6,7 @@ import { budget as copy } from "../../locales/copy"
 import { deleted, update } from "./actions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import { deleteRequest } from "../../functions/ApiClient"
 import { Link } from "react-router-dom"
 
 import Edit from "./Edit"
@@ -25,8 +26,7 @@ const Show = ({ dispatch, icon }) => {
     const confirmation = window.confirm(copy.icon.deleteConfirmationMessage(name))
     if (confirmation) {
       const url = ApiUrlBuilder({ route: "icon-show", id: id })
-      fetch(url, { method: "delete" })
-        .then(() => dispatch(deleted(id)))
+      deleteRequest(url, {}, () => dispatch(deleted(id)))
     }
   }
 

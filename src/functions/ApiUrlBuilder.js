@@ -1,6 +1,6 @@
 import API_URL from "../constants/Api"
 
-import store, { getState } from "../store"
+import { getState } from "../store"
 
 const ApiUrlBuilder = (options = {}) => {
   const { route } = options

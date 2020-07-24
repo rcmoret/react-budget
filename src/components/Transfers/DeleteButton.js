@@ -5,6 +5,7 @@ import { transfer as copy } from "../../locales/copy"
 import { deleted } from "./actions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import { deleteRequest } from "../../functions/ApiClient"
 
 import { Link } from "react-router-dom"
 
@@ -14,13 +15,15 @@ const DeleteButton = ({ amount, apiKey, from_account_id, dispatch, id, to_accoun
     const confirmation = window.confirm(copy.deleteConfirmationMessage)
     if (confirmation) {
       const url = ApiUrlBuilder({ route: "transfer-show", id: id })
-      fetch(url, { method: "delete" })
-        .then(() => dispatch(deleted({
+      const onSuccess = () => {
+        dispatch(deleted({
           id: id,
           amount: amount,
           from_account_id: from_account_id,
           to_account_id: to_account_id,
-        })))
+        }))
+      }
+      deleteRequest(url, {}, onSuccess)
     }
   }
 

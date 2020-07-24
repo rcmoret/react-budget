@@ -19,6 +19,12 @@ export const get = (url, onSuccess, onFailure) => {
     .then(response => responseHandler(response, context))
 }
 
+export const deleteRequest = (url, event, onSuccess) => {
+  const context = { verb: "DELETE", url: url, onSuccess: onSuccess, onFailure: defaultOnFailure, body: {} }
+  fetch(url, { method: "delete" })
+    .then(response => response(response, context, event))
+}
+
 export const post = (url, body, { onSuccess, onFailure }) => {
   call(url, "POST", body, { onSuccess: onSuccess, onFailure: onFailure })
 }
