@@ -89,3 +89,17 @@ ul.input-errors {
   margin: 1%;
   font-size: 1.1em;
 }
+
+.top-level-messages .events {
+  background: white;
+  border-radius: 0.9rem;
+  padding: 10px;
+}
+
+.top-level-messages .events .event-message {
+  padding: 0.5rem;
+}
+
+.event-message:nth-of-type(2n) {
+  background-color: #efefef;
+}

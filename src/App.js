@@ -17,6 +17,7 @@ import BudgetSetUpIntro from "./components/Budget/SetUp/Introduction"
 import BudgetSetUpRevenues from "./components/Budget/SetUp/Revenues"
 import BudgetCategories from "./components/Budget/Categories/Index"
 import BannerMessages from "./components/Messages/Banner"
+import Events from "./components/Messages/Events"
 import Header from "./components/Header"
 import Icons from "./components/Icons/Index"
 import Transfers from "./components/Transfers/Index"
@@ -50,6 +51,7 @@ export default () => (
             <Route path="/budget/set-up/:month/:year/revenues" component={BudgetSetUpRevenues} />
             <Route exact path="/budget/:month?/:year?" component={BudgetHome} />
           </Switch>
+          <Events />
         </div>
       </Router>
     </Provider>

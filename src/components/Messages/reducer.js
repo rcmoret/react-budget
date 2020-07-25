@@ -16,6 +16,7 @@ const initialState = {
     },
   ],
   events: [],
+  showEvents: true,
 }
 
 export default (state = initialState, action) => {
@@ -29,14 +30,19 @@ export default (state = initialState, action) => {
     return {
       ...state,
       events: [
-        ...state.events,
         action.payload,
+        ...state.events,
       ],
     }
   case "messages/REMOVE_ERROR_MESSAGE":
     return {
       ...state,
       errors: removeErrors(state, action.payload)
+    }
+  case "messages/TOGGLE_EVENTS":
+    return {
+      ...state,
+      showEvents: !state.showEvents,
     }
   default:
     return state
