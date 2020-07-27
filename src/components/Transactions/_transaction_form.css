@@ -85,6 +85,7 @@
   padding: 5%;
   font-size: 0.8em;
   border: none;
+  box-shadow: 2px 2px #999;
 }
 
 /* large screens */

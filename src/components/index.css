@@ -33,10 +33,12 @@ header .tab {
   background-color: #efefef;
   border-radius: 10px;
   padding: 1% 2%;
+  box-shadow: 2px 2px #CDCDCD;
 }
 
 header a.active .tab {
-  background-color: #6BE8B9;
+  background-color: #60D1A6;
+  box-shadow: 1px 1px #999;
 }
 
 header a {

@@ -4,7 +4,7 @@
 
 .budget h4.group-heading {
   text-align: left;
-  color: #59D176; /* green */
+  color: #499E7D; /* green */
   font-style: italic;
 }
 
@@ -290,6 +290,7 @@
   padding: 5px 15px;
   border-radius: 8px;
   color: black;
+  box-shadow: 1px 1px #999;
 }
 
 .budget-category:nth-of-type(2n) {
@@ -385,6 +386,7 @@
   font-size: 0.8em;
   border: none;
   margin-left: 4%;
+  box-shadow: 2px 2px #CCC;
 }
 
 .budget .budget-banner {
@@ -506,6 +508,7 @@
   border: none;
   border-radius: 15px;
   min-height: 2.5em;
+  box-shadow: 2px 2px #737373;
 }
 
 .category-button button.submit {

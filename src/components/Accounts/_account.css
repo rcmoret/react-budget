@@ -13,10 +13,12 @@
   padding: 1%;
   margin-right: 0.5%;
   vertical-align: top;
+  box-shadow: 1px 1px #CDCDCD;
 }
 
 .account.active {
   background-color: #C0D6FF;
+  box-shadow: 1px 1px #999;
 }
 
 .account p.balance {
@@ -59,6 +61,7 @@
   font-size: 0.8em;
   border: none;
   margin-right: 0.75%;
+  box-shadow: 2px 2px #737373;
 }
 
 .account-edit button.submit {
