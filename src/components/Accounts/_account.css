@@ -69,10 +69,6 @@
   background-color: #FF3C52; /* red */
 }
 
-.account-edit button.reset {
-  background-color: #8AB6FF; /* blue */
-}
-
 .account-edit .label, .account-edit .input {
   display: inline-block;
   width: 8%;

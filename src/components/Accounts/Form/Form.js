@@ -4,7 +4,6 @@ import { account as copy } from "../../../locales/copy"
 import { titleize } from "../../../locales/functions"
 
 import Icon from "../../Icons/Icon"
-import ResetButton from "./ResetButton"
 
 const {
   cancelButtonText,
@@ -68,7 +67,6 @@ export default (props) => (
         </div>
       </div>
       <div className="form-row">
-        <ResetButton {...props} />
         <button type="submit" className="submit" onClick={props.submitForm}>
           {titleize(props.id ? updateButtonText : createButtonText)} <Icon className="far fa-save" />
         </button>
