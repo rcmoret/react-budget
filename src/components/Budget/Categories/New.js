@@ -57,7 +57,6 @@ const NewBudgetCategory = (props) => {
     const errorHandler = (response) => {
       dispatch(errorsOnNew(response))
     }
-
     const event = EventMessageBuilder({ eventType: "budget-category-create" })
     post(url, body, { onSuccess: onSuccess, onFailure: errorHandler, event: event })
   }
@@ -66,6 +65,7 @@ const NewBudgetCategory = (props) => {
     e.preventDefault()
     const action = toggleNewForm({ showForm: !showForm })
     dispatch(action)
+    dispatch(resetNewForm())
   }
 
   if (showForm) {
@@ -80,7 +80,6 @@ const NewBudgetCategory = (props) => {
         onSelectChange={onSelectChange}
         onSubmit={onSubmit}
         optionsDisabled={false}
-        resetForm={resetForm}
       />
     )
   } else {

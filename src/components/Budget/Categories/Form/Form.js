@@ -82,11 +82,6 @@ export default (props) => (
         {props.label}
       </button>
     </div>
-    <div className="category-button">
-      <button type="reset" className="reset" onClick={props.resetForm}>
-        {titleize(copy.category.resetButtonText)}
-      </button>
-    </div>
     <CancelButton
       {...props}
     />

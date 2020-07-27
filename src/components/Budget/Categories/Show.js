@@ -15,6 +15,7 @@ import { Link } from "react-router-dom"
 
 const Show = (props) => {
   const {
+    cancelButtonText,
     deleteConfirmMessage,
     revenue,
     weekly,
@@ -65,6 +66,7 @@ const Show = (props) => {
     return (
       <Edit
         category={category}
+        cancelLabel={cancelButtonText}
       />
     )
   } else {

@@ -22,7 +22,6 @@ const CancelButton = (props) => {
     dispatch(action)
   }
 
-
   if (id) {
     return (
       <div className="category-button">

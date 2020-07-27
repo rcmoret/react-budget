@@ -18,6 +18,7 @@ import Form from "./Form/Form"
 
 const Edit = (props) => {
   const {
+    cancelLabel,
     category,
     dispatch,
   } = props
@@ -86,6 +87,7 @@ const Edit = (props) => {
     <Form
       key={id}
       {...formProps}
+      cancelLabel={cancelLabel}
       expenseName={`expense[${id}]`}
       label={titleize(copy.category.updateButtonText)}
       monthlyName={`monthly[${id}]`}

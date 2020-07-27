@@ -30,7 +30,7 @@ export const updated = (payload, collection) => {
         ...obj,
         ...payload,
         updatedProps: null,
-        errors: {},
+        errors: [],
       }
     }
   })

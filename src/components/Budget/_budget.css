@@ -515,10 +515,6 @@
   background-color: #59D176; /* green */
 }
 
-.category-button button.reset {
-  background-color: #8AB6FF; /* blue */
-}
-
 .category-button button.cancel {
   background-color: #FF3C52; /* red */
 }
