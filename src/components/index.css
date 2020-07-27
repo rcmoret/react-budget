@@ -73,9 +73,14 @@ ul.input-errors {
 .top-level-messages {
   padding: 0.5% 3%;
   background-color: #C0D6FF;
+  background-image: url('/black-linen-2.png');
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   margin-bottom: 1%;
 }
 
+.top-level-events a,
+.top-level-events a:visited,
 .top-level-messages a,
 .top-level-messages a:visited {
   color: black;
@@ -90,13 +95,22 @@ ul.input-errors {
   font-size: 1.1em;
 }
 
-.top-level-messages .events {
+.top-level-events {
+  padding: 0.5% 3%;
+  background-color: #D19C28;
+  background-image: url('/black-linen-2.png');
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-top: 1%;
+}
+
+.top-level-events .events {
   background: white;
   border-radius: 0.9rem;
   padding: 10px;
 }
 
-.top-level-messages .events .event-message {
+.top-level-events .events .event-message {
   padding: 0.5rem;
 }
 

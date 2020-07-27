@@ -9,9 +9,9 @@ import { toggleEvents } from "./actions"
 const Events = ({ dispatch, events, showEvents }) => {
   const onClick = () => dispatch(toggleEvents())
 
-  if (showEvents) {
+  if (showEvents && events.length > 0) {
     return (
-      <div className="top-level-messages">
+      <div className="top-level-events">
         <h3>
           <Link
             to="#"
@@ -31,7 +31,7 @@ const Events = ({ dispatch, events, showEvents }) => {
     )
   } else {
     return (
-      <div className="top-level-messages">
+      <div className="top-level-events">
         <h3>
           <Link
             to="#"
