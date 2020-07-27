@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 
 import { created, resetForm, toggleShowNewForm, updateNew } from "./actions"
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import EventMessageBuilder from "../../functions/EventMessageBuilder"
 import { post } from "../../functions/ApiClient"
 
 import Icon from "../Icons/Icon"
@@ -44,11 +45,12 @@ const New = (props) => {
   const submitForm = () => {
     const url = ApiUrlBuilder({ route: "accounts-index" })
     const body = JSON.stringify({ name: name, priority: priority, cash_flow: cash_flow })
+    const event = EventMessageBuilder({ eventType: "account-create" })
     const onSuccess = (data) => {
       dispatch(created(data))
       dispatch(resetForm())
     }
-    post(url, body, { onSuccess: onSuccess })
+    post(url, body, { onSuccess: onSuccess, event: event })
   }
 
   if (showNewForm) {

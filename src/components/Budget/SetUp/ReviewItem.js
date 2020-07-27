@@ -98,7 +98,8 @@ const ReviewItem = (props) => {
       dispatch(addItem(data))
       dispatch(markReviewed({ id: item.id }))
     }
-    post(url, body, { onSuccess: onSuccess })
+    const event = EventMessageBuilder({ eventyType: "budget-item-create" })
+    post(url, body, { event: event, onSuccess: onSuccess })
   }
 
   const updateItem = () => {

@@ -7,6 +7,7 @@ import { titleize } from "../../locales/functions"
 import { created, updateNew } from "./actions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import EventMessageBuilder from "../../functions/EventMessageBuilder"
 import { post } from "../../functions/ApiClient"
 
 import Form from "./Form/Form"
@@ -23,7 +24,8 @@ const New = (props) => {
     const url = ApiUrlBuilder({ route: "icons-index" })
     const body = JSON.stringify(props.newIcon)
     const onSuccess = data => dispatch(created(data))
-    post(url, body, { onSuccess: onSuccess })
+    const event = EventMessageBuilder({ eventType: "icon-create" })
+    post(url, body, { event: event, onSuccess: onSuccess })
   }
 
   return (

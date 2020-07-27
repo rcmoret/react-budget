@@ -14,6 +14,7 @@ import {
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { post } from "../../../functions/ApiClient"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
+import EventMessageBuilder from "../../../functions/EventMessageBuilder"
 
 import Form from "./Form/Form"
 import Icon from "../../Icons/Icon"
@@ -57,13 +58,8 @@ const NewBudgetCategory = (props) => {
       dispatch(errorsOnNew(response))
     }
 
-    post(url, body, { onSuccess: onSuccess, onFailure: errorHandler })
-  }
-
-  const resetForm = (e) => {
-    e.preventDefault()
-    const action = resetNewForm()
-    dispatch(action)
+    const event = EventMessageBuilder({ eventType: "budget-category-create" })
+    post(url, body, { onSuccess: onSuccess, onFailure: errorHandler, event: event })
   }
 
   const toggleForm = (e) => {

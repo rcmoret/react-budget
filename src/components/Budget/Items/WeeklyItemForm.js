@@ -8,6 +8,7 @@ import { addWeeklyItem, editNewWeeklyItem, toggleWeeklyItemForm } from "../../..
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
 import EvaluateInput from "../../../functions/DynamicInputEvaluator"
+import EventMessageBuilder from "../../../functions/EventMessageBuilder"
 import { post } from "../../../functions/ApiClient"
 
 import Errors from "../../Errors/Errors"
@@ -67,7 +68,8 @@ const WeeklyItemForm = (props) => {
       const action = editNewWeeklyItem({ errors: data.errors })
       dispatch(action)
     }
-    post(url, body, { onSuccess: onSuccess, onFailure: onFailure })
+    const event = EventMessageBuilder({ eventType: "budget-item-create" })
+    post(url, body, { onSuccess: onSuccess, onFailure: onFailure, event: event })
   }
 
   if (!showForm) {

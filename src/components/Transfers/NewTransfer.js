@@ -18,13 +18,19 @@ const New = (props) => {
 
   const submit = () => {
     const url = ApiUrlBuilder({ route: "transfers-index" })
-    const body = JSON.stringify({
+    const body = {
       amount: Math.round(amount * 100),
       to_account_id: to_account_id,
       from_account_id: from_account_id,
+    }
+    const event = EventMessageBuilder({
+      eventType: "transfer-create",
+      amount: body.amount,
+      fromAccount: fromValue.label,
+      toAccount: toValue.label,
     })
     const onSuccess = data => dispatch(created(data))
-    post(url, body, { onSuccess: onSuccess })
+    post(url, JSON.stringify(body), { event: event, onSuccess: onSuccess })
   }
 
   const updateAmount = (e) => {
@@ -98,7 +104,7 @@ const mapStateToProps = (state) => {
     to: [nullOption, ...toOptions]
   }
   const fromValue = options.from.find(opt => opt.value === from_account_id)
-  const toValue = options.from.find(opt => opt.value === to_account_id)
+  const toValue = options.to.find(opt => opt.value === to_account_id)
 
   return {
     newTransfer: newTransfer,

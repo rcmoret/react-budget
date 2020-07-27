@@ -22,15 +22,15 @@ export const get = (url, onSuccess, onFailure) => {
 export const deleteRequest = (url, event, onSuccess) => {
   const context = { verb: "DELETE", url: url, onSuccess: onSuccess, onFailure: defaultOnFailure, body: {} }
   fetch(url, { method: "delete" })
-    .then(response => response(response, context, event))
+    .then(response => responseHandler(response, context, event))
 }
 
-export const post = (url, body, { onSuccess, onFailure }) => {
-  call(url, "POST", body, { onSuccess: onSuccess, onFailure: onFailure })
+export const post = (url, body, context) => {
+  call(url, "POST", body, { event: () => "", ...context})
 }
 
-export const put = (url, body, { onSuccess, onFailure, event }) => {
-  call(url, "PUT", body, { onSuccess: onSuccess, onFailure: onFailure, event: event })
+export const put = (url, body, context) => {
+  call(url, "PUT", body, context)
 }
 
 const call = (url, verb, body, { onSuccess, onFailure, event }) => {

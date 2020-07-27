@@ -17,6 +17,7 @@ import {
 } from "../../actions/transactions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import EventMessageBuilder from "../../functions/EventMessageBuilder"
 import FindOrDefault from "../../functions/FindOrDefault"
 import MoneyFormatter from "../../functions/MoneyFormatter"
 import { post } from "../../functions/ApiClient"
@@ -78,11 +79,15 @@ const New = (props) => {
       description: description,
       details_attributes: details_attributes,
     })
+    const event = EventMessageBuilder({
+      eventType: "transaction-entry-create",
+      accountName: selectedAccount.name,
+    })
     const onSuccess = (data) => {
       dispatch(created(data))
       dispatch(resetNew({ showForm: true }))
     }
-    post(url, body, { onSuccess: onSuccess })
+    post(url, body, { event: event, onSuccess: onSuccess })
   }
 
   return (

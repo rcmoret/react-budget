@@ -25,11 +25,11 @@ const Show = ({ dispatch, icon }) => {
   const destroy = (e) => {
     e.preventDefault()
     const confirmation = window.confirm(copy.icon.deleteConfirmationMessage(name))
-  const event = () => EventMessageBuilder({
-    eventType: "icon-delete",
-    id: id,
-    name: name,
-  })
+    const event = EventMessageBuilder({
+      eventType: "icon-delete",
+      id: id,
+      name: name,
+    })
     if (confirmation) {
       const url = ApiUrlBuilder({ route: "icon-show", id: id })
       deleteRequest(url, event, () => dispatch(deleted(id)))

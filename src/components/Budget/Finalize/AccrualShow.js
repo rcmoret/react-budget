@@ -7,6 +7,7 @@ import { addFinalizeItem, editBaseAmount, setStatus, updateExtra } from "../acti
 import { addMonthlyItem, addWeeklyItem } from "../../../actions/budget"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
+import EventMessageBuilder from "../../../functions/EventMessageBuilder"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 import { post } from "../../../functions/ApiClient"
 
@@ -160,7 +161,8 @@ const MissingItem = (props) => {
       }
       dispatch(addFinalizeItem(data))
     }
-    post(url, body, { onSuccess: onSuccess })
+    const event = EventMessageBuilder({ eventType: "budget-item-create" })
+    post(url, body, { event: event, onSuccess: onSuccess })
   }
 
   return (

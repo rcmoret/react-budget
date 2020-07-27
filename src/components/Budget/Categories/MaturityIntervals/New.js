@@ -6,6 +6,7 @@ import {
   updated
 } from "../../../../actions/budget/categories"
 import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
+import EventMessageBuilder from "../../../../functions/EventMessageBuilder"
 import { post } from "../../../../functions/ApiClient"
 
 import Form from "./Form"
@@ -44,7 +45,8 @@ export default (props) => {
       id: id,
       maturityInterval: data
     }))
-    post(url, body, { onSuccess: onSuccess })
+    const event = EventMessageBuilder({ eventType: "budget-category-maturity-interval-create" })
+    post(url, body, { onSuccess: onSuccess, event: event })
   }
 
   const onChange = (payload) => {

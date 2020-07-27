@@ -97,7 +97,8 @@ export default (props) => {
       dispatch(addFinalizeItem(data))
       markReviewed()
     }
-    post(url, body, { onSuccess: onSuccess })
+    const event = EventMessageBuilder({ eventType: "budget-item-create" })
+    post(url, body, { onSuccess: onSuccess, event: event })
   }
 
   return (

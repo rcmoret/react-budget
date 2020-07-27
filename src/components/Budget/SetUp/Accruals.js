@@ -15,6 +15,7 @@ import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
 import delay from "../../../functions/Delay"
 import EvaluateInput from "../../../functions/DynamicInputEvaluator"
+import EventMessageBuilder from "../../../functions/EventMessageBuilder"
 import { post } from "../../../functions/ApiClient"
 
 import Icon from "../../Icons/Icon"
@@ -83,7 +84,7 @@ const Accruals = (props) => {
   }
 }
 
-const SubmitButton = ({ apiKey, collection, dispatch, month, year }) => {
+const SubmitButton = ({ collection, dispatch, month, year }) => {
   const {
     accrualButtonText,
   } = copy.setup
@@ -93,7 +94,8 @@ const SubmitButton = ({ apiKey, collection, dispatch, month, year }) => {
     const url = ApiUrlBuilder({ route: "budget-category-items-index", id: item.budget_category_id })
     const body = JSON.stringify({ amount: amount, month: month, year: year })
     const onSuccess = data => dispatch(addItem(data))
-    post(url, body, { onSuccess: onSuccess })
+    const event = EventMessageBuilder({ eventyType: "budget-item-create" })
+    post(url, body, { onSuccess: onSuccess, event: event })
   }
 
   const submitAccruals = async () => {

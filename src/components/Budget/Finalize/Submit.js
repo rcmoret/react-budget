@@ -42,7 +42,8 @@ export default (props) => {
     const onSuccess = data => {
       dispatch(created(data))
     }
-    post(url, body, { onSuccess: onSuccess })
+    const event = EventMessageBuilder({ eventType: "transaction-entry-create" })
+    post(url, body, { onSuccess: onSuccess, event: event })
   }
 
   const createToTransaction = (callback) => {
@@ -58,7 +59,8 @@ export default (props) => {
       dispatch(created(data))
       callback()
     }
-    post(url, body, onSuccess)
+    const event = EventMessageBuilder({ eventType: "transaction-entry-create" })
+    post(url, body, { event: event, onSuccess: onSuccess })
   }
 
   const updateInterval = () => {
