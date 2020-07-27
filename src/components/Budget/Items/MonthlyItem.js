@@ -6,6 +6,7 @@ import { removeMonthlyItem } from "../../../actions/budget"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { deleteRequest } from "../../../functions/ApiClient"
 import formatter from "../../../functions/DateFormatter"
+import EventMessageBuilder from "../../../functions/EventMessageBuilder"
 
 import DeleteButton from "../Shared/DeleteButton"
 import Icon from "../../Icons/Icon"
@@ -14,7 +15,7 @@ import MonthlyAmount from "./MonthlyAmount"
 const MonthlyItem = (props) => {
   const deleteItem = (e) => {
     e.preventDefault()
-    const { budget_category_id, id, name, month, year } = props
+    const { amount, budget_category_id, id, name, month, year } = props
     const dateString = formatter({ month: month, year: year, format: "shortMonthYear" })
     const confirmation = window.confirm(copy.item.deleteConfirmationMessage(name, dateString))
     if (confirmation) {
@@ -23,7 +24,15 @@ const MonthlyItem = (props) => {
         id: id,
         budgetCategoryId: budget_category_id,
       })
-      deleteRequest(url, {}, props.dispatch(removeMonthlyItem({ id: id })))
+      const event = EventMessageBuilder({
+        eventType: "budget-item-delete",
+        id: id,
+        category: name,
+        amount: amount,
+        month: month,
+        year: year
+      })
+      deleteRequest(url, event, () => props.dispatch(removeMonthlyItem({ id: id })))
     }
   }
 

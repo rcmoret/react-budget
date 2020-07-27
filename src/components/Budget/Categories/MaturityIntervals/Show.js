@@ -7,6 +7,7 @@ import {
 } from "../../../../actions/budget/categories"
 import * as DateFunctions from "../../../../functions/DateFormatter"
 import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
+import EventMessageBuilder from "../../../../functions/EventMessageBuilder"
 import { deleteRequest } from "../../../../functions/ApiClient"
 
 import Edit from "./Edit"
@@ -40,7 +41,14 @@ export default (props) => {
       budgetCategoryId: category_id,
     })
     const action = removeMaturityInterval({ id: id })
-    deleteRequest(url, {}, () => dispatch(action))
+    const event = EventMessageBuilder({
+      eventType: "budget-category-maturity-interval-delete",
+      id: id,
+      categoryId: category_id,
+      month: month,
+      year: year
+    })
+    deleteRequest(url, event, () => dispatch(action))
   }
 
   if (!showForm) {

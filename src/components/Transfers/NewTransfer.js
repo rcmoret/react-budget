@@ -7,6 +7,7 @@ import { titleize } from "../../locales/functions"
 import { created, updateNew } from "./actions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
+import EventMessageBuilder from "../../functions/EventMessageBuilder"
 import { post } from "../../functions/ApiClient"
 
 import Select from "react-select"

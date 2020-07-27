@@ -7,6 +7,7 @@ import { deleted, update } from "./actions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { deleteRequest } from "../../functions/ApiClient"
+import EventMessageBuilder from "../../functions/EventMessageBuilder"
 import { Link } from "react-router-dom"
 
 import Edit from "./Edit"
@@ -24,9 +25,14 @@ const Show = ({ dispatch, icon }) => {
   const destroy = (e) => {
     e.preventDefault()
     const confirmation = window.confirm(copy.icon.deleteConfirmationMessage(name))
+  const event = () => EventMessageBuilder({
+    eventType: "icon-delete",
+    id: id,
+    name: name,
+  })
     if (confirmation) {
       const url = ApiUrlBuilder({ route: "icon-show", id: id })
-      deleteRequest(url, {}, () => dispatch(deleted(id)))
+      deleteRequest(url, event, () => dispatch(deleted(id)))
     }
   }
 

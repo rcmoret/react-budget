@@ -68,12 +68,18 @@ const responseHandler = (response, context, event) => {
         dispatch(apiStatusUpdated({ status: response.status }))
         onFailure(data, { body: body, status: response.status, url: url })
       })
+  } else if (response.status === 204) {
+    response.text()
+      .then(() => {
+        onSuccess()
+        dispatch(addEvent(event()))
+      })
   } else {
     response.json()
       .then(data => {
         onSuccess(data)
         if (context.verb !== "GET") {
-          dispatch(addEvent(event))
+          dispatch(addEvent(event(data)))
         }
         dispatch(apiStatusUpdated({ status: response.status }))
       })

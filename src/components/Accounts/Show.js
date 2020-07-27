@@ -7,6 +7,7 @@ import { deleted, update } from "./actions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { deleteRequest } from "../../functions/ApiClient"
+import EventMessageBuilder from "../../functions/EventMessageBuilder"
 
 import Edit from "./Edit"
 import Icon from "../Icons/Icon"
@@ -39,7 +40,12 @@ const AccountShow = (props) => {
     const confirmation = window.confirm(deleteConfirmationMessage(name))
     if (!confirmation) { return }
     const url = ApiUrlBuilder({ route: "account-show", id: id })
-    deleteRequest(url, {}, () => dispatch(deleted({ id: id })))
+    const event = EventMessageBuilder({
+      eventType: "account-delete",
+      id: id,
+      name: name
+    })
+    deleteRequest(url, event, () => dispatch(deleted({ id: id })))
   }
 
   if (showForm) {

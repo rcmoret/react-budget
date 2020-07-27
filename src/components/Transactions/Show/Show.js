@@ -6,6 +6,7 @@ import { edit, deleteTransaction, toggleEditForm } from "../../../actions/transa
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { deleteRequest } from "../../../functions/ApiClient"
+import EventMessageBuilder from "../../../functions/EventMessageBuilder"
 
 import Amount from "./Amount"
 import Balance from "./Balance"
@@ -64,7 +65,12 @@ const Show = (props) => {
     } else {
       const url = ApiUrlBuilder({ route: "transaction-show", id: id, accountId: account_id })
       const action = deleteTransaction({ id: id, amount: (-1 * amount), account_id: account_id })
-      deleteRequest(url, {}, () => props.dispatch(action))
+      const event = EventMessageBuilder({
+        eventType: "transaction-entry-delete",
+        id: id,
+        details: details
+      })
+      deleteRequest(url, event, () => props.dispatch(action))
     }
   }
 

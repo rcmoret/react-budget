@@ -6,6 +6,7 @@ import { deleted } from "./actions"
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { deleteRequest } from "../../functions/ApiClient"
+import EventMessageBuilder from "../../functions/EventMessageBuilder"
 
 import { Link } from "react-router-dom"
 
@@ -15,6 +16,13 @@ const DeleteButton = ({ amount, apiKey, from_account_id, dispatch, id, to_accoun
     const confirmation = window.confirm(copy.deleteConfirmationMessage)
     if (confirmation) {
       const url = ApiUrlBuilder({ route: "transfer-show", id: id })
+      const event = EventMessageBuilder({
+        eventType: "transfer-delete",
+        id: id,
+        fromAccountId: from_account_id,
+        toAccountId: to_account_id,
+        amount: amount,
+      })
       const onSuccess = () => {
         dispatch(deleted({
           id: id,
@@ -23,7 +31,7 @@ const DeleteButton = ({ amount, apiKey, from_account_id, dispatch, id, to_accoun
           to_account_id: to_account_id,
         }))
       }
-      deleteRequest(url, {}, onSuccess)
+      deleteRequest(url, event, onSuccess)
     }
   }
 

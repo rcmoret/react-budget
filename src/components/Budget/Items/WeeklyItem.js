@@ -7,6 +7,7 @@ import { editWeeklyItem, removeWeeklyItem } from "../../../actions/budget"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { deleteRequest } from "../../../functions/ApiClient"
 import formatter from "../../../functions/DateFormatter"
+import EventMessageBuilder from "../../../functions/EventMessageBuilder"
 
 import Caret from "../Shared/Caret"
 import DeleteButton from "../Shared/DeleteButton"
@@ -67,7 +68,15 @@ const WeeklyItem = (props) => {
         id: id,
         budgetCategoryId: budget_category_id,
       })
-      deleteRequest(url, {}, () => dispatch(removeWeeklyItem({ id: id })))
+      const event = EventMessageBuilder({
+        eventType: "budget-item-delete",
+        id: id,
+        category: name,
+        amount: amount,
+        month: month,
+        year: year
+      })
+      deleteRequest(url, event, () => dispatch(removeWeeklyItem({ id: id })))
     }
   }
 

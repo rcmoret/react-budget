@@ -1,15 +1,23 @@
-const EventMessageBuilder = (options = {}) => {
-  return eventMapper(options.eventType, options)
-}
+const EventMessageBuilder = (options = {}) => eventMapper(options.eventType, options)
 
 const eventMapper = (eventType, options) => {
   switch(eventType) {
+  case "account-delete":
+    return accountDelete(options)
   case "account-update":
     return accountUpdate(options)
+  case "budget-category-delete":
+    return budgetCategoryDelete(options)
+  case "budget-category-maturity-interval-delete":
+    return budgetCategoryMaturityIntervalDelete(options)
   case "budget-category-update":
     return budgetCategoryUpdate(options)
+  case "budget-item-delete":
+    return budgetItemDelete(options)
   case "budget-item-update":
     return budgetItemUpdate(options)
+  case "icon-delete":
+    return iconDelete(options)
   case "icon-update":
     return iconUpdate(options)
   case "interval-closed":
@@ -20,50 +28,81 @@ const eventMapper = (eventType, options) => {
     return maturityIntervalUpdate(options)
   case "transaction-detail-delete":
     return transactionDetailDelete(options)
+  case "transaction-entry-delete":
+    return transactionEntryDelete(options)
   case "transaction-entry-update":
     return transactionEntryUpdate(options)
+  case "transfer-create":
+    return transferCreate(options)
+  case "transfer-delete":
+    return transferDelete(options)
   default:
     throw new Error(`unknown/unmapped event type ${eventType}`)
   }
 }
 
+const accountDelete = options => () => `account (id: ${options.id}) "${options.name}" deleted`
+
 const accountUpdate = options => {
   const { id, name, changedProps } = options
-  return `account (id: ${id}, name: "${name}") updated: ${changedStrings(changedProps).join(", and ")}`
+  return () => `account (id: ${id}, name: "${name}") updated: ${changedStrings(changedProps).join(", and ")}`
 }
+
+const budgetCategoryDelete = options => (
+  () => `budget category (id: ${options.id}, name: "${options.name}") deleted`
+)
 
 const budgetCategoryUpdate = options => {
   const { id, name, changedProps } = options
-  return `budget category (id: ${id}, name: "${name}") updated: ${changedStrings(changedProps).join(", and ")}`
+  return () => `budget category (id: ${id}, name: "${name}") updated: ${changedStrings(changedProps).join(", and ")}`
 }
+
+const budgetCategoryMaturityIntervalDelete = options => (
+  () => `maturity interval for budget category id: ${options.categoryid} ${options.month}/${options.year} deleted`
+)
+
+const budgetItemDelete = options => (
+  () => `budget item (id: ${options.id}) for ${options.category} (${options.month}/${options.year}) was deleted`
+)
 
 const budgetItemUpdate = options => {
   const { id, category, month, year, originalAmount, newAmount } = options
-  return `budget item (id: ${id}) for ${category} (${month}/${year}) was adjusted from ${originalAmount} to ${newAmount}`
+  return () => `budget item (id: ${id}) for ${category} (${month}/${year}) was adjusted from ${originalAmount} to ${newAmount}`
 }
+
+const iconDelete = options => (
+  () => `icon (id: ${options.id}, name: "${options.name}") deleted`
+)
 
 const iconUpdate = options => {
   const { id, changedProps } = options
-  return `icon (id: ${id}) updated: ${changedStrings(changedProps).join(", and ")}`
+  return () => `icon (id: ${id}) updated: ${changedStrings(changedProps).join(", and ")}`
 }
 
 const intervalClosed = options => (
-  `interval: ${options.month}/${options.year} marked closed at ${options.closeOutCompletedAt}`
+  () => `interval: ${options.month}/${options.year} marked closed at ${options.closeOutCompletedAt}`
 )
 
 const intervalMarkComplete = options => (
-  `interval: ${options.month}/${options.year} set up marked complete at ${options.set_up_completed_at}`
+  () => `interval: ${options.month}/${options.year} set up marked complete at ${options.set_up_completed_at}`
 )
 
 const maturityIntervalUpdate = options => {
   const { id, changedProps, name } = options
-  return `maturity interval (id: ${id}, category: "${name}") updated: ${changedStrings(changedProps).join(", and ")}`
+  return () => `maturity interval (id: ${id}, category: "${name}") updated: ${changedStrings(changedProps).join(", and ")}`
 }
 
 const transactionDetailDelete = options => {
   const { id, amount, budgetCategory, budgetItemId, entryId } = options
-  return `transaction detail (id: ${id}) for entry (id: ${entryId}) removed. ` +
+  return () => `transaction detail (id: ${id}) for entry (id: ${entryId}) removed. ` +
     `amount was: ${amount}, belonging to budget item ${budgetItemId} (${budgetCategory})`
+}
+
+const transactionEntryDelete = options => {
+  const { id, details } = options
+  const detailTemplate = (detail, index) => `(${index}): budget category: ${detail.budget_category}, amount: ${detail.amount}`
+  return () => `transaction entry (id: ${id}) deleted. Details: ${details.map(detailTemplate).join("; ")}`
+
 }
 
 const transactionEntryUpdate = options => {
@@ -72,8 +111,18 @@ const transactionEntryUpdate = options => {
   message += details.map(detail =>
     `. detail (id: ${detail.id}) updated: ${changedStrings(detail.changedProps)}`
   ).join(", and  ")
-  return message
+  return () => message
 }
+
+const transferCreate = options => {
+  const { fromAccount, toAccount, amount } = options
+  return ({ id }) => `transfer (id: ${id}) created from: ${fromAccount} to: ${toAccount} amount: ${amount}`
+}
+
+const transferDelete = options => (
+  () => `transfer (id: ${options.id}) deleted. From account: ${options.fromAccountId}, ` +
+    `to account: ${options.toAccountId}, amount: ${options.amount}`
+)
 
 const changedStrings = changedProps => (
   Object.keys(changedProps).map(key =>

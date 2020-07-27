@@ -5,6 +5,7 @@ import { budget as copy } from "../../../locales/copy"
 import { deleted, update } from "../../../actions/budget/categories"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { deleteRequest } from "../../../functions/ApiClient"
+import EventMessageBuilder from "../../../functions/EventMessageBuilder"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 
 import Edit from "./Edit"
@@ -51,7 +52,12 @@ const Show = (props) => {
     const confirmation = window.confirm(deleteConfirmMessage(name))
     if (confirmation) {
       const url = ApiUrlBuilder({ route: "budget-category-show", id: id })
-      deleteRequest(url, {}, dispatch(deleted(id)))
+      const event = EventMessageBuilder({
+        eventType: "budget-category-delete",
+        id: id,
+        name: name,
+      })
+      deleteRequest(url, event, dispatch(deleted(id)))
     }
   }
 
