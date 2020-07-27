@@ -22,7 +22,6 @@ const Finish = (props) => {
   const {
     accountsFetched,
     isApiUnauthorized,
-    apiKey,
     baseMonthFetched,
     baseMonthFinalized,
     dispatch,
@@ -96,7 +95,6 @@ const Finish = (props) => {
               />
               <div className="extra-submit">
                 <Submit
-                  apiKey={apiKey}
                   dispatch={dispatch}
                   month={month}
                   note={note}
@@ -159,11 +157,9 @@ const mapStateToProps = (state, ownProps) => {
     .filter(item => item.amount !== 0)
     .map(item => `${item.name} (${MoneyFormatter(item.amount, { absoulte: false })})`)
     .join("; ")
-  const { apiKey } = state.apiKey
 
   return {
     accountsFetched: accounts.accountsFetched,
-    apiKey: apiKey,
     baseMonthFetched: baseMonthFetched,
     baseMonthFinalized: finalize.baseMonth.is_closed_out,
     extra: extra,

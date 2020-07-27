@@ -46,8 +46,6 @@ const DeleteButton = ({ amount, apiKey, from_account_id, dispatch, id, to_accoun
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return { id: ownProps.id, apiKey: state.apiKey.apiKey }
-}
+const mapStateToProps = (_state, ownProps) => ({ id: ownProps.id })
 
 export default connect(mapStateToProps)(DeleteButton)

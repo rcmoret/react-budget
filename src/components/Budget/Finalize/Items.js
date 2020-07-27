@@ -9,7 +9,6 @@ import WeeklyItem from "./WeeklyItem"
 
 const Items = (props) => {
   const {
-    apiKey,
     dispatch,
     extra,
     isFetched,
@@ -37,7 +36,6 @@ const Items = (props) => {
         />
         <div className="finalize-wrapper">
           <Item
-            apiKey={apiKey}
             item={item}
             dispatch={dispatch}
             month={month}
@@ -89,10 +87,8 @@ const mapStateToProps = (state, ownProps) => {
       }
     })
   const item = collection[0]
-  const { apiKey } = state.apiKey
 
   return {
-    apiKey: apiKey,
     isFetched: isFetched,
     item: item,
     extra: extra,

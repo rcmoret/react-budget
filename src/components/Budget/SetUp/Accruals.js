@@ -29,7 +29,6 @@ const Accruals = (props) => {
   } = copy.setup
 
   const {
-    apiKey,
     baseMonth,
     collection,
     dispatch,
@@ -67,7 +66,6 @@ const Accruals = (props) => {
             )}
           </div>
           <SubmitButton
-            apiKey={apiKey}
             collection={collection}
             dispatch={dispatch}
             month={month}
@@ -239,7 +237,6 @@ const mapStateToProps = (state, ownProps) => {
   const mergeDefaultAmount = (item) => (
     { ...item, defaultAmount: findCategory(item).default_amount }
   )
-  const { apiKey } = state.apiKey
 
   const collection = state.budget.setup.baseMonth.collection
     .filter(item => item.accrual)
@@ -247,7 +244,6 @@ const mapStateToProps = (state, ownProps) => {
     .sort((a, b) => a.name < b.name ? -1 : 1)
 
   return {
-    apiKey: apiKey,
     baseMonth: state.budget.setup.baseMonth,
     collection: collection,
     isFetched: isFetched,

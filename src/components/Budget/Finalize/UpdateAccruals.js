@@ -12,7 +12,7 @@ import EventMessageBuilder from "../../../functions/EventMessageBuilder"
 import delay from "../../../functions/Delay"
 import { put } from "../../../functions/ApiClient"
 
-export default ({ apiKey, collection, dispatch }) => {
+export default ({ collection, dispatch }) => {
   const submit = ({ id, amount, budget_category_id, name, originalAmount, month, year }) => {
     const url = ApiUrlBuilder({
       route: "budget-item-show",

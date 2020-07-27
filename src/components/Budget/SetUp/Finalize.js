@@ -13,7 +13,7 @@ import Icon from "../../Icons/Icon"
 import Items from "./Items"
 import { Redirect } from "react-router-dom"
 
-const Finalize = ({ apiKey, dispatch, month, setUpCompletedAt, year }) => {
+const Finalize = ({ dispatch, month, setUpCompletedAt, year }) => {
   const { markCompleteText } = copy.setup
 
   const markComplete = (e) => {
@@ -61,10 +61,8 @@ const Finalize = ({ apiKey, dispatch, month, setUpCompletedAt, year }) => {
 const mapStateToProps = (state) => {
   const { newMonth } = state.budget.setup
   const { month, set_up_completed_at, year } = newMonth
-  const { apiKey } = state.apiKey
 
   return {
-    apiKey: apiKey,
     month: month,
     setUpCompletedAt: set_up_completed_at,
     year: year,
