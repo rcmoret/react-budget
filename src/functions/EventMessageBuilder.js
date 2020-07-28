@@ -1,3 +1,5 @@
+import MoneyFormatter from "./MoneyFormatter"
+
 const EventMessageBuilder = (options = {}) => eventMapper(options.eventType, options)
 
 const eventMapper = (eventType, options) => {
@@ -73,7 +75,7 @@ const budgetCategoryUpdate = ({ id, name, changedProps }) =>
   () => `budget category (id: ${id}, name: "${name}") updated: ${changedStrings(changedProps).join(", and ")}`
 
 const budgetCategoryMaturityIntervalCreate = ({ id, budget_category_id, month, year }) =>
-  `maturity interval (id: ${id}) for budget category id: ${budget_category_id} ${month}/${year} deleted`
+  `maturity interval (id: ${id}) for budget category id: ${budget_category_id} ${month}/${year} created`
 
 const budgetCategoryMaturityIntervalDelete = ({ categoryId, month, year }) =>
   () => `maturity interval for budget category id: ${categoryId} ${month}/${year} deleted`
@@ -116,15 +118,19 @@ const transactionEntryCreate = ({ accountName }) =>
 const transactionEntryUpdate = ({ id, changedProps, details }) => (
   () => {
     let message = `transaction entry (id: ${id}) was updated: ${changedStrings(changedProps).join(", and ")}`
-    message += details.map(detail =>
-      `. detail (id: ${detail.id}) updated: ${changedStrings(detail.changedProps)}`
-    ).join(", and  ")
+    message += details.reduce((array, detail) => {
+      if (Object.keys(detail.changedProps).length === 0) {
+        return array
+      } else {
+        return [...array, ` detail (id: ${detail.id}) updated: ${changedStrings(detail.changedProps)}.`]
+      }
+    }, []).join(" And")
     return message
   }
 )
 
 const transferCreate = ({ fromAccount, toAccount, amount }) =>
-  ({ id }) => `transfer (id: ${id}) created from: ${fromAccount} to: ${toAccount} amount: ${amount}`
+  ({ id }) => `transfer (id: ${id}) created from: ${fromAccount} to: ${toAccount} amount: ${MoneyFormatter(amount)}`
 
 const transferDelete = ({ id, amount, fromAccountId, toAccountId }) =>
   () => `transfer (id: ${id}) deleted. From account: ${fromAccountId}, to account: ${toAccountId}, amount: ${amount}`

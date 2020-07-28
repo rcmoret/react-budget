@@ -16,7 +16,9 @@ export default ({ dispatch, errorCount, errors, keys }) => {
     const heading = errorCount === 1 ? copy.error : copy.errors
     return (
       <div className="top-level-errors">
-        <span className="message-heading">{titleize(heading)}:</span>
+        <h4>
+          <span className="message-heading">{titleize(heading)}</span>
+        </h4>
         <div>
           {keys.map((objkey, index) =>
             <ErrorGroup
@@ -40,7 +42,7 @@ const ErrorGroup = ({ dispatch, errors, type }) => {
   } else {
     return (
       <div>
-        <strong>{titleize(type)}</strong>
+        <strong className="underline">&bull;{" "}{titleize(type)}</strong>
         {keys.map((status, index) =>
           <ErrorMessage
             key={index}
@@ -59,12 +61,12 @@ const ErrorMessage = (props) => {
   const { errors, status } = props
 
   return errors.map((error, index) => (
-    <div key={index}>
+    <div className="error-message" key={index}>
       <Icon className="fas fa-exclamation-circle font-red" />
       {" "}
       {status}
       {" "}
-      -
+      &#9702;
       {" "}
       {error}
       {" "}

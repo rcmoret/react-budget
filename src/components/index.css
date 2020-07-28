@@ -25,6 +25,10 @@ header {
   padding: 0.5% 2%
 }
 
+.underline {
+  text-decoration: underline;
+}
+
 header .tab {
   display: inline-block;
   width: 45.5%;
@@ -51,6 +55,10 @@ header a {
   color: #FF3C52; /* red */
 }
 
+.font-green {
+  color: #60D1A6;
+}
+
 input.errors {
   border: 1px solid #FF3C52; /* red */
 }
@@ -74,11 +82,14 @@ ul.input-errors {
 
 .top-level-messages {
   padding: 0.5% 3%;
-  background-color: #C0D6FF;
-  background-image: url('/black-linen-2.png');
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: #1F283D;
   margin-bottom: 1%;
+}
+
+.top-level-messages .top-level-errors {
+  background-color: white;
+  padding: 2px 12px 4px;
+  border-radius: 10px;
 }
 
 .top-level-events a,
@@ -88,6 +99,10 @@ ul.input-errors {
   color: black;
 }
 
+.top-level-messages .font-green a,
+.top-level-messages .font-green a:visited {
+  color: #60D1A6;
+}
 .top-level-messages span.message-heading {
   font-size: 1.3em;
 }
@@ -103,7 +118,7 @@ ul.input-errors {
   background-image: url('/black-linen-2.png');
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin-top: 1%;
+  margin: 1% 0;
 }
 
 .top-level-events .events {
@@ -112,10 +127,19 @@ ul.input-errors {
   padding: 10px;
 }
 
-.top-level-events .events .event-message {
+.top-level-events .events .event-message, .error-message {
   padding: 0.5rem;
+  border-radius: 4px;
 }
 
-.event-message:nth-of-type(2n) {
+.error-message, .event-message {
   background-color: #efefef;
+}
+
+.error-message:nth-of-type(2n), .event-message:nth-of-type(2n) {
+  background-color: white;
+}
+
+.error-message {
+  margin-top: 5px;
 }

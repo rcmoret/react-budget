@@ -7,17 +7,23 @@ import { removeErrorMessage } from "../Messages/actions"
 
 import { apiKeyEdited, apiKeyUpdated } from "../Api/actions"
 
+import { Link } from "react-router-dom"
+
 const Form = ({ dispatch, error, keyFormInput }) => {
 
   const onChange = e => {
     dispatch(apiKeyEdited(e.target.value))
   }
 
+  const submit = () => {
+    dispatch(apiKeyUpdated(keyFormInput))
+    dispatch(removeErrorMessage({ type: "api", status: 401, errorMessage: error }))
+  }
+
+  const onClick = () => submit()
+
   const handleKeyDown = e => {
-    if (e.which === 13) {
-      dispatch(apiKeyUpdated(keyFormInput))
-      dispatch(removeErrorMessage({ type: "api", status: 401, errorMessage: error }))
-    }
+    if (e.which === 13) { submit() }
   }
 
   return (
@@ -31,6 +37,14 @@ const Form = ({ dispatch, error, keyFormInput }) => {
         onKeyDown={handleKeyDown}
         placeholder={terms.apiKey}
       />
+      {" "}
+      <span className="font-green">
+        <Link
+          to="#"
+          className="fas fa-arrow-circle-right"
+          onClick={onClick}
+        />
+      </span>
     </div>
   )
 }

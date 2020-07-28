@@ -9,7 +9,12 @@ import { toggleEvents } from "./actions"
 const Events = ({ dispatch, events, showEvents }) => {
   const onClick = () => dispatch(toggleEvents())
 
-  if (showEvents && events.length > 0) {
+  if (events.length === 0) {
+    return (
+      <div className="top-level-events">
+      </div>
+    )
+  } else if (showEvents) {
     return (
       <div className="top-level-events">
         <h3>
@@ -17,7 +22,7 @@ const Events = ({ dispatch, events, showEvents }) => {
             to="#"
             onClick={onClick}
           >
-            <Icon className= "fas fa-angle-down" />
+            <Icon className= "fas fas-book-open" />
             {" "}
             Events
           </Link>
@@ -37,7 +42,7 @@ const Events = ({ dispatch, events, showEvents }) => {
             to="#"
             onClick={onClick}
           >
-            <Icon className= "fas fa-angle-right" />
+            <Icon className= "fas fas-book" />
             {" "}
             Events
           </Link>
