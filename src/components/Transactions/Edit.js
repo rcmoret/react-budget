@@ -114,7 +114,16 @@ const Edit = (props) => {
       details: details.map(detail => (
         {
           id: detail.id,
-          changedProps: changedProps({ ...detail, ...detail.originalProps }, detail.updatedProps),
+          changedProps: changedProps(
+            {
+              ...detail,
+              ...detail.originalProps,
+            },
+            {
+              ...detail.updatedProps,
+              amount: Math.round(parseFloat(detail.updatedProps.amount) * 100),
+            }
+          ),
         }
       ))
     })
@@ -178,7 +187,7 @@ const mapStateToProps = (state, ownProps) => {
     transaction: {
       ...ownProps,
       ...updatedProps,
-      changedProps: changedProps(ownProps, updatedProps),
+      changedProps: changedProps(ownProps, { ...updatedProps, amount: Math.round(parseFloat(updatedProps.amount) * 100) }),
       details: details,
       originalAmount: ownProps.amount,
     },
