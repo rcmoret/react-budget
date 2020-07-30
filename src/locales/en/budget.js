@@ -36,6 +36,12 @@ export const discretionary = {
   title: "discretionary",
 }
 
+export const eventLabels = {
+  legacy_item_create: "Legacy Item create",
+  item_create: "Item create",
+  item_adjust: "Item Adjust",
+}
+
 export const finalize = {
   appliedToExtra: "To Be Applied to Extra",
   applyToExtra: "Apply All to Extra",

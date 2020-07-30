@@ -436,24 +436,54 @@
   min-width: 5%;
 }
 
-.budget-item-transaction-row {
+.budget-item-event-row {
   width: 100%;
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
-  border-bottom: 1px #999 solid;
+}
+
+.budget-item-event-row.top {
+  justify-content: space-between;
+}
+
+.budget-item-event-row.bottom {
+  justify-content: flex-end;
+}
+
+.budget-item-event-row.bottom .budget-item-cell {
+  width: 90%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.budget-item-atom {
+  width: 40%;
+}
+
+.budget-item-event {
   margin-top: 1.5%;
+  border-bottom: 1px #999 solid;
   padding-bottom: 1.5%;
 }
 
-.budget-item-transaction-row .budget-transaction-cell {
-  width: 22.5%;
+.budget-item-event-row .budget-item-cell.small {
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+.budget-item-event-row .budget-item-event-row-left .budget-item-cell {
+  width: 35%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.budget-item-transaction-row .budget-transaction-cell.amount {
+.budget-item-event-row-left {
+  display: flex;
+  width: 63%;
+}
+
+.budget-item-event-row .budget-item-cell.amount {
   text-align: right;
   margin-right: 5%;
 }
@@ -1058,7 +1088,7 @@ nav.budget-actions a .budget-action:hover {
     width: 13%;
   }
 
-  .budget-transaction-cell span.short-date {
+  .budget-item-cell span.short-date {
     display: none;
   }
 
@@ -1102,19 +1132,19 @@ nav.budget-actions a .budget-action:hover {
     margin-top: 10px;
   }
 
-  .budget-transaction-cell {
+  .budget-item-cell {
     width: 28%;
   }
 
-  .budget-transaction-cell.clearance-date {
+  .budget-item-cell.created-at-date {
     width: 12%;
   }
 
-  .budget-transaction-cell.amount {
+  .budget-item-cell.amount {
     width: 18%;
   }
 
-  .budget-transaction-cell span.long-date {
+  .budget-item-cell span.long-date {
     display: none;
   }
 

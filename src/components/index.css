@@ -125,6 +125,8 @@ ul.input-errors {
   background: white;
   border-radius: 0.9rem;
   padding: 10px;
+  max-height: 250px;
+  overflow: scroll;
 }
 
 .top-level-events .events .event-message, .error-message {

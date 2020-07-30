@@ -19,6 +19,7 @@ export default (attributes) => {
 
   return {
     collection: [],
+    events: [],
     ...attributes,
     spent: spent,
     transactions_count: transactions_count,
