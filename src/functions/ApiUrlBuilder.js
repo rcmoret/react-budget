@@ -34,6 +34,8 @@ const pathTo = (route, options) => {
     return `/budget/categories/${options.budgetCategoryId}/maturity_intervals/${options.id}`
   case "budget-items-index":
     return "/budget/items"
+  case "budget-items-events-index":
+    return "/budget/items/events"
   case "budget-item-show":
     return `/budget/categories/${options.budgetCategoryId}/items/${options.id}`
   case "budget-item-events-index":

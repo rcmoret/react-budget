@@ -50,17 +50,20 @@ const WeeklyItemForm = (props) => {
 
   const onSave = (e) => {
     e.preventDefault()
-    const url = ApiUrlBuilder({
-      route: "budget-category-items-index",
-      id: budget_category_id,
-    })
+    const url = ApiUrlBuilder({ route: "budget-items-events-index" })
     const body = JSON.stringify({
-      amount: decimalToInt(EvaluateInput(amount)),
-      month: month,
-      year: year,
+      events:[
+        {
+          amount: decimalToInt(EvaluateInput(amount)),
+          budget_category_id: budget_category_id,
+          event_type: "item_create",
+          month: month,
+          year: year,
+        }
+      ]
     })
     const onSuccess = data => {
-      dispatch(addWeeklyItem(data))
+      dispatch(addWeeklyItem(data[0].item))
       dispatch(toggleWeeklyItemForm({ showForm: false }))
       dispatch(editNewWeeklyItem({ amount: "", budget_category_id: null }))
     }
@@ -68,7 +71,7 @@ const WeeklyItemForm = (props) => {
       const action = editNewWeeklyItem({ errors: data.errors })
       dispatch(action)
     }
-    const event = EventMessageBuilder({ eventType: "budget-item-create" })
+    const event = data => EventMessageBuilder({ eventType: "budget-item-create" })(data[0])
     post(url, body, { onSuccess: onSuccess, onFailure: onFailure, event: event })
   }
 

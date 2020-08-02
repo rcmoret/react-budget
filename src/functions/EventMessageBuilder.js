@@ -80,8 +80,10 @@ const budgetCategoryMaturityIntervalCreate = ({ id, budget_category_id, month, y
 const budgetCategoryMaturityIntervalDelete = ({ categoryId, month, year }) =>
   () => `maturity interval for budget category id: ${categoryId} ${month}/${year} deleted`
 
-const budgetItemCreate = ({ id, amount, name, month, year }) =>
-  `budget item (id: ${id})  created for ${name} (${month}/${year}), amount: ${MoneyFormatter(amount)}`
+const budgetItemCreate = ({ item }) => {
+  const { id, amount, name, month, year } = item
+  return `budget item (id: ${id})  created for ${name} (${month}/${year}), amount: ${MoneyFormatter(amount)}`
+}
 
 const budgetItemDelete = ({ id, category, month, year }) =>
   () => `budget item (id: ${id}) for ${category} (${month}/${year}) was deleted`

@@ -92,13 +92,23 @@ const ReviewItem = (props) => {
   }
 
   const createItem = () => {
-    const url = ApiUrlBuilder({ route: "budget-category-items-index", budgetCategoryId: category.id })
-    const body = JSON.stringify({ amount: decimalToInt(amount), month: month, year: year })
+    const url = ApiUrlBuilder({ route: "budget-items-events-index" })
+    const body = JSON.stringify({
+      events: [
+        {
+          amount: decimalToInt(amount),
+          budget_category_id: category.id,
+          event_type: "setup_item_create",
+          month: month,
+          year: year,
+        },
+      ],
+    })
     const onSuccess = data => {
-      dispatch(addItem(data))
+      dispatch(addItem(data[0].item))
       dispatch(markReviewed({ id: item.id }))
     }
-    const event = EventMessageBuilder({ eventyType: "budget-item-create" })
+    const event = EventMessageBuilder({ eventType: "budget-item-create" })
     post(url, body, { event: event, onSuccess: onSuccess })
   }
 
