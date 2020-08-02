@@ -1,4 +1,4 @@
-const equationRegexp = /\s*(-?\d*\.?\d?\d)\s*([-+/*])\s*(\d*\.?\d?\d)\s*/
+const equationRegexp = /\s*(-?\d*\.?\d?\d)\s*([-+/*])\s*(\d*(\.\d+)?)\s*/
 
 const evaluateInput = inputAmount => {
   const match = inputAmount.match(equationRegexp)
