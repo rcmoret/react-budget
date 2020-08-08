@@ -29,6 +29,14 @@ header {
   text-decoration: underline;
 }
 
+.italic {
+  font-style: italic;
+}
+
+.small {
+  font-size: 0.8em;
+}
+
 header .tab {
   display: inline-block;
   width: 45.5%;

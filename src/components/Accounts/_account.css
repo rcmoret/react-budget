@@ -21,8 +21,10 @@
   box-shadow: 1px 1px #999;
 }
 
-.account p.balance {
-  text-align: right;
+.account .balance {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .account-index {
@@ -85,6 +87,9 @@ button.delete-account {
   background-color: #FF3C52;
 }
 
+.account-name {
+  border-bottom: 1px ridge black;
+}
 
 /* large screens */
 @media screen and (min-width: 1012px) {
