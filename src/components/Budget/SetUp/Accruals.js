@@ -89,10 +89,20 @@ const SubmitButton = ({ collection, dispatch, month, year }) => {
 
   const submit = (item) => {
     const amount = item.updatedProps ? decimalToInt(EvaluateInput(item.updatedProps.amount)) : item.defaultAmount
-    const url = ApiUrlBuilder({ route: "budget-category-items-index", id: item.budget_category_id })
-    const body = JSON.stringify({ amount: amount, month: month, year: year })
-    const onSuccess = data => dispatch(addItem(data))
-    const event = EventMessageBuilder({ eventyType: "budget-item-create" })
+    const url = ApiUrlBuilder({ route: "budget-items-events-index" })
+    const body = JSON.stringify({
+      events: [
+        {
+          amount: amount,
+          budget_category_id: item.budget_category_id,
+          event_type: "setup_item_create",
+          month: month,
+          year: year,
+        },
+      ],
+    })
+    const onSuccess = data => dispatch(addItem(data[0].item))
+    const event = data => EventMessageBuilder({ eventType: "budget-item-create" })(data[0])
     post(url, body, { onSuccess: onSuccess, event: event })
   }
 

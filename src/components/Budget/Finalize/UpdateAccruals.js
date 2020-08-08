@@ -10,26 +10,32 @@ import {
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import EventMessageBuilder from "../../../functions/EventMessageBuilder"
 import delay from "../../../functions/Delay"
-import { put } from "../../../functions/ApiClient"
+import { post } from "../../../functions/ApiClient"
 
 export default ({ collection, dispatch }) => {
   const submit = ({ id, amount, budget_category_id, name, originalAmount, month, year }) => {
-    const url = ApiUrlBuilder({
-      route: "budget-item-show",
-      id: id,
-      budgetCategoryId: budget_category_id,
-    })
+    const url = ApiUrlBuilder({ route: "budget-items-events-index" })
     const event = EventMessageBuilder({
       eventType: "budget-item-update",
       id: id,
       category: name,
       month: month,
       year: year,
-      originalAmount: originalAmount,
-      newAmount: amount,
+      originalAmount: (originalAmount / 100.0),
+      newAmount: (amount / 100.0),
     })
-    const body = JSON.stringify({ amount: amount })
-    put(url, body, { event: event, onSuccess: data => dispatch(updateFinalizeItem(data)) })
+    const body = JSON.stringify(
+      {
+        events: [
+          {
+            event_type: "rollover_item_adjust",
+            budget_item_id: id,
+            amount: amount,
+          }
+        ]
+      }
+    )
+    post(url, body, { event: event, onSuccess: data => dispatch(updateFinalizeItem(data)) })
   }
 
   const amountFor = (item) => {

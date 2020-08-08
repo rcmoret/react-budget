@@ -6,7 +6,7 @@ import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { decimalToInt } from "../../../functions/MoneyFormatter"
 import EvaluateInput from "../../../functions/DynamicInputEvaluator"
 import EventMessageBuilder from "../../../functions/EventMessageBuilder"
-import { put } from "../../../functions/ApiClient"
+import { post } from "../../../functions/ApiClient"
 
 import Errors from "../../Errors/Errors"
 import { Link } from "react-router-dom"
@@ -60,15 +60,17 @@ const WeeklyAmountInput = (props) => {
 
   const saveChange = (e) => {
     e.preventDefault()
-    const url = ApiUrlBuilder({
-      route: "budget-item-show",
-      id: id,
-      budgetCategoryId: budget_category_id,
-    })
+    const url = ApiUrlBuilder({ route: "budget-items-events-index" })
     const body = JSON.stringify({
-      amount: decimalToInt(EvaluateInput(floatAmount)),
-      month: month,
-      year: year
+      events: [
+        {
+          budget_item_id: id,
+          amount: decimalToInt(EvaluateInput(floatAmount)),
+          event_type: "item_adjust",
+          month: month,
+          year: year
+        },
+      ]
     })
     const event = EventMessageBuilder({
       eventType: "budget-item-update",
@@ -81,7 +83,7 @@ const WeeklyAmountInput = (props) => {
     })
     const onSuccess = data => {
       const action = updateWeeklyItem({
-        ...data,
+        ...data[0].item,
         floatAmount: null,
         updateItem: false,
         errors: {}
@@ -92,7 +94,7 @@ const WeeklyAmountInput = (props) => {
       const action = editWeeklyItem({ id: id, ...data })
       dispatch(action)
     }
-    put(url, body, { onSuccess: onSuccess, onFailure: onFailure, event: event })
+    post(url, body, { onSuccess: onSuccess, onFailure: onFailure, event: event })
   }
 
   return (

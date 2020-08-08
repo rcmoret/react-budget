@@ -108,16 +108,12 @@ const ReviewItem = (props) => {
       dispatch(addItem(data[0].item))
       dispatch(markReviewed({ id: item.id }))
     }
-    const event = EventMessageBuilder({ eventType: "budget-item-create" })
+    const event = data => EventMessageBuilder({ eventType: "budget-item-create" })(data[0])
     post(url, body, { event: event, onSuccess: onSuccess })
   }
 
   const updateItem = () => {
-    const url = ApiUrlBuilder({
-      route: "budget-item-show",
-      id: dayToDayItem.id,
-      budgetCategoryId: dayToDayItem.budget_category_id,
-    })
+    const url = ApiUrlBuilder({ route: "budget-items-events-index" })
     const updatedAmount = decimalToInt(amount) + dayToDayItem.amount
     const event = EventMessageBuilder({
       eventType: "budget-item-update",
@@ -125,15 +121,23 @@ const ReviewItem = (props) => {
       category: dayToDayItem.name,
       month: month,
       year: year,
-      originalAmount: dayToDayItem.amount,
-      newAmount: updatedAmount,
+      originalAmount: (dayToDayItem.amount / 100.0),
+      newAmount: (updatedAmount / 100.0),
     })
-    const body = JSON.stringify({ amount: updatedAmount })
+    const body = JSON.stringify({
+      events: [
+        {
+          event_type: "setup_item_adjust",
+          amount: updatedAmount,
+          budget_item_id: dayToDayItem.id
+        },
+      ]
+    })
     const onSuccess = data => {
       dispatch(updateExisting(data))
       dispatch(markReviewed({ id: item.id }))
     }
-    put(url, body, { onSuccess: onSuccess, event: event })
+    post(url, body, { onSuccess: onSuccess, event: event })
   }
 
   return (

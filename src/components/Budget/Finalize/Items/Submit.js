@@ -9,10 +9,11 @@ import {
   updateFinalizeItem,
 } from "../../actions/finalize"
 import { addMonthlyItem, addWeeklyItem } from "../../../../actions/budget"
+import { decimalToInt } from "../../../../functions/MoneyFormatter"
 
 import ApiUrlBuilder from "../../../../functions/ApiUrlBuilder"
 import EventMessageBuilder from "../../../../functions/EventMessageBuilder"
-import { post, put } from "../../../../functions/ApiClient"
+import { post } from "../../../../functions/ApiClient"
 
 import Icon from "../../../Icons/Icon"
 
@@ -56,12 +57,19 @@ export default (props) => {
   }
 
   const updateItem = () => {
-    const url = ApiUrlBuilder({
-      route: "budget-item-show",
-      id: nextItem.id,
-      budgetCategoryId: budgetCategoryId,
-    })
-    const body = JSON.stringify({ amount: total })
+    const url = ApiUrlBuilder({ route: "budget-items-events-index" })
+    console.log(decimalToInt(amount))
+    const body = JSON.stringify(
+      {
+        events: [
+          {
+            event_type: "rollover_item_adjust",
+            budget_item_id: nextItem.id,
+            amount: decimalToInt(amount),
+          }
+        ]
+      }
+    )
     const event = EventMessageBuilder({
       eventType: "budget-item-update",
       id: nextItem.id,
@@ -75,29 +83,32 @@ export default (props) => {
       dispatch(updateFinalizeItem(data))
       markReviewed()
     }
-    put(url, body, { event: event, onSuccess: onSuccess })
+    post(url, body, { event: event, onSuccess: onSuccess })
   }
 
   const createItem = () => {
-    const url = ApiUrlBuilder({
-      route: "budget-category-items-index",
-      id: budgetCategoryId,
-    })
+    const url = ApiUrlBuilder({ route: "budget-items-events-index" })
     const body = JSON.stringify({
-      amount: total,
-      month: nextMonth,
-      year: nextYear,
+      events: [
+        {
+          event_type: "rollover_item_create",
+          amount: total,
+          budget_category_id: budgetCategoryId,
+          month: nextMonth,
+          year: nextYear,
+        }
+      ]
     })
     const onSuccess = (data) => {
       if (monthly) {
-        dispatch(addMonthlyItem(data))
+        dispatch(addMonthlyItem(data[0].item))
       } else {
-        dispatch(addWeeklyItem(data))
+        dispatch(addWeeklyItem(data[0].item))
       }
-      dispatch(addFinalizeItem(data))
+      dispatch(addFinalizeItem(data[0].item))
       markReviewed()
     }
-    const event = EventMessageBuilder({ eventType: "budget-item-create" })
+    const event = data => EventMessageBuilder({ eventType: "budget-item-create" })(data[0])
     post(url, body, { onSuccess: onSuccess, event: event })
   }
 
