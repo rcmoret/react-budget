@@ -11,7 +11,7 @@ import { decimalToInt } from "../../../functions/MoneyFormatter"
 import EvaluateInput from "../../../functions/DynamicInputEvaluator"
 import EventMessageBuilder from "../../../functions/EventMessageBuilder"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
-import { post, put } from "../../../functions/ApiClient"
+import { post } from "../../../functions/ApiClient"
 
 import Icon from "../../Icons/Icon"
 

@@ -58,7 +58,6 @@ export default (props) => {
 
   const updateItem = () => {
     const url = ApiUrlBuilder({ route: "budget-items-events-index" })
-    console.log(decimalToInt(amount))
     const body = JSON.stringify(
       {
         events: [

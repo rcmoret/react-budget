@@ -15,7 +15,6 @@ const WeeklyAmountInput = (props) => {
   const {
     id,
     amount,
-    budget_category_id,
     dispatch,
     floatAmount,
     errors,

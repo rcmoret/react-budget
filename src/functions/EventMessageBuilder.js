@@ -147,6 +147,9 @@ export const changedProps = (props, updatedProps) => (
   Object.keys(updatedProps).reduce((object, key) => {
     if (props[key] === updatedProps[key]) {
       return object
+    } else if (key === "amount") {
+      const tuple = { originalValue: MoneyFormatter(props[key]), updatedValue: MoneyFormatter(updatedProps[key]) }
+      return { ...object, [key]: tuple }
     } else {
       const tuple = { originalValue: props[key], updatedValue: updatedProps[key] }
       return { ...object, [key]: tuple }
