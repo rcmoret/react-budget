@@ -37,9 +37,15 @@ export const discretionary = {
 }
 
 export const eventLabels = {
-  legacy_item_create: "Legacy Item create",
-  item_create: "Item create",
+  item_create: "Item Create",
   item_adjust: "Item Adjust",
+  item_delete: "Item Delete",
+  legacy_item_create: "Legacy Item Create",
+  pre_setup_item_create: "Pre-setup Item Create",
+  rollover_item_adjust: "Rollover Item Adjust",
+  rollover_item_create: "Rollover Item Create",
+  setup_item_adjust: "Setup Item Adjust",
+  setup_item_create: "Setup Item Create",
 }
 
 export const finalize = {
@@ -126,7 +132,7 @@ export const setup = {
   additional: "additional",
   accrualButtonText: "include selected",
   accruingExpenses: "accruing expenses",
-  alreadyIncluded: (amount, item, newMonth) => `You already included ${amount} for ${item} in ${newMonth}'s budget.`,
+  alreadyIncluded: (amount, name, newMonth) => `You already included ${amount} for ${name} in ${newMonth}'s budget.`,
   amountToInclude: "Amount to include",
   howMuchToInclude: (newMonthString) => `How much to include in ${newMonthString}?`,
   howMuchAdditional: "How much additional to include?",

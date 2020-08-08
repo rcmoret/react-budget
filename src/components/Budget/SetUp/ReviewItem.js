@@ -230,7 +230,7 @@ const Header = ({ dayToDayItem, newMonthString }) => {
     return (
       <div>
         <p>
-          {alreadyIncluded(MoneyFormatter(dayToDayItem.amount, { absolute: false }), dayToDayItem, newMonthString)}
+          {alreadyIncluded(MoneyFormatter(dayToDayItem.amount, { absolute: false }), dayToDayItem.name, newMonthString)}
         </p>
         <p>
           {howMuchAdditional}
