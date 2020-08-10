@@ -81,20 +81,9 @@ const MonthlyAmountInput = (props) => {
       dispatch(action)
     }
     const onFailure = data => {
-      const errors = data.errors.reduce((acc, error) => {
-        Object.entries(error).map(arr => {
-          const key = arr[0]
-          const messages = arr[1]
-          const existingMessages = acc[key] || []
-          acc[key] = [...existingMessages, ...messages]
-          return acc
-        })
-        return acc
-      }, {})
-
       const action = editMonthlyItem({
         id: id,
-        errors: errors,
+        errors: { amount: data.errors[0]["adjust_item_form.0.amount"] },
       })
       dispatch(action)
     }

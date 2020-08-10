@@ -90,7 +90,10 @@ const WeeklyAmountInput = (props) => {
       dispatch(action)
     }
     const onFailure = data => {
-      const action = editWeeklyItem({ id: id, ...data })
+      const action = editWeeklyItem({
+        id: id,
+        errors: { amount: data.errors[0]["adjust_item_form.0.amount"] },
+      })
       dispatch(action)
     }
     post(url, body, { onSuccess: onSuccess, onFailure: onFailure, event: event })

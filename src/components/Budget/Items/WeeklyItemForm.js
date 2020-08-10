@@ -68,7 +68,11 @@ const WeeklyItemForm = (props) => {
       dispatch(editNewWeeklyItem({ amount: "", budget_category_id: null }))
     }
     const onFailure = data => {
-      const action = editNewWeeklyItem({ errors: data.errors })
+      const action = editNewWeeklyItem({
+        errors: [
+          { amount: data.errors[0]["create_item_form.0.amount"] }
+        ]
+      })
       dispatch(action)
     }
     const event = data => EventMessageBuilder({ eventType: "budget-item-create" })(data[0])
