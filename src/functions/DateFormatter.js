@@ -149,15 +149,14 @@ export const before = (dateString, targetString) => {
   }
 }
 
-const simpleObject = (dateObject) => {
-  return formatted({
+const simpleObject = (dateObject) => (
+  formatted({
     year: dateObject.getFullYear(),
     month: (dateObject.getMonth() + 1),
     day: dateObject.getDate(),
     format: "object"
   })
-
-}
+)
 
 export const today = (format = "yyyy-mm-dd") => {
   const date = simpleObject(new Date())
