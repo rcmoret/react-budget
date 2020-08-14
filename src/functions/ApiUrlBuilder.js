@@ -13,53 +13,53 @@ const ApiUrlBuilder = (options = {}) => {
     .join("&")
   const queryString = queryParams === "" ? "" : `?${queryParams}`
 
-  return API_URL + path + queryString
+  return `${API_URL}/${path}${queryString}`
 }
 
 const pathTo = (route, options) => {
   switch(route) {
   case "accounts-index":
-    return "/accounts"
+    return "api/accounts"
   case "account-show":
-    return `/accounts/${options.id}`
+    return `api/accounts/${options.id}`
   case "budget-categories-index":
-    return "/budget/categories"
+    return "api/budget/categories"
   case "budget-category-show":
-    return `/budget/categories/${options.id}`
+    return `api/budget/categories/${options.id}`
   case "budget-category-items-index":
-    return `/budget/categories/${options.id}/items`
+    return `api/budget/categories/${options.id}/items`
   case "budget-category-maturity-intervals-index":
-    return `/budget/categories/${options.budgetCategoryId}/maturity_intervals`
+    return `api/budget/categories/${options.budgetCategoryId}/maturity_intervals`
   case "budget-category-maturity-interval-show":
-    return `/budget/categories/${options.budgetCategoryId}/maturity_intervals/${options.id}`
+    return `api/budget/categories/${options.budgetCategoryId}/maturity_intervals/${options.id}`
   case "budget-items-index":
-    return "/budget/items"
+    return "api/budget/items"
   case "budget-items-events-index":
-    return "/budget/items/events"
+    return "api/budget/items/events"
   case "budget-item-show":
-    return `/budget/categories/${options.budgetCategoryId}/items/${options.id}`
+    return `api/budget/categories/${options.budgetCategoryId}/items/${options.id}`
   case "budget-item-events-index":
-    return `/budget/categories/${options.budgetCategoryId}/items/${options.id}/events`
+    return `api/budget/categories/${options.budgetCategoryId}/items/${options.id}/events`
   case "budget-item-transactions-index":
-    return `/budget/categories/${options.budgetCategoryId}/items/${options.id}/transactions`
+    return `api/budget/categories/${options.budgetCategoryId}/items/${options.id}/transactions`
   case "discretionary-transactions-index":
-    return "/budget/discretionary/transactions"
+    return "api/budget/discretionary/transactions"
   case "icons-index":
-    return "/icons"
+    return "api/icons"
   case "icon-show":
-    return `/icons/${options.id}`
+    return `api/icons/${options.id}`
   case "interval-show":
-    return `/intervals/${options.month}/${options.year}`
+    return `api/intervals/${options.month}/${options.year}`
   case "transactions-index":
-    return `/accounts/${options.accountId}/transactions`
+    return `api/accounts/${options.accountId}/transactions`
   case "transaction-show":
-    return `/accounts/${options.accountId}/transactions/${options.id}`
+    return `api/accounts/${options.accountId}/transactions/${options.id}`
   case "transfers-index":
-    return "/transfers"
+    return "api/transfers"
   case "transfer-show":
-    return `/transfers/${options.id}`
+    return `api/transfers/${options.id}`
   default:
-    return ""
+    return "api"
   }
 }
 
