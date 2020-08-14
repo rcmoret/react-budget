@@ -36,6 +36,7 @@ const Show = (props) => {
     monthly,
     name,
     showForm,
+    slug,
   } = category
 
   const revealForm = (e) => {
@@ -65,7 +66,7 @@ const Show = (props) => {
   if (showForm) {
     return (
       <Edit
-        category={category}
+        category={{...category, errors: (category.errors || [])}}
         cancelLabel={cancelButtonText}
       />
     )
@@ -73,6 +74,7 @@ const Show = (props) => {
     return (
       <div className="budget-category">
         <div className="category-name">{name}</div>
+        <div className="category-name italic">{slug}</div>
         <div className="category-default-amount">
           {MoneyFormatter(default_amount, { absoulte: false })}
         </div>

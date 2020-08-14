@@ -5,6 +5,7 @@ import { update, updated, updateProps, updateItemInCollection } from "./helpers/
 const initialNewCategory = {
   name: "",
   default_amount: "",
+  slug: "",
   accrual: "false",
   showForm: false,
   icon_id: null,

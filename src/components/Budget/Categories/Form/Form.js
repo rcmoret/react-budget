@@ -18,6 +18,14 @@ export default (props) => (
       value={props.name}
     />
     <CategoryInput
+      className="category-name"
+      errors={props.errors.slug || []}
+      name="slug"
+      onChange={props.onChange}
+      placeholder={copy.category.slug}
+      value={props.slug || ""}
+    />
+    <CategoryInput
       className="category-default-amount"
       errors={props.errors.default_amount || []}
       name="default_amount"

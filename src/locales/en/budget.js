@@ -24,6 +24,7 @@ export const category = {
   revenues: "revenues",
   searchLabelText: "category name",
   searchPlaceholder: "search",
+  slug: "slug",
   title: "budget categories",
   type: "type",
   updateButtonText: "update",
