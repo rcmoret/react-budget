@@ -386,7 +386,7 @@
   font-size: 0.8em;
   border: none;
   margin-left: 4%;
-  box-shadow: 2px 2px #CCC;
+  box-shadow: 1px 1px #CCC;
 }
 
 .budget .budget-banner {
@@ -538,7 +538,7 @@
   border: none;
   border-radius: 15px;
   min-height: 2.5em;
-  box-shadow: 2px 2px #737373;
+  box-shadow: 1px 1px #737373;
 }
 
 .category-button button.submit {
