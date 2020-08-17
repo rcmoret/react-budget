@@ -74,34 +74,39 @@ const Show = (props) => {
     return (
       <div className="budget-category">
         <div className="category-name">{name}</div>
-        <div className="category-name italic">{slug}</div>
+        <div className="category-slug italic">{slug}</div>
         <div className="category-default-amount">
           {MoneyFormatter(default_amount, { absoulte: false })}
         </div>
         <div className="category-detail">
-          {monthly ? copy.category.monthly : weekly}
-          {" "}
-          {expense ? copy.category.expense : revenue}
+          <div>
+            {monthly ? copy.category.monthly : weekly}
+          </div>
+          <div>
+            {expense ? copy.category.expense : revenue}
+          </div>
         </div>
-        <div className="category-icon">
+        <div className="category-accrual">
           {accrual ? copy.category.accrual : ""}
         </div>
         <div className="category-icon">
           <Icon className={icon_class_name} />
         </div>
-        <div className="category-edit">
-          <Link
-            to="#"
-            onClick={revealForm}
-            className="far fa-edit"
-          />
-        </div>
-        <div className="category-delete">
-          <Link
-            to="#"
-            onClick={deleteCategory}
-            className="far fa-trash-alt"
-          />
+        <div className="category-option-buttons">
+          <div className="category-edit">
+            <Link
+              to="#"
+              onClick={revealForm}
+              className="far fa-edit"
+            />
+          </div>
+          <div className="category-delete">
+            <Link
+              to="#"
+              onClick={deleteCategory}
+              className="far fa-trash-alt"
+            />
+          </div>
         </div>
         <ExtraInfo
           dispatch={dispatch}

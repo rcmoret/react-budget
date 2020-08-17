@@ -119,7 +119,10 @@ const MaturityInfo = (props) => {
       </div>
     )
   } else {
-    return null
+    return (
+      <div className="category-maturity-intervals">
+      </div>
+    )
   }
 }
 

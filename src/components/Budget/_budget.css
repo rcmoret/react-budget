@@ -127,7 +127,6 @@
 .new-maturity-interval,
 .maturity-interval-submit,
 .category-delete {
-  display: inline-block;
   vertical-align: top;
 }
 
@@ -137,12 +136,12 @@
 }
 
 .category-delete {
-  margin-left: 2%;
+  margin-left: 12%;
 }
 
 .category-maturity-intervals {
-  margin: 0 10px;
-  width: 35%;
+  margin-left: 2%;
+  width: 18%;
 }
 
 .category-maturity-intervals a {
@@ -193,6 +192,10 @@
   width: 12%;
 }
 
+.category-slug {
+  width: 8%;
+}
+
 .category-default-amount {
   width: 10%;
   text-align: right;
@@ -203,17 +206,21 @@
   width: 5%;
 }
 
-.category-detail {
+.category-accrual, .category-detail {
   margin-left: 1.5%;
-  width: 15%;
+  width: 9%;
   font-style: italic;
 }
 
-.budget-category-labels {
-  padding: 0 2%;
-  margin-bottom: -1%;
+.category-detail {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.category-option-buttons {
+  display: flex;
+  justify-content: flex-end;
+  width: 8%;
 }
 
 .budget-category-form {
@@ -225,6 +232,13 @@
   padding: 1%;
   border-radius: 15px;
   margin: 0 2%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.budget-category#budget-category-header {
+  background-color: white;
+  padding: 0 1%;
 }
 
 .budget-category-filters {
@@ -236,7 +250,6 @@
   border-bottom: 1px #999 solid;
 }
 
-.budget-category-fillters .title,
 .budget-category-filters .adjective,
 .budget-category-filters .adverb,
 .budget-category-filters .search
@@ -293,7 +306,7 @@
   box-shadow: 1px 1px #999;
 }
 
-.budget-category:nth-of-type(2n) {
+.budget-category:nth-of-type(2n - 1) {
   background-color: #efefef;
 }
 
@@ -503,9 +516,10 @@
 
 .category-options {
   display: inline-block;
-  width: 9%;
+  width: 3%;
   margin-left: 2%;
   vertical-align: top;
+  font-size: 0.7em;
 }
 
 .category-options .option {

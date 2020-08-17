@@ -18,7 +18,7 @@ export default (props) => (
       value={props.name}
     />
     <CategoryInput
-      className="category-name"
+      className="category-slug"
       errors={props.errors.slug || []}
       name="slug"
       onChange={props.onChange}
