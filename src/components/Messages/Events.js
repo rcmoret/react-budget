@@ -10,10 +10,7 @@ const Events = ({ dispatch, events, showEvents }) => {
   const onClick = () => dispatch(toggleEvents())
 
   if (events.length === 0) {
-    return (
-      <div className="top-level-events">
-      </div>
-    )
+    return null
   } else if (showEvents) {
     return (
       <div className="top-level-events">
