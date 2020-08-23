@@ -36,6 +36,7 @@ const Form = ({ dispatch, error, keyFormInput }) => {
         onChange={onChange}
         onKeyDown={handleKeyDown}
         placeholder={terms.apiKey}
+        type="password"
       />
       {" "}
       <span className="font-green">
