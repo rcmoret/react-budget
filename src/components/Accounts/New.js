@@ -17,6 +17,7 @@ const New = (props) => {
     name,
     priority,
     showNewForm,
+    slug,
   } = props
 
   const showForm = (e) => {
@@ -44,7 +45,7 @@ const New = (props) => {
 
   const submitForm = () => {
     const url = ApiUrlBuilder({ route: "accounts-index" })
-    const body = JSON.stringify({ name: name, priority: priority, cash_flow: cash_flow })
+    const body = JSON.stringify({ name: name, priority: priority, cash_flow: cash_flow, slug: slug })
     const event = EventMessageBuilder({ eventType: "account-create" })
     const onSuccess = (data) => {
       dispatch(created(data))
