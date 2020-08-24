@@ -5,7 +5,7 @@ import { budget as copy } from "../../../locales/copy"
 import { editWeeklyItem, removeWeeklyItem } from "../../../actions/budget"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
-import { deleteRequest } from "../../../functions/ApiClient"
+import { post } from "../../../functions/ApiClient"
 import formatter from "../../../functions/DateFormatter"
 import EventMessageBuilder from "../../../functions/EventMessageBuilder"
 
@@ -63,11 +63,7 @@ const WeeklyItem = (props) => {
     const dateString = formatter({ month: month, year: year, format: "shortMonthYear" })
     const confirmation = window.confirm(deleteConfirmationMessage(name, dateString))
     if (confirmation) {
-      const url = ApiUrlBuilder({
-        route: "budget-item-show",
-        id: id,
-        budgetCategoryId: budget_category_id,
-      })
+      const url = ApiUrlBuilder({ route: "budget-items-events-index" })
       const event = EventMessageBuilder({
         eventType: "budget-item-delete",
         id: id,
@@ -76,7 +72,16 @@ const WeeklyItem = (props) => {
         month: month,
         year: year
       })
-      deleteRequest(url, event, () => dispatch(removeWeeklyItem({ id: id })))
+      const body = JSON.stringify({
+        events: [
+          {
+            budget_item_id: id,
+            event_type: "item_delete",
+          },
+        ],
+      })
+      const onSuccess = () => dispatch(removeWeeklyItem({ id: id }))
+      post(url, body, { event: event, onSuccess: onSuccess })
     }
   }
 
