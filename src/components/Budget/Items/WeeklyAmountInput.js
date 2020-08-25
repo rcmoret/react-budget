@@ -35,8 +35,7 @@ const WeeklyAmountInput = (props) => {
     dispatch(action)
   }
 
-  const reset = (e) => {
-    e.preventDefault()
+  const reset = () => {
     const difference = amount - spent
     const action = editWeeklyItem({
       id: id,
@@ -96,7 +95,11 @@ const WeeklyAmountInput = (props) => {
       })
       dispatch(action)
     }
-    post(url, body, { onSuccess: onSuccess, onFailure: onFailure, event: event })
+    if (EvaluateInput(floatAmount) !== ((amount / 100.0).toFixed(2))) {
+      post(url, body, { onSuccess: onSuccess, onFailure: onFailure, event: event })
+    } else {
+      reset()
+    }
   }
 
   return (
