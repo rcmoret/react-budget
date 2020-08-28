@@ -1,122 +1,170 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import { budget as copy } from "../../../locales/copy"
-import { deleted, update } from "../../../actions/budget/categories"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
-import { deleteRequest } from "../../../functions/ApiClient"
-import EventMessageBuilder from "../../../functions/EventMessageBuilder"
+import * as DateFormatter from "../../../functions/DateFormatter"
+import FindOrDefault from "../../../functions/FindOrDefault"
+import { get } from "../../../functions/ApiClient"
+import { budget as copy, terms } from "../../../locales/copy"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
+import { titleize } from "../../../locales/functions"
 
-import Edit from "./Edit"
-import ExtraInfo from "./MaturityIntervals/Info"
-import Icon from "../../Icons/Icon"
-import { Link } from "react-router-dom"
+import { categoriesFetched as fetched } from "../../../actions/budget/categories"
+
+const budgetCategoryDataFetched = payload => (
+  { type: "budget/categories/show/DATA_FETCHED", payload: payload }
+)
 
 const Show = (props) => {
   const {
-    cancelButtonText,
-    deleteConfirmMessage,
-    revenue,
-    weekly,
-  } = copy.category
-
-  const {
-    category,
+    categoriesFetched,
     dispatch,
+    dataCachedAt,
+    dateRange,
+    isApiUnauthorized,
+    isCacheValid,
+    selectedCategoryId,
+    selectedCategory,
+    transactionsAndEvents,
   } = props
 
-  const {
-    id,
-    accrual,
-    default_amount,
-    errors,
-    expense,
-    icon_class_name,
-    monthly,
-    name,
-    showForm,
-    slug,
-  } = category
+  const { combinedEvents, viewingInterals } = copy.category
+  const beginningMonth = DateFormatter.formatted({
+    month: dateRange.beginning_month,
+    year: dateRange.beginning_year,
+    format: "numericMonthYear"
+  })
 
-  const revealForm = (e) => {
-    e.preventDefault()
-    const action = update({
-      id: id,
-      errors: (errors || []),
-      showForm: true,
-    })
-    dispatch(action)
+  const endingMonth = DateFormatter.formatted({
+    month: dateRange.ending_month,
+    year: dateRange.ending_year,
+    format: "numericMonthYear"
+  })
+
+  if (!isApiUnauthorized && !categoriesFetched) {
+    const url = ApiUrlBuilder({ route: "budget-categories-index" })
+    const onSuccess = data => dispatch(fetched(data))
+    get(url, onSuccess)
+    return (<Spinner />)
   }
 
-  const deleteCategory = (e) => {
-    e.preventDefault()
-    const confirmation = window.confirm(deleteConfirmMessage(name))
-    if (confirmation) {
-      const url = ApiUrlBuilder({ route: "budget-category-show", id: id })
-      const event = EventMessageBuilder({
-        eventType: "budget-category-delete",
-        id: id,
-        name: name,
-      })
-      deleteRequest(url, event, dispatch(deleted(id)))
-    }
+  if ((!dataCachedAt || !isCacheValid) && !isApiUnauthorized) {
+    const url = ApiUrlBuilder({ route: "budget-category-show-data", id: selectedCategoryId })
+    const onSuccess = data => dispatch(budgetCategoryDataFetched(data))
+    get(url, data => onSuccess(data))
+    return (<Spinner />)
   }
 
-  if (showForm) {
-    return (
-      <Edit
-        category={{...category, errors: (category.errors || [])}}
-        cancelLabel={cancelButtonText}
-      />
-    )
-  } else {
-    return (
-      <div className="budget-category">
-        <div className="category-name">{name}</div>
-        <div className="category-slug italic">{slug}</div>
-        <div className="category-default-amount">
-          {MoneyFormatter(default_amount, { absoulte: false })}
-        </div>
-        <div className="category-detail">
-          <div>
-            {monthly ? copy.category.monthly : weekly}
-          </div>
-          <div>
-            {expense ? copy.category.expense : revenue}
-          </div>
-        </div>
-        <div className="category-accrual">
-          {accrual ? copy.category.accrual : ""}
-        </div>
-        <div className="category-icon">
-          <Icon className={icon_class_name} />
-        </div>
-        <div className="category-option-buttons">
-          <div className="category-edit">
-            <Link
-              to="#"
-              onClick={revealForm}
-              className="far fa-edit"
-            />
-          </div>
-          <div className="category-delete">
-            <Link
-              to="#"
-              onClick={deleteCategory}
-              className="far fa-trash-alt"
-            />
-          </div>
-        </div>
-        <ExtraInfo
-          dispatch={dispatch}
-          {...category}
-        />
+  return (
+    <div className="budget-category-events">
+      <h2>{selectedCategory.name}</h2>
+      <div>
+        <strong>{combinedEvents}</strong>
       </div>
-    )
+      {viewingInterals(beginningMonth, endingMonth)}
+      {transactionsAndEvents.map((event, index) => (
+        <Event key={index} {...event} />
+      ))}
+    </div>
+  )
+}
+
+const Event = props => {
+  if (props.hasOwnProperty("transaction_entry_id")) {
+    return (<TransactionEvent {...props} />)
+  } else {
+    return (<BudgetItemEvent {...props} />)
   }
 }
 
-const mapStateToProps = (_state, ownProps) => ownProps
+const TransactionEvent = props => (
+  <div className="budget-category-event">
+    <div className="budget-category-event-date">
+      {DateFormatter.fromDateString(props.created_at)}
+    </div>
+    <div className="budget-category-event-type">
+      {titleize(terms.transaction)}
+    </div>
+    <div className="budget-category-event-amount">
+      {MoneyFormatter(props.amount)}
+    </div>
+    <div className="budget-category-event-cell">
+      {props.description}
+      {" "}
+      <span className="italic small">
+        (
+        {" "}
+        {props.account_name}
+        {" "}
+        {terms.item} {terms.id}:
+        {" "}
+        {props.budget_item_id}
+        {" "}
+        )
+      </span>
+    </div>
+  </div>
+)
+
+const BudgetItemEvent = props => (
+  <div className="budget-category-event">
+    <div className="budget-category-event-date">
+      {DateFormatter.fromDateString(props.created_at)}
+    </div>
+    <div className="budget-category-event-type">
+      {copy.eventLabels[props.name]}
+    </div>
+    <div className="budget-category-event-amount">
+      {MoneyFormatter(props.amount)}
+    </div>
+    <div className="budget-category-event-cell">
+      {terms.month}:
+      {" "}
+      {DateFormatter.formatted({ ...props, format: "numericMonthYear" })}
+      {" "}
+      <span className="italic small">
+        (
+        {" "}
+        {terms.item} {terms.id}:
+        {" "}
+        {props.budget_item_id}
+        {" "}
+        )
+      </span>
+    </div>
+  </div>
+)
+
+const Spinner = () => (
+  <div className="budget-category">
+    <h3><i className="fas fa-spinner fa-spin" /></h3>
+  </div>
+)
+
+const mapStateToProps = (state, ownProps) => {
+  const { slug } = ownProps.match.params
+  const categories = state.budget.categories.collection
+  const stateCategory = state.budget.categories.show
+  const { dataCachedAt, dateRange } = stateCategory
+  const category = FindOrDefault(categories, cat => cat.slug === slug, stateCategory)
+  const isApiUnauthorized = state.api.status === 401
+  const categoriesFetched = state.budget.categories.fetched
+  const isCacheValid = slug === stateCategory.slug
+
+  const sortFn = (a, b) => b.created_at < a.created_at ? 1 : -1
+  const transactionsAndEvents = [...stateCategory.events, ...stateCategory.transactions].sort(sortFn)
+
+  return {
+    categoriesFetched: categoriesFetched,
+    dataCachedAt: dataCachedAt,
+    dateRange: dateRange,
+    isApiUnauthorized: isApiUnauthorized,
+    isCacheValid: isCacheValid,
+    selectedCategoryId: category.id,
+    selectedCategory: category,
+    slug: slug,
+    transactionsAndEvents: transactionsAndEvents,
+  }
+}
 
 export default connect(mapStateToProps)(Show)

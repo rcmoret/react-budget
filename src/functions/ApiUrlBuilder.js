@@ -26,6 +26,8 @@ const pathTo = (route, options) => {
     return "api/budget/categories"
   case "budget-category-show":
     return `api/budget/categories/${options.id}`
+  case "budget-category-show-data":
+    return `api/budget/categories/${options.id}/data`
   case "budget-category-items-index":
     return `api/budget/categories/${options.id}/items`
   case "budget-category-maturity-intervals-index":

@@ -3,4 +3,8 @@ export const terms = {
   apiKey: "api key",
   appName: "Checkbook & Budget",
   budget: "Budget",
+  id: "id",
+  item: "item",
+  month: "month",
+  transaction: "transaction",
 }

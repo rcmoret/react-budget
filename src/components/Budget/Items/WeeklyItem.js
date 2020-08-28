@@ -27,7 +27,6 @@ const WeeklyItem = (props) => {
   const {
     id,
     amount,
-    budget_category_id,
     daysRemaining,
     difference,
     dispatch,

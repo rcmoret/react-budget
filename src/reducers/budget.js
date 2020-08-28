@@ -31,6 +31,21 @@ const initialState = {
       { name: "search", value: "" },
     ],
     showForm: false,
+    show: {
+      id: null,
+      name: "",
+      slug: "",
+      dataCachedAt: null,
+      events: [],
+      transactions: [],
+      itemViews: [],
+      dateRange: {
+        beginning_month: null,
+        begining_year: null,
+        ending_month: null,
+        ending_year: null,
+      }
+    },
   },
   monthly: {
     collection: [],
@@ -300,6 +315,22 @@ export default (state = initialState, action) => {
           })
         }
       }
+    }
+  case "budget/categories/show/DATA_FETCHED":
+    return {
+      ...state,
+      categories: {
+        ...state.categories,
+        show: {
+          ...state.categories.show,
+          dataCachedAt: new Date(),
+          slug: action.payload.category.slug,
+          events: action.payload.events,
+          itemViews: action.payload.item_views,
+          transactions: action.payload.transactions,
+          dateRange: action.payload.date_range,
+        },
+      },
     }
   case "budget/finalize/ADD_FINALIZE_ITEM":
     return {

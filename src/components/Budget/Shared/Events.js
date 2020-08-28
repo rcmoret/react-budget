@@ -30,10 +30,11 @@ const Event = (props) => {
     amount,
     budgetedAmount,
     budget_item_event_type,
+    created_at,
     remaining,
   } = props
 
-  const items = [budgetCopy.eventLabels[budget_item_event_type], ""]
+  const eventName = budgetCopy.eventLabels[budget_item_event_type]
   const prevAmount = budgetedAmount - amount
   const prevRemaining = remaining - amount
   const operator = amount < 0 ? minus : plus
@@ -42,7 +43,24 @@ const Event = (props) => {
 
   return (
     <div className="budget-item-event">
-      <Shared {...props} items={items} />
+      <div className="budget-item-event-row top">
+        <div className="budget-item-event-row-left">
+          <div className="budget-item-cell created-at-date">
+            <span className="long-date">
+              {DateHelpers.fromDateString(created_at)}
+            </span>
+            <span className="short-date">
+              {DateHelpers.fromDateString(created_at, { format: "m/d" })}
+            </span>
+          </div>
+          <div className="budget-item-cell budget-item-cell-extra-wide">
+            {eventName}
+          </div>
+        </div>
+        <div className="budget-item-cell amount">
+          {MoneyFormatter(amount)}
+        </div>
+      </div>
       <div className="budget-item-event-row bottom">
         <div className="budget-item-cell small amount">
           <Atom string={titleize(budgetCopy.shared.remaining)} />
@@ -62,16 +80,36 @@ const Transaction = (props) => {
     account_name,
     amount,
     budgetedAmount,
+    created_at,
     remaining,
   } = props
   const displayDescription = props.description || props.budgetCategory
   const prevRemaining = remaining + amount
-  const items = [displayDescription, account_name]
   const operator = amount <= 0 ? plus : minus
 
   return (
     <div className="budget-item-event">
-      <Shared {...props} items={items} />
+      <div className="budget-item-event-row top">
+        <div className="budget-item-event-row-left">
+          <div className="budget-item-cell created-at-date">
+            <span className="long-date">
+              {DateHelpers.fromDateString(created_at)}
+            </span>
+            <span className="short-date">
+              {DateHelpers.fromDateString(created_at, { format: "m/d" })}
+            </span>
+          </div>
+          <div className="budget-item-cell budget-item-cell-description">
+            {displayDescription}
+          </div>
+          <div className="budget-item-cell budget-item-cell-description italic">
+            ({account_name})
+          </div>
+        </div>
+        <div className="budget-item-cell amount">
+          {MoneyFormatter(amount)}
+        </div>
+      </div>
       <div className="budget-item-event-row bottom">
         <div className="budget-item-cell small amount">
           <Atom string={titleize(budgetCopy.item.budgeted)} />
@@ -91,37 +129,6 @@ const Transaction = (props) => {
             {MoneyFormatter(remaining)}
           </div>
         </div>
-      </div>
-    </div>
-  )
-}
-
-const Shared = (props) => {
-  const {
-    amount,
-    created_at,
-    items,
-  } = props
-
-  return (
-    <div className="budget-item-event-row top">
-      <div className="budget-item-event-row-left">
-        <div className="budget-item-cell created-at-date">
-          <span className="long-date">
-            {DateHelpers.fromDateString(created_at)}
-          </span>
-          <span className="short-date">
-            {DateHelpers.fromDateString(created_at, { format: "m/d" })}
-          </span>
-        </div>
-        {items.map((item, index) => (
-          <div className="budget-item-cell" key={index}>
-            {item}
-          </div>
-        ))}
-      </div>
-      <div className="budget-item-cell amount">
-        {MoneyFormatter(amount)}
       </div>
     </div>
   )

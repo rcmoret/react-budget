@@ -157,7 +157,8 @@ export const updateWeeklyItem = (item, state) => {
 
   const { metadata, monthly, setup, weekly } = state
   const originalItem = state.weekly.collection.find(_item => _item.id === item.id)
-  const updatedItem = objectifyWeekly({ ...originalItem, ...item }, state.metadata)
+  const events = [...originalItem.events, ...item.events]
+  const updatedItem = objectifyWeekly({ ...originalItem, ...item, events: events }, state.metadata)
 
   const newCollection = updateItemInCollection({
     updatedItem: updatedItem,

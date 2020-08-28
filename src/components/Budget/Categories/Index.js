@@ -12,7 +12,7 @@ import { get } from "../../../functions/ApiClient"
 import Filters from "./Filters"
 import Header from "./Header"
 import NewBudgetCategory from "./New"
-import Show from "./Show"
+import Row from "./Row"
 
 const BudgetCategories = (props) => {
   const { isApiUnauthorized, collection, dispatch, fetched } = props
@@ -36,7 +36,7 @@ const BudgetCategories = (props) => {
       <Header />
       <NewBudgetCategory />
       {collection.map(category =>
-        <Show
+        <Row
           key={category.id}
           category={category}
         />

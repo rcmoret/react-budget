@@ -4,6 +4,7 @@ import { Provider } from "react-redux"
 import store from "./store"
 import AccountWrapper from "./components/Accounts/Wrapper"
 import AccountIndex from "./components/Accounts/Index"
+import BudgetCategoryShow from "./components/Budget/Categories/Show"
 import BudgetFinalizeIndex from "./components/Budget/Finalize/Index"
 import BudgetFinalizeAccruals from "./components/Budget/Finalize/Accruals"
 import BudgetFinalizeFinish from "./components/Budget/Finalize/Finish"
@@ -23,7 +24,6 @@ import Icons from "./components/Icons/Index"
 import Transfers from "./components/Transfers/Index"
 import "./App.css"
 
-
 export default () => (
   <div className="App">
     <Provider store={store}>
@@ -38,6 +38,7 @@ export default () => (
             <Route path="/accounts/:slug/:month?/:year?" component={AccountWrapper} />
             <Route path="/accounts/:slug/" component={AccountWrapper} />
             <Route exact path="/budget/categories" component={BudgetCategories} />
+            <Route path="/budget/categories/:slug" component={BudgetCategoryShow} />
             <Route exact path="/budget/icons" component={Icons} />
             <Route exact path="/budget/:month/:year" component={BudgetIndex} />
             <Route path="/budget/finalize/:month/:year/start" component={BudgetFinalizeIndex} />

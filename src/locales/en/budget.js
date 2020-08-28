@@ -7,6 +7,7 @@ export const category = {
   cancelButtonText: "Cancel",
   categories: "categories",
   closeButtonText: "Close",
+  combinedEvents: "Events and Transactions",
   createButtonText: "create",
   defaultAmount: "default amount",
   deleteConfirmMessage: (name) => `Are you sure you want to delete ${name}?`,
@@ -28,6 +29,7 @@ export const category = {
   title: "budget categories",
   type: "type",
   updateButtonText: "update",
+  viewingInterals: (beginning, ending) => `Viewing from ${beginning} to ${ending}`,
   weekly: "day-to-day",
 }
 
