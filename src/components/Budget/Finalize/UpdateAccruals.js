@@ -35,7 +35,7 @@ export default ({ collection, dispatch }) => {
         ]
       }
     )
-    post(url, body, { event: event, onSuccess: data => dispatch(updateFinalizeItem(data)) })
+    post(url, body, { event: event, onSuccess: data => dispatch(updateFinalizeItem(data[0].item)) })
   }
 
   const amountFor = (item) => {

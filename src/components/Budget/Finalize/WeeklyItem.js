@@ -121,7 +121,7 @@ export default (props) => {
           <Submit
             amount={amount}
             budgetCategoryId={baseItem.budget_category_id}
-            baseItemId={id}
+            baseItem={baseItem}
             dispatch={dispatch}
             errors={errors()}
             monthly={monthly}

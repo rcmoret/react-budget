@@ -20,7 +20,7 @@ import Icon from "../../../Icons/Icon"
 export default (props) => {
   const {
     amount,
-    baseItemId,
+    baseItem,
     budgetCategoryId,
     dispatch,
     errors,
@@ -40,7 +40,7 @@ export default (props) => {
 
   const markReviewed = () => {
     const action = setStatus({
-      id: baseItemId,
+      id: baseItem.id,
       status: "reviewed"
     })
     dispatch(action)
@@ -58,13 +58,14 @@ export default (props) => {
 
   const updateItem = () => {
     const url = ApiUrlBuilder({ route: "budget-items-events-index" })
+    const adjustedTotal =  decimalToInt(amount) + nextItem.amount
     const body = JSON.stringify(
       {
         events: [
           {
             event_type: "rollover_item_adjust",
             budget_item_id: nextItem.id,
-            amount: decimalToInt(amount),
+            amount: adjustedTotal,
           }
         ]
       }
@@ -79,7 +80,7 @@ export default (props) => {
       newAmount: amount,
     })
     const onSuccess = (data) => {
-      dispatch(updateFinalizeItem(data))
+      dispatch(updateFinalizeItem(data[0].item))
       markReviewed()
     }
     post(url, body, { event: event, onSuccess: onSuccess })
