@@ -46,27 +46,25 @@ const Show = (props) => {
     const onSuccess = data => dispatch(fetched(data))
     get(url, onSuccess)
     return (<Spinner />)
-  }
-
-  if ((!dataCachedAt || !isCacheValid) && !isApiUnauthorized) {
+  } else if ((!dataCachedAt || !isCacheValid) && !isApiUnauthorized) {
     const url = ApiUrlBuilder({ route: "budget-category-show-data", id: selectedCategoryId })
     const onSuccess = data => dispatch(budgetCategoryDataFetched(data))
     get(url, data => onSuccess(data))
     return (<Spinner />)
-  }
-
-  return (
-    <div className="budget-category-events">
-      <h2>{selectedCategory.name}</h2>
-      <div>
-        <strong>{combinedEvents}</strong>
+  } else {
+    return (
+      <div className="budget-category-events">
+        <h2>{selectedCategory.name}</h2>
+        <div>
+          <strong>{combinedEvents}</strong>
+        </div>
+        {viewingInterals(beginningMonth, endingMonth)}
+        {transactionsAndEvents.map((event, index) => (
+          <Event key={index} {...event} />
+        ))}
       </div>
-      {viewingInterals(beginningMonth, endingMonth)}
-      {transactionsAndEvents.map((event, index) => (
-        <Event key={index} {...event} />
-      ))}
-    </div>
-  )
+    )
+  }
 }
 
 const Event = props => {

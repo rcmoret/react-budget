@@ -1,21 +1,18 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import { budget as copy } from "../../../locales/copy"
-import { titleize } from "../../../locales/functions"
 import { fetchedDiscretionaryTransactions } from "../../../actions/budget"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { get } from "../../../functions/ApiClient"
 
 import Details from "../Shared/Details"
-import Transactions from "./../Shared/Transactions"
+import Events from "./../Shared/Events"
 
 const DiscretionaryDetail = (props) => {
   const {
     amount,
     isApiUnauthorized,
-    collection,
     days_remaining,
     dispatch,
     fetchedTransactions,
@@ -23,6 +20,7 @@ const DiscretionaryDetail = (props) => {
     showDetail,
     total_remaining,
     total_days,
+    transactions,
     year,
   } = props
 
@@ -52,9 +50,8 @@ const DiscretionaryDetail = (props) => {
         remainingPerWeek={remainingPerDay * 7}
       />
       <hr />
-      <Transactions
-        budgetCategory={titleize(copy.discretionary.title)}
-        collection={collection}
+      <Events
+        events={transactions}
       />
     </div>
   )
@@ -63,25 +60,39 @@ const DiscretionaryDetail = (props) => {
 const mapStateToProps = (state) => {
   const date = new Date()
   const today = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0,10)
-  const collection = state.budget.discretionary.collection.sort((a, b) => {
-    if (a.clearance_date === b.clearance_date) {
+  const sortFn = (a, b) => {
+    if (a.created_at === b.created_at) {
       return 0
-    } else if (a.clearance_date === null) {
-      return b.clearance_date > today ? -1 : 1
-    } else if (b.clearance_date === null) {
-      return a.clearance_date > today ? 1 : -1
+    } else if (a.created_at === null) {
+      return b.created_at > today ? -1 : 1
+    } else if (b.created_at === null) {
+      return a.created_at > today ? 1 : -1
     } else {
       // equailty is handled above
-      return (a.clearance_date > b.clearance_date) ? 1 : -1
+      return (a.created_at > b.created_at) ? 1 : -1
     }
-  })
+  }
+  const { amount, collection } = state.budget.discretionary
+  let remaining = (-1 * amount)
+  const transactions = collection
+    .sort(sortFn)
+    .map(transaction => {
+      remaining -= transaction.amount
+      return {
+        ...transaction,
+        budgetedAmount: amount,
+        remaining: remaining,
+        isTransaction: true
+      }
+    })
+
   const isApiUnauthorized = state.api.status === 401
 
   return {
     ...state.budget.metadata,
     ...state.budget.discretionary,
     isApiUnauthorized: isApiUnauthorized,
-    collection: collection
+    transactions: transactions
   }
 }
 

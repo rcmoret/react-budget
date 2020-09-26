@@ -29,12 +29,11 @@ const Event = (props) => {
   const {
     amount,
     budgetedAmount,
-    budget_item_event_type,
     created_at,
     remaining,
   } = props
 
-  const eventName = budgetCopy.eventLabels[budget_item_event_type]
+  const eventName = budgetCopy.eventLabels[props.name]
   const prevAmount = budgetedAmount - amount
   const prevRemaining = remaining - amount
   const operator = amount < 0 ? minus : plus
