@@ -5,6 +5,7 @@ import { fetchedBudgetItems, fetchedTransactions } from "../../actions/transacti
 
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { get } from "../../functions/ApiClient"
+import FindOrDefault from "../../functions/FindOrDefault"
 
 import Transactions from "./Transactions"
 
@@ -15,6 +16,7 @@ const Wrapper = (props) => {
     dispatch,
     fetched,
     month,
+    selectedAccount,
     slug,
     urlAccountId,
     urlMonth,
@@ -32,7 +34,7 @@ const Wrapper = (props) => {
       accountId: urlAccountId,
       query: { month: urlMonth, year: urlYear },
     })
-    const onSuccess = data => dispatch(fetchedTransactions({...data, slug: slug }))
+    const onSuccess = data => dispatch(fetchedTransactions({...data, slug: slug, selectedAccount: selectedAccount }))
     get(url, onSuccess)
   }
 
@@ -66,12 +68,14 @@ const mapStateToProps = (state, ownProps) => {
   const { query_options } = state.transactions.metadata
   const { fetched } = state.transactions.budgetItems
   const isApiUnauthorized = state.api.status === 401
+  const selectedAccount = FindOrDefault(state.accounts.collection, account => account.id === ownProps.accountId, { cash_flow: true })
 
   return {
     accountId: parseInt(query_options.account_id),
     isApiUnauthorized: isApiUnauthorized,
     fetched: fetched,
     month: parseInt(query_options.month),
+    selectedAccount: selectedAccount,
     slug: ownProps.slug,
     urlAccountId: ownProps.accountId,
     urlMonth: ownProps.month,

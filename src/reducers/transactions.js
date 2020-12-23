@@ -167,7 +167,7 @@ export default (state = initialState, action) => {
       ...state,
       new: {
         ...state.new,
-        budget_exclusion: false,
+        budget_exclusion: !action.payload.selectedAccount.cash_flow
       },
       metadata: action.payload.metadata,
       collection: action.payload.transactions.map(txn => objectifyTransaction(txn)),
