@@ -156,7 +156,7 @@ const mapStateToProps = (state, ownProps) => {
   const note = extra
     .filter(item => item.amount !== 0)
     .map(item => `${item.name} (${MoneyFormatter(item.amount, { absoulte: false })})`)
-    .join("; ")
+    .join("<br>")
 
   return {
     accountsFetched: accounts.accountsFetched,
