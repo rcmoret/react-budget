@@ -20,7 +20,6 @@ import Edit from "../Edit"
 import EndLinks from "./EndLinks"
 import Notes from "./Notes"
 import LeftIcon from "./LeftIcon"
-import TxnLinks from "./TxnLinks"
 
 const Show = (props) => {
   const {
@@ -124,13 +123,6 @@ const Show = (props) => {
             details={details}
             notes={notes}
             showDetail={showDetail}
-          />
-          <TxnLinks
-            id={id}
-            deletable={deletable}
-            revealForm={revealForm}
-            showDetail={showDetail}
-            transactionDelete={transactionDelete}
           />
         </div>
       </div>
