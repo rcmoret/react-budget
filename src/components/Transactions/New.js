@@ -44,7 +44,7 @@ const New = (props) => {
   const handleKeyDown = () => null
 
   const resetForm = () => {
-    const action = resetNew()
+    const action = resetNew({ selectedAccount: selectedAccount })
     dispatch(action)
     closeForm()
   }
@@ -85,7 +85,7 @@ const New = (props) => {
     })
     const onSuccess = (data) => {
       dispatch(created(data))
-      dispatch(resetNew({ showForm: true }))
+      dispatch(resetNew({ showForm: true, selectedAccount: selectedAccount }))
     }
     post(url, body, { event: event, onSuccess: onSuccess })
   }

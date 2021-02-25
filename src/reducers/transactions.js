@@ -198,7 +198,7 @@ export default (state = initialState, action) => {
   case "transactions/RESET_NEW":
     return {
       ...state,
-      new: { ...initialState.new, ...action.payload },
+      new: { ...initialState.new, ...action.payload, budget_exclusion: !action.payload.selectedAccount.cash_flow },
     }
   case "transactions/TOGGLE_EDIT_FORM":
     return helpers.toggleEditForm(action.payload, state)
