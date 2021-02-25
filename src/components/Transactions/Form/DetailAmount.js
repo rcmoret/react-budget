@@ -6,14 +6,6 @@ import { transaction as copy } from "../../../locales/copy"
 import EvaluateInput from "../../../functions/DynamicInputEvaluator"
 
 export default ({ index, detail, onDetailChange, onKeyDown }) => {
-  const onChange = (e) => {
-    onDetailChange(_id, { amount: e.target.value })
-  }
-
-  const onCalculate = () => {
-    onDetailChange(_id, { amount: EvaluateInput(amount) })
-  }
-
   const {
     id,
     amount,
@@ -22,6 +14,25 @@ export default ({ index, detail, onDetailChange, onKeyDown }) => {
 
   const _id = id || index
 
+  const onChange = (e) => {
+    onDetailChange(_id, { amount: e.target.value })
+  }
+
+  const calculateAmount = () => {
+    onDetailChange(_id, { amount: EvaluateInput(amount) })
+  }
+
+  const isEligibleForCalculation = EvaluateInput(amount) !== amount
+
+  const handleKeyDown = e => {
+    if (e.which === 13) {
+      if (isEligibleForCalculation) {
+        calculateAmount()
+      }
+      onKeyDown(e)
+    }
+  }
+
   return (
     <div className="detail-amount">
       <input
@@ -29,17 +40,30 @@ export default ({ index, detail, onDetailChange, onKeyDown }) => {
         name={`detail[${_id}][amount]`}
         disabled={disabled}
         onChange={onChange}
-        onKeyDown={onKeyDown}
+        onKeyDown={handleKeyDown}
         placeholder={copy.amount}
         value={amount}
       />
+      <CalculatorButton
+        calculateAmount={calculateAmount}
+        showable={isEligibleForCalculation}
+      />
+    </div>
+  )
+}
+
+const CalculatorButton = ({ calculateAmount, showable }) => {
+  if (showable) {
+    return (
       <div className="calculator-button">
         <Link
           to="#"
           className="fas fa-calculator"
-          onClick={onCalculate}
+          onClick={calculateAmount}
         />
       </div>
-    </div>
-  )
+    )
+  } else {
+    return null
+  }
 }

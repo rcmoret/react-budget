@@ -109,8 +109,8 @@ const Show = (props) => {
                 showDetail={showDetail}
               />
               <BudgetExclusion budgetExclusion={budget_exclusion} />
-              <Notes notes={notes} />
               <CheckNumber checkNumber={check_number} />
+              <Notes notes={notes} />
             </div>
           </div>
           <EndLinks revealForm={revealForm} transactionDelete={transactionDelete} />
