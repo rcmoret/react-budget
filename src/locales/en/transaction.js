@@ -13,6 +13,7 @@ export const transaction = {
   deleteDetailConfirmationMessage: "Are you sure you want to delete this transaction detail?",
   description: "description",
   notes: "notes",
+  notesPlacholder: "NOTES - (hint: use '<br>' to create separate lines",
   pending: "pending",
   title: "transactions",
   todayButtonText: "today",

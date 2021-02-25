@@ -16,7 +16,6 @@ const BudgetExclusionIcon = ({ budgetExclusion, formOptions, selectedAccount, to
     highlighted={budgetExclusion}
     iconClassName="fas fa-exclamation"
     name="showBudgetExclusion"
-    onClick={toggleFormOption}
     showOption={!(formOptions.showBudgetExclusion || selectedAccount.cash_flow)}
     toggleFormOption={toggleFormOption}
   />
@@ -27,23 +26,22 @@ const CheckIcon = ({ checkNumber, formOptions, toggleFormOption }) => (
     highlighted={!(checkNumber === null || checkNumber === "")}
     iconClassName="fas fa-money-check"
     name="showCheck"
-    onClick={toggleFormOption}
     showOption={!formOptions.showCheck}
     toggleFormOption={toggleFormOption}
   />
 )
 
-const NoteIcon = ({ formOptions, notes, toggleFormOption }) => (
-  <OptionIcon
-    highlighted={!(notes === null || notes === "")}
-    iconClassName="fas fa-sticky-note"
-    name="showNotes"
-    onClick={toggleFormOption}
-    showOption={!formOptions.showNotes}
-    toggleFormOption={toggleFormOption}
-  />
-)
-
+const NoteIcon = ({ formOptions, notes, toggleFormOption }) => {
+  return(
+    <OptionIcon
+      highlighted={!(notes === null || notes === "")}
+      iconClassName="fas fa-sticky-note"
+      name="showNotes"
+      showOption={!formOptions.showNotes}
+      toggleFormOption={toggleFormOption}
+    />
+  )
+}
 
 const ReceiptIcon = ({ formOptions, toggleFormOption })=> {
   if (formOptions.showReceipt) {

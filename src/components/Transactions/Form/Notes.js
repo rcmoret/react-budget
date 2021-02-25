@@ -14,7 +14,7 @@ export default ({ formOptions, notes, handleKeyDown, onChange, toggleFormOption 
       <div className="option-input">
         <Link to="#" onClick={toggleFormOption} name="showNotes" className="fas fa-sticky-note" />
         <textarea
-          placeholder={copy.notes}
+          placeholder={copy.notesPlacholder}
           name="notes"
           value={notes || ""}
           onChange={update}
