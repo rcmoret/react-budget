@@ -5,6 +5,7 @@ import { fetched } from "./actions"
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { get } from "../../functions/ApiClient"
 import FindOrDefault from "../../functions/FindOrDefault"
+import { today as Today } from "../../functions/DateFormatter"
 
 import Details from "./Details"
 import { Redirect } from "react-router-dom"
@@ -31,12 +32,18 @@ const Wrapper = (props) => {
     return null
   }
 
+  const today = Today("object")
+  const currentYear = today.year
+  const currentMonth = today.month
 
   if ((dateParams.month && dateParams.year) || selectedAccountId === 0) {
     return (
       <div className="accounts">
         <Tabs
           collection={collection}
+          currentMonth={currentMonth}
+          currentYear={currentYear}
+          dateParams={dateParams}
           selectedAccountId={selectedAccountId}
         />
         <Details

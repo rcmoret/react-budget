@@ -78,8 +78,8 @@ const mapStateToProps = (state, ownProps) => {
     selectedAccount: selectedAccount,
     slug: ownProps.slug,
     urlAccountId: ownProps.accountId,
-    urlMonth: ownProps.month,
-    urlYear: ownProps.year,
+    urlMonth: parseInt(ownProps.month),
+    urlYear: parseInt(ownProps.year),
     year: parseInt(query_options.year),
   }
 }
