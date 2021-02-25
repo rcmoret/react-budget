@@ -39,6 +39,7 @@ const Event = (props) => {
   const operator = amount < 0 ? minus : plus
   const remainingString = `${MoneyFormatter(prevRemaining)} (${operator} ${MoneyFormatter(amount, { absolute: true })}) = ${MoneyFormatter(remaining)}`
   const budgetedString = `${MoneyFormatter(prevAmount)} (${operator} ${MoneyFormatter(amount, { absolute: true })}) = ${MoneyFormatter(budgetedAmount)}`
+  const shortDate = DateHelpers.fromDateString(created_at, { format: "m/d" })
 
   return (
     <div className="budget-item-event">
@@ -49,7 +50,7 @@ const Event = (props) => {
               {DateHelpers.fromDateString(created_at)}
             </span>
             <span className="short-date">
-              {DateHelpers.fromDateString(created_at, { format: "m/d" })}
+              {shortDate}
             </span>
           </div>
           <div className="budget-item-cell budget-item-cell-extra-wide">
@@ -79,10 +80,12 @@ const Transaction = (props) => {
     account_name,
     amount,
     budgetedAmount,
-    created_at,
+    clearance_date,
     remaining,
   } = props
   const displayDescription = props.description || props.budgetCategory
+  const displayLongDate = clearance_date === null ? "pending" : DateHelpers.fromDateString(clearance_date)
+  const displayDate = clearance_date === null ? "pending" : DateHelpers.fromDateString(clearance_date, { format: "m/d" })
   const prevRemaining = remaining + amount
   const operator = amount <= 0 ? plus : minus
 
@@ -92,10 +95,10 @@ const Transaction = (props) => {
         <div className="budget-item-event-row-left">
           <div className="budget-item-cell created-at-date">
             <span className="long-date">
-              {DateHelpers.fromDateString(created_at)}
+              {displayLongDate}
             </span>
             <span className="short-date">
-              {DateHelpers.fromDateString(created_at, { format: "m/d" })}
+              {displayDate}
             </span>
           </div>
           <div className="budget-item-cell budget-item-cell-description">

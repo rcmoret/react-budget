@@ -1,10 +1,12 @@
 import DateFormatter, {
+  endOfDayFromDateString,
   fromDateString,
   fromDateTimeObject,
   nextMonth,
   prevMonth,
   isInRange,
   before,
+  today,
 } from "./DateFormatter"
 
 it("returns a default date format eg Dec. 13, 2019", () => {
@@ -133,4 +135,11 @@ it("returns false for dates after the target", () => {
 it("returns false for the same day", () => {
   const actual = before("2020-04-03", "2020-04-03")
   expect(actual).toEqual(false)
+})
+
+// end of day from a date string
+it("returns a date object", () => {
+  const actual = endOfDayFromDateString("2020-02-29")
+  const offset = today("dateObject").getTimezoneOffset() / 60
+  expect(actual).toEqual(new Date(`2020-02-29 23:59:59Z-${offset}`))
 })

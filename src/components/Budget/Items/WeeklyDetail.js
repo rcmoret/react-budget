@@ -5,6 +5,7 @@ import { fetchedWeeklyBudgetItemEvents, fetchedWeeklyTransactions } from "../../
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { get } from "../../../functions/ApiClient"
+import { endOfDayFromDateString } from "../../../functions/DateFormatter"
 
 import Details from "../Shared/Details"
 import Events from "../Shared/Events"
@@ -90,13 +91,34 @@ const mapStateToProps = (state, ownProps) => {
       return (a.clearance_date > b.clearance_date) ? 1 : -1
     }
   })
+  const sortFn = (a, b) => {
+    if (!a.isTransaction && !b.isTransaction) {
+      return a.created_at > b.created_at ? 1 : -1
+    } else if (a.isTransaction && b.isTransaction) {
+      return 1 // these are already sorted
+    } else { // comparing transaction and event
+      if (a.isTransaction) {
+        if (a.clearance_date === null) {
+          return 1
+        } else {
+          return endOfDayFromDateString(a.clearance_date) > new Date(b.created_at) ? 1 : -1
+        }
+      } else { // b.isTransaction
+        if (b.clearance_date === null) {
+          return -1
+        } else {
+          return endOfDayFromDateString(b.clearance_date) > new Date(a.created_at) ? -1 : 1
+        }
+      }
+    }
+  }
 
   const { events } = ownProps
   let budgetedAmount = 0
   let remaining = 0
   const eventsWithBalance = [...events, ...collection]
     .map(event => ({ ...event, isTransaction: Object(event).hasOwnProperty("transaction_entry_id") }))
-    .sort((a, b) => a.created_at > b.created_at ? 1 : -1)
+    .sort(sortFn)
     .map(event => {
       const { amount } = event
       budgetedAmount += (event.isTransaction ? 0 : amount)

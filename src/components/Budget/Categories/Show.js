@@ -59,21 +59,21 @@ const Show = (props) => {
           <strong>{combinedEvents}</strong>
         </div>
         {viewingInterals(beginningMonth, endingMonth)}
-        {transactionsAndEvents.map((event, index) => (
-          <Event key={index} {...event} />
-        ))}
+        {Events(transactionsAndEvents)}
       </div>
     )
   }
 }
 
-const Event = props => {
-  if (props.hasOwnProperty("transaction_entry_id")) {
-    return (<TransactionEvent {...props} />)
-  } else {
-    return (<BudgetItemEvent {...props} />)
-  }
-}
+const Events = transactionsAndEvents => (
+  transactionsAndEvents.map(event => {
+    if (event.hasOwnProperty("transaction_entry_id")) {
+      return (<TransactionEvent key={`transaction.event.${event.id}`} {...event} />)
+    } else {
+      return (<BudgetItemEvent key={`budget.item.event.${event.id}`}  {...event} />)
+    }
+  })
+)
 
 const TransactionEvent = props => (
   <div className="budget-category-event">
@@ -149,7 +149,28 @@ const mapStateToProps = (state, ownProps) => {
   const categoriesFetched = state.budget.categories.fetched
   const isCacheValid = slug === stateCategory.slug
 
-  const sortFn = (a, b) => b.created_at < a.created_at ? 1 : -1
+  const sortFn = (a, b) => {
+    if (!a.hasOwnProperty("transaction_entry_id") && !b.hasOwnProperty("transaction_entry_id")) {
+      return a.created_at > b.created_at ? 1 : -1
+    } else if (a.isTransaction && b.isTransaction) {
+      return a.created_at > b.created_at ? 1 : -1
+    } else { // comparing transaction and event
+      if (a.hasOwnProperty("transaction_entry_id")) {
+        if (a.clearance_date === null) {
+          return 1
+        } else {
+          return DateFormatter.endOfDayFromDateString(a.clearance_date) > new Date(b.created_at) ? 1 : -1
+        }
+      } else { // b.isTransaction
+        if (b.clearance_date === null) {
+          return -1
+        } else {
+          return DateFormatter.endOfDayFromDateString(b.clearance_date) > new Date(a.created_at) ? -1 : 1
+        }
+      }
+    }
+  }
+
   const transactionsAndEvents = [...stateCategory.events, ...stateCategory.transactions].sort(sortFn)
 
   return {

@@ -29,11 +29,15 @@ const MonthDictionary = (mo) => {
   }
 }
 
-export const formatted = ({ month, day, year, format }) => {
+export const formatted = (args) => {
+  const { month, day, year, format } = args
   const monthString = MonthDictionary(month)
+  const timeArgs = { hours: 0, minutes: 0, seconds: 0, ...args }
+  const { hours, minutes, seconds } = timeArgs
+
   switch(format) {
   case "dateObject":
-    return new Date(year, (month - 1), day)
+    return new Date(year, (month - 1), day, hours, minutes, seconds)
   case "longMonth":
     return monthString.long
   case "m/d":
@@ -62,6 +66,10 @@ export const fromDateString = (dateString, opts = { format: "default" }) => {
   const year = parseInt(dateElements[0] || 1900)
   return formatted({ month: month, year: year, day: day, format: opts.format })
 }
+
+export const endOfDayFromDateString = dateString => (
+  new Date(`${dateString}T23:59:59`)
+)
 
 export const fromDateTimeObject = (object, opts = { format: "yyyy-mm-dd" }) => {
   const parsed = object.split(",")[0].split("/").map(str => parseInt(str))
