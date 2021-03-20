@@ -85,10 +85,7 @@ const mapStateToProps = (state, ownProps) => {
     isApiUnauthorized: isApiUnauthorized,
     collection: collection,
     month: month,
-    dateParams: {
-      month: ownProps.match.params.month,
-      year: ownProps.match.params.year,
-    },
+    dateParams: { ...ownProps.match.params },
     selectedAccountId: selectedAccountId,
     selectedAccount: selectedAccount,
     slug: slug,
