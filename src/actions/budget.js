@@ -2,6 +2,10 @@ export const addCategory = (newCategory) => {
   return { type: "budget/ADD_CATEGORY", payload: newCategory }
 }
 
+export const addFieldToItemsAdjust = payload => (
+  { type: "budget/ADD_FIELD_TO_ITEMS_ADJUST", payload: payload }
+)
+
 export const addMonthlyItem = (payload) => {
   return { type: "budget/ADD_MONTHLY_ITEM", payload: payload }
 }
@@ -9,6 +13,10 @@ export const addMonthlyItem = (payload) => {
 export const addWeeklyItem = (payload) => {
   return { type: "budget/ADD_WEEKLY_ITEM", payload: payload }
 }
+
+export const adjustItemFormSubmit = payload => (
+  { type: "budget/ADJUST_ITEM_FORM_SUBMIT", payload: payload }
+)
 
 export const baseMonthFetched = (payload) => {
   return { type: "budget/BASE_MONTH_FETCHED", payload: payload }
@@ -54,6 +62,14 @@ export const newMonthFetched = (payload) => {
   return { type: "budget/NEW_MONTH_FETCHED", payload: payload }
 }
 
+export const removeAdjustFormCategory = payload => (
+  { type: "budget/REMOVE_ADJUST_FORM_CATEGORY", payload: payload }
+)
+
+export const removeAdjustFormItem = payload => (
+  { type: "budget/REMOVE_ADJUST_FORM_ITEM", payload: payload }
+)
+
 export const removeMonthlyItem = ({ id }) => {
   return { type: "budget/REMOVE_MONTHLY_ITEM", payload: id }
 }
@@ -65,6 +81,10 @@ export const removeWeeklyItem = ({ id }) => {
 export const toggleAccrualItems = (payload) => {
   return { type: "budget/TOGGLE_CLEARED_ITEMS", payload: payload }
 }
+
+export const toggleAdjustItemsForm = () => (
+  { type: "budget/TOGGLE_ADJUST_ITEM_FORM", payload: null }
+)
 
 export const toggleClearedItems = (payload) => {
   return { type: "budget/TOGGLE_CLEARED_ITEMS", payload: payload }
@@ -85,6 +105,18 @@ export const toggleMonthlyItemForm = (payload) => {
 export const toggleWeeklyItemForm = (payload) => {
   return { type: "budget/TOGGLE_WEEKLY_ITEM_FORM", payload: payload }
 }
+
+export const updateAdjustFormCategory = payload => (
+  { type: "budget/UPDATE_ADJUST_FORM_CATEGORY", payload: payload }
+)
+
+export const updateAdjustFormItem = payload => (
+  { type: "budget/UPDATE_ADJUST_FORM_ITEM", payload: payload }
+)
+
+export const updatedItemAdjustSelectedValue = payload => (
+  { type: "budget/UPDATED_ITEM_ADJUST_SELECTED_VALUE", payload: payload }
+)
 
 export const updateMonthlyItem = (payload) => {
   return { type: "budget/UPDATE_MONTHLY_ITEM", payload: payload }

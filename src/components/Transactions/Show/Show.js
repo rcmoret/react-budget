@@ -30,7 +30,6 @@ const Show = (props) => {
     budget_exclusion,
     check_number,
     clearance_date,
-    deletable,
     description,
     details,
     notes,

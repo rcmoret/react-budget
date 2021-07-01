@@ -43,7 +43,7 @@ export default (props) => {
       dispatch(created(data))
     }
     const event = EventMessageBuilder({ eventType: "transaction-entry-create" })
-    post(url, body, { onSuccess: onSuccess, event: event })
+    post(url, body, { onSuccess: onSuccess, events: [event] })
   }
 
   const createToTransaction = (callback) => {
@@ -60,7 +60,7 @@ export default (props) => {
       callback()
     }
     const event = EventMessageBuilder({ eventType: "transaction-entry-create" })
-    post(url, body, { event: event, onSuccess: onSuccess })
+    post(url, body, { events: [event], onSuccess: onSuccess })
   }
 
   const updateInterval = () => {
@@ -72,7 +72,7 @@ export default (props) => {
       month: month,
       year: year,
     })
-    put(url, JSON.stringify(body), { onSuccess: () => dispatch(markIntervalClosed), event: event })
+    put(url, JSON.stringify(body), { onSuccess: () => dispatch(markIntervalClosed), events: [event] })
   }
 
   const handleSubmit = () => {

@@ -58,7 +58,7 @@ const NewBudgetCategory = (props) => {
       dispatch(errorsOnNew(response))
     }
     const event = EventMessageBuilder({ eventType: "budget-category-create" })
-    post(url, body, { onSuccess: onSuccess, onFailure: errorHandler, event: event })
+    post(url, body, { onSuccess: onSuccess, onFailure: errorHandler, events: [event] })
   }
 
   const toggleForm = (e) => {

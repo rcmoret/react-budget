@@ -26,11 +26,11 @@ export default (state = initialState, action) => {
       ...state,
       errors: updateErrors(state, action.payload),
     }
-  case "messages/ADD_EVENT":
+  case "messages/ADD_EVENTS":
     return {
       ...state,
       events: [
-        action.payload,
+        ...action.payload,
         ...state.events,
       ],
     }

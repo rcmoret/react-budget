@@ -65,7 +65,7 @@ export default (props) => {
       dispatch(updateMaturityInterval(data))
       closeForm()
     }
-    put(url, body, { onSuccess: onSuccess, event: event })
+    put(url, body, { onSuccess: onSuccess, events: [event] })
   }
 
   return (

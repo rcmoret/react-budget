@@ -102,8 +102,8 @@ const SubmitButton = ({ collection, dispatch, month, year }) => {
       ],
     })
     const onSuccess = data => dispatch(addItem(data[0].item))
-    const event = data => EventMessageBuilder({ eventType: "budget-item-create" })(data[0])
-    post(url, body, { onSuccess: onSuccess, event: event })
+    const event = data => EventMessageBuilder({ eventType: "budget-item-create", item: data[0].item })
+    post(url, body, { onSuccess: onSuccess, events: [event] })
   }
 
   const submitAccruals = async () => {

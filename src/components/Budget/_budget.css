@@ -416,6 +416,28 @@
   font-size: 0.8em;
 }
 
+.adjust-items-form-wrapper {
+  margin: 1% 2%;
+  padding: 1%;
+  background-color: #8AB6FF; /* blue */
+  border-radius: 8px;
+}
+
+.adjust-items-form-wrapper h4 {
+  width: 100%;
+  text-align: left;
+  margin: 0.4rem;
+}
+
+.adjust-items-form {
+  display: flex;
+}
+
+.adjust-items-select {
+  margin-right: 1rem;
+  width: 33%;
+}
+
 .budget .budget-links a {
   margin-right: 5%;
 }

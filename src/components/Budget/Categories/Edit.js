@@ -65,7 +65,7 @@ const Edit = (props) => {
       id: id,
       changedProps: changedProps(category, updatedProps),
     })
-    put(url, body, { onSuccess: onSuccess, onFailure: onFailure, event: event })
+    put(url, body, { onSuccess: onSuccess, onFailure: onFailure, events: [event] })
   }
 
   const formProps = {

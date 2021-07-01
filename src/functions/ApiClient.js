@@ -1,4 +1,4 @@
-import { addErrorMessages, addEvent } from "../components/Messages/actions"
+import { addErrorMessages, addEvents } from "../components/Messages/actions"
 import { apiStatusUpdated } from "../components/Api/actions"
 
 import { dispatch } from "../store"
@@ -22,7 +22,7 @@ export const get = (url, onSuccess, onFailure) => {
 export const deleteRequest = (url, event, onSuccess) => {
   const context = { verb: "DELETE", url: url, onSuccess: onSuccess, onFailure: defaultOnFailure, body: {} }
   fetch(url, { method: "delete" })
-    .then(response => responseHandler(response, context, event))
+    .then(response => responseHandler(response, context, [event]))
 }
 
 export const post = (url, body, context) => {
@@ -33,7 +33,7 @@ export const put = (url, body, context) => {
   call(url, "PUT", body, context)
 }
 
-const call = (url, verb, body, { onSuccess, onFailure, event }) => {
+const call = (url, verb, body, { onSuccess, onFailure, events }) => {
   const context = {
     body: body,
     onSuccess: onSuccess,
@@ -50,10 +50,10 @@ const call = (url, verb, body, { onSuccess, onFailure, event }) => {
       "Content-Type": "application/json",
     },
   })
-    .then(response => responseHandler(response, context, event))
+    .then(response => responseHandler(response, context, events))
 }
 
-const responseHandler = (response, context, event) => {
+const responseHandler = (response, context, events) => {
   const { body, onSuccess, onFailure, url } = context
 
   if (response.status === 401 || response.status === 404) {
@@ -72,14 +72,14 @@ const responseHandler = (response, context, event) => {
     response.text()
       .then(() => {
         onSuccess()
-        dispatch(addEvent(event()))
+        dispatch(addEvents(events.map(ev => ev())))
       })
   } else {
     response.json()
       .then(data => {
         onSuccess(data)
         if (context.verb !== "GET") {
-          dispatch(addEvent(event(data)))
+          dispatch(addEvents(events.map(ev => ev(data))))
         }
         dispatch(apiStatusUpdated({ status: response.status }))
       })

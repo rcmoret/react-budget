@@ -153,3 +153,22 @@ ul.input-errors {
 .error-message {
   margin-top: 5px;
 }
+
+.bg-green { background-color: #60D1A6; }
+.bg-red { background-color: #FF3C52; /* red */ }
+.brd-btm-1-solid-black { border-bottom: 1px solid black; }
+.brd-rds-4 { border-radius: 4px; }
+.flex { display: flex; }
+.flex-end { justify-content: flex-end; }
+.flex-space-between { justify-content: space-between; }
+.fifty-percent-width { width: 50%; }
+.mg-lt-0_5 { margin-left: 0.5rem; }
+.mg-top-1 { margin-top: 1rem; }
+.pd-0_5 { padding: 0.5rem; }
+.pd-0_75 { padding: 0.75rem; }
+.pd-btm-0_5 { padding-bottom: 0.5rem; }
+.sixty-percent-width { width: 60%; }
+.twelve-percent-width { width: 12%; }
+.twenty-percent-width { width: 20%; }
+.text-align-right { text-align: right; }
+.txt-color-white { color: white; }

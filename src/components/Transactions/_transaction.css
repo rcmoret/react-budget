@@ -48,6 +48,7 @@
 
 .transaction .budget-categories, .transaction .balance, .transaction .check-number, .transaction .notes {
   margin-right: 2%;
+  max-width: 35%;
 }
 
 .transaction .notes {

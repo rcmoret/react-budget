@@ -58,7 +58,7 @@ const Finish = (props) => {
       closeOutCompletedAt: body.close_out_completed_at,
     })
     const onSuccess = () => dispatch(markIntervalClosed)
-    put(url, JSON.stringify(body), { event: event, onSuccess: onSuccess  })
+    put(url, JSON.stringify(body), { events: [event], onSuccess: onSuccess  })
     return null
   } else if (!isApiUnauthorized && !accountsFetched) {
     const url = ApiUrlBuilder({ route: "accounts-index" })

@@ -83,7 +83,7 @@ export default (props) => {
       dispatch(updateFinalizeItem(data[0].item))
       markReviewed()
     }
-    post(url, body, { event: event, onSuccess: onSuccess })
+    post(url, body, { events: [event], onSuccess: onSuccess })
   }
 
   const createItem = () => {
@@ -105,11 +105,11 @@ export default (props) => {
       } else {
         dispatch(addWeeklyItem(data[0].item))
       }
-      dispatch(addFinalizeItem(data[0].item))
+      dispatch(addFinalizeItem(data))
       markReviewed()
     }
-    const event = data => EventMessageBuilder({ eventType: "budget-item-create" })(data[0])
-    post(url, body, { onSuccess: onSuccess, event: event })
+    const event = data => EventMessageBuilder({ eventType: "budget-item-create", item: data[0] })
+    post(url, body, { onSuccess: onSuccess, events: [event] })
   }
 
   return (

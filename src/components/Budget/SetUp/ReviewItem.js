@@ -108,8 +108,8 @@ const ReviewItem = (props) => {
       dispatch(addItem(data[0].item))
       dispatch(markReviewed({ id: item.id }))
     }
-    const event = data => EventMessageBuilder({ eventType: "budget-item-create" })(data[0])
-    post(url, body, { event: event, onSuccess: onSuccess })
+    const event = data => EventMessageBuilder({ eventType: "budget-item-create", item: data[0].item })
+    post(url, body, { events: [event], onSuccess: onSuccess })
   }
 
   const updateItem = () => {
@@ -137,7 +137,7 @@ const ReviewItem = (props) => {
       dispatch(updateExisting(data))
       dispatch(markReviewed({ id: item.id }))
     }
-    post(url, body, { onSuccess: onSuccess, event: event })
+    post(url, body, { onSuccess: onSuccess, events: [event] })
   }
 
   return (

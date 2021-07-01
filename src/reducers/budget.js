@@ -75,6 +75,7 @@ const initialState = {
   },
   menuOptions: {
     showAccruals: false,
+    showAdjustItemsForm: false,
     showCleared: false,
     sortOrder: "byName",
   },
@@ -118,10 +119,80 @@ const initialState = {
     },
   },
   maturityIntervals: [],
+  adjustForm: {
+    items: [],
+    selectedValue: null,
+  },
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
+  case "budget/ADD_FIELD_TO_ITEMS_ADJUST":
+    return {
+      ...state,
+      adjustForm: {
+        ...state.adjustForm,
+        selectedValue: null,
+        items: [
+          ...state.adjustForm.items,
+          action.payload,
+        ],
+      },
+    }
+  case "budget/ADJUST_ITEM_FORM_SUBMIT":
+    return {
+      ...state,
+      itemsFetched: false,
+      adjustForm: {
+        ...state.adjustForm,
+        selectedValue: null,
+        items: [],
+      }
+    }
+  case "budget/REMOVE_ADJUST_FORM_CATEGORY":
+    return {
+      ...state,
+      adjustForm: {
+        ...state.adjustForm,
+        items: state.adjustForm.items.filter(item => (item.id !== action.payload.id))
+      },
+    }
+  case "budget/REMOVE_ADJUST_FORM_ITEM":
+    return {
+      ...state,
+      adjustForm: {
+        ...state.adjustForm,
+        items: state.adjustForm.items.filter(item => (item.id !== action.payload.id))
+      },
+    }
+  case "budget/UPDATE_ADJUST_FORM_CATEGORY":
+    return {
+      ...state,
+      adjustForm: {
+        ...state.adjustForm,
+        items: state.adjustForm.items.map(item => (
+          item.id === action.payload.id ? Helpers.adjustmentFormHelper(item, action.payload) : item
+        ))
+      }
+    }
+  case "budget/UPDATE_ADJUST_FORM_ITEM":
+    return {
+      ...state,
+      adjustForm: {
+        ...state.adjustForm,
+        items: state.adjustForm.items.map(item => (
+          item.id === action.payload.id ? Helpers.adjustmentFormHelper(item, action.payload) : item
+        ))
+      }
+    }
+  case "budget/UPDATED_ITEM_ADJUST_SELECTED_VALUE":
+    return {
+      ...state,
+      adjustForm: {
+        ...state.adjustForm,
+        selectedValue: action.payload.selectedValue
+      }
+    }
   case "budget/categories/APPLY_ERRORS_ON_EDIT":
     return {
       ...state,
@@ -339,7 +410,10 @@ export default (state = initialState, action) => {
         ...state.finalize,
         next: {
           ...state.finalize.next,
-          collection: [...state.finalize.next.collection, action.payload]
+          collection: [
+            ...state.finalize.next.collection,
+            {...action.payload[0].item, events: [] }
+          ]
         },
       },
     }
@@ -577,6 +651,14 @@ export default (state = initialState, action) => {
       menuOptions: {
         ...state.menuOptions,
         ...action.payload,
+      },
+    }
+  case "budget/TOGGLE_ADJUST_ITEM_FORM":
+    return {
+      ...state,
+      menuOptions: {
+        ...state.menuOptions,
+        showAdjustItemsForm: !state.menuOptions.showAdjustItemsForm,
       },
     }
   case "budget/TOGGLE_CLEARED_ITEMS":

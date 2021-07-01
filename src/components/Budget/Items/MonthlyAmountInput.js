@@ -88,7 +88,7 @@ const MonthlyAmountInput = (props) => {
       dispatch(action)
     }
     if (EvaluateInput(floatAmount) !== ((amount / 100.0).toFixed(2))) {
-      post(url, body, { onSuccess: onSuccess, onFailure: onFailure, event: event })
+      post(url, body, { onSuccess: onSuccess, onFailure: onFailure, events: [event] })
     } else {
       reset(e)
     }

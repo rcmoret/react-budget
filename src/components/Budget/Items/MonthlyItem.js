@@ -37,7 +37,7 @@ const MonthlyItem = (props) => {
         ],
       })
       const onSuccess = () => props.dispatch(removeMonthlyItem({ id: id }))
-      post(url, body, { event: event, onSuccess: onSuccess })
+      post(url, body, { events: [event], onSuccess: onSuccess })
     }
   }
 

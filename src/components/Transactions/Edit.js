@@ -63,7 +63,7 @@ const Edit = (props) => {
         budgetItemId: budget_item_id,
         budgetCategory: budget_category
       })
-      put(url, body, { event: event, onSuccess: onSuccess })
+      put(url, body, { events: [event], onSuccess: onSuccess })
     }
   }
 
@@ -127,7 +127,7 @@ const Edit = (props) => {
         }
       ))
     })
-    put(url, body, { onSuccess: onSuccess, event: event })
+    put(url, body, { onSuccess: onSuccess, events: [event] })
   }
 
   if (transaction.showForm) {

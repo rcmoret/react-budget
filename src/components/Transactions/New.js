@@ -87,7 +87,7 @@ const New = (props) => {
       dispatch(created(data))
       dispatch(resetNew({ showForm: true, selectedAccount: selectedAccount }))
     }
-    post(url, body, { event: event, onSuccess: onSuccess })
+    post(url, body, { events: [event], onSuccess: onSuccess })
   }
 
   return (

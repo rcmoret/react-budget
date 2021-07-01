@@ -25,7 +25,7 @@ const New = (props) => {
     const body = JSON.stringify(props.newIcon)
     const onSuccess = data => dispatch(created(data))
     const event = EventMessageBuilder({ eventType: "icon-create" })
-    post(url, body, { event: event, onSuccess: onSuccess })
+    post(url, body, { events: [event], onSuccess: onSuccess })
   }
 
   return (

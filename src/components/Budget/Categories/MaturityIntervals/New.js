@@ -46,7 +46,7 @@ export default (props) => {
       maturityInterval: data
     }))
     const event = EventMessageBuilder({ eventType: "budget-category-maturity-interval-create" })
-    post(url, body, { onSuccess: onSuccess, event: event })
+    post(url, body, { onSuccess: onSuccess, events: [event] })
   }
 
   const onChange = (payload) => {

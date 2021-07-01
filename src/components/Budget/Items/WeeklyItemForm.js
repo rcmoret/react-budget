@@ -75,8 +75,8 @@ const WeeklyItemForm = (props) => {
       })
       dispatch(action)
     }
-    const event = data => EventMessageBuilder({ eventType: "budget-item-create" })(data[0])
-    post(url, body, { onSuccess: onSuccess, onFailure: onFailure, event: event })
+    const event = data => EventMessageBuilder({ eventType: "budget-item-create", item: data[0].item })
+    post(url, body, { onSuccess: onSuccess, onFailure: onFailure, events: [event] })
   }
 
   if (!showForm) {

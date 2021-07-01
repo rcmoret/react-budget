@@ -27,7 +27,7 @@ const Finalize = ({ dispatch, month, setUpCompletedAt, year }) => {
       year: year,
       ...body
     })
-    put(url, JSON.stringify(body), { onSuccess: onSuccess, event: event })
+    put(url, JSON.stringify(body), { onSuccess: onSuccess, events: [event] })
   }
 
   if (!setUpCompletedAt) {

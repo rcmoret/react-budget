@@ -32,7 +32,7 @@ const Edit = ({ dispatch, icon }) => {
       dispatch(updated(data))
       dispatch(update({ id: id, showForm: false }))
     }
-    put(url, body, { onSuccess: onSuccess, event: event })
+    put(url, body, { onSuccess: onSuccess, events: [event] })
   }
 
   const formProps = { ...icon, ...icon.updatedProps }

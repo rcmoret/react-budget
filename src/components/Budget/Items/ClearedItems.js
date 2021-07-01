@@ -1,24 +1,32 @@
 import React from "react"
 import { connect } from "react-redux"
 
+import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { budget as copy } from "../../../locales/copy"
-import { titleize } from "../../../locales/functions"
+import EventMessageBuilder from "../../../functions/EventMessageBuilder"
+import formatter from "../../../functions/DateFormatter"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
+import { post } from "../../../functions/ApiClient"
+import { titleize } from "../../../locales/functions"
+import { removeMonthlyItem } from "../../../actions/budget"
 
 import GroupHeader from "./GroupHeader"
 import Icon from "../../Icons/Icon"
+import { Link } from "react-router-dom"
 
-const ClearedItems = ({ expenses, revenues, showCleared }) => {
+const ClearedItems = ({ dispatch, expenses, revenues, showCleared }) => {
   if (showCleared) {
     return (
       <div>
         <h3>{titleize(copy.item.cleared)}</h3>
         <ClearedGroup
           collection={revenues}
+          dispatch={dispatch}
           title={titleize(copy.category.revenues)}
         />
         <ClearedGroup
           collection={expenses}
+          dispatch={dispatch}
           title={titleize(copy.category.expenses)}
         />
       </div>
@@ -28,7 +36,7 @@ const ClearedItems = ({ expenses, revenues, showCleared }) => {
   }
 }
 
-const ClearedGroup = ({ collection, title }) => {
+const ClearedGroup = ({ collection, dispatch, title }) => {
   if (collection.length > 0) {
     return (
       <div className="budget-group">
@@ -36,6 +44,7 @@ const ClearedGroup = ({ collection, title }) => {
         {collection.map(item =>
           <ClearedItem
             key={item.id}
+            dispatch={dispatch}
             {...item}
           />
         )}
@@ -46,7 +55,17 @@ const ClearedGroup = ({ collection, title }) => {
   }
 }
 
-const ClearedItem = ({ amount, expense, difference, icon_class_name, name, spent }) => {
+const ClearedItem = (props) => {
+  const {
+    amount,
+    difference,
+    expense,
+    icon_class_name,
+    name,
+    spent,
+  } = props
+  console.log(props)
+
   const {
     budgeted,
   } = copy.item
@@ -61,13 +80,16 @@ const ClearedItem = ({ amount, expense, difference, icon_class_name, name, spent
 
   return (
     <div className="budget-item-cleared">
-      <div className="cleared-item-name">
+      <div className="flex flex-space-between cleared-item-name">
         <div>
           <Icon className="fas fa-caret-down" />
           {" "}
           <strong>{name}</strong>
           {" "}
           <Icon className={icon_class_name} />
+        </div>
+        <div>
+          <DeleteButton {...props} />
         </div>
       </div>
       <div className="cleared-item-wrapper">
@@ -85,6 +107,49 @@ const ClearedItem = ({ amount, expense, difference, icon_class_name, name, spent
       </div>
     </div>
   )
+}
+
+const DeleteButton = ({ id, amount, deletable, dispatch, name, month, year }) => {
+  if (deletable) {
+    const onClick = () => {
+      const dateString = formatter({ month: month, year: year, format: "shortMonthYear" })
+      const confirmation = window.confirm(copy.item.deleteConfirmationMessage(name, dateString))
+      if (confirmation) {
+        const url = ApiUrlBuilder({ route: "budget-items-events-index" })
+        const event = EventMessageBuilder({
+          eventType: "budget-item-delete",
+          id: id,
+          category: name,
+          amount: amount,
+          month: month,
+          year: year
+        })
+        const body = JSON.stringify({
+          events: [
+            {
+              budget_item_id: id,
+              event_type: "item_delete",
+            },
+          ],
+        })
+        const onSuccess = () => dispatch(removeMonthlyItem({ id: id }))
+        onSuccess()
+        post(url, body, { events: [event], onSuccess: onSuccess })
+      }
+    }
+
+    return (
+      <div>
+        <Link
+          to="#"
+          className="fas fa-trash-alt"
+          onClick={onClick}
+        />
+      </div>
+    )
+  } else {
+    return null
+  }
 }
 
 const mapStateToProps = (state) => {

@@ -80,7 +80,7 @@ const WeeklyItem = (props) => {
         ],
       })
       const onSuccess = () => dispatch(removeWeeklyItem({ id: id }))
-      post(url, body, { event: event, onSuccess: onSuccess })
+      post(url, body, { events: [event], onSuccess: onSuccess })
     }
   }
 

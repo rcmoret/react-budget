@@ -6,6 +6,7 @@ import { titleize } from "../../locales/functions"
 import {
   changeItemSortOrder,
   toggleAccrualItems,
+  toggleAdjustItemsForm as toggleItemsForm,
   toggleClearedItems,
 } from "../../actions/budget"
 
@@ -22,6 +23,7 @@ const {
 } = copy
 
 const {
+  adjustItemFormBaseText,
   finalizeLinkText,
   hide,
   order,
@@ -66,6 +68,7 @@ const Links = (props) => {
     requiresCloseOut,
     requiresSetUp,
     showAccruals,
+    showAdjustItemsForm,
     showCleared,
     sortOrder,
     year,
@@ -84,11 +87,16 @@ const Links = (props) => {
   }
 
   const newSortOrder = sortOrder === "byName" ? "byAmount" : "byName"
+
   const toggleSort = (e) => {
     e.preventDefault()
     const action = changeItemSortOrder({ sortOrder: newSortOrder })
     dispatch(action)
   }
+
+  const toggleAdjustItemsForm = () => (
+    dispatch(toggleItemsForm())
+  )
 
   return (
     <div>
@@ -112,6 +120,10 @@ const Links = (props) => {
       <MenuLink
         linkCopy={iconCopy.icons}
         path={"/budget/icons"}
+      />
+      <MenuLink
+        linkCopy={`${showAdjustItemsForm ? hide : show} ` + adjustItemFormBaseText}
+        onClick={toggleAdjustItemsForm}
       />
       <hr />
       <MenuLink

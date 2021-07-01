@@ -1,5 +1,6 @@
 import { account as accountContent } from "./en/account"
 import {
+  adjustItemsForm as adjustItemsFormContent,
   discretionary as discretionaryContent,
   eventLabels as eventLabelsContent,
   finalize as finalizeContent,
@@ -23,6 +24,10 @@ export const account = {
 }
 
 export const budget = {
+  adjustItemsForm: {
+    ...adjustItemsFormContent,
+    ...overrides.adjustItemsForm,
+  },
   category: {
     ...budgetCategoryContent,
     ...overrides.budgetCategory,

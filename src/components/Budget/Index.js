@@ -7,6 +7,7 @@ import { itemsFetched as fetched } from "../../actions/budget"
 import ApiUrlBuilder from "../../functions/ApiUrlBuilder"
 import { get } from "../../functions/ApiClient"
 
+import AdjustItemForm from "./AdjustItemForm"
 import BudgetInfo from "./Info"
 import Menu from "./Menu"
 import MonthlyItems from "./Items/MonthlyItems"
@@ -43,6 +44,7 @@ const BudgetIndex = (props) => {
   return (
     <div className="budget">
       <BudgetInfo />
+      <AdjustItemForm />
       <WeeklyItems />
       <MonthlyItems />
       <Menu

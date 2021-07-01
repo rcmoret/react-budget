@@ -21,7 +21,7 @@ const eventMapper = (eventType, options) => {
   case "budget-category-update":
     return budgetCategoryUpdate(options)
   case "budget-item-create":
-    return budgetItemCreate
+    return budgetItemCreate(options)
   case "budget-item-delete":
     return budgetItemDelete(options)
   case "budget-item-update":

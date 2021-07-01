@@ -1,3 +1,14 @@
+export const adjustItemsForm = {
+  adjustmentAmount: "adjustment amount",
+  bottomLineImpact: "bottom line impact",
+  na: "n/a",
+  new: "new",
+  selectPlaceholder: "Select an item to adjust or category to add",
+  submit: "submit",
+  updatedBudgeted: "updated budgeted",
+  updatedRemaining: "updated remaining",
+}
+
 export const category = {
   accrual: "accrual",
   accruals: "accruals",
@@ -123,6 +134,7 @@ export const maturityInterval = {
 }
 
 export const menu = {
+  adjustItemFormBaseText: "budget worksheet",
   hide: "hide",
   finalizeLinkText:  (monthString) => `Finalize ${monthString}`,
   order: "order",
@@ -147,6 +159,8 @@ export const setup = {
 }
 
 export const shared = {
+  budgeted: "budgeted",
+  category: "category",
   deposited: "deposited",
   difference: "difference",
   in: "in",

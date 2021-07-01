@@ -30,7 +30,7 @@ const New = (props) => {
       toAccount: toValue.label,
     })
     const onSuccess = data => dispatch(created(data))
-    post(url, JSON.stringify(body), { event: event, onSuccess: onSuccess })
+    post(url, JSON.stringify(body), { events: [event], onSuccess: onSuccess })
   }
 
   const updateAmount = (e) => {

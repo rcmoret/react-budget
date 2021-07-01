@@ -157,6 +157,7 @@ export const updateWeeklyItem = (item, state) => {
 
   const { metadata, monthly, setup, weekly } = state
   const originalItem = state.weekly.collection.find(_item => _item.id === item.id)
+  if (originalItem === undefined) { debugger }
   const events = [...originalItem.events, ...item.events]
   const updatedItem = objectifyWeekly({ ...originalItem, ...item, events: events }, state.metadata)
 
@@ -277,4 +278,47 @@ export const calculateDiscretionary = (payload) => {
   }
 
   return metadata.balance + collection.reduce((acc, item) => acc += remainingFor(item), 0)
+}
+
+export const adjustmentFormHelper = (item, payload) => {
+  const adjustmentAmount = Math.round(parseFloat(payload.value) * 100 || 0)
+  console.log(adjustmentAmount)
+  if (item.expense) {
+    const updatedAmount = item.amount - adjustmentAmount
+    const difference = item.difference - adjustmentAmount
+    const updatedRemaining = difference <= 0 ? difference : 0
+    return { ...item, updatedAmount: updatedAmount, updatedRemaining: updatedRemaining, adjustmentAmount: payload.value }
+  } else {
+    const updatedAmount = item.amount + adjustmentAmount
+    const sum = item.difference + adjustmentAmount
+    const updatedRemaining = sum > 0 ? sum : 0
+    return { ...item, updatedAmount: updatedAmount, updatedRemaining: updatedRemaining, adjustmentAmount: payload.value }
+  }
+}
+
+export const adjustmentFormSubmit = (payload, state) => {
+  const { metadata, monthly, weekly } = state
+
+  debugger
+  // const itemIds = [...monthly.collection, ...weekly.collection].map(item => item.id)
+  let newMonthlyCollection = []
+  let newWeeklyCollection = []
+
+  return {
+    ...state,
+    discretionary: objectifyDiscretionary(metadata, [...newWeeklyCollection, ...newMonthlyCollection]),
+    monthly: {
+      ...monthly,
+      collection: newMonthlyCollection,
+    },
+    weekly: {
+      ...weekly,
+      collection: newWeeklyCollection,
+    },
+    adjustForm: {
+      ...state.adjustForm,
+      selectedValue: null,
+      items: [],
+    }
+  }
 }

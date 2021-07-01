@@ -144,25 +144,32 @@ const MissingItem = (props) => {
   }
 
   const createItem = () => {
-    const url = ApiUrlBuilder({
-      route: "budget-category-items-index",
-      id: budget_category_id,
-    })
+    const url = ApiUrlBuilder({ route: "budget-items-events-index" })
+    // const url = ApiUrlBuilder({
+    //   route: "budget-category-items-index",
+    //   id: budget_category_id,
+    // })
     const body = JSON.stringify({
-      amount: 0,
-      month: nextMonth,
-      year: nextYear,
+      events: [
+        {
+          event_type: "rollover_item_create",
+          budget_category_id: budget_category_id,
+          amount: 0,
+          month: nextMonth,
+          year: nextYear,
+        },
+      ]
     })
     const onSuccess = (data) => {
       if (monthly) {
-        dispatch(addMonthlyItem(data))
+        dispatch(addMonthlyItem(data[0].item))
       } else {
-        dispatch(addWeeklyItem(data))
+        dispatch(addWeeklyItem(data[0].item))
       }
       dispatch(addFinalizeItem(data))
     }
-    const event = EventMessageBuilder({ eventType: "budget-item-create" })
-    post(url, body, { event: event, onSuccess: onSuccess })
+    const event = data => EventMessageBuilder({ eventType: "budget-item-create", item: data[0] })
+    post(url, body, { events: [event], onSuccess: onSuccess })
   }
 
   return (
