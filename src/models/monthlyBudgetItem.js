@@ -17,15 +17,18 @@ export default (attributes) => {
   const overUnderBudgetAmount = !deletable ? (-1 * difference) : 0
   const matureAccrual = accrual && maturity_month === month && maturity_year === year
   const isCleared = !deletable || amount === 0
+  const events = attributes.events || []
 
   return {
     ...attributes,
+    collection: [],
     deletable: deletable,
-    isCleared: isCleared,
-    remaining: remaining,
     difference: difference,
+    events: events,
+    isCleared: isCleared,
     matureAccrual: matureAccrual,
     overUnderBudget: overUnderBudget,
     overUnderBudgetAmount: overUnderBudgetAmount,
+    remaining: remaining,
   }
 }

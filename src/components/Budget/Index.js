@@ -18,7 +18,7 @@ const BudgetIndex = (props) => {
     isApiUnauthorized,
     categoresWereFetched,
     dispatch,
-    isCurrent,
+    isCurrentlySelected,
     isFuture,
     itemsFetched,
     metadata,
@@ -26,7 +26,7 @@ const BudgetIndex = (props) => {
     year,
   } = props
 
-  if (!isApiUnauthorized && (!itemsFetched || !isCurrent)) {
+  if (!isApiUnauthorized && (!itemsFetched || !isCurrentlySelected)) {
     const url = ApiUrlBuilder({
       route: "budget-items-index",
       query: { month: month, year: year },
@@ -61,7 +61,8 @@ const BudgetIndex = (props) => {
 const mapStateToProps = (state, ownProps) => {
   const month = parseInt(ownProps.match.params.month)
   const year = parseInt(ownProps.match.params.year)
-  const isCurrent = state.budget.metadata.month === month && state.budget.metadata.year === year
+  const isCurrentlySelected = state.budget.metadata.month === month && state.budget.metadata.year === year
+  const isCurrent = state.budget.metadata.is_current
   const today = new Date()
   const isFuture = (year > today.getFullYear() || (year === today.getFullYear() && month > (today.getMonth() + 1)))
   const categoresWereFetched = state.budget.categories.fetched
@@ -71,6 +72,7 @@ const mapStateToProps = (state, ownProps) => {
     ...state.budget,
     isApiUnauthorized: isApiUnauthorized,
     categoresWereFetched: categoresWereFetched,
+    isCurrentlySelected: isCurrentlySelected,
     isCurrent: isCurrent,
     isFuture: isFuture,
     month: month,

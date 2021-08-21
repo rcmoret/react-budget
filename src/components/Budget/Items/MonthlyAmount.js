@@ -17,7 +17,7 @@ const Amount = (props) => {
     errors,
     month,
     name,
-    updateItem,
+    showDetail,
     year,
   } = props
 
@@ -27,13 +27,13 @@ const Amount = (props) => {
     e.preventDefault()
     const action = editMonthlyItem({
       id: id,
-      updateItem: true,
+      showDetail: true,
       errors: [],
     })
     dispatch(action)
   }
 
-  if (updateItem) {
+  if (showDetail) {
     return (
       <MonthlyAmountInput
         id={id}

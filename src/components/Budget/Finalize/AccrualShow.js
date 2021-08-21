@@ -145,10 +145,6 @@ const MissingItem = (props) => {
 
   const createItem = () => {
     const url = ApiUrlBuilder({ route: "budget-items-events-index" })
-    // const url = ApiUrlBuilder({
-    //   route: "budget-category-items-index",
-    //   id: budget_category_id,
-    // })
     const body = JSON.stringify({
       events: [
         {
@@ -168,7 +164,7 @@ const MissingItem = (props) => {
       }
       dispatch(addFinalizeItem(data))
     }
-    const event = data => EventMessageBuilder({ eventType: "budget-item-create", item: data[0] })
+    const event = data => EventMessageBuilder({ eventType: "budget-item-create", item: data[0].item })
     post(url, body, { events: [event], onSuccess: onSuccess })
   }
 

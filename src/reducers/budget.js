@@ -147,7 +147,11 @@ export default (state = initialState, action) => {
         ...state.adjustForm,
         selectedValue: null,
         items: [],
-      }
+      },
+      menuOptions: {
+        ...state.menuOptions,
+        showAdjustItemsForm: false,
+      },
     }
   case "budget/REMOVE_ADJUST_FORM_CATEGORY":
     return {

@@ -2,20 +2,30 @@ import React from "react"
 import { connect } from "react-redux"
 
 import { budget as copy } from "../../../locales/copy"
-import { removeMonthlyItem } from "../../../actions/budget"
+import { editMonthlyItem, removeMonthlyItem } from "../../../actions/budget"
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
 import { post } from "../../../functions/ApiClient"
 import formatter from "../../../functions/DateFormatter"
 import EventMessageBuilder from "../../../functions/EventMessageBuilder"
 
+import Caret from "../Shared/Caret"
 import DeleteButton from "../Shared/DeleteButton"
 import Icon from "../../Icons/Icon"
 import MonthlyAmount from "./MonthlyAmount"
 
 const MonthlyItem = (props) => {
+  const {
+    id,
+    amount,
+    dispatch,
+    month,
+    name,
+    showDetail,
+    year,
+  } = props
+
   const deleteItem = (e) => {
     e.preventDefault()
-    const { amount, id, name, month, year } = props
     const dateString = formatter({ month: month, year: year, format: "shortMonthYear" })
     const confirmation = window.confirm(copy.item.deleteConfirmationMessage(name, dateString))
     if (confirmation) {
@@ -36,16 +46,28 @@ const MonthlyItem = (props) => {
           },
         ],
       })
-      const onSuccess = () => props.dispatch(removeMonthlyItem({ id: id }))
+      const onSuccess = () => dispatch(removeMonthlyItem({ id: id }))
       post(url, body, { events: [event], onSuccess: onSuccess })
     }
+  }
+
+  const expandDetail = () => {
+    dispatch(editMonthlyItem({ id: props.id, showDetail: true }))
+  }
+
+  const collapseDetail = () => {
+    dispatch(editMonthlyItem({ id: props.id, showDetail: false }))
   }
 
   return (
     <div className="budget-item">
       <div className="wrapper">
         <div className="caret">
-          <Icon className="fas fa-caret-right" />
+          <Caret
+            showDetail={showDetail}
+            expandDetail={expandDetail}
+            collapseDetail={collapseDetail}
+          />
         </div>
         <div className="budget-item-description">
           {props.name}
@@ -55,6 +77,7 @@ const MonthlyItem = (props) => {
         <div className="budget-item-amounts">
           <MonthlyAmount
             absolute={true}
+            errors={[]}
             {...props}
             remaining={props.amount}
           />

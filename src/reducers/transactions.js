@@ -74,6 +74,14 @@ export default (state = initialState, action) => {
     } else {
       return state
     }
+  case "budget/ADJUST_ITEM_FORM_SUBMIT":
+    return {
+      ...state,
+      budgetItems: {
+        ...state.budgetItems,
+        fetched: false
+      }
+    }
   case "budget/UPDATE_MONTHLY_ITEM":
     return {
       ...state,

@@ -76,7 +76,7 @@ export default (props) => {
       category: nextItem.name,
       month: nextItem.month,
       year: nextItem.year,
-      originalAmount: nextItem.originalAmount,
+      originalAmount: (nextItem.remaining / 100.0).toFixed(2),
       newAmount: amount,
     })
     const onSuccess = (data) => {
@@ -108,7 +108,7 @@ export default (props) => {
       dispatch(addFinalizeItem(data))
       markReviewed()
     }
-    const event = data => EventMessageBuilder({ eventType: "budget-item-create", item: data[0] })
+    const event = data => EventMessageBuilder({ eventType: "budget-item-create", item: data[0].item })
     post(url, body, { onSuccess: onSuccess, events: [event] })
   }
 
