@@ -38,7 +38,7 @@ const DiscretionaryDetail = (props) => {
   }
 
   const budgetedPerDay = Math.floor(amount / total_days)
-  const remainingPerDay = Math.floor(total_remaining / days_remaining)
+  const remainingPerDay = days_remaining === 0 ? total_remaining : Math.floor(total_remaining / days_remaining)
 
   return (
     <div className="detail-wrapper">

@@ -10,7 +10,7 @@ import {
   toggleClearedItems,
 } from "../../actions/budget"
 
-import DateFormatter, { isToday } from "../../functions/DateFormatter"
+import DateFormatter, { fromDateString, isToday } from "../../functions/DateFormatter"
 
 import Icon from "../Icons/Icon"
 import { Link } from "react-router-dom"
@@ -181,10 +181,18 @@ const FinalizeButton = ({ isEndOfMonth, month, requiresCloseOut, year }) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const isEndOfMonth = isToday(new Date(ownProps.year, ownProps.month, 0))
+  const isEndOfMonth = () => {
+    const lastDate = state.budget.metadata.last_date
+    if (lastDate === undefined) {
+      return false
+    } else {
+      const formattedDate = fromDateString(lastDate, { format: "dateObject" })
+      return isToday(formattedDate)
+    }
+  }
 
   return {
-    isEndOfMonth: isEndOfMonth,
+    isEndOfMonth: isEndOfMonth(),
     ...state.budget.menuOptions,
     ...ownProps,
   }

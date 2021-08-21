@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 
 import ApiUrlBuilder from "../../../functions/ApiUrlBuilder"
-import { isToday } from "../../../functions/DateFormatter"
+import { fromDateString, isToday } from "../../../functions/DateFormatter"
 import { get } from "../../../functions/ApiClient"
 import { baseMonthFetch, nextMonthFetch } from "../actions/finalize"
 
@@ -76,14 +76,22 @@ const mapStateToProps = (state, ownProps) => {
   const { month, year } = finalize.baseMonth
   const nextMonth = (finalize.next.month || (baseMonth === 12 ? 1 : (baseMonth + 1)))
   const nextYear = (finalize.next.year || (baseMonth === 12 ? (baseYear + 1) : baseYear))
-  const isEndOfMonth = isToday(new Date((year || baseYear), (month || baseMonth), 0))
+  const isEndOfMonth = () => {
+    const lastDate = state.budget.metadata.last_date
+    if (lastDate === undefined) {
+      return false
+    } else {
+      const formattedDate = fromDateString(lastDate, { format: "dateObject" })
+      return isToday(formattedDate)
+    }
+  }
   const isApiUnauthorized = state.api.status === 401
 
   return {
     isApiUnauthorized: isApiUnauthorized,
     baseMonthFetched: baseMonthFetched,
     baseMonthFinalized: baseMonthFinalized,
-    isEndOfMonth: isEndOfMonth,
+    isEndOfMonth: isEndOfMonth(),
     month: (month || baseMonth),
     nextMonth: nextMonth,
     nextMonthFetched: nextMonthFetched,

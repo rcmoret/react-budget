@@ -94,7 +94,7 @@ const WeeklyItem = (props) => {
   const deletable = transaction_count === 0
   const budgetedPerDay = Math.floor(amount / totalDays)
   const budgetedPerWeek = (budgetedPerDay * 7)
-  const remainingPerDay = Math.floor(props.remaining / daysRemaining)
+  const remainingPerDay = daysRemaining === 0 ? props.remaining : Math.floor(props.remaining / daysRemaining)
   const remainingPerWeek = (remainingPerDay * 7)
 
   return (
