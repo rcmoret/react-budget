@@ -42,12 +42,20 @@ export const editWeeklyItem = (payload) => {
   return { type: "budget/EDIT_WEEKLY_ITEM", payload: payload }
 }
 
+export const fetchedMonthlyBudgetItemEvents = payload => (
+  { type: "budget/FETCHED_MONTHLY_BUDGET_ITEM_EVENTS", payload: payload }
+)
+
 export const fetchedWeeklyBudgetItemEvents = payload => (
   { type: "budget/FETCHED_WEEKLY_BUDGET_ITEM_EVENTS", payload: payload }
 )
 
 export const fetchedDiscretionaryTransactions = (payload) => {
   return { type: "budget/FETCHED_DISCRETIONARY_TRANSACTIONS", payload: payload }
+}
+
+export const fetchedMonthlyTransactions = (payload) => {
+  return { type: "budget/FETCHED_MONTHLY_TRANSACTIONS", payload: payload }
 }
 
 export const fetchedWeeklyTransactions = (payload) => {

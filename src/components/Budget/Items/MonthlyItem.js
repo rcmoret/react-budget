@@ -12,6 +12,7 @@ import Caret from "../Shared/Caret"
 import DeleteButton from "../Shared/DeleteButton"
 import Icon from "../../Icons/Icon"
 import MonthlyAmount from "./MonthlyAmount"
+import MonthlyDetail from "./MonthlyDetail"
 
 const MonthlyItem = (props) => {
   const {
@@ -90,6 +91,7 @@ const MonthlyItem = (props) => {
           />
         </div>
       </div>
+      <MonthlyDetail {...props} />
     </div>
   )
 }

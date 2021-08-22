@@ -13,6 +13,7 @@ import { removeMonthlyItem } from "../../../actions/budget"
 import GroupHeader from "./GroupHeader"
 import Icon from "../../Icons/Icon"
 import { Link } from "react-router-dom"
+import MonthlyDetail from "./MonthlyDetail"
 
 const ClearedItems = ({ dispatch, expenses, revenues, showCleared }) => {
   if (showCleared) {
@@ -64,7 +65,6 @@ const ClearedItem = (props) => {
     name,
     spent,
   } = props
-  console.log(props)
 
   const {
     budgeted,
@@ -105,6 +105,7 @@ const ClearedItem = (props) => {
         {operator}
         {MoneyFormatter(difference, { absolute: true })}
       </div>
+      <MonthlyDetail showDetail={true} {...props} />
     </div>
   )
 }
