@@ -62,7 +62,6 @@ const MonthlyDetail = (props) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(ownProps)
   const date = new Date()
   const today = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0,10)
 

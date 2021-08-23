@@ -8,8 +8,9 @@ import formatter from "../../../functions/DateFormatter"
 import MoneyFormatter from "../../../functions/MoneyFormatter"
 import { post } from "../../../functions/ApiClient"
 import { titleize } from "../../../locales/functions"
-import { removeMonthlyItem } from "../../../actions/budget"
+import { editMonthlyItem, removeMonthlyItem } from "../../../actions/budget"
 
+import Caret from "../Shared/Caret"
 import GroupHeader from "./GroupHeader"
 import Icon from "../../Icons/Icon"
 import { Link } from "react-router-dom"
@@ -60,10 +61,12 @@ const ClearedItem = (props) => {
   const {
     amount,
     difference,
+    dispatch,
     expense,
     icon_class_name,
     name,
     spent,
+    showDetail,
   } = props
 
   const {
@@ -78,11 +81,23 @@ const ClearedItem = (props) => {
 
   const operator = difference === 0 ? "" : (difference > 0 ? minus : plus)
 
+  const expandDetail = () => {
+    dispatch(editMonthlyItem({ id: props.id, showDetail: true }))
+  }
+
+  const collapseDetail = () => {
+    dispatch(editMonthlyItem({ id: props.id, showDetail: false }))
+  }
+
   return (
     <div className="budget-item-cleared">
       <div className="flex flex-space-between cleared-item-name">
         <div>
-          <Icon className="fas fa-caret-down" />
+          <Caret
+            showDetail={showDetail}
+            expandDetail={expandDetail}
+            collapseDetail={collapseDetail}
+          />
           {" "}
           <strong>{name}</strong>
           {" "}
@@ -105,7 +120,7 @@ const ClearedItem = (props) => {
         {operator}
         {MoneyFormatter(difference, { absolute: true })}
       </div>
-      <MonthlyDetail showDetail={true} {...props} />
+      <MonthlyDetail {...props} />
     </div>
   )
 }
