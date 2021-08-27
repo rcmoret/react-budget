@@ -102,14 +102,21 @@ const mapStateToProps = (state, ownProps) => {
   const { events } = ownProps
   let budgetedAmount = 0
   let remaining = 0
+  let isCleared = false
   const eventsWithBalance = [...events, ...collection]
     .map(event => ({ ...event, isTransaction: Object(event).hasOwnProperty("transaction_entry_id") }))
     .sort(sortFn)
     .map(event => {
-      const { amount } = event
-      budgetedAmount += (event.isTransaction ? 0 : amount)
-      remaining += (event.isTransaction ? (-1 * amount) : amount)
-      return { ...event, budgetedAmount: budgetedAmount, remaining: remaining }
+      const { amount, isTransaction } = event
+      if (isTransaction) {
+        remaining += -1 * amount
+        isCleared = true
+      } else {
+        budgetedAmount +=  amount
+        remaining += amount
+      }
+      let displayAmount = isCleared ? 0 : amount
+      return { ...event, budgetedAmount: budgetedAmount, remaining: remaining, amount: displayAmount }
     })
   const isApiUnauthorized = state.api.status === 401
 

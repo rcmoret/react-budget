@@ -55,6 +55,7 @@ export const eventLabels = {
   item_adjust: "Item Adjust",
   item_delete: "Item Delete",
   legacy_item_create: "Legacy Item Create",
+  multi_item_adjust: "Item Adjust (multi-item)",
   pre_setup_item_create: "Pre-setup Item Create",
   rollover_item_adjust: "Rollover Item Adjust",
   rollover_item_create: "Rollover Item Create",
